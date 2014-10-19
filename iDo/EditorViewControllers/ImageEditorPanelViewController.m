@@ -37,24 +37,6 @@
 - (IBAction)handleTap:(id)sender {
 }
 
-- (void) didMoveToParentViewController:(UIViewController *)parent
-{
-    if (parent) {
-        [UIView animateWithDuration:0.5 animations:^{
-            self.view.frame = [EditorPanelManager  editorPanelFrameInView:parent.view];
-        }];
-    }
-}
-
-- (void) willMoveToParentViewController:(UIViewController *)parent
-{
-    if (!parent) {
-        [UIView animateWithDuration:0.5 animations:^{
-            self.view.frame = [EditorPanelManager editorPanelFrameOutOfView:parent.view];
-        }];
-    }
-}
-
 /*
 #pragma mark - Navigation
 

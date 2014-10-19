@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		546457BD19F1074900078EAF /* ImageEditorPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457BB19F1074900078EAF /* ImageEditorPanelViewController.m */; };
+		546457BE19F1074900078EAF /* ImageEditorPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 546457BC19F1074900078EAF /* ImageEditorPanelViewController.xib */; };
+		546457C019F1096200078EAF /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546457BF19F1096200078EAF /* CoreImage.framework */; };
+		546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457C319F10C1700078EAF /* UIView+Snapshot.m */; };
+		546457C719F10D8100078EAF /* EditorPanelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457C619F10D8100078EAF /* EditorPanelManager.m */; };
+		546457CD19F10F3400078EAF /* ImageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457CC19F10F3400078EAF /* ImageItem.m */; };
+		546457D119F116B700078EAF /* ImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457D019F116B700078EAF /* ImageHelper.m */; };
+		546457D519F3614100078EAF /* ControlPointManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457D419F3614100078EAF /* ControlPointManager.m */; };
+		546457DC19F37DF500078EAF /* ContentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457DB19F37DF500078EAF /* ContentItem.m */; };
+		546457DF19F37E3100078EAF /* TextItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457DE19F37E3100078EAF /* TextItem.m */; };
+		54CB19D819EE37BE0044BBDD /* ImageContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CB19D719EE37BE0044BBDD /* ImageContainerView.m */; };
+		54CB19DA19EE3BD40044BBDD /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 54CB19D919EE3BD40044BBDD /* background.jpg */; };
+		54CB19DD19EE3D0A0044BBDD /* TextContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CB19DC19EE3D0A0044BBDD /* TextContainerView.m */; };
 		54D7294419ECE9B5009A0279 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7294319ECE9B5009A0279 /* main.m */; };
 		54D7294719ECE9B5009A0279 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7294619ECE9B5009A0279 /* AppDelegate.m */; };
 		54D7294A19ECE9B5009A0279 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7294919ECE9B5009A0279 /* ViewController.m */; };
@@ -14,6 +27,8 @@
 		54D7294F19ECE9B5009A0279 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54D7294E19ECE9B5009A0279 /* Images.xcassets */; };
 		54D7295219ECE9B5009A0279 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54D7295019ECE9B5009A0279 /* LaunchScreen.xib */; };
 		54D7295E19ECE9B5009A0279 /* iDoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7295D19ECE9B5009A0279 /* iDoTests.m */; };
+		54D7296D19ECEAB9009A0279 /* GenericContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7296C19ECEAB9009A0279 /* GenericContainerView.m */; };
+		54D7297319ED0FF0009A0279 /* BorderControlPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7297219ED0FF0009A0279 /* BorderControlPointView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +42,29 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		546457BA19F1074900078EAF /* ImageEditorPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageEditorPanelViewController.h; path = EditorViewControllers/ImageEditorPanelViewController.h; sourceTree = "<group>"; };
+		546457BB19F1074900078EAF /* ImageEditorPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageEditorPanelViewController.m; path = EditorViewControllers/ImageEditorPanelViewController.m; sourceTree = "<group>"; };
+		546457BC19F1074900078EAF /* ImageEditorPanelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ImageEditorPanelViewController.xib; path = EditorViewControllers/ImageEditorPanelViewController.xib; sourceTree = "<group>"; };
+		546457BF19F1096200078EAF /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		546457C219F10C1700078EAF /* UIView+Snapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Snapshot.h"; sourceTree = "<group>"; };
+		546457C319F10C1700078EAF /* UIView+Snapshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Snapshot.m"; sourceTree = "<group>"; };
+		546457C519F10D8100078EAF /* EditorPanelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditorPanelManager.h; path = EditorViewControllers/EditorPanelManager.h; sourceTree = "<group>"; };
+		546457C619F10D8100078EAF /* EditorPanelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditorPanelManager.m; path = EditorViewControllers/EditorPanelManager.m; sourceTree = "<group>"; };
+		546457CB19F10F3400078EAF /* ImageItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageItem.h; path = Model/ImageItem.h; sourceTree = "<group>"; };
+		546457CC19F10F3400078EAF /* ImageItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageItem.m; path = Model/ImageItem.m; sourceTree = "<group>"; };
+		546457CF19F116B700078EAF /* ImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageHelper.h; path = Helper/ImageHelper.h; sourceTree = "<group>"; };
+		546457D019F116B700078EAF /* ImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageHelper.m; path = Helper/ImageHelper.m; sourceTree = "<group>"; };
+		546457D319F3614100078EAF /* ControlPointManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlPointManager.h; sourceTree = "<group>"; };
+		546457D419F3614100078EAF /* ControlPointManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPointManager.m; sourceTree = "<group>"; };
+		546457DA19F37DF500078EAF /* ContentItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContentItem.h; path = Model/ContentItem.h; sourceTree = "<group>"; };
+		546457DB19F37DF500078EAF /* ContentItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContentItem.m; path = Model/ContentItem.m; sourceTree = "<group>"; };
+		546457DD19F37E3100078EAF /* TextItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextItem.h; sourceTree = "<group>"; };
+		546457DE19F37E3100078EAF /* TextItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextItem.m; sourceTree = "<group>"; };
+		54CB19D619EE37BE0044BBDD /* ImageContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageContainerView.h; sourceTree = "<group>"; };
+		54CB19D719EE37BE0044BBDD /* ImageContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageContainerView.m; sourceTree = "<group>"; };
+		54CB19D919EE3BD40044BBDD /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
+		54CB19DB19EE3D0A0044BBDD /* TextContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextContainerView.h; sourceTree = "<group>"; };
+		54CB19DC19EE3D0A0044BBDD /* TextContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextContainerView.m; sourceTree = "<group>"; };
 		54D7293E19ECE9B5009A0279 /* iDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54D7294219ECE9B5009A0279 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		54D7294319ECE9B5009A0279 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -40,6 +78,10 @@
 		54D7295719ECE9B5009A0279 /* iDoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iDoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		54D7295C19ECE9B5009A0279 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		54D7295D19ECE9B5009A0279 /* iDoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iDoTests.m; sourceTree = "<group>"; };
+		54D7296B19ECEAB9009A0279 /* GenericContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericContainerView.h; sourceTree = "<group>"; };
+		54D7296C19ECEAB9009A0279 /* GenericContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericContainerView.m; sourceTree = "<group>"; };
+		54D7297119ED0FF0009A0279 /* BorderControlPointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BorderControlPointView.h; sourceTree = "<group>"; };
+		54D7297219ED0FF0009A0279 /* BorderControlPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BorderControlPointView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				546457C019F1096200078EAF /* CoreImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,9 +103,69 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		546457B919F1070A00078EAF /* Editors */ = {
+			isa = PBXGroup;
+			children = (
+				546457BA19F1074900078EAF /* ImageEditorPanelViewController.h */,
+				546457BB19F1074900078EAF /* ImageEditorPanelViewController.m */,
+				546457BC19F1074900078EAF /* ImageEditorPanelViewController.xib */,
+				546457C519F10D8100078EAF /* EditorPanelManager.h */,
+				546457C619F10D8100078EAF /* EditorPanelManager.m */,
+			);
+			name = Editors;
+			sourceTree = "<group>";
+		};
+		546457C119F10BF500078EAF /* Content Views */ = {
+			isa = PBXGroup;
+			children = (
+				546457D919F368E100078EAF /* Control Points */,
+				54D7296B19ECEAB9009A0279 /* GenericContainerView.h */,
+				54D7296C19ECEAB9009A0279 /* GenericContainerView.m */,
+				54CB19D619EE37BE0044BBDD /* ImageContainerView.h */,
+				54CB19D719EE37BE0044BBDD /* ImageContainerView.m */,
+				54CB19DB19EE3D0A0044BBDD /* TextContainerView.h */,
+				54CB19DC19EE3D0A0044BBDD /* TextContainerView.m */,
+			);
+			name = "Content Views";
+			sourceTree = "<group>";
+		};
+		546457CE19F10F3800078EAF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				546457DA19F37DF500078EAF /* ContentItem.h */,
+				546457DB19F37DF500078EAF /* ContentItem.m */,
+				546457CB19F10F3400078EAF /* ImageItem.h */,
+				546457CC19F10F3400078EAF /* ImageItem.m */,
+				546457DD19F37E3100078EAF /* TextItem.h */,
+				546457DE19F37E3100078EAF /* TextItem.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		546457D219F116BA00078EAF /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				546457CF19F116B700078EAF /* ImageHelper.h */,
+				546457D019F116B700078EAF /* ImageHelper.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		546457D919F368E100078EAF /* Control Points */ = {
+			isa = PBXGroup;
+			children = (
+				546457D319F3614100078EAF /* ControlPointManager.h */,
+				546457D419F3614100078EAF /* ControlPointManager.m */,
+				54D7297119ED0FF0009A0279 /* BorderControlPointView.h */,
+				54D7297219ED0FF0009A0279 /* BorderControlPointView.m */,
+			);
+			name = "Control Points";
+			sourceTree = "<group>";
+		};
 		54D7293519ECE9B5009A0279 = {
 			isa = PBXGroup;
 			children = (
+				546457BF19F1096200078EAF /* CoreImage.framework */,
 				54D7294019ECE9B5009A0279 /* iDo */,
 				54D7295A19ECE9B5009A0279 /* iDoTests */,
 				54D7293F19ECE9B5009A0279 /* Products */,
@@ -85,10 +188,14 @@
 				54D7294619ECE9B5009A0279 /* AppDelegate.m */,
 				54D7294819ECE9B5009A0279 /* ViewController.h */,
 				54D7294919ECE9B5009A0279 /* ViewController.m */,
+				546457CE19F10F3800078EAF /* Model */,
+				546457B919F1070A00078EAF /* Editors */,
+				54D7296A19ECEA25009A0279 /* Views */,
 				54D7294B19ECE9B5009A0279 /* Main.storyboard */,
 				54D7294E19ECE9B5009A0279 /* Images.xcassets */,
 				54D7295019ECE9B5009A0279 /* LaunchScreen.xib */,
 				54D7294119ECE9B5009A0279 /* Supporting Files */,
+				546457D219F116BA00078EAF /* Helpers */,
 			);
 			path = iDo;
 			sourceTree = "<group>";
@@ -96,6 +203,7 @@
 		54D7294119ECE9B5009A0279 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				54CB19D919EE3BD40044BBDD /* background.jpg */,
 				54D7294219ECE9B5009A0279 /* Info.plist */,
 				54D7294319ECE9B5009A0279 /* main.m */,
 			);
@@ -117,6 +225,16 @@
 				54D7295C19ECE9B5009A0279 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		54D7296A19ECEA25009A0279 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				546457C119F10BF500078EAF /* Content Views */,
+				546457C219F10C1700078EAF /* UIView+Snapshot.h */,
+				546457C319F10C1700078EAF /* UIView+Snapshot.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,7 +317,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54CB19DA19EE3BD40044BBDD /* background.jpg in Resources */,
 				54D7294D19ECE9B5009A0279 /* Main.storyboard in Resources */,
+				546457BE19F1074900078EAF /* ImageEditorPanelViewController.xib in Resources */,
 				54D7295219ECE9B5009A0279 /* LaunchScreen.xib in Resources */,
 				54D7294F19ECE9B5009A0279 /* Images.xcassets in Resources */,
 			);
@@ -219,9 +339,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				546457DC19F37DF500078EAF /* ContentItem.m in Sources */,
+				546457DF19F37E3100078EAF /* TextItem.m in Sources */,
+				54CB19DD19EE3D0A0044BBDD /* TextContainerView.m in Sources */,
+				546457D519F3614100078EAF /* ControlPointManager.m in Sources */,
+				546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */,
+				546457D119F116B700078EAF /* ImageHelper.m in Sources */,
+				546457C719F10D8100078EAF /* EditorPanelManager.m in Sources */,
+				546457CD19F10F3400078EAF /* ImageItem.m in Sources */,
+				54D7297319ED0FF0009A0279 /* BorderControlPointView.m in Sources */,
+				54CB19D819EE37BE0044BBDD /* ImageContainerView.m in Sources */,
+				54D7296D19ECEAB9009A0279 /* GenericContainerView.m in Sources */,
 				54D7294A19ECE9B5009A0279 /* ViewController.m in Sources */,
 				54D7294719ECE9B5009A0279 /* AppDelegate.m in Sources */,
 				54D7294419ECE9B5009A0279 /* main.m in Sources */,
+				546457BD19F1074900078EAF /* ImageEditorPanelViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,7 +412,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hongsen Huang (94LGY9TDJ8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hongsen Huang (94LGY9TDJ8)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -322,7 +455,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hongsen Huang (94LGY9TDJ8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hongsen Huang (94LGY9TDJ8)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -414,6 +548,7 @@
 				54D7296319ECE9B5009A0279 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		54D7296419ECE9B5009A0279 /* Build configuration list for PBXNativeTarget "iDoTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +557,7 @@
 				54D7296619ECE9B5009A0279 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

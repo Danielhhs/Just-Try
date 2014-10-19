@@ -7,16 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ContentItem.h"
 #import "ImageItem.h"
+#import "TextItem.h"
+#import "GenericContainerView.h"
 
 @interface EditorPanelManager : NSObject
 
 + (EditorPanelManager *) sharedManager;
 
-- (void) showImageEditorInViewController:(UIViewController *) viewController
-                        imageInformation:(ImageItem *) imageItem;
+- (void) showEditorPanelInViewController:(UIViewController *) viewController
+                          forContentView:(GenericContainerView *)contentView;
 
-- (void) dismissAllEditorPanels;
+- (void) showImageEditorInViewController:(UIViewController *) viewController
+                        imageInformation:(ContentItem *) imageItem;
+- (void) showTextEditorInViewController:(UIViewController *) viewController
+                        imageInformation:(ContentItem *) textItem;
+
+- (void) dismissAllEditorPanelsFromViewController:(UIViewController *) viewController;
 
 + (CGRect) editorPanelFrameInView:(UIView *) parentView;
 + (CGRect) editorPanelFrameOutOfView:(UIView *) parentView;
