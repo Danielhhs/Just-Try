@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EditorPanelViewController.h"
 
-@interface ImageEditorPanelViewController : UIViewController
+@protocol ImageEditorPanelViewControllerDelegate <EditorPanelViewControllerDelegate>
 
-@property (nonatomic, strong) UIImage *backgroundImage;
+@end
+
+@interface ImageEditorPanelViewController : EditorPanelViewController<UINavigationBarDelegate, UIImagePickerControllerDelegate>
+
+@property (nonatomic, weak) id<ImageEditorPanelViewControllerDelegate> delegate;
 
 @end

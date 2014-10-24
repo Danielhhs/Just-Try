@@ -7,10 +7,18 @@
 //
 
 #import "GenericContainerView.h"
+@class ImageContainerView;
+
+@protocol ImageContainerViewDelegate <ContentContainerViewDelegate>
+
+- (void) handleTapOnImage:(ImageContainerView *) imageContainer;
+
+@end
 
 @interface ImageContainerView : GenericContainerView
 
 @property (nonatomic, strong) UIImage *image;
+@property (nonatomic, weak) id<ImageContainerViewDelegate> delegate;
 
 - (instancetype) initWithImage:(UIImage *) image;
 

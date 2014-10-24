@@ -26,6 +26,9 @@
 
 - (void) dismissAllEditorPanelsFromViewController:(UIViewController *) viewController;
 
+- (void) makeCurrentEditorApplyChanges:(NSDictionary *) attributes;
+
 + (CGRect) editorPanelFrameInView:(UIView *) parentView;
 + (CGRect) editorPanelFrameOutOfView:(UIView *) parentView;
+
 @end

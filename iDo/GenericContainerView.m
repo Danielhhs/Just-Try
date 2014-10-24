@@ -8,8 +8,11 @@
 
 #import "GenericContainerView.h"
 #import "ControlPointManager.h"
+#import "ReflectionView.h"
+
 @interface GenericContainerView()
 @property (nonatomic) BOOL showBorder;
+@property (nonatomic, strong) ReflectionView *reflection;
 @end
 
 @implementation GenericContainerView
@@ -19,6 +22,7 @@
     [super setFrame:frame];
     [self setNeedsDisplay];
     [[ControlPointManager sharedManager] layoutControlPoints];
+    [self.reflection updateFrame];
 }
 
 - (void) setup
@@ -42,6 +46,27 @@
     return self;
 }
 
+#pragma mark - Apply Attributes
+- (void) applyAttributes:(NSDictionary *)attributes
+{
+    NSNumber *rotation = attributes[[GenericContainerViewHelper rotationKey]];
+    if (rotation) {
+        self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, [rotation floatValue] / ANGELS_PER_PI * M_PI);
+    }
+    NSNumber *reflection = attributes[[GenericContainerViewHelper reflectionKey]];
+    if (reflection) {
+        self.reflection.hidden = ![reflection boolValue];
+    }
+    NSNumber *reflectionAlpha = attributes[[GenericContainerViewHelper rotationAlphaKey]];
+    if (reflectionAlpha) {
+        self.reflection.alpha = [reflectionAlpha floatValue];
+    }
+    NSNumber *reflectionSize = attributes[[GenericContainerViewHelper rotationSizeKey]];
+    if (reflectionSize) {
+        self.reflection.height = [reflectionSize floatValue];
+    }
+}
+
 #pragma mark - User Interations
 - (void) setupGestures
 {
@@ -57,17 +82,17 @@
 
 - (BOOL) resignFirstResponder
 {
+    [self.delegate contentViewWillResignFirstResponder:self];
     self.showBorder = NO;
     [[ControlPointManager sharedManager] removeAllControlPointsFromView:self];
-    [self.delegate contentViewDidResignFirstResponder:self];
     return [super resignFirstResponder];
 }
 
 - (BOOL) becomeFirstResponder
 {
+    [self.delegate contentViewWillBecomFirstResponder:self];
     self.showBorder = YES;
     [[ControlPointManager sharedManager] addAndLayoutControlPointsInView:self];
-    [self.delegate contentViewDidBecomFirstResponder:self];
     return [super becomeFirstResponder];
 }
 
@@ -87,6 +112,8 @@
     if (gesture.state == UIGestureRecognizerStateBegan || gesture.state == UIGestureRecognizerStateChanged) {
         CGAffineTransform transform = CGAffineTransformRotate(self.transform, gesture.rotation);
         self.transform = transform;
+        CGFloat rotation = atan2f(self.transform.b, self.transform.a);
+        [self.delegate contentView:self didChangeAttributes:@{[GenericContainerViewHelper rotationKey] : @(rotation)}];
         gesture.rotation = 0;
     }
 }
@@ -125,6 +152,7 @@
 - (void) addSubViews
 {
     [[ControlPointManager sharedManager] addAndLayoutControlPointsInView:self];
+    [self addReflectionView];
 }
 
 - (void) setShowBorder:(BOOL)showBorder
@@ -135,5 +163,26 @@
     }
 }
 
+- (BOOL) isContentFirstResponder
+{
+    return self.showBorder;
+}
+
+- (void) restore
+{
+    self.transform = CGAffineTransformIdentity;
+}
+
+- (void) addReflectionView
+{
+    self.reflection = [[ReflectionView alloc] initWithOriginalView:self];
+    self.reflection.hidden = YES;
+    [self addSubview:self.reflection];
+}
+
+- (UIImage *) contentSnapshot
+{
+    return nil;
+}
 
 @end

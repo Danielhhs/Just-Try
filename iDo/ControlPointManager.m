@@ -61,22 +61,27 @@ static ControlPointManager *sharedInstance;
 #pragma mark - Public APIs
 - (void) addAndLayoutControlPointsInView:(UIView *)view
 {
-    self.container = view;
-    [self addControlPoints];
+    if (self.container != view) {
+        self.container = view;
+        [self addControlPoints];
+    }
     [self layoutControlPoints];
 }
 
 - (void) removeAllControlPointsFromView:(UIView *)view
 {
-    [self.translationControlPoint removeFromSuperview];
-    [self.topLeftControlPoint removeFromSuperview];
-    [self.topMiddleControlPoint removeFromSuperview];
-    [self.topRightControlPoint removeFromSuperview];
-    [self.middleLeftControlPoint removeFromSuperview];
-    [self.middleRightControlPoint removeFromSuperview];
-    [self.bottomLeftControlPoint removeFromSuperview];
-    [self.bottomMiddleControlPoint removeFromSuperview];
-    [self.bottomRightControlPoint removeFromSuperview];
+    if (self.container == view) {
+        [self.translationControlPoint removeFromSuperview];
+        [self.topLeftControlPoint removeFromSuperview];
+        [self.topMiddleControlPoint removeFromSuperview];
+        [self.topRightControlPoint removeFromSuperview];
+        [self.middleLeftControlPoint removeFromSuperview];
+        [self.middleRightControlPoint removeFromSuperview];
+        [self.bottomLeftControlPoint removeFromSuperview];
+        [self.bottomMiddleControlPoint removeFromSuperview];
+        [self.bottomRightControlPoint removeFromSuperview];
+        self.container = nil;
+    }
 }
 
 #pragma mark - BorderControlPointViewDelegate

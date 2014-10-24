@@ -38,6 +38,20 @@
     self.textLabel.frame = [self contentViewFrame];
 }
 
+- (BOOL) resignFirstResponder
+{
+    BOOL result = [super resignFirstResponder];
+    [self.delegate contentViewDidResignFirstResponder:self];
+    return result;
+}
+
+- (BOOL) becomeFirstResponder
+{
+    BOOL result = [super becomeFirstResponder];
+    [self.delegate contentViewDidBecomFirstResponder:self];
+    return result;
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

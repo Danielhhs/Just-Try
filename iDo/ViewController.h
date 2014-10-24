@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ViewController : UIViewController
+#import "ImageEditorPanelViewController.h"
+#import "TextEditorPanelViewController.h"
+@interface ViewController : UIViewController<TextEditorPanelViewControllerDelegate, ImageEditorPanelViewControllerDelegate>
 
 
 @end

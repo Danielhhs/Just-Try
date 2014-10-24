@@ -23,4 +23,9 @@
     return image;
 }
 
+- (UIImage *) snapshot
+{
+    return [self snapshotInRect:self.bounds];
+}
+
 @end

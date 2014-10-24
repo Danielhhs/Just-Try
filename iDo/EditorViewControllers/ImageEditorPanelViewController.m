@@ -11,7 +11,7 @@
 #import "EditorPanelManager.h"
 
 @interface ImageEditorPanelViewController ()
-
+@property (weak, nonatomic) IBOutlet UIButton *changeImageButton;
 @end
 
 @implementation ImageEditorPanelViewController
@@ -22,19 +22,18 @@
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void) viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    UIImage *blurredImage = [ImageHelper blurredImageWithSourceImage:self.backgroundImage inRect:self.view.bounds];
-    self.view.layer.contents = (__bridge id)blurredImage.CGImage;
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)handleTap:(id)sender {
+- (IBAction)restore {
+    
+    [super restore];
+}
+- (IBAction)buttonTest:(UIButton *)sender {
+    sender.selected = !sender.selected;
 }
 
 /*
@@ -46,5 +45,6 @@
     // Pass the selected object to the new view controller.
 }
 */
+
 
 @end

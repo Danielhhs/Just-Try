@@ -7,14 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GenericContainerViewHelper.h"
 
 @class GenericContainerView;
 
 @protocol ContentContainerViewDelegate <NSObject>
 
+- (void) contentViewWillBecomFirstResponder:(GenericContainerView *) contentView;
+
 - (void) contentViewDidBecomFirstResponder:(GenericContainerView *) contentView;
 
+- (void) contentViewWillResignFirstResponder:(GenericContainerView *) contentView;
+
 - (void) contentViewDidResignFirstResponder:(GenericContainerView *) contentView;
+
+- (void) contentView:(GenericContainerView *) contentView
+ didChangeAttributes: (NSDictionary *) attributes;
 
 @end
 
@@ -22,9 +30,18 @@
 
 @property (nonatomic, weak) id<ContentContainerViewDelegate> delegate;
 
+- (BOOL) isContentFirstResponder;
+
 - (CGRect) contentViewFrame;
+
+- (UIImage *) contentSnapshot;
 
 - (void) addSubViews;
 
+- (void) applyAttributes:(NSDictionary *) attributes;
+
+- (void) restore;
+
+- (void) addReflectionView;
 
 @end

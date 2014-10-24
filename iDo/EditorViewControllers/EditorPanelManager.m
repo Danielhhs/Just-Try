@@ -8,16 +8,19 @@
 
 #import "EditorPanelManager.h"
 #import "ImageEditorPanelViewController.h"
+#import "TextEditorPanelViewController.h"
 #import "UIView+Snapshot.h"
 #import "ImageContainerView.h"
 #import "TextContainerView.h"
+#import "ViewController.h"
 
 #define EDITOR_PANEL_WIDTH 300
 
 @interface EditorPanelManager()
 
 @property (nonatomic, strong) ImageEditorPanelViewController *imageEditor;
-@property (atomic) BOOL animationFinished;
+@property (nonatomic, strong) EditorPanelViewController *currentEditor;
+@property (nonatomic, strong) TextEditorPanelViewController *textEditor;
 
 @end
 
@@ -35,8 +38,8 @@ static EditorPanelManager *sharedInstance;
 {
     self = [super init];
     if (self) {
-        _animationFinished = YES;
-        _imageEditor = [[ImageEditorPanelViewController alloc] initWithNibName:@"ImageEditorPanelViewController" bundle:[NSBundle mainBundle]];
+        _imageEditor = [self createImageEditorViewController];
+        _textEditor = [self createTextEditorViewController];
     }
     return self;
 }
@@ -71,8 +74,23 @@ static EditorPanelManager *sharedInstance;
     return frame;
 }
 
+- (ImageEditorPanelViewController *) createImageEditorViewController
+{
+    return [[ImageEditorPanelViewController alloc] initWithNibName:@"ImageEditorPanelViewController" bundle:[NSBundle mainBundle]];
+}
+
+- (TextEditorPanelViewController *) createTextEditorViewController
+{
+    return [[TextEditorPanelViewController alloc] initWithNibName:@"TextEditorPanelViewController" bundle:[NSBundle mainBundle]];
+}
+
+- (void) makeCurrentEditorApplyChanges:(NSDictionary *)attributes
+{
+    [self.currentEditor applyAttribute:attributes];
+}
+
 #pragma mark - Presenting Editor Panels
-- (void) showEditorPanelInViewController:(UIViewController *)viewController
+- (void) showEditorPanelInViewController:(ViewController *)viewController
                           forContentView:(GenericContainerView *)contentView
 {
     if ([contentView isKindOfClass:[ImageContainerView class]]) {
@@ -82,39 +100,57 @@ static EditorPanelManager *sharedInstance;
     }
 }
 
-- (void) showImageEditorInViewController:(UIViewController *)viewController
+- (void) showImageEditorInViewController:(ViewController *)viewController
                         imageInformation:(ImageItem *)imageItem
 {
-    self.imageEditor.backgroundImage = [viewController.view snapshotInRect:[EditorPanelManager editorPanelFrameInView:viewController.view]];
-    [viewController addChildViewController:self.imageEditor];
-    self.imageEditor.view.frame = [EditorPanelManager editorPanelFrameOutOfView:viewController.view];
-    [viewController.view addSubview:self.imageEditor.view];
-    [self.imageEditor didMoveToParentViewController:viewController];
-    self.animationFinished = NO;
-    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        self.imageEditor.view.frame = [EditorPanelManager editorPanelFrameInView:viewController.view];
-    } completion:^(BOOL finished) {
-    }];
+    self.currentEditor = self.imageEditor;
+    self.imageEditor.delegate = viewController;
+    [self showCurrentEditorInViewController:viewController];
 }
 
-- (void) showTextEditorInViewController:(UIViewController *)viewController
+- (void) showTextEditorInViewController:(ViewController *)viewController
                        imageInformation:(ContentItem *)textItem
 {
-    
+    self.currentEditor = self.textEditor;
+    self.textEditor.delegate = viewController;
+    [self showCurrentEditorInViewController:viewController];
+}
+
+- (void) showCurrentEditorInViewController:(ViewController *) viewController
+{
+    [viewController addChildViewController:self.currentEditor];
+    self.currentEditor.view.frame = [EditorPanelManager editorPanelFrameOutOfView:viewController.view];
+    [viewController.view addSubview:self.currentEditor.view];
+    [self.currentEditor didMoveToParentViewController:viewController];
+    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        self.currentEditor.view.frame = [EditorPanelManager editorPanelFrameInView:viewController.view];
+    } completion:^(BOOL finished) {
+    }];
 }
 
 #pragma mark - Dismiss Editor Panels
 - (void) dismissAllEditorPanelsFromViewController:(UIViewController *) viewController
 {
-    UIView *animationView = [[UIView alloc] initWithFrame:self.imageEditor.view.frame];
-    animationView.layer.contents = (__bridge id)[self.imageEditor.view snapshotInRect:self.imageEditor.view.bounds].CGImage;
-    [viewController.view addSubview:animationView];
-    [self.imageEditor willMoveToParentViewController:nil];
-    [self.imageEditor.view removeFromSuperview];
-    [self.imageEditor removeFromParentViewController];
+    EditorPanelViewController *animationVC = nil;
+    if ([self.currentEditor isKindOfClass:[ImageEditorPanelViewController class]]) {
+        animationVC = [self createImageEditorViewController];
+    } else if ([self.currentEditor isKindOfClass:[TextEditorPanelViewController class]]) {
+        animationVC = [self createTextEditorViewController];
+    }
+    [self.currentEditor willMoveToParentViewController:nil];
+    [self.currentEditor.view removeFromSuperview];
+    [self.currentEditor removeFromParentViewController];
+    
+    [viewController addChildViewController:animationVC];
+    animationVC.view.frame = self.currentEditor.view.frame;
+    [viewController.view addSubview:animationVC.view];
+    [animationVC didMoveToParentViewController:viewController];
     [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        animationView.frame = [EditorPanelManager editorPanelFrameOutOfView:viewController.view];
+        animationVC.view.frame = [EditorPanelManager editorPanelFrameOutOfView:viewController.view];
     } completion:^(BOOL finished) {
+        [animationVC willMoveToParentViewController:nil];
+        [animationVC.view removeFromSuperview];
+        [animationVC removeFromParentViewController];
     }];
 }
 

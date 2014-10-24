@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TextEditorPanelViewController">
+            <connections>
+                <outlet property="alignmentSegment" destination="jkb-7f-w8Z" id="psN-Ks-xEK"/>
+                <outlet property="boldButton" destination="AdP-RS-1gk" id="bab-RZ-JGe"/>
+                <outlet property="fontPicker" destination="avL-k6-zQ6" id="gTf-04-gpz"/>
+                <outlet property="glassianView" destination="uXl-sm-pp8" id="p4m-Qp-Duw"/>
+                <outlet property="italicButton" destination="3bJ-lo-acG" id="633-5D-3VM"/>
+                <outlet property="rotationSlider" destination="Ux2-GA-TTf" id="UHc-Ye-Pe5"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="768"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uXl-sm-pp8">
+                    <rect key="frame" x="0.0" y="-1" width="300" height="769"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="Fwa-LG-Oll">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="769"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="avL-k6-zQ6">
+                                <rect key="frame" x="26" y="123" width="217" height="162"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="-1" id="GcX-Lw-o9Z"/>
+                                    <outlet property="delegate" destination="-1" id="2W6-Gf-6RK"/>
+                                </connections>
+                            </pickerView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jkb-7f-w8Z">
+                                <rect key="frame" x="26" y="301" width="247" height="29"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <segments>
+                                    <segment title="Left"/>
+                                    <segment title="Middle"/>
+                                    <segment title="Right"/>
+                                </segments>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <action selector="textAlignmentChanged:" destination="-1" eventType="valueChanged" id="mhh-Wh-Zgm"/>
+                                </connections>
+                            </segmentedControl>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KmS-QI-8he">
+                                <rect key="frame" x="26" y="355" width="76" height="113"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AdP-RS-1gk">
+                                <rect key="frame" x="68" y="73" width="49" height="42"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="B">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="boldPressed" destination="-1" eventType="touchUpInside" id="q2Q-b4-THp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bJ-lo-acG">
+                                <rect key="frame" x="170" y="73" width="49" height="42"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="I">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="ItalicPressed" destination="-1" eventType="touchUpInside" id="LUb-s4-KTX"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eC9-S7-Rta">
+                                <rect key="frame" x="197" y="355" width="76" height="113"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rotation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBy-ms-hcQ">
+                                <rect key="frame" x="25" y="38" width="65" height="21"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-180" maxValue="180" translatesAutoresizingMaskIntoConstraints="NO" id="Ux2-GA-TTf">
+                                <rect key="frame" x="92" y="35" width="183" height="31"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="minimumTrackTintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="maximumTrackTintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="thumbTintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <action selector="rotationValueChanged:" destination="-1" eventType="valueChanged" id="wya-vq-Ije"/>
+                                </connections>
+                            </slider>
+                        </subviews>
+                    </view>
+                    <blurEffect style="light"/>
+                </visualEffectView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="ls4-uk-2u0" appends="YES" id="3wU-Gd-frj"/>
+            </connections>
+            <point key="canvasLocation" x="140" y="161"/>
+        </view>
+        <tapGestureRecognizer id="ls4-uk-2u0">
+            <connections>
+                <action selector="handleTap:" destination="-1" id="wfa-IR-r2G"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+</document>

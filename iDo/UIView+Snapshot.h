@@ -10,6 +10,8 @@
 
 @interface UIView (Snapshot)
 
+- (UIImage *) snapshot;
+
 - (UIImage *) snapshotInRect:(CGRect) rect;
 
 @end
