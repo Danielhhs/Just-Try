@@ -7,12 +7,18 @@
 //
 
 #import "GenericContainerView.h"
-#import "ControlPointManager.h"
 #import "ReflectionView.h"
+
+#define SHADOW_CURL_FACTOR 0.618
+#define DEFAULT_SHADOW_DEPTH 0.5
+#define MAX_SHADOW_DEPTH_RATIO 0.1
 
 @interface GenericContainerView()
 @property (nonatomic) BOOL showBorder;
 @property (nonatomic, strong) ReflectionView *reflection;
+@property (nonatomic) BOOL showShadow;
+@property (nonatomic) CGRect originalContentFrame;  //DELETE when add model support
+@property (nonatomic) CGFloat shadowRatio;          //DELETE when add model support
 @end
 
 @implementation GenericContainerView
@@ -23,11 +29,18 @@
     [self setNeedsDisplay];
     [[ControlPointManager sharedManager] layoutControlPoints];
     [self.reflection updateFrame];
+    [self updateShadow];
 }
 
 - (void) setup
 {
+    self.shadowRatio = DEFAULT_SHADOW_DEPTH;
+    self.originalContentFrame = [self contentViewFrame];
     self.backgroundColor = [UIColor clearColor];
+    self.layer.shadowPath = [self shadowPathWithShadowDepthRatio:self.shadowRatio].CGPath;
+    self.layer.shadowOpacity = 0.7;
+    self.layer.shadowColor = [UIColor clearColor].CGColor;
+    self.layer.masksToBounds = NO;
     [self setupGestures];
 }
 
@@ -57,13 +70,26 @@
     if (reflection) {
         self.reflection.hidden = ![reflection boolValue];
     }
-    NSNumber *reflectionAlpha = attributes[[GenericContainerViewHelper rotationAlphaKey]];
+    NSNumber *reflectionAlpha = attributes[[GenericContainerViewHelper reflectionAlphaKey]];
     if (reflectionAlpha) {
         self.reflection.alpha = [reflectionAlpha floatValue];
     }
-    NSNumber *reflectionSize = attributes[[GenericContainerViewHelper rotationSizeKey]];
+    NSNumber *reflectionSize = attributes[[GenericContainerViewHelper reflectionSizeKey]];
     if (reflectionSize) {
         self.reflection.height = [reflectionSize floatValue];
+    }
+    NSNumber *shadow = attributes[[GenericContainerViewHelper shadowKey]];
+    if (shadow) {
+        self.showShadow = [shadow boolValue];
+    }
+    NSNumber *shadowAlpha = attributes[[GenericContainerViewHelper shadowAlphaKey]];
+    if (shadowAlpha) {
+        self.layer.shadowOpacity = [shadowAlpha floatValue];
+    }
+    NSNumber *shadowSize = attributes[[GenericContainerViewHelper shadowSizeKey]];
+    if (shadowSize) {
+        self.shadowRatio = [shadowSize doubleValue];
+        self.layer.shadowPath = [self shadowPathWithShadowDepthRatio:[shadowSize doubleValue]].CGPath;
     }
 }
 
@@ -115,12 +141,12 @@
         CGFloat rotation = atan2f(self.transform.b, self.transform.a);
         [self.delegate contentView:self didChangeAttributes:@{[GenericContainerViewHelper rotationKey] : @(rotation)}];
         gesture.rotation = 0;
+    } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
+        [self.delegate didFinishChangingInContentView:self];
     }
 }
 
 #pragma mark - Drawing
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
     UIBezierPath *borderPath = [UIBezierPath bezierPathWithRect:[[ControlPointManager sharedManager] borderRectFromContainerViewBounds:rect]];
     
@@ -136,6 +162,39 @@
 - (UIColor *) borderStrokeColor
 {
     return self.showBorder ? [UIColor blueColor] : [UIColor clearColor];
+}
+
+- (UIBezierPath *) shadowPathWithShadowDepthRatio:(CGFloat) shadowDepthRatio
+{
+    CGFloat curlFactor = SHADOW_CURL_FACTOR;
+    CGFloat shadowDepth = MAX_SHADOW_DEPTH_RATIO * shadowDepthRatio * self.bounds.size.height;
+    CGRect contentFrame = self.originalContentFrame;
+    CGFloat minX = CGRectGetMinX(contentFrame);
+    CGFloat minY = CGRectGetMaxY(contentFrame);
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(minX, minY + shadowDepth)];
+    [path addLineToPoint:CGPointMake(minX, minY)];
+    [path addLineToPoint:CGPointMake(minX + contentFrame.size.width, minY)];
+    [path addLineToPoint:CGPointMake(minX + contentFrame.size.width, minY + shadowDepth)];
+    [path addCurveToPoint:CGPointMake(minX, minY + shadowDepth)
+            controlPoint1:CGPointMake(minX + contentFrame.size.width * (1 - curlFactor), minY + shadowDepth * (1 - curlFactor))
+            controlPoint2:CGPointMake(minX + contentFrame.size.width * curlFactor, minY + shadowDepth * (1 - curlFactor))];
+    return path;
+}
+
+- (void) setShowShadow:(BOOL)showShadow
+{
+    _showShadow = showShadow;
+    if (showShadow) {
+        self.layer.shadowColor = [UIColor blackColor].CGColor;
+    } else {
+        self.layer.shadowColor = [UIColor clearColor].CGColor;
+    }
+}
+
+- (void) updateShadow
+{
+    self.layer.shadowPath = [self shadowPathWithShadowDepthRatio:self.shadowRatio].CGPath;
 }
 
 #pragma mark - Other APIs

@@ -15,11 +15,13 @@
 + (NSString *) boldKey;
 + (NSString *) italicKey;
 + (NSString *) fontKey;
-+ (NSString *) sizeKey;
++ (NSString *) fontSizeKey;
 + (NSString *) alignmentKey;
 + (NSString *) rotationKey;
 + (NSString *) reflectionKey;
 + (NSString *) shadowKey;
-+ (NSString *) rotationAlphaKey;
-+ (NSString *) rotationSizeKey;
++ (NSString *) reflectionAlphaKey;
++ (NSString *) reflectionSizeKey;
++ (NSString *) shadowAlphaKey;
++ (NSString *) shadowSizeKey;
 @end

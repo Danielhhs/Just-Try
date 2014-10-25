@@ -25,9 +25,9 @@
     return @"FONT";
 }
 
-+ (NSString *) sizeKey
++ (NSString *) fontSizeKey
 {
-    return @"SIZE";
+    return @"FONT_SIZE";
 }
 
 + (NSString *) alignmentKey
@@ -50,14 +50,24 @@
     return @"SHADOW";
 }
 
-+ (NSString *) rotationAlphaKey
++ (NSString *) reflectionAlphaKey
 {
-    return @"ROTATION_ALPHA";
+    return @"REFLECTION_ALPHA";
 }
 
-+ (NSString *) rotationSizeKey
++ (NSString *) reflectionSizeKey
 {
-    return @"ROTATION_SIZE";
+    return @"REFLECTION_SIZE";
+}
+
++ (NSString *) shadowAlphaKey
+{
+    return @"SHADOW_ALPHA";
+}
+
++ (NSString *) shadowSizeKey
+{
+    return @"SHADOW_SIZE";
 }
 
 @end

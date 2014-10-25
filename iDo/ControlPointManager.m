@@ -266,7 +266,6 @@ static ControlPointManager *sharedInstance;
 
 - (void) layoutControlPoints
 {
-    
     self.translationControlPoint.center = CGPointMake([self centerXForMiddleControlPoints], CONTROL_POINT_SIZE_HALF);
     self.topLeftControlPoint.center = CGPointMake(CONTROL_POINT_SIZE_HALF, [self centerYForTopControlPoints]);
     self.topMiddleControlPoint.center = CGPointMake([self centerXForMiddleControlPoints], [self centerYForTopControlPoints]);

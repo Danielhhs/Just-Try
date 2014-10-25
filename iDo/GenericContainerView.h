@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GenericContainerViewHelper.h"
+#import "ControlPointManager.h"
 
 @class GenericContainerView;
 
@@ -24,6 +25,7 @@
 - (void) contentView:(GenericContainerView *) contentView
  didChangeAttributes: (NSDictionary *) attributes;
 
+- (void) didFinishChangingInContentView:(GenericContainerView *) contentView;
 @end
 
 @interface GenericContainerView : UIView

@@ -154,5 +154,10 @@ static EditorPanelManager *sharedInstance;
     }];
 }
 
+- (void) handleContentViewDidFinishChanging
+{
+    [self.currentEditor hideTooltip];
+}
+
 
 @end

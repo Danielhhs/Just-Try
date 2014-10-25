@@ -95,6 +95,11 @@
     }
 }
 
+- (void) didFinishChangingInContentView:(GenericContainerView *)contentView
+{
+    [[EditorPanelManager sharedManager] handleContentViewDidFinishChanging];
+}
+
 - (void) handleTapOnImage:(ImageContainerView *)container
 {
     UIPopoverController *popOver = [[UIPopoverController alloc] initWithContentViewController:self.imagePicker];
@@ -116,7 +121,7 @@
 
 - (void) textAttributes:(NSDictionary *)textAttributes didChangeFromTextEditor:(TextEditorPanelViewController *)textEditor
 {
-    NSLog(@"%@", textAttributes);
+    [self.currentSelectedContent applyAttributes:textAttributes];
 }
 
 

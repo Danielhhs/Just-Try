@@ -26,6 +26,7 @@
     self.label = [[UILabel alloc] initWithFrame:[self frameForLabel]];
     self.label.backgroundColor = [UIColor clearColor];
     self.label.textColor = [UIColor whiteColor];
+    self.label.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.label];
 }
 

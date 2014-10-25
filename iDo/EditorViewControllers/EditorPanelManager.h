@@ -28,6 +28,8 @@
 
 - (void) makeCurrentEditorApplyChanges:(NSDictionary *) attributes;
 
+- (void) handleContentViewDidFinishChanging;
+
 + (CGRect) editorPanelFrameInView:(UIView *) parentView;
 + (CGRect) editorPanelFrameOutOfView:(UIView *) parentView;
 

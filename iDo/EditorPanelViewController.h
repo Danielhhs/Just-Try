@@ -28,4 +28,6 @@
 - (void) applyAttribute:(NSDictionary *) attributes;
 - (void) restore;
 
+- (void) hideTooltip;
+
 @end

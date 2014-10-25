@@ -8,7 +8,9 @@
             <connections>
                 <outlet property="addReflectionView" destination="jhU-uY-DpR" id="BsZ-Bv-C3b"/>
                 <outlet property="addShadowView" destination="9cz-dU-fhh" id="ai6-UV-gpY"/>
+                <outlet property="alphaSlider" destination="R7B-nO-aoY" id="8IQ-9W-yYj"/>
                 <outlet property="rotationSlider" destination="2N5-fU-Fwe" id="57y-Iy-0SM"/>
+                <outlet property="sizeSlider" destination="wT3-7q-5E6" id="EC9-rw-8xj"/>
                 <outlet property="tooltipView" destination="uh5-gm-pby" id="fyF-DF-eCn"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -64,7 +66,7 @@
                                 <rect key="frame" x="201" y="27" width="75" height="75"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-180" maxValue="180" translatesAutoresizingMaskIntoConstraints="NO" id="2N5-fU-Fwe">
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-180" maxValue="180" translatesAutoresizingMaskIntoConstraints="NO" id="2N5-fU-Fwe" customClass="SliderWithTooltip">
                                 <rect key="frame" x="101" y="248" width="183" height="31"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="minimumTrackTintColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -74,10 +76,10 @@
                                     <action selector="rotationValueChanged:" destination="-1" eventType="valueChanged" id="Oh9-ZZ-zGq"/>
                                 </connections>
                             </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="R7B-nO-aoY">
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="R7B-nO-aoY" customClass="SliderWithTooltip">
                                 <rect key="frame" x="101" y="133" width="174" height="31"/>
                                 <connections>
-                                    <action selector="reflectionAlphaChanged:" destination="-1" eventType="valueChanged" id="DiU-mC-Pax"/>
+                                    <action selector="alphaChanged:" destination="-1" eventType="valueChanged" id="PCe-Ne-mMd"/>
                                 </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Alpha" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LlL-hP-roN">
@@ -92,14 +94,14 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="wT3-7q-5E6">
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="wT3-7q-5E6" customClass="SliderWithTooltip">
                                 <rect key="frame" x="101" y="187" width="174" height="31"/>
                                 <connections>
-                                    <action selector="reflectionSizeChanged:" destination="-1" eventType="valueChanged" id="2tP-b9-YMR"/>
+                                    <action selector="sizeChanged:" destination="-1" eventType="valueChanged" id="PTp-f5-BqG"/>
                                 </connections>
                             </slider>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uh5-gm-pby" customClass="TooltipView">
-                                <rect key="frame" x="48" y="344" width="50" height="40"/>
+                                <rect key="frame" x="48" y="344" width="60" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>

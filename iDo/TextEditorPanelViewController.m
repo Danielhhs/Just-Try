@@ -12,7 +12,10 @@
 #define PICK_VIEW_FONT_COMPONENT_INDEX 0
 #define PICK_VIEW_SIZE_COMPONENT_INDEX 1
 
-#define PICK_VIEW_FONT_SIZE 8
+#define PICK_VIEW_FONT_SIZE 12
+
+#define PICK_VIEW_FONT_RATIO 0.8
+#define PICK_VIEW_FONT_SIZE_RATIO 0.2
 
 #define MIN_FONT_SIZE 2
 #define MAX_FONT_SIEZ 60
@@ -64,10 +67,6 @@
     [self.delegate textAttributes:@{[GenericContainerViewHelper italicKey] : @(self.italic)} didChangeFromTextEditor:self];
 }
 
-- (IBAction)textAlignmentChanged:(UISegmentedControl *)sender {
-    self.alignment = sender.selectedSegmentIndex;
-    [self.delegate textAttributes:@{[GenericContainerViewHelper alignmentKey] : @(self.alignment)} didChangeFromTextEditor:self];
-}
 
 - (IBAction)handleTap:(id)sender {
 }
@@ -114,12 +113,19 @@
 }
 
 #pragma mark - UIPickerViewDelegate
-- (NSAttributedString *) pickerView:(UIPickerView *)pickerView
-              attributedTitleForRow:(NSInteger)row
-                       forComponent:(NSInteger)component
+- (UIView *) pickerView:(UIPickerView *)pickerView
+             viewForRow:(NSInteger)row
+           forComponent:(NSInteger)component
+            reusingView:(UIView *)view
 {
+    UILabel *label;
+    if ([view isKindOfClass:[UILabel class]]) {
+        label = (UILabel *) view;
+    } else {
+        label = [[UILabel alloc] init];
+    }
     NSAttributedString *attributedTitle = nil;
-    if (component == PICK_VIEW_FONT_COMPONENT_INDEX) {
+    if ([self componentIsFontSelector:component]) {
         NSString *fontName = self.allFonts[row];
         UIFont *font = [UIFont fontWithName:fontName size:PICK_VIEW_FONT_SIZE];
         attributedTitle = [[NSAttributedString alloc] initWithString:fontName attributes:@{NSFontAttributeName : font}];
@@ -128,21 +134,42 @@
         NSString *fontSize = [NSString stringWithFormat:@"%d", [self.allSizes[row] intValue]];
         attributedTitle = [[NSAttributedString alloc] initWithString:fontSize attributes:@{NSFontAttributeName : font}];
     }
-    
-    return attributedTitle;
+    label.attributedText = attributedTitle;
+    return label;
+}
+
+- (CGFloat) pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
+{
+    if ([self componentIsFontSelector:component]) {
+        return pickerView.bounds.size.width * PICK_VIEW_FONT_RATIO;
+    } else {
+        return pickerView.bounds.size.width * PICK_VIEW_FONT_SIZE_RATIO;
+    }
 }
 
 - (void) pickerView:(UIPickerView *)pickerView
        didSelectRow:(NSInteger)row
         inComponent:(NSInteger)component
 {
-    if (component == PICK_VIEW_FONT_COMPONENT_INDEX) {
+    if ([self componentIsFontSelector:component]) {
         self.fontName = self.allFonts[row];
         [self.delegate textAttributes:@{[GenericContainerViewHelper fontKey] : self.fontName} didChangeFromTextEditor:self];
     } else  if (component == PICK_VIEW_SIZE_COMPONENT_INDEX) {
         self.size = [self.allSizes[row] intValue];
-        [self.delegate textAttributes:@{[GenericContainerViewHelper sizeKey] : @(self.size)} didChangeFromTextEditor:self];
+        [self.delegate textAttributes:@{[GenericContainerViewHelper fontSizeKey] : @(self.size)} didChangeFromTextEditor:self];
     }
+}
+
+- (BOOL) componentIsFontSelector:(NSInteger) component
+{
+    return component == PICK_VIEW_FONT_COMPONENT_INDEX;
+}
+
+#pragma mark - Text Alignment
+
+- (IBAction)textAlignmentChanged:(UISegmentedControl *)sender {
+    self.alignment = sender.selectedSegmentIndex;
+    [self.delegate textAttributes:@{[GenericContainerViewHelper alignmentKey] : @(self.alignment)} didChangeFromTextEditor:self];
 }
 
 /*
