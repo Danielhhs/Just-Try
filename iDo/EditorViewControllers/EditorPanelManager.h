@@ -20,9 +20,9 @@
                           forContentView:(GenericContainerView *)contentView;
 
 - (void) showImageEditorInViewController:(UIViewController *) viewController
-                        imageInformation:(ContentItem *) imageItem;
+                              attributes:(NSDictionary *) imageItem;
 - (void) showTextEditorInViewController:(UIViewController *) viewController
-                        imageInformation:(ContentItem *) textItem;
+                             attributes:(NSDictionary *) imageItem;
 
 - (void) dismissAllEditorPanelsFromViewController:(UIViewController *) viewController;
 

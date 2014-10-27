@@ -10,10 +10,8 @@
                 <outlet property="addShadowView" destination="dk5-Db-g8K" id="g7U-pT-8sy"/>
                 <outlet property="alignmentSegment" destination="jkb-7f-w8Z" id="psN-Ks-xEK"/>
                 <outlet property="alphaSlider" destination="EiB-Fw-YnH" id="ZTm-U8-grw"/>
-                <outlet property="boldButton" destination="AdP-RS-1gk" id="bab-RZ-JGe"/>
                 <outlet property="fontPicker" destination="avL-k6-zQ6" id="gTf-04-gpz"/>
                 <outlet property="glassianView" destination="uXl-sm-pp8" id="p4m-Qp-Duw"/>
-                <outlet property="italicButton" destination="3bJ-lo-acG" id="633-5D-3VM"/>
                 <outlet property="rotationSlider" destination="bK9-Hi-gyy" id="4lv-Yh-gRh"/>
                 <outlet property="sizeSlider" destination="thR-pv-Qht" id="y6K-q9-J0D"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -30,17 +28,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="300" height="769"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="avL-k6-zQ6">
-                                <rect key="frame" x="27" y="354" width="217" height="162"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="-1" id="GcX-Lw-o9Z"/>
-                                    <outlet property="delegate" destination="-1" id="2W6-Gf-6RK"/>
-                                </connections>
-                            </pickerView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jkb-7f-w8Z">
-                                <rect key="frame" x="27" y="532" width="247" height="29"/>
+                                <rect key="frame" x="27" y="319" width="247" height="29"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <segments>
                                     <segment title="Left"/>
@@ -52,26 +41,6 @@
                                     <action selector="textAlignmentChanged:" destination="-1" eventType="valueChanged" id="ZU2-Fk-lGb"/>
                                 </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AdP-RS-1gk">
-                                <rect key="frame" x="69" y="304" width="49" height="42"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="B">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="boldPressed" destination="-1" eventType="touchUpInside" id="q2Q-b4-THp"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bJ-lo-acG">
-                                <rect key="frame" x="171" y="304" width="49" height="42"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="I">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="ItalicPressed" destination="-1" eventType="touchUpInside" id="LUb-s4-KTX"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rotation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKJ-XH-ihg">
                                 <rect key="frame" x="26" y="253" width="65" height="21"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -124,6 +93,15 @@
                                     <action selector="sizeChanged:" destination="-1" eventType="valueChanged" id="jek-ZK-3gv"/>
                                 </connections>
                             </slider>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="avL-k6-zQ6">
+                                <rect key="frame" x="8" y="394" width="284" height="162"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="-1" id="GcX-Lw-o9Z"/>
+                                    <outlet property="delegate" destination="-1" id="2W6-Gf-6RK"/>
+                                </connections>
+                            </pickerView>
                         </subviews>
                     </view>
                     <blurEffect style="light"/>

@@ -14,4 +14,6 @@
 
 - (instancetype) initWithAttributedString:(NSAttributedString *) attributedString;
 
+- (void) startEditing;
+
 @end

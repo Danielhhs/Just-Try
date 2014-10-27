@@ -7,28 +7,21 @@
 //
 
 #import "GenericContainerViewHelper.h"
+#import <UIKit/UIKit.h>
+#import "TextFontHelper.h"
+
+#define DEFAULT_IMAGE_CONTENT_EDGE_SIZE 200
+#define DEFAULT_IMAGE_NAME @"background.jpg"
+#define GOLDEN_RATIO 0.618
+#define COUNTER_GOLDEN_RATIO 0.372
 
 @implementation GenericContainerViewHelper
-
-+ (NSString *) boldKey
-{
-    return @"BOLD";
-}
-
-+ (NSString *) italicKey
-{
-    return @"ITALIC";
-}
 
 + (NSString *) fontKey
 {
     return @"FONT";
 }
 
-+ (NSString *) fontSizeKey
-{
-    return @"FONT_SIZE";
-}
 
 + (NSString *) alignmentKey
 {
@@ -70,4 +63,35 @@
     return @"SHADOW_SIZE";
 }
 
++ (NSString *) imageNameKey
+{
+    return @"IMAGE_NAME";
+}
+
++ (NSMutableDictionary *) defaultContentAttributes
+{
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+    [attributes setValue:@(GOLDEN_RATIO) forKey:[GenericContainerViewHelper shadowAlphaKey]];
+    [attributes setValue:@(COUNTER_GOLDEN_RATIO) forKey:[GenericContainerViewHelper shadowSizeKey]];
+    [attributes setValue:@(GOLDEN_RATIO) forKey:[GenericContainerViewHelper reflectionAlphaKey]];
+    [attributes setValue:@(COUNTER_GOLDEN_RATIO) forKey:[GenericContainerViewHelper reflectionSizeKey]];
+    [attributes setValue:@(NO) forKey:[GenericContainerViewHelper reflectionKey]];
+    [attributes setValue:@(NO) forKey:[GenericContainerViewHelper shadowKey]];
+    return attributes;
+}
+
++ (NSDictionary *) defaultImageAttributes
+{
+    NSMutableDictionary *attributes = [GenericContainerViewHelper defaultContentAttributes];
+    [attributes setObject:DEFAULT_IMAGE_NAME forKey:[GenericContainerViewHelper fontKey]];
+    return [attributes copy];
+}
+
++ (NSDictionary *) defaultTextAttributes
+{
+    NSMutableDictionary *attributes = [GenericContainerViewHelper defaultContentAttributes];
+    [attributes setObject:[TextFontHelper defaultFont] forKey:[GenericContainerViewHelper fontKey]];
+    [attributes setObject:@(TextAlignmentLeft) forKey:[GenericContainerViewHelper alignmentKey]];
+    return [attributes copy];
+}
 @end

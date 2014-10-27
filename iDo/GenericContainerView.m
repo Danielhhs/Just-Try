@@ -19,6 +19,8 @@
 @property (nonatomic) BOOL showShadow;
 @property (nonatomic) CGRect originalContentFrame;  //DELETE when add model support
 @property (nonatomic) CGFloat shadowRatio;          //DELETE when add model support
+@property (nonatomic, strong) UITapGestureRecognizer *tap;
+@property (nonatomic, strong) NSDictionary *attributes;
 @end
 
 @implementation GenericContainerView
@@ -62,6 +64,7 @@
 #pragma mark - Apply Attributes
 - (void) applyAttributes:(NSDictionary *)attributes
 {
+    self.attributes = attributes;
     NSNumber *rotation = attributes[[GenericContainerViewHelper rotationKey]];
     if (rotation) {
         self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, [rotation floatValue] / ANGELS_PER_PI * M_PI);
@@ -93,11 +96,16 @@
     }
 }
 
+- (NSDictionary *) attributesForContent
+{
+    return self.attributes;
+}
+
 #pragma mark - User Interations
 - (void) setupGestures
 {
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(becomeFirstResponder)];
-    [self addGestureRecognizer:tap];
+    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(becomeFirstResponder)];
+    [self addGestureRecognizer:self.tap];
     
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [self addGestureRecognizer:longPress];
@@ -110,6 +118,7 @@
 {
     [self.delegate contentViewWillResignFirstResponder:self];
     self.showBorder = NO;
+    self.tap.enabled = YES;
     [[ControlPointManager sharedManager] removeAllControlPointsFromView:self];
     return [super resignFirstResponder];
 }
@@ -117,6 +126,7 @@
 - (BOOL) becomeFirstResponder
 {
     [self.delegate contentViewWillBecomFirstResponder:self];
+    self.tap.enabled = NO;
     self.showBorder = YES;
     [[ControlPointManager sharedManager] addAndLayoutControlPointsInView:self];
     return [super becomeFirstResponder];

@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet SliderWithTooltip *alphaSlider;
 @property (weak, nonatomic) IBOutlet SliderWithTooltip *sizeSlider;
 @property (weak, nonatomic) IBOutlet SliderWithTooltip *rotationSlider;
+@property (nonatomic, strong) NSMutableDictionary *attributes;
 @end
 
 @implementation EditorPanelViewController
@@ -34,9 +35,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UITapGestureRecognizer *tapToAddReflection = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addReflection:)];
+    UITapGestureRecognizer *tapToAddReflection = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reflectionStatusChanged:)];
     [self.addReflectionView addGestureRecognizer:tapToAddReflection];
-    UITapGestureRecognizer *tapToAddShadow = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addShadow:)];
+    UITapGestureRecognizer *tapToAddShadow = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shadowStatusChanged:)];
     [self.addShadowView addGestureRecognizer:tapToAddShadow];
     self.rotationSlider.delegate = self;
     self.alphaSlider.delegate = self;
@@ -62,14 +63,24 @@
     [self.delegate restoreFromEditorPanelViewController:self];
 }
 
-- (void) applyAttribute:(NSDictionary *)attributes
+- (void) applyAttributes:(NSDictionary *)attributes
 {
+    self.attributes = [attributes mutableCopy];
     NSNumber *rotation = [attributes objectForKey:[GenericContainerViewHelper rotationKey]];
     if (rotation) {
         CGFloat angle = [rotation doubleValue] / M_PI * ANGELS_PER_PI;
         self.rotationSlider.value = angle;
         [self updateTooltipViewFromSender:self.rotationSlider];
     }
+    NSNumber *reflection = attributes[[GenericContainerViewHelper reflectionKey]];
+    if (reflection) {
+        self.addReflectionView.selected = [reflection boolValue];
+    }
+    NSNumber *shadow = attributes[[GenericContainerViewHelper shadowKey]];
+    if (shadow) {
+        self.addShadowView.selected = [shadow boolValue];
+    }
+    [self updateSliders];
 }
 
 - (IBAction)alphaChanged:(UISlider *)sender {
@@ -80,6 +91,7 @@
     } else {
         changedKey = [GenericContainerViewHelper shadowAlphaKey];
     }
+    [self.attributes setValue:@(sender.value) forKey:changedKey];
     [self.delegate editorPanelViewController:self didChangeAttributes:@{changedKey : @(sender.value)}];
 }
 
@@ -91,28 +103,67 @@
     } else {
         changedKey = [GenericContainerViewHelper shadowSizeKey];
     }
+    [self.attributes setValue:@(sender.value) forKey:changedKey];
     [self.delegate editorPanelViewController:self didChangeAttributes:@{changedKey : @(sender.value)}];
 }
 
 
-- (void) addReflection:(UITapGestureRecognizer *) gesture
+- (void) reflectionStatusChanged:(UITapGestureRecognizer *) gesture
 {
     self.addReflectionView.selected = !self.addReflectionView.selected;
     self.addShadowView.selected = NO;
+    [self updateReflectionShadowStatus];
+    [self updateSliders];
     [self.delegate editorPanelViewController:self didChangeAttributes:@{
                                                                         [GenericContainerViewHelper reflectionKey] : @(self.addReflectionView.selected),
                                                                         [GenericContainerViewHelper shadowKey] : @(NO)
                                                                         }];
 }
 
-- (void) addShadow:(UITapGestureRecognizer *) gesture
+- (void) shadowStatusChanged:(UITapGestureRecognizer *) gesture
 {
     self.addShadowView.selected = !self.addShadowView.selected;
     self.addReflectionView.selected = NO;
+    [self updateReflectionShadowStatus];
+    [self updateSliders];
     [self.delegate editorPanelViewController:self didChangeAttributes:@{
                                                                         [GenericContainerViewHelper shadowKey] : @(self.addShadowView.selected),
                                                                         [GenericContainerViewHelper reflectionKey] : @(NO)
                                                                         }];
+}
+
+- (void) updateReflectionShadowStatus
+{
+    [self.attributes setValue:@(self.addReflectionView.selected) forKey:[GenericContainerViewHelper reflectionKey]];
+    [self.attributes setValue:@(self.addShadowView.selected) forKey:[GenericContainerViewHelper reflectionKey]];
+}
+
+- (void) updateSliders
+{
+    self.sizeSlider.enabled = YES;
+    self.alphaSlider.enabled = YES;
+    if (self.addReflectionView.selected) {
+        NSNumber *reflectionAlpha = self.attributes[[GenericContainerViewHelper reflectionAlphaKey]];
+        if (reflectionAlpha) {
+            [self.alphaSlider setValue:[reflectionAlpha floatValue] animated:YES];
+        }
+        NSNumber *reflectionSize = self.attributes[[GenericContainerViewHelper reflectionSizeKey]];
+        if (reflectionSize) {
+            [self.sizeSlider setValue:[reflectionSize floatValue] animated:YES];
+        }
+    } else if (self.addShadowView.selected) {
+        NSNumber *shadowAlpha = self.attributes[[GenericContainerViewHelper shadowAlphaKey]];
+        if (shadowAlpha) {
+            [self.alphaSlider setValue:[shadowAlpha floatValue] animated:YES];
+        }
+        NSNumber *shadowSize = self.attributes[[GenericContainerViewHelper shadowSizeKey]];
+        if (shadowSize) {
+            [self.sizeSlider setValue:[shadowSize doubleValue] animated:YES];
+        }
+    } else {
+        self.sizeSlider.enabled = NO;
+        self.alphaSlider.enabled = NO;
+    }
 }
 
 #pragma mark - Tooltip Management

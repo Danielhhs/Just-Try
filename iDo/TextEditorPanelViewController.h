@@ -10,12 +10,6 @@
 
 @class TextEditorPanelViewController;
 
-typedef NS_ENUM(NSUInteger, TextAlignment) {
-    TextAlignmentLeft = 0,
-    TextAlignmentMiddle = 1,
-    TextAlignmentRight = 2
-};
-
 @protocol TextEditorPanelViewControllerDelegate <EditorPanelViewControllerDelegate>
 
 - (void) textAttributes:(NSDictionary *)textAttributes

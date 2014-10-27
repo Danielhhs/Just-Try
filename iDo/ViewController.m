@@ -42,6 +42,7 @@
 
 - (IBAction)addImage:(id)sender {
     ImageContainerView *view = [[ImageContainerView alloc] initWithImage:[UIImage imageNamed:@"background.jpg"]];
+    [view applyAttributes:[GenericContainerViewHelper defaultImageAttributes]];
     view.delegate = self;
     [view becomeFirstResponder];
     [self.view addSubview:view];
@@ -50,7 +51,9 @@
 - (IBAction)addText:(id)sender {
     NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:@"Test Test" attributes:@{}];
     TextContainerView *view = [[TextContainerView alloc] initWithAttributedString:attrStr];
+    [view applyAttributes:[GenericContainerViewHelper defaultTextAttributes]];
     view.delegate = self;
+    [view startEditing];
     [view becomeFirstResponder];
     [self.view addSubview:view];
 }

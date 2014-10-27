@@ -46,4 +46,6 @@
 
 - (void) addReflectionView;
 
+- (NSDictionary *) attributesForContent;
+
 @end

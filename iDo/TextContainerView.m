@@ -10,6 +10,7 @@
 
 #define DEFAULT_TEXT_CONTAINER_WIDTH 300.f
 #define DEFAULT_TEXT_CONTAINER_HEIGHT 30
+#define TEXT_VIEW_HEADER_PADDING 5.f
 
 @interface TextContainerView ()<UITextViewDelegate>
 @property (nonatomic, strong) UILabel *textLabel;
@@ -37,7 +38,7 @@
     [self.textLabel addGestureRecognizer:tapToEdit];
     
     self.textView = [[UITextView alloc] initWithFrame:[self contentViewFrame]];
-    self.textView.backgroundColor = [UIColor blackColor];
+    self.textView.backgroundColor = [UIColor greenColor];
     self.textView.attributedText = attributedString;
     self.textView.scrollEnabled = NO;
     self.textView.delegate = self;
@@ -87,6 +88,11 @@
 
 - (void) tapToEdit:(UITapGestureRecognizer *) tap
 {
+    [self startEditing];
+}
+
+- (void) startEditing
+{
     self.textLabel.hidden = YES;
     self.textView.hidden = NO;
     [self.textView becomeFirstResponder];
@@ -102,9 +108,18 @@
 
 - (void) adjustTextViewFrameAndContainerFrame
 {
-    CGSize size = [self.textView sizeThatFits:CGSizeMake(self.textView.bounds.size.width, self.textView.bounds.size.height)];
-    self.textView.bounds = CGRectMake(0, 0, self.textView.bounds.size.width, size.height);
+    CGFloat height = [self heightForAttributedString:self.textView.attributedText maxWidth:self.textView.bounds.size.width];
+    self.textView.bounds = CGRectMake(0, 0, self.textView.bounds.size.width, height);
     self.frame = [self frameFromTextViewBounds:[self.textView bounds]];
+}
+
+
+- (CGFloat) heightForAttributedString:(NSAttributedString *)attrString maxWidth:(CGFloat) maxWidth
+{
+    NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
+    CGSize size = [attrString boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX) options:options context:nil].size;
+    CGFloat height = ceilf(size.height) + 2 * TEXT_VIEW_HEADER_PADDING;
+    return height;
 }
 
 - (CGRect) frameFromTextViewBounds:(CGRect) textViewBounds
@@ -121,51 +136,24 @@
 - (void) applyAttributes:(NSDictionary *)attributes
 {
     [super applyAttributes:attributes];
+    [self applyFontAttribute:attributes];
+}
+
+- (void) applyFontAttribute:(NSDictionary *) attributes
+{
     NSMutableAttributedString *attributedString = [self.textView.attributedText mutableCopy];
+
     NSRange selectedRange = self.textView.selectedRange;
-    
-    [self applyFontNameAttribute:attributes toAttributedString:attributedString inRange:selectedRange];
-    [self applyFontSizeAttribute:attributes toAttributedString:attributedString inRange:selectedRange];
-    
-    self.textView.attributedText = attributedString;
-    [self adjustTextViewFrameAndContainerFrame];
-}
-
-- (void) applyFontNameAttribute:(NSDictionary *) attributes
-             toAttributedString:(NSMutableAttributedString *) attributedString
-                        inRange:(NSRange) selectedRange
-{
-    NSString *fontName = [attributes objectForKey:[GenericContainerViewHelper fontKey]];
-    if (fontName) {
+    UIFont *font = [attributes objectForKey:[GenericContainerViewHelper fontKey]];
+    if (font) {
         [attributedString enumerateAttribute:NSFontAttributeName inRange:selectedRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
-            UIFont *oldFont = (UIFont *) value;
-            UIFont *newFont = [UIFont fontWithName:fontName size:oldFont.pointSize];
-            [attributedString addAttribute:NSFontAttributeName value:newFont range:range];
+            [attributedString addAttribute:NSFontAttributeName value:font range:range];
         }];
+        self.textView.attributedText = attributedString;
+        [self.textView select:self];
+        self.textView.selectedRange = selectedRange;
+        [self adjustTextViewFrameAndContainerFrame];
     }
 }
-
-- (void) applyFontSizeAttribute:(NSDictionary *) attributes
-            toAttributedString:(NSMutableAttributedString *) attributedString
-                       inRange:(NSRange) selectedRange
-{
-    NSNumber *fontSize = [attributes objectForKey:[GenericContainerViewHelper fontSizeKey]];
-    if (fontSize) {
-        [attributedString enumerateAttribute:NSFontAttributeName inRange:selectedRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
-            UIFont *oldFont = (UIFont *) value;
-            UIFont *newFont = [UIFont fontWithName:oldFont.fontName size:[fontSize doubleValue]];
-            [attributedString addAttribute:NSFontAttributeName value:newFont range:range];
-        }];
-    }
-}
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

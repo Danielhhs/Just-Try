@@ -12,10 +12,7 @@
 #define ANGELS_PER_PI 180
 
 @interface GenericContainerViewHelper : NSObject
-+ (NSString *) boldKey;
-+ (NSString *) italicKey;
 + (NSString *) fontKey;
-+ (NSString *) fontSizeKey;
 + (NSString *) alignmentKey;
 + (NSString *) rotationKey;
 + (NSString *) reflectionKey;
@@ -24,4 +21,7 @@
 + (NSString *) reflectionSizeKey;
 + (NSString *) shadowAlphaKey;
 + (NSString *) shadowSizeKey;
++ (NSString *) imageNameKey;
++ (NSDictionary *) defaultTextAttributes;
++ (NSDictionary *) defaultImageAttributes;
 @end

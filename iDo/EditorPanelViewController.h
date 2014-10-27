@@ -25,7 +25,7 @@
 
 @property (nonatomic, weak) id<EditorPanelViewControllerDelegate> delegate;
 
-- (void) applyAttribute:(NSDictionary *) attributes;
+- (void) applyAttributes:(NSDictionary *) attributes;
 - (void) restore;
 
 - (void) hideTooltip;

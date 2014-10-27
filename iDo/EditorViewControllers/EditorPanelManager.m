@@ -86,7 +86,7 @@ static EditorPanelManager *sharedInstance;
 
 - (void) makeCurrentEditorApplyChanges:(NSDictionary *)attributes
 {
-    [self.currentEditor applyAttribute:attributes];
+    [self.currentEditor applyAttributes:attributes];
 }
 
 #pragma mark - Presenting Editor Panels
@@ -94,24 +94,26 @@ static EditorPanelManager *sharedInstance;
                           forContentView:(GenericContainerView *)contentView
 {
     if ([contentView isKindOfClass:[ImageContainerView class]]) {
-        [self showImageEditorInViewController:viewController imageInformation:nil];
+        [self showImageEditorInViewController:viewController attributes:[contentView attributesForContent]];
     } else if ([contentView isKindOfClass:[TextContainerView class]]) {
-        [self showTextEditorInViewController:viewController imageInformation:nil];
+        [self showTextEditorInViewController:viewController attributes:[contentView attributesForContent]];
     }
 }
 
 - (void) showImageEditorInViewController:(ViewController *)viewController
-                        imageInformation:(ImageItem *)imageItem
+                              attributes:(NSDictionary *)attributes
 {
     self.currentEditor = self.imageEditor;
+    [self.imageEditor applyAttributes:attributes];
     self.imageEditor.delegate = viewController;
     [self showCurrentEditorInViewController:viewController];
 }
 
 - (void) showTextEditorInViewController:(ViewController *)viewController
-                       imageInformation:(ContentItem *)textItem
+                             attributes:(NSDictionary *)attributes
 {
     self.currentEditor = self.textEditor;
+    [self.textEditor applyAttributes:attributes];
     self.textEditor.delegate = viewController;
     [self showCurrentEditorInViewController:viewController];
 }
