@@ -20,10 +20,20 @@
 @property (nonatomic) CGRect originalContentFrame;  //DELETE when add model support
 @property (nonatomic) CGFloat shadowRatio;          //DELETE when add model support
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
-@property (nonatomic, strong) NSDictionary *attributes;
+@property (nonatomic, strong) NSMutableDictionary *fullAttributes;
 @end
 
 @implementation GenericContainerView
+
+#pragma mark - Set Up
+- (instancetype) initWithAttributes:(NSDictionary *)attributes
+{
+    self = [self initWithFrame:CGRectZero];
+    if (self) {
+        self.fullAttributes = [attributes mutableCopy];
+    }
+    return self;
+}
 
 - (void) setFrame:(CGRect)frame
 {
@@ -61,10 +71,14 @@
     return self;
 }
 
+- (NSDictionary *) attributes
+{
+    return [self.fullAttributes copy];
+}
 #pragma mark - Apply Attributes
 - (void) applyAttributes:(NSDictionary *)attributes
 {
-    self.attributes = attributes;
+    [GenericContainerViewHelper mergeChangedAttributes:attributes withFullAttributes:self.fullAttributes];
     NSNumber *rotation = attributes[[GenericContainerViewHelper rotationKey]];
     if (rotation) {
         self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, [rotation floatValue] / ANGELS_PER_PI * M_PI);
@@ -72,6 +86,10 @@
     NSNumber *reflection = attributes[[GenericContainerViewHelper reflectionKey]];
     if (reflection) {
         self.reflection.hidden = ![reflection boolValue];
+        if (self.reflection.hidden == NO) {
+            CGFloat reflectionHeight = [self.fullAttributes[[GenericContainerViewHelper reflectionSizeKey]] floatValue];
+            [self.reflection updateReflectionWithWithReflectionHeight:reflectionHeight];
+        }
     }
     NSNumber *reflectionAlpha = attributes[[GenericContainerViewHelper reflectionAlphaKey]];
     if (reflectionAlpha) {
@@ -94,11 +112,6 @@
         self.shadowRatio = [shadowSize doubleValue];
         self.layer.shadowPath = [self shadowPathWithShadowDepthRatio:[shadowSize doubleValue]].CGPath;
     }
-}
-
-- (NSDictionary *) attributesForContent
-{
-    return self.attributes;
 }
 
 #pragma mark - User Interations
@@ -249,9 +262,22 @@
     [self addSubview:self.reflection];
 }
 
+- (void) updateReflectionView
+{
+    [self.reflection updateFrame];
+}
+
 - (UIImage *) contentSnapshot
 {
     return nil;
+}
+
+- (CGSize) minSize
+{
+    CGSize minSize;
+    minSize.height = TOP_STICK_HEIGHT + 2 * CONTROL_POINT_SIZE_HALF + MIN_CONTENT_HEIGHT;
+    minSize.width = CONTROL_POINT_SIZE_HALF * 2 + MIN_CONTENT_WIDTH;
+    return minSize;
 }
 
 @end

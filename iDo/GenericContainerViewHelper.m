@@ -12,8 +12,7 @@
 
 #define DEFAULT_IMAGE_CONTENT_EDGE_SIZE 200
 #define DEFAULT_IMAGE_NAME @"background.jpg"
-#define GOLDEN_RATIO 0.618
-#define COUNTER_GOLDEN_RATIO 0.372
+#define PLACE_HOLDER_STRING @"Any Thing You Want to Say"
 
 @implementation GenericContainerViewHelper
 
@@ -21,7 +20,6 @@
 {
     return @"FONT";
 }
-
 
 + (NSString *) alignmentKey
 {
@@ -68,6 +66,11 @@
     return @"IMAGE_NAME";
 }
 
++ (NSString *) attibutedStringKey
+{
+    return @"ATTRIBUTED_STRING";
+}
+
 + (NSMutableDictionary *) defaultContentAttributes
 {
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
@@ -92,6 +95,20 @@
     NSMutableDictionary *attributes = [GenericContainerViewHelper defaultContentAttributes];
     [attributes setObject:[TextFontHelper defaultFont] forKey:[GenericContainerViewHelper fontKey]];
     [attributes setObject:@(TextAlignmentLeft) forKey:[GenericContainerViewHelper alignmentKey]];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:PLACE_HOLDER_STRING
+                                                                           attributes:@{NSFontAttributeName : [TextFontHelper defaultFont],
+                                                                                        NSParagraphStyleAttributeName : paragraphStyle}];
+    [attributes setObject:attributedString forKey:[GenericContainerViewHelper attibutedStringKey]];
     return [attributes copy];
+}
+
++ (void) mergeChangedAttributes:(NSDictionary *) changedAttributes
+             withFullAttributes:(NSMutableDictionary *) fullAttributes
+{
+    for (NSString *key in [changedAttributes allKeys]) {
+        [fullAttributes setValue:changedAttributes[key] forKey:key];
+    }
 }
 @end

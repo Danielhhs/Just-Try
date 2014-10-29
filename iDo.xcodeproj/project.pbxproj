@@ -21,6 +21,8 @@
 		546457FC19F4B7D200078EAF /* EditorPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 546457FA19F4B7D200078EAF /* EditorPanelViewController.xib */; };
 		5464580019F4D89900078EAF /* TextEditorPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457FE19F4D89900078EAF /* TextEditorPanelViewController.m */; };
 		5464580119F4D89900078EAF /* TextEditorPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 546457FF19F4D89900078EAF /* TextEditorPanelViewController.xib */; };
+		546F5CC919FFAFE600C30CBB /* TextDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 546F5CC819FFAFE600C30CBB /* TextDisplayView.m */; };
+		546F5CCC1A00904D00C30CBB /* CoreTextHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 546F5CCB1A00904D00C30CBB /* CoreTextHelper.m */; };
 		54CB19D819EE37BE0044BBDD /* ImageContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CB19D719EE37BE0044BBDD /* ImageContainerView.m */; };
 		54CB19DA19EE3BD40044BBDD /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 54CB19D919EE3BD40044BBDD /* background.jpg */; };
 		54CB19DD19EE3D0A0044BBDD /* TextContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CB19DC19EE3D0A0044BBDD /* TextContainerView.m */; };
@@ -77,6 +79,10 @@
 		546457FD19F4D89900078EAF /* TextEditorPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEditorPanelViewController.h; sourceTree = "<group>"; };
 		546457FE19F4D89900078EAF /* TextEditorPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextEditorPanelViewController.m; sourceTree = "<group>"; };
 		546457FF19F4D89900078EAF /* TextEditorPanelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextEditorPanelViewController.xib; sourceTree = "<group>"; };
+		546F5CC719FFAFE600C30CBB /* TextDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDisplayView.h; sourceTree = "<group>"; };
+		546F5CC819FFAFE600C30CBB /* TextDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextDisplayView.m; sourceTree = "<group>"; };
+		546F5CCA1A00904D00C30CBB /* CoreTextHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreTextHelper.h; path = ContentViews/CoreTextHelper.h; sourceTree = "<group>"; };
+		546F5CCB1A00904D00C30CBB /* CoreTextHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreTextHelper.m; path = ContentViews/CoreTextHelper.m; sourceTree = "<group>"; };
 		54CB19D619EE37BE0044BBDD /* ImageContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageContainerView.h; sourceTree = "<group>"; };
 		54CB19D719EE37BE0044BBDD /* ImageContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageContainerView.m; sourceTree = "<group>"; };
 		54CB19D919EE3BD40044BBDD /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
@@ -308,6 +314,10 @@
 				54E96F6919F8E53400C5F007 /* ReflectionView.m */,
 				54E8B9DA19FA4AA100AD324D /* ShadowView.h */,
 				54E8B9DB19FA4AA100AD324D /* ShadowView.m */,
+				546F5CC719FFAFE600C30CBB /* TextDisplayView.h */,
+				546F5CC819FFAFE600C30CBB /* TextDisplayView.m */,
+				546F5CCA1A00904D00C30CBB /* CoreTextHelper.h */,
+				546F5CCB1A00904D00C30CBB /* CoreTextHelper.m */,
 			);
 			name = "Supplementary Views";
 			sourceTree = "<group>";
@@ -423,6 +433,7 @@
 				546457D519F3614100078EAF /* ControlPointManager.m in Sources */,
 				546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */,
 				546457D119F116B700078EAF /* ImageHelper.m in Sources */,
+				546F5CC919FFAFE600C30CBB /* TextDisplayView.m in Sources */,
 				54E62D0119FDFA8A0083E0F0 /* TextFontHelper.m in Sources */,
 				546457C719F10D8100078EAF /* EditorPanelManager.m in Sources */,
 				546457CD19F10F3400078EAF /* ImageItem.m in Sources */,
@@ -438,6 +449,7 @@
 				546457FB19F4B7D200078EAF /* EditorPanelViewController.m in Sources */,
 				54D7294719ECE9B5009A0279 /* AppDelegate.m in Sources */,
 				54D7294419ECE9B5009A0279 /* main.m in Sources */,
+				546F5CCC1A00904D00C30CBB /* CoreTextHelper.m in Sources */,
 				54E8B9CB19FA271200AD324D /* SliderWithTooltip.m in Sources */,
 				546457BD19F1074900078EAF /* ImageEditorPanelViewController.m in Sources */,
 			);

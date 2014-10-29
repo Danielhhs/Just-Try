@@ -7,6 +7,7 @@
 //
 
 #import "ControlPointManager.h"
+#import "GenericContainerView.h"
 
 @interface ControlPointManager ()<BorderControlPointViewDelegate>
 @property (nonatomic, strong) UIView *container;
@@ -286,19 +287,10 @@ static ControlPointManager *sharedInstance;
     return result;
 }
 
-- (CGFloat) minHeight
-{
-    return TOP_STICK_HEIGHT + 2 * CONTROL_POINT_SIZE_HALF + MIN_CONTENT_HEIGHT;
-}
-
-- (CGFloat) minWidth
-{
-    return CONTROL_POINT_SIZE_HALF * 2 + MIN_CONTENT_WIDTH;
-}
-
 - (BOOL) shouldChangeFrame:(CGRect) frame
 {
-    if (frame.size.width < [self minWidth] || frame.size.height < [self minHeight]) {
+    GenericContainerView *container = (GenericContainerView *) self.container;
+    if (frame.size.width < [container minSize].width || frame.size.height < [container minSize].height) {
         return  NO;
     }
     return YES;

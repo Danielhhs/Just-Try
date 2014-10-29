@@ -28,6 +28,7 @@
 
 @implementation EditorPanelViewController
 
+#pragma mark - Memory Management
 - (void) awakeFromNib
 {
     [super awakeFromNib];
@@ -50,6 +51,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - User Interaction 
 - (IBAction)handleTap:(id)sender {
 }
 

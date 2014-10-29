@@ -30,15 +30,7 @@
 @property (nonatomic, strong) NSArray *displayingFontNames;
 @property (nonatomic, strong) NSArray *fullFontNames;
 @property (nonatomic, strong) NSArray *fontSizes;
-
-@property (nonatomic) BOOL bold;
-@property (nonatomic) BOOL italic;
-@property (nonatomic, strong) NSString *familyName;
-@property (nonatomic, strong) NSString *fontName;
-@property (nonatomic) NSUInteger size;
 @property (nonatomic) TextAlignment alignment;
-@property (weak, nonatomic) IBOutlet UIButton *boldButton;
-@property (weak, nonatomic) IBOutlet UIButton *italicButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *alignmentSegment;
 
 @end
@@ -219,14 +211,20 @@
     self.view.frame = CGRectOffset(self.view.frame, 0, KEYBOARD_OFFSET);
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - Apply Attributes
+- (void) applyAttributes:(NSDictionary *)attributes
+{
+    [super applyAttributes:attributes];
+    UIFont *font = [attributes objectForKey:[GenericContainerViewHelper fontKey]];
+    if (font) {
+        NSString *familyName = font.familyName;
+        NSInteger index = [self.fontFamilies indexOfObject:familyName];
+        [self.fontPicker selectRow:index inComponent:PICK_VIEW_FONT_FAMILY_NAME_COMPONENT_INDEX animated:NO];
+        
+        CGFloat size = font.pointSize;
+        index = [self.fontSizes indexOfObject:@(size)];
+        [self.fontPicker selectRow:index inComponent:PICK_VIEW_SIZE_COMPONENT_INDEX animated:YES];
+    }
 }
-*/
 
 @end

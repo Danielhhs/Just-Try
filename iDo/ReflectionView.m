@@ -21,14 +21,22 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         _originalView = originalView;
-        _image = [self reflectedImage:originalView withHeight:self.bounds.size.height * 0.5];
+        _height = COUNTER_GOLDEN_RATIO;
+        _image = [self reflectedImage:originalView withHeight:self.bounds.size.height * COUNTER_GOLDEN_RATIO];
     }
     return self;
 }
 
+- (void) updateReflectionWithWithReflectionHeight:(CGFloat) reflectionHeight
+{
+    if (self.hidden == NO) {
+        self.image = [self reflectedImage:self.originalView withHeight:self.bounds.size.height * reflectionHeight];
+    }
+}
+
 - (CGRect) reflectionViewFrameFromOriginalView:(GenericContainerView *) originalView
 {
-    return CGRectOffset([originalView contentViewFrame], 0, [originalView contentViewFrame].size.height + SPACE_BETWEEN_REFLECTION);
+    return CGRectOffset([originalView contentViewFrame], 0, [originalView contentViewFrame].size.height - CONTROL_POINT_RADIUS + SPACE_BETWEEN_REFLECTION);
 }
 
 - (void) setImage:(UIImage *)image
@@ -46,6 +54,7 @@
 - (void) updateFrame
 {
     self.frame = [self reflectionViewFrameFromOriginalView:self.originalView];
+    [self updateReflectionWithWithReflectionHeight:self.height];
 }
 
 - (void) drawRect:(CGRect)rect
@@ -60,7 +69,7 @@ CGImageRef CreateGradientImage(NSInteger pixelsWide, NSInteger pixelsHigh)
     CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceGray();
     
     CGContextRef gradientBitmapContext = CGBitmapContextCreate(NULL, pixelsWide, pixelsHigh,
-                                                               8, 0, colorspace, kCGImageAlphaNone);
+                                                               8, 0, colorspace, kCGBitmapByteOrderDefault);
     
     CGFloat colors[] = {0.0, 1.0, 1.0, 1.0};
     
@@ -89,18 +98,19 @@ CGContextRef CreateBitMapContext(NSInteger pixelsWide, NSInteger pixelsHigh) {
 {
     if (height == 0) return nil;
     
-    CGContextRef mainViewContentContext = CreateBitMapContext(fromImage.bounds.size.width, height);
+    CGContextRef mainViewContentContext = CreateBitMapContext([fromImage contentViewFrame].size.width, height);
     
     CGImageRef gradientImage = CreateGradientImage(1, height);
     
-    CGContextClipToMask(mainViewContentContext, CGRectMake(0, 0, fromImage.bounds.size.width, height), gradientImage);
+    CGContextClipToMask(mainViewContentContext, CGRectMake(0, 0, [fromImage contentViewFrame].size.width, height), gradientImage);
     CGImageRelease(gradientImage);
     
     CGContextTranslateCTM(mainViewContentContext, 0, height);
     CGContextScaleCTM(mainViewContentContext, 1, -1);
-        
-    CGContextDrawImage(mainViewContentContext, fromImage.bounds, [fromImage contentSnapshot].CGImage);
     
+    CGRect drawingBounds = CGRectMake(0, 0, [fromImage contentViewFrame].size.width, [fromImage contentViewFrame].size.height);
+    CGContextDrawImage(mainViewContentContext, drawingBounds, [fromImage contentSnapshot].CGImage);
+        
     CGImageRef reflectionImage = CGBitmapContextCreateImage(mainViewContentContext);
     CGContextRelease(mainViewContentContext);
     

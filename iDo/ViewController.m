@@ -21,11 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    ImageContainerView *view = [[ImageContainerView alloc] initWithImage:[UIImage imageNamed:@"background.jpg"]];
-//    self.view.layer.contents = (__bridge id)[UIImage imageNamed:@"background.jpg"].CGImage;
-    
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnView)]];
-    // Do any additional setup after loading the view, typically from a nib.
 }
 
 #pragma mark - User Interactions
@@ -49,9 +45,7 @@
 }
 
 - (IBAction)addText:(id)sender {
-    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:@"Test Test" attributes:@{}];
-    TextContainerView *view = [[TextContainerView alloc] initWithAttributedString:attrStr];
-    [view applyAttributes:[GenericContainerViewHelper defaultTextAttributes]];
+    TextContainerView *view = [[TextContainerView alloc] initWithAttributes:[GenericContainerViewHelper defaultTextAttributes]];
     view.delegate = self;
     [view startEditing];
     [view becomeFirstResponder];

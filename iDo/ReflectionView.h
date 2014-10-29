@@ -15,6 +15,8 @@
 
 - (void) updateFrame;
 
+- (void) updateReflectionWithWithReflectionHeight:(CGFloat) reflectionHeight;
+
 @property (nonatomic, strong) GenericContainerView *originalView;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic) CGFloat height;

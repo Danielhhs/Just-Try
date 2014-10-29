@@ -31,6 +31,11 @@
 @interface GenericContainerView : UIView
 
 @property (nonatomic, weak) id<ContentContainerViewDelegate> delegate;
+- (NSDictionary *) attributes;
+
+- (instancetype) initWithAttributes:(NSDictionary *) attributes;
+
+- (CGSize) minSize;
 
 - (BOOL) isContentFirstResponder;
 
@@ -46,6 +51,6 @@
 
 - (void) addReflectionView;
 
-- (NSDictionary *) attributesForContent;
+- (void) updateReflectionView;
 
 @end

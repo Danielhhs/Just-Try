@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) NSAttributedString* text;
 
-- (instancetype) initWithAttributedString:(NSAttributedString *) attributedString;
+- (instancetype) initWithAttributes:(NSDictionary *) attributes;
 
 - (void) startEditing;
 

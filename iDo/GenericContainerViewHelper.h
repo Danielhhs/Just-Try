@@ -10,6 +10,8 @@
 
 
 #define ANGELS_PER_PI 180
+#define GOLDEN_RATIO 0.618
+#define COUNTER_GOLDEN_RATIO 0.372
 
 @interface GenericContainerViewHelper : NSObject
 + (NSString *) fontKey;
@@ -22,6 +24,9 @@
 + (NSString *) shadowAlphaKey;
 + (NSString *) shadowSizeKey;
 + (NSString *) imageNameKey;
++ (NSString *) attibutedStringKey;
 + (NSDictionary *) defaultTextAttributes;
 + (NSDictionary *) defaultImageAttributes;
++ (void) mergeChangedAttributes:(NSDictionary *) changedAttributes
+             withFullAttributes:(NSMutableDictionary *) fullAttributes;
 @end

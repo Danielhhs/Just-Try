@@ -7,47 +7,54 @@
 //
 
 #import "TextContainerView.h"
+#import "UIView+Snapshot.h"
+#import "TextDisplayView.h"
+#import "CoreTextHelper.h"
 
 #define DEFAULT_TEXT_CONTAINER_WIDTH 300.f
 #define DEFAULT_TEXT_CONTAINER_HEIGHT 30
-#define TEXT_VIEW_HEADER_PADDING 5.f
 
-@interface TextContainerView ()<UITextViewDelegate>
-@property (nonatomic, strong) UILabel *textLabel;
+@interface TextContainerView ()<UITextViewDelegate, TextDisplayViewDelegate>
 @property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) TextDisplayView *textDisplayView;
 @end
 
 @implementation TextContainerView
 
-- (instancetype) initWithAttributedString:(NSAttributedString *)attributedString
+- (instancetype) initWithAttributes:(NSDictionary *) attributes
 {
-    self = [super initWithFrame:CGRectMake(0, 0, DEFAULT_TEXT_CONTAINER_WIDTH, TOP_STICK_HEIGHT + 2 * CONTROL_POINT_SIZE_HALF + DEFAULT_TEXT_CONTAINER_HEIGHT)];
+    self = [super initWithAttributes:attributes];
     if (self) {
-        [self setupSubViewsWithAttributedString:attributedString];
+        self.frame = CGRectMake(0, 0, DEFAULT_TEXT_CONTAINER_WIDTH, TOP_STICK_HEIGHT + 2 * CONTROL_POINT_SIZE_HALF + DEFAULT_TEXT_CONTAINER_HEIGHT);
+        [self setupSubViewsWithAttributes:attributes];
         [self addSubViews];
     }
     return self;
 }
 
-- (void) setupSubViewsWithAttributedString:(NSAttributedString *) attributedString
+- (void) setupSubViewsWithAttributes:(NSDictionary *) attributes
 {
-    self.textLabel = [[UILabel alloc] initWithFrame:[self contentViewFrame]];
-    self.textLabel.backgroundColor = [UIColor clearColor];
-    self.textLabel.text = attributedString.string;
-    UITapGestureRecognizer *tapToEdit = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToEdit:)];
-    [self.textLabel addGestureRecognizer:tapToEdit];
-    
+    [self setupTextViewWithAttributedString:attributes];
+    self.textDisplayView = [[TextDisplayView alloc] initWithFrame:CGRectZero attributes:attributes correspondintTextView:self.textView delegate:self];
+    [self adjustTextViewFrameAndContainerFrame];
+}
+
+- (void) setupTextViewWithAttributedString:(NSDictionary *) attributes
+{
     self.textView = [[UITextView alloc] initWithFrame:[self contentViewFrame]];
-    self.textView.backgroundColor = [UIColor greenColor];
-    self.textView.attributedText = attributedString;
+    self.textView.backgroundColor = [UIColor clearColor];
+    self.textView.attributedText = attributes[[GenericContainerViewHelper attibutedStringKey]];
     self.textView.scrollEnabled = NO;
     self.textView.delegate = self;
     self.textView.hidden = YES;
+    self.textView.allowsEditingTextAttributes = YES;
+    UITapGestureRecognizer *tapToLocate = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToLocate:)];
+    [self.textView addGestureRecognizer:tapToLocate];
 }
 
 - (void) addSubViews
 {
-    [self addSubview:self.textLabel];
+    [self addSubview:self.textDisplayView];
     [self addSubview:self.textView];
     [super addSubViews];
 }
@@ -55,7 +62,11 @@
 - (void) setFrame:(CGRect)frame
 {
     [super setFrame:frame];
-    self.textLabel.frame = [self contentViewFrame];
+    self.textView.frame = [self contentViewFrame];
+    CGFloat height = [CoreTextHelper heightForAttributedStringInTextView:self.textView];
+    CGRect bounds = CGRectMake(0, 0, frame.size.width, height);
+    [super setFrame:[self frameFromTextViewBounds:bounds]];
+    self.textDisplayView.frame = [self contentViewFrame];
     self.textView.frame = [self contentViewFrame];
 }
 
@@ -69,11 +80,10 @@
 - (BOOL) resignFirstResponder
 {
     BOOL result = [super resignFirstResponder];
-    self.textLabel.userInteractionEnabled = NO;
+    self.textDisplayView.userInteractionEnabled = NO;
     self.textView.hidden = YES;
-    self.textLabel.hidden = NO;
+    self.textDisplayView.hidden = NO;
     [self.textView resignFirstResponder];
-    self.textLabel.attributedText = self.textView.attributedText;
     [self.delegate contentViewDidResignFirstResponder:self];
     return result;
 }
@@ -81,7 +91,7 @@
 - (BOOL) becomeFirstResponder
 {
     BOOL result = [super becomeFirstResponder];
-    self.textLabel.userInteractionEnabled = YES;
+    self.textDisplayView.userInteractionEnabled = YES;
     [self.delegate contentViewDidBecomFirstResponder:self];
     return result;
 }
@@ -91,35 +101,49 @@
     [self startEditing];
 }
 
+- (void) tapToLocate:(UITapGestureRecognizer *) tap
+{
+    NSLayoutManager *layoutManager = [self.textView layoutManager];
+    CGPoint location = [tap locationInView:self.textView];
+    location.x -= self.textView.textContainerInset.left;
+    location.y -= self.textView.textContainerInset.top;
+    
+    NSUInteger characterIndex = [layoutManager characterIndexForPoint:location inTextContainer:self.textView.textContainer fractionOfDistanceBetweenInsertionPoints:NULL];
+    if (characterIndex < [self.textView.textStorage length]) {
+        self.textView.selectedRange = NSMakeRange(characterIndex + 1, 0);
+    }
+    NSRange range;
+    if (characterIndex == 0) {
+        range = NSMakeRange(characterIndex, 1);
+    } else {
+        range = NSMakeRange(characterIndex - 1, 1);
+    }
+    if (characterIndex > 0) {
+        characterIndex = characterIndex - 1;
+    }
+    UIFont *font = [[self.textView.attributedText attributesAtIndex:characterIndex - 1 effectiveRange:&range] objectForKey:NSFontAttributeName];
+    [self.delegate contentView:self didChangeAttributes:@{[GenericContainerViewHelper fontKey] : font}];
+}
+
 - (void) startEditing
 {
-    self.textLabel.hidden = YES;
+    self.textDisplayView.hidden = YES;
     self.textView.hidden = NO;
     [self.textView becomeFirstResponder];
 }
 
 #pragma mark - UITextViewDelegate
--(BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range
- replacementText:(NSString *)text
+-(void) textViewDidChange:(UITextView *)textView
 {
     [self adjustTextViewFrameAndContainerFrame];
-    return YES;
+    [self updateReflectionView];
 }
 
 - (void) adjustTextViewFrameAndContainerFrame
 {
-    CGFloat height = [self heightForAttributedString:self.textView.attributedText maxWidth:self.textView.bounds.size.width];
+    CGFloat height = [CoreTextHelper heightForAttributedStringInTextView:self.textView];
     self.textView.bounds = CGRectMake(0, 0, self.textView.bounds.size.width, height);
     self.frame = [self frameFromTextViewBounds:[self.textView bounds]];
-}
-
-
-- (CGFloat) heightForAttributedString:(NSAttributedString *)attrString maxWidth:(CGFloat) maxWidth
-{
-    NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
-    CGSize size = [attrString boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX) options:options context:nil].size;
-    CGFloat height = ceilf(size.height) + 2 * TEXT_VIEW_HEADER_PADDING;
-    return height;
 }
 
 - (CGRect) frameFromTextViewBounds:(CGRect) textViewBounds
@@ -154,6 +178,30 @@
         self.textView.selectedRange = selectedRange;
         [self adjustTextViewFrameAndContainerFrame];
     }
+}
+
+#pragma mark - Override Super Class Methods
+- (CGSize) minSize
+{
+    CGSize minSize = [super minSize];
+    CGFloat height = [CoreTextHelper heightForAttributedStringInTextView:self.textView] + TOP_STICK_HEIGHT + CONTROL_POINT_SIZE_HALF * 2;
+    minSize.height = height;
+    return minSize;
+}
+
+- (UIImage *) contentSnapshot
+{
+    if (self.textDisplayView.hidden == NO) {
+        return [self.textDisplayView snapshot];
+    } else {
+        return [self.textView snapshot];
+    }
+}
+
+#pragma mark - TextDisplayViewDelegate
+- (void) handleTapOnTextDisplayView:(TextDisplayView *)textDisplayView
+{
+    [self startEditing];
 }
 
 @end
