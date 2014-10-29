@@ -23,6 +23,7 @@
 		5464580119F4D89900078EAF /* TextEditorPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 546457FF19F4D89900078EAF /* TextEditorPanelViewController.xib */; };
 		546F5CC919FFAFE600C30CBB /* TextDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 546F5CC819FFAFE600C30CBB /* TextDisplayView.m */; };
 		546F5CCC1A00904D00C30CBB /* CoreTextHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 546F5CCB1A00904D00C30CBB /* CoreTextHelper.m */; };
+		54965B061A00E50F005AF774 /* ShadowHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B051A00E50F005AF774 /* ShadowHelper.m */; };
 		54CB19D819EE37BE0044BBDD /* ImageContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CB19D719EE37BE0044BBDD /* ImageContainerView.m */; };
 		54CB19DA19EE3BD40044BBDD /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 54CB19D919EE3BD40044BBDD /* background.jpg */; };
 		54CB19DD19EE3D0A0044BBDD /* TextContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CB19DC19EE3D0A0044BBDD /* TextContainerView.m */; };
@@ -38,7 +39,6 @@
 		54D7297319ED0FF0009A0279 /* BorderControlPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7297219ED0FF0009A0279 /* BorderControlPointView.m */; };
 		54E62D0119FDFA8A0083E0F0 /* TextFontHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E62D0019FDFA8A0083E0F0 /* TextFontHelper.m */; };
 		54E8B9CB19FA271200AD324D /* SliderWithTooltip.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E8B9CA19FA271200AD324D /* SliderWithTooltip.m */; };
-		54E8B9DC19FA4AA100AD324D /* ShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E8B9DB19FA4AA100AD324D /* ShadowView.m */; };
 		54E96F6719F8CB6A00C5F007 /* EditorButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E96F6619F8CB6A00C5F007 /* EditorButtonView.m */; };
 		54E96F6A19F8E53400C5F007 /* ReflectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E96F6919F8E53400C5F007 /* ReflectionView.m */; };
 		54E96F8819F91FA000C5F007 /* TooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E96F8719F91FA000C5F007 /* TooltipView.m */; };
@@ -83,6 +83,8 @@
 		546F5CC819FFAFE600C30CBB /* TextDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextDisplayView.m; sourceTree = "<group>"; };
 		546F5CCA1A00904D00C30CBB /* CoreTextHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreTextHelper.h; path = ContentViews/CoreTextHelper.h; sourceTree = "<group>"; };
 		546F5CCB1A00904D00C30CBB /* CoreTextHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreTextHelper.m; path = ContentViews/CoreTextHelper.m; sourceTree = "<group>"; };
+		54965B041A00E50F005AF774 /* ShadowHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowHelper.h; sourceTree = "<group>"; };
+		54965B051A00E50F005AF774 /* ShadowHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowHelper.m; sourceTree = "<group>"; };
 		54CB19D619EE37BE0044BBDD /* ImageContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageContainerView.h; sourceTree = "<group>"; };
 		54CB19D719EE37BE0044BBDD /* ImageContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageContainerView.m; sourceTree = "<group>"; };
 		54CB19D919EE3BD40044BBDD /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
@@ -111,8 +113,6 @@
 		54E62D0019FDFA8A0083E0F0 /* TextFontHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextFontHelper.m; path = EditorViewControllers/Helpers/TextFontHelper.m; sourceTree = "<group>"; };
 		54E8B9C919FA271200AD324D /* SliderWithTooltip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SliderWithTooltip.h; path = EditorViewControllers/SliderWithTooltip.h; sourceTree = "<group>"; };
 		54E8B9CA19FA271200AD324D /* SliderWithTooltip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SliderWithTooltip.m; path = EditorViewControllers/SliderWithTooltip.m; sourceTree = "<group>"; };
-		54E8B9DA19FA4AA100AD324D /* ShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowView.h; sourceTree = "<group>"; };
-		54E8B9DB19FA4AA100AD324D /* ShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowView.m; sourceTree = "<group>"; };
 		54E96F6519F8CB6A00C5F007 /* EditorButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditorButtonView.h; path = EditorViewControllers/EditorButtonView.h; sourceTree = "<group>"; };
 		54E96F6619F8CB6A00C5F007 /* EditorButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditorButtonView.m; path = EditorViewControllers/EditorButtonView.m; sourceTree = "<group>"; };
 		54E96F6819F8E53400C5F007 /* ReflectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReflectionView.h; sourceTree = "<group>"; };
@@ -312,12 +312,12 @@
 			children = (
 				54E96F6819F8E53400C5F007 /* ReflectionView.h */,
 				54E96F6919F8E53400C5F007 /* ReflectionView.m */,
-				54E8B9DA19FA4AA100AD324D /* ShadowView.h */,
-				54E8B9DB19FA4AA100AD324D /* ShadowView.m */,
 				546F5CC719FFAFE600C30CBB /* TextDisplayView.h */,
 				546F5CC819FFAFE600C30CBB /* TextDisplayView.m */,
 				546F5CCA1A00904D00C30CBB /* CoreTextHelper.h */,
 				546F5CCB1A00904D00C30CBB /* CoreTextHelper.m */,
+				54965B041A00E50F005AF774 /* ShadowHelper.h */,
+				54965B051A00E50F005AF774 /* ShadowHelper.m */,
 			);
 			name = "Supplementary Views";
 			sourceTree = "<group>";
@@ -445,11 +445,11 @@
 				54D7296D19ECEAB9009A0279 /* GenericContainerView.m in Sources */,
 				5464580019F4D89900078EAF /* TextEditorPanelViewController.m in Sources */,
 				54D7294A19ECE9B5009A0279 /* ViewController.m in Sources */,
-				54E8B9DC19FA4AA100AD324D /* ShadowView.m in Sources */,
 				546457FB19F4B7D200078EAF /* EditorPanelViewController.m in Sources */,
 				54D7294719ECE9B5009A0279 /* AppDelegate.m in Sources */,
 				54D7294419ECE9B5009A0279 /* main.m in Sources */,
 				546F5CCC1A00904D00C30CBB /* CoreTextHelper.m in Sources */,
+				54965B061A00E50F005AF774 /* ShadowHelper.m in Sources */,
 				54E8B9CB19FA271200AD324D /* SliderWithTooltip.m in Sources */,
 				546457BD19F1074900078EAF /* ImageEditorPanelViewController.m in Sources */,
 			);

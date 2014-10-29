@@ -8,10 +8,7 @@
 
 #import "GenericContainerView.h"
 #import "ReflectionView.h"
-
-#define SHADOW_CURL_FACTOR 0.618
-#define DEFAULT_SHADOW_DEPTH 0.5
-#define MAX_SHADOW_DEPTH_RATIO 0.1
+#import "ShadowHelper.h"
 
 @interface GenericContainerView()
 @property (nonatomic) BOOL showBorder;
@@ -42,6 +39,23 @@
     [[ControlPointManager sharedManager] layoutControlPoints];
     [self.reflection updateFrame];
     [self updateShadow];
+    if (CGAffineTransformIsIdentity(self.transform)) {
+        self.originalContentFrame = [self contentViewFrame];
+    }
+}
+
+- (void) setTransform:(CGAffineTransform)transform
+{
+    BOOL oldTransformStatus = CGAffineTransformIsIdentity(self.transform);
+    BOOL newTransformStatus = CGAffineTransformIsIdentity(transform);
+    [super setTransform:transform];
+    if (oldTransformStatus != newTransformStatus) {
+        if (newTransformStatus) {
+            [self enableEditing];
+        } else {
+            [self disableEditing];
+        }
+    }
 }
 
 - (void) setup
@@ -49,7 +63,7 @@
     self.shadowRatio = DEFAULT_SHADOW_DEPTH;
     self.originalContentFrame = [self contentViewFrame];
     self.backgroundColor = [UIColor clearColor];
-    self.layer.shadowPath = [self shadowPathWithShadowDepthRatio:self.shadowRatio].CGPath;
+    self.layer.shadowPath = [ShadowHelper shadowPathWithShadowDepthRatio:self.shadowRatio originalViewHeight:self.bounds.size.height originalViewContentFrame:self.originalContentFrame].CGPath;
     self.layer.shadowOpacity = 0.7;
     self.layer.shadowColor = [UIColor clearColor].CGColor;
     self.layer.masksToBounds = NO;
@@ -75,6 +89,7 @@
 {
     return [self.fullAttributes copy];
 }
+
 #pragma mark - Apply Attributes
 - (void) applyAttributes:(NSDictionary *)attributes
 {
@@ -110,7 +125,7 @@
     NSNumber *shadowSize = attributes[[GenericContainerViewHelper shadowSizeKey]];
     if (shadowSize) {
         self.shadowRatio = [shadowSize doubleValue];
-        self.layer.shadowPath = [self shadowPathWithShadowDepthRatio:[shadowSize doubleValue]].CGPath;
+        self.layer.shadowPath = [ShadowHelper shadowPathWithShadowDepthRatio:[shadowSize doubleValue] originalViewHeight:self.bounds.size.height originalViewContentFrame:self.originalContentFrame].CGPath;
     }
 }
 
@@ -142,6 +157,7 @@
     self.tap.enabled = NO;
     self.showBorder = YES;
     [[ControlPointManager sharedManager] addAndLayoutControlPointsInView:self];
+    [self updateEditingStatus];
     return [super becomeFirstResponder];
 }
 
@@ -187,24 +203,6 @@
     return self.showBorder ? [UIColor blueColor] : [UIColor clearColor];
 }
 
-- (UIBezierPath *) shadowPathWithShadowDepthRatio:(CGFloat) shadowDepthRatio
-{
-    CGFloat curlFactor = SHADOW_CURL_FACTOR;
-    CGFloat shadowDepth = MAX_SHADOW_DEPTH_RATIO * shadowDepthRatio * self.bounds.size.height;
-    CGRect contentFrame = self.originalContentFrame;
-    CGFloat minX = CGRectGetMinX(contentFrame);
-    CGFloat minY = CGRectGetMaxY(contentFrame);
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    [path moveToPoint:CGPointMake(minX, minY + shadowDepth)];
-    [path addLineToPoint:CGPointMake(minX, minY)];
-    [path addLineToPoint:CGPointMake(minX + contentFrame.size.width, minY)];
-    [path addLineToPoint:CGPointMake(minX + contentFrame.size.width, minY + shadowDepth)];
-    [path addCurveToPoint:CGPointMake(minX, minY + shadowDepth)
-            controlPoint1:CGPointMake(minX + contentFrame.size.width * (1 - curlFactor), minY + shadowDepth * (1 - curlFactor))
-            controlPoint2:CGPointMake(minX + contentFrame.size.width * curlFactor, minY + shadowDepth * (1 - curlFactor))];
-    return path;
-}
-
 - (void) setShowShadow:(BOOL)showShadow
 {
     _showShadow = showShadow;
@@ -217,7 +215,7 @@
 
 - (void) updateShadow
 {
-    self.layer.shadowPath = [self shadowPathWithShadowDepthRatio:self.shadowRatio].CGPath;
+    self.layer.shadowPath = [ShadowHelper shadowPathWithShadowDepthRatio:self.shadowRatio originalViewHeight:self.bounds.size.height originalViewContentFrame:self.originalContentFrame].CGPath;
 }
 
 #pragma mark - Other APIs
@@ -253,6 +251,7 @@
 - (void) restore
 {
     self.transform = CGAffineTransformIdentity;
+    [self enableEditing];
 }
 
 - (void) addReflectionView
@@ -264,7 +263,9 @@
 
 - (void) updateReflectionView
 {
-    [self.reflection updateFrame];
+    if (CGAffineTransformIsIdentity(self.transform)) {
+        [self.reflection updateFrame];
+    }
 }
 
 - (UIImage *) contentSnapshot
@@ -278,6 +279,25 @@
     minSize.height = TOP_STICK_HEIGHT + 2 * CONTROL_POINT_SIZE_HALF + MIN_CONTENT_HEIGHT;
     minSize.width = CONTROL_POINT_SIZE_HALF * 2 + MIN_CONTENT_WIDTH;
     return minSize;
+}
+
+- (void) disableEditing
+{
+    [[ControlPointManager sharedManager] disableControlPoints];
+}
+
+- (void) enableEditing
+{
+    [[ControlPointManager sharedManager] enableControlPoints];
+}
+
+- (void) updateEditingStatus
+{
+    if (CGAffineTransformIsIdentity(self.transform)) {
+        [self enableEditing];
+    } else {
+        [self disableEditing];
+    }
 }
 
 @end

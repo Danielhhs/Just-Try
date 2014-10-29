@@ -53,4 +53,9 @@
 
 - (void) updateReflectionView;
 
+- (void) updateEditingStatus;
+
+- (void) disableEditing;
+- (void) enableEditing;
+
 @end

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "GenericContainerView.h"
 
 #define ANGELS_PER_PI 180
 #define GOLDEN_RATIO 0.618
@@ -29,4 +29,5 @@
 + (NSDictionary *) defaultImageAttributes;
 + (void) mergeChangedAttributes:(NSDictionary *) changedAttributes
              withFullAttributes:(NSMutableDictionary *) fullAttributes;
+
 @end

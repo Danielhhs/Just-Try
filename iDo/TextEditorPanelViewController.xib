@@ -102,6 +102,16 @@
                                     <outlet property="delegate" destination="-1" id="2W6-Gf-6RK"/>
                                 </connections>
                             </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gTU-41-kk5">
+                                <rect key="frame" x="0.0" y="564" width="300" height="30"/>
+                                <state key="normal" title="Restore">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="restore" destination="-1" eventType="touchUpInside" id="glw-8v-mYq"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <blurEffect style="light"/>

@@ -72,6 +72,7 @@
     BOOL result = [super becomeFirstResponder];
     [self.imageContent setUserInteractionEnabled:YES];
     [self.delegate contentViewDidBecomFirstResponder:self];
+    [self updateEditingStatus];
     return result;
 }
 

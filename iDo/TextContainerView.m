@@ -84,6 +84,7 @@
     self.textView.hidden = YES;
     self.textDisplayView.hidden = NO;
     [self.textView resignFirstResponder];
+    [super updateReflectionView];
     [self.delegate contentViewDidResignFirstResponder:self];
     return result;
 }
@@ -91,8 +92,8 @@
 - (BOOL) becomeFirstResponder
 {
     BOOL result = [super becomeFirstResponder];
-    self.textDisplayView.userInteractionEnabled = YES;
     [self.delegate contentViewDidBecomFirstResponder:self];
+    [self updateEditingStatus];
     return result;
 }
 
@@ -196,6 +197,18 @@
     } else {
         return [self.textView snapshot];
     }
+}
+
+- (void) disableEditing
+{
+    [super disableEditing];
+    self.textDisplayView.userInteractionEnabled = NO;
+}
+
+- (void) enableEditing
+{
+    [super enableEditing];
+    self.textDisplayView.userInteractionEnabled = YES;
 }
 
 #pragma mark - TextDisplayViewDelegate

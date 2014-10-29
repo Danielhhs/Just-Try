@@ -265,6 +265,30 @@ static ControlPointManager *sharedInstance;
     [self.container addSubview:self.translationControlPoint];
 }
 
+- (void) disableControlPoints
+{
+    self.topLeftControlPoint.userInteractionEnabled = NO;
+    self.topMiddleControlPoint.userInteractionEnabled = NO;
+    self.topRightControlPoint.userInteractionEnabled = NO;
+    self.middleLeftControlPoint.userInteractionEnabled = NO;
+    self.middleRightControlPoint.userInteractionEnabled = NO;
+    self.bottomLeftControlPoint.userInteractionEnabled = NO;
+    self.bottomRightControlPoint.userInteractionEnabled = NO;
+    self.bottomMiddleControlPoint.userInteractionEnabled = NO;
+}
+
+- (void) enableControlPoints
+{
+    self.topLeftControlPoint.userInteractionEnabled = YES;
+    self.topMiddleControlPoint.userInteractionEnabled = YES;
+    self.topRightControlPoint.userInteractionEnabled = YES;
+    self.middleLeftControlPoint.userInteractionEnabled = YES;
+    self.middleRightControlPoint.userInteractionEnabled = YES;
+    self.bottomLeftControlPoint.userInteractionEnabled = YES;
+    self.bottomRightControlPoint.userInteractionEnabled = YES;
+    self.bottomMiddleControlPoint.userInteractionEnabled = YES;
+}
+
 - (void) layoutControlPoints
 {
     self.translationControlPoint.center = CGPointMake([self centerXForMiddleControlPoints], CONTROL_POINT_SIZE_HALF);

@@ -60,9 +60,9 @@
     [self.delegate editorPanelViewController:self didChangeAttributes:@{[GenericContainerViewHelper rotationKey] : @(sender.value)}];
 }
 
-- (void)restore {
+- (IBAction)restore {
     self.rotationSlider.value = 0;
-    [self.delegate restoreFromEditorPanelViewController:self];
+    [self.delegate editorPanelViewController:self didChangeAttributes:@{[GenericContainerViewHelper rotationKey] : @(0)}];
 }
 
 - (void) applyAttributes:(NSDictionary *)attributes

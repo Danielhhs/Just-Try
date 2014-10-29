@@ -9,6 +9,7 @@
 #import "GenericContainerViewHelper.h"
 #import <UIKit/UIKit.h>
 #import "TextFontHelper.h"
+#import "ShadowHelper.h"
 
 #define DEFAULT_IMAGE_CONTENT_EDGE_SIZE 200
 #define DEFAULT_IMAGE_NAME @"background.jpg"
