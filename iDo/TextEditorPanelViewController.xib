@@ -14,6 +14,7 @@
                 <outlet property="glassianView" destination="uXl-sm-pp8" id="p4m-Qp-Duw"/>
                 <outlet property="rotationSlider" destination="bK9-Hi-gyy" id="4lv-Yh-gRh"/>
                 <outlet property="sizeSlider" destination="thR-pv-Qht" id="y6K-q9-J0D"/>
+                <outlet property="tooltipView" destination="Xvp-RS-dyn" id="F9s-Jd-C7X"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -116,6 +117,10 @@
                     </view>
                     <blurEffect style="light"/>
                 </visualEffectView>
+                <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xvp-RS-dyn" customClass="TooltipView">
+                    <rect key="frame" x="10" y="9" width="60" height="40"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>
