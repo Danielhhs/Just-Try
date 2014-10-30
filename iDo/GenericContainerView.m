@@ -25,7 +25,8 @@
 #pragma mark - Set Up
 - (instancetype) initWithAttributes:(NSDictionary *)attributes
 {
-    self = [self initWithFrame:CGRectZero];
+    CGRect frameValue = [attributes[[GenericContainerViewHelper frameKey]] CGRectValue];
+    self = [self initWithFrame:frameValue];
     if (self) {
         self.fullAttributes = [attributes mutableCopy];
     }
@@ -38,10 +39,10 @@
     [self setNeedsDisplay];
     [[ControlPointManager sharedManager] layoutControlPoints];
     [self.reflection updateFrame];
-    [self updateShadow];
     if (CGAffineTransformIsIdentity(self.transform)) {
         self.originalContentFrame = [self contentViewFrame];
     }
+    [self updateShadow];
 }
 
 - (void) setTransform:(CGAffineTransform)transform
@@ -50,11 +51,7 @@
     BOOL newTransformStatus = CGAffineTransformIsIdentity(transform);
     [super setTransform:transform];
     if (oldTransformStatus != newTransformStatus) {
-        if (newTransformStatus) {
-            [self enableEditing];
-        } else {
-            [self disableEditing];
-        }
+        [self updateEditingStatus];
     }
 }
 
@@ -189,10 +186,6 @@
 - (void)drawRect:(CGRect)rect {
     UIBezierPath *borderPath = [UIBezierPath bezierPathWithRect:[[ControlPointManager sharedManager] borderRectFromContainerViewBounds:rect]];
     
-    CGFloat middlePoint = CGRectGetMidX(rect);
-    [borderPath moveToPoint:CGPointMake(middlePoint, CONTROL_POINT_SIZE_HALF)];
-    [borderPath addLineToPoint:CGPointMake(middlePoint, CONTROL_POINT_SIZE_HALF + TOP_STICK_HEIGHT)];
-    
     borderPath.lineWidth = 2.f;
     [[self borderStrokeColor] setStroke];
     [borderPath stroke];
@@ -222,10 +215,7 @@
 - (CGRect) contentViewFrame
 {
     CGRect contentFrame;
-    contentFrame.origin.x = CONTROL_POINT_SIZE_HALF;
-    contentFrame.origin.y = CONTROL_POINT_SIZE_HALF + TOP_STICK_HEIGHT;
-    contentFrame.size.width = self.frame.size.width - 2 * CONTROL_POINT_SIZE_HALF;
-    contentFrame.size.height = self.frame.size.height - 2 * CONTROL_POINT_SIZE_HALF - TOP_STICK_HEIGHT;
+    contentFrame = CGRectInset(self.bounds, CONTROL_POINT_SIZE_HALF, CONTROL_POINT_SIZE_HALF);
     return contentFrame;
 }
 
@@ -251,7 +241,7 @@
 - (void) restore
 {
     self.transform = CGAffineTransformIdentity;
-    [self enableEditing];
+    [self updateEditingStatus];
 }
 
 - (void) addReflectionView
@@ -276,27 +266,17 @@
 - (CGSize) minSize
 {
     CGSize minSize;
-    minSize.height = TOP_STICK_HEIGHT + 2 * CONTROL_POINT_SIZE_HALF + MIN_CONTENT_HEIGHT;
+    minSize.height = 2 * CONTROL_POINT_SIZE_HALF + MIN_CONTENT_HEIGHT;
     minSize.width = CONTROL_POINT_SIZE_HALF * 2 + MIN_CONTENT_WIDTH;
     return minSize;
-}
-
-- (void) disableEditing
-{
-    [[ControlPointManager sharedManager] disableControlPoints];
-}
-
-- (void) enableEditing
-{
-    [[ControlPointManager sharedManager] enableControlPoints];
 }
 
 - (void) updateEditingStatus
 {
     if (CGAffineTransformIsIdentity(self.transform)) {
-        [self enableEditing];
+        [[ControlPointManager sharedManager] enableControlPoints];
     } else {
-        [self disableEditing];
+        [[ControlPointManager sharedManager] disableControlPoints];
     }
 }
 

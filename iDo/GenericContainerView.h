@@ -55,7 +55,4 @@
 
 - (void) updateEditingStatus;
 
-- (void) disableEditing;
-- (void) enableEditing;
-
 @end

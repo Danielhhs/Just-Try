@@ -12,6 +12,9 @@
 #import "ShadowHelper.h"
 
 #define DEFAULT_IMAGE_CONTENT_EDGE_SIZE 200
+
+#define DEFAULT_TEXT_CONTAINER_WIDTH 300.f
+#define DEFAULT_TEXT_CONTAINER_HEIGHT 30
 #define DEFAULT_IMAGE_NAME @"background.jpg"
 #define PLACE_HOLDER_STRING @"Any Thing You Want to Say"
 
@@ -72,6 +75,11 @@
     return @"ATTRIBUTED_STRING";
 }
 
++ (NSString *) frameKey
+{
+    return @"FRAME";
+}
+
 + (NSMutableDictionary *) defaultContentAttributes
 {
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
@@ -102,6 +110,8 @@
                                                                            attributes:@{NSFontAttributeName : [TextFontHelper defaultFont],
                                                                                         NSParagraphStyleAttributeName : paragraphStyle}];
     [attributes setObject:attributedString forKey:[GenericContainerViewHelper attibutedStringKey]];
+    NSValue *frameValue = [NSValue valueWithCGRect:CGRectMake(0, 0, DEFAULT_TEXT_CONTAINER_WIDTH, 2 * CONTROL_POINT_SIZE_HALF + DEFAULT_TEXT_CONTAINER_HEIGHT)];
+    [attributes setObject:frameValue forKey:[GenericContainerViewHelper frameKey]];
     return [attributes copy];
 }
 

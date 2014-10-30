@@ -11,7 +11,6 @@
 
 @interface ControlPointManager ()<BorderControlPointViewDelegate>
 @property (nonatomic, strong) UIView *container;
-@property (nonatomic, strong) BorderControlPointView *translationControlPoint;
 @property (nonatomic, strong) BorderControlPointView *topLeftControlPoint;
 @property (nonatomic, strong) BorderControlPointView *topMiddleControlPoint;
 @property (nonatomic, strong) BorderControlPointView *topRightControlPoint;
@@ -37,7 +36,6 @@ static ControlPointManager *sharedInstance;
 {
     self = [super init];
     if (self) {
-        _translationControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationTranslation delegate:self];
         _topLeftControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationTopLeft delegate:self];
         _topMiddleControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationTopMiddle delegate:self];
         _topRightControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationTopRight delegate:self];
@@ -72,7 +70,6 @@ static ControlPointManager *sharedInstance;
 - (void) removeAllControlPointsFromView:(UIView *)view
 {
     if (self.container == view) {
-        [self.translationControlPoint removeFromSuperview];
         [self.topLeftControlPoint removeFromSuperview];
         [self.topMiddleControlPoint removeFromSuperview];
         [self.topRightControlPoint removeFromSuperview];
@@ -123,9 +120,6 @@ static ControlPointManager *sharedInstance;
             break;
         case ControlPointLocationTopRight:
             [self handleTopRightControlPointTranslation:translation];
-            break;
-        case ControlPointLocationTranslation:
-            [self handleTranslationControlPointTranslation:translation];
             break;
             
         default:
@@ -211,11 +205,6 @@ static ControlPointManager *sharedInstance;
     [self updatePreviousFrameAndSuperViewFrameIfNecessary:frame];
 }
 
-- (void) handleTranslationControlPointTranslation:(CGPoint) translation
-{
-    self.container.frame = CGRectOffset(self.container.frame, translation.x, translation.y);
-}
-
 #pragma mark - Private Helpers
 - (CGFloat) centerXForMiddleControlPoints
 {
@@ -246,9 +235,9 @@ static ControlPointManager *sharedInstance;
 {
     CGRect result;
     result.origin.x = CONTROL_POINT_SIZE_HALF;
-    result.origin.y = TOP_STICK_HEIGHT + CONTROL_POINT_SIZE_HALF;
+    result.origin.y = CONTROL_POINT_SIZE_HALF;
     result.size.width = containerViewBounds.size.width - 2 * CONTROL_POINT_SIZE_HALF;
-    result.size.height = containerViewBounds.size.height - TOP_STICK_HEIGHT - 2 * CONTROL_POINT_SIZE_HALF;
+    result.size.height = containerViewBounds.size.height - 2 * CONTROL_POINT_SIZE_HALF;
     return result;
 }
 
@@ -262,7 +251,6 @@ static ControlPointManager *sharedInstance;
     [self.container addSubview:self.bottomLeftControlPoint];
     [self.container addSubview:self.bottomMiddleControlPoint];
     [self.container addSubview:self.bottomRightControlPoint];
-    [self.container addSubview:self.translationControlPoint];
 }
 
 - (void) disableControlPoints
@@ -291,7 +279,6 @@ static ControlPointManager *sharedInstance;
 
 - (void) layoutControlPoints
 {
-    self.translationControlPoint.center = CGPointMake([self centerXForMiddleControlPoints], CONTROL_POINT_SIZE_HALF);
     self.topLeftControlPoint.center = CGPointMake(CONTROL_POINT_SIZE_HALF, [self centerYForTopControlPoints]);
     self.topMiddleControlPoint.center = CGPointMake([self centerXForMiddleControlPoints], [self centerYForTopControlPoints]);
     self.topRightControlPoint.center = CGPointMake([self centerXForRightControlPoints], [self centerYForTopControlPoints]);

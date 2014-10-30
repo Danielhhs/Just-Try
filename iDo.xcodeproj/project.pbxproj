@@ -24,6 +24,8 @@
 		546F5CC919FFAFE600C30CBB /* TextDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 546F5CC819FFAFE600C30CBB /* TextDisplayView.m */; };
 		546F5CCC1A00904D00C30CBB /* CoreTextHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 546F5CCB1A00904D00C30CBB /* CoreTextHelper.m */; };
 		54965B061A00E50F005AF774 /* ShadowHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B051A00E50F005AF774 /* ShadowHelper.m */; };
+		54965B391A020362005AF774 /* RotationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B381A020362005AF774 /* RotationHelper.m */; };
+		54965B3C1A020424005AF774 /* RotationIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B3B1A020424005AF774 /* RotationIndicatorView.m */; };
 		54CB19D819EE37BE0044BBDD /* ImageContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CB19D719EE37BE0044BBDD /* ImageContainerView.m */; };
 		54CB19DA19EE3BD40044BBDD /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 54CB19D919EE3BD40044BBDD /* background.jpg */; };
 		54CB19DD19EE3D0A0044BBDD /* TextContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CB19DC19EE3D0A0044BBDD /* TextContainerView.m */; };
@@ -85,6 +87,10 @@
 		546F5CCB1A00904D00C30CBB /* CoreTextHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreTextHelper.m; path = ContentViews/CoreTextHelper.m; sourceTree = "<group>"; };
 		54965B041A00E50F005AF774 /* ShadowHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowHelper.h; sourceTree = "<group>"; };
 		54965B051A00E50F005AF774 /* ShadowHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowHelper.m; sourceTree = "<group>"; };
+		54965B371A020362005AF774 /* RotationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationHelper.h; sourceTree = "<group>"; };
+		54965B381A020362005AF774 /* RotationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationHelper.m; sourceTree = "<group>"; };
+		54965B3A1A020424005AF774 /* RotationIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationIndicatorView.h; path = ContentViews/Rotation/RotationIndicatorView.h; sourceTree = "<group>"; };
+		54965B3B1A020424005AF774 /* RotationIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationIndicatorView.m; path = ContentViews/Rotation/RotationIndicatorView.m; sourceTree = "<group>"; };
 		54CB19D619EE37BE0044BBDD /* ImageContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageContainerView.h; sourceTree = "<group>"; };
 		54CB19D719EE37BE0044BBDD /* ImageContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageContainerView.m; sourceTree = "<group>"; };
 		54CB19D919EE3BD40044BBDD /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
@@ -210,6 +216,28 @@
 			name = "Control Points";
 			sourceTree = "<group>";
 		};
+		54965B3D1A020BF0005AF774 /* Rotation */ = {
+			isa = PBXGroup;
+			children = (
+				54965B371A020362005AF774 /* RotationHelper.h */,
+				54965B381A020362005AF774 /* RotationHelper.m */,
+				54965B3A1A020424005AF774 /* RotationIndicatorView.h */,
+				54965B3B1A020424005AF774 /* RotationIndicatorView.m */,
+			);
+			name = Rotation;
+			sourceTree = "<group>";
+		};
+		54965B3E1A020BF9005AF774 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				546F5CC719FFAFE600C30CBB /* TextDisplayView.h */,
+				546F5CC819FFAFE600C30CBB /* TextDisplayView.m */,
+				546F5CCA1A00904D00C30CBB /* CoreTextHelper.h */,
+				546F5CCB1A00904D00C30CBB /* CoreTextHelper.m */,
+			);
+			name = Text;
+			sourceTree = "<group>";
+		};
 		54D7293519ECE9B5009A0279 = {
 			isa = PBXGroup;
 			children = (
@@ -312,12 +340,10 @@
 			children = (
 				54E96F6819F8E53400C5F007 /* ReflectionView.h */,
 				54E96F6919F8E53400C5F007 /* ReflectionView.m */,
-				546F5CC719FFAFE600C30CBB /* TextDisplayView.h */,
-				546F5CC819FFAFE600C30CBB /* TextDisplayView.m */,
-				546F5CCA1A00904D00C30CBB /* CoreTextHelper.h */,
-				546F5CCB1A00904D00C30CBB /* CoreTextHelper.m */,
 				54965B041A00E50F005AF774 /* ShadowHelper.h */,
 				54965B051A00E50F005AF774 /* ShadowHelper.m */,
+				54965B3E1A020BF9005AF774 /* Text */,
+				54965B3D1A020BF0005AF774 /* Rotation */,
 			);
 			name = "Supplementary Views";
 			sourceTree = "<group>";
@@ -448,6 +474,8 @@
 				546457FB19F4B7D200078EAF /* EditorPanelViewController.m in Sources */,
 				54D7294719ECE9B5009A0279 /* AppDelegate.m in Sources */,
 				54D7294419ECE9B5009A0279 /* main.m in Sources */,
+				54965B3C1A020424005AF774 /* RotationIndicatorView.m in Sources */,
+				54965B391A020362005AF774 /* RotationHelper.m in Sources */,
 				546F5CCC1A00904D00C30CBB /* CoreTextHelper.m in Sources */,
 				54965B061A00E50F005AF774 /* ShadowHelper.m in Sources */,
 				54E8B9CB19FA271200AD324D /* SliderWithTooltip.m in Sources */,

@@ -11,9 +11,6 @@
 #import "TextDisplayView.h"
 #import "CoreTextHelper.h"
 
-#define DEFAULT_TEXT_CONTAINER_WIDTH 300.f
-#define DEFAULT_TEXT_CONTAINER_HEIGHT 30
-
 @interface TextContainerView ()<UITextViewDelegate, TextDisplayViewDelegate>
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) TextDisplayView *textDisplayView;
@@ -25,7 +22,6 @@
 {
     self = [super initWithAttributes:attributes];
     if (self) {
-        self.frame = CGRectMake(0, 0, DEFAULT_TEXT_CONTAINER_WIDTH, TOP_STICK_HEIGHT + 2 * CONTROL_POINT_SIZE_HALF + DEFAULT_TEXT_CONTAINER_HEIGHT);
         [self setupSubViewsWithAttributes:attributes];
         [self addSubViews];
     }
@@ -153,7 +149,7 @@
     frame.origin.x = self.frame.origin.x;
     frame.origin.y = self.frame.origin.y;
     frame.size.width = self.frame.size.width;
-    frame.size.height = TOP_STICK_HEIGHT + 2 * CONTROL_POINT_SIZE_HALF + textViewBounds.size.height + 2 * CONTROL_POINT_RADIUS;
+    frame.size.height = 2 * CONTROL_POINT_SIZE_HALF + textViewBounds.size.height + 2 * CONTROL_POINT_RADIUS;
     return frame;
 }
 
@@ -185,7 +181,7 @@
 - (CGSize) minSize
 {
     CGSize minSize = [super minSize];
-    CGFloat height = [CoreTextHelper heightForAttributedStringInTextView:self.textView] + TOP_STICK_HEIGHT + CONTROL_POINT_SIZE_HALF * 2;
+    CGFloat height = [CoreTextHelper heightForAttributedStringInTextView:self.textView] + CONTROL_POINT_SIZE_HALF * 2;
     minSize.height = height;
     return minSize;
 }
@@ -199,16 +195,14 @@
     }
 }
 
-- (void) disableEditing
+- (void) updateEditingStatus
 {
-    [super disableEditing];
-    self.textDisplayView.userInteractionEnabled = NO;
-}
-
-- (void) enableEditing
-{
-    [super enableEditing];
-    self.textDisplayView.userInteractionEnabled = YES;
+    [super updateEditingStatus];
+    if (CGAffineTransformIsIdentity(self.transform)) {
+        self.textDisplayView.userInteractionEnabled = YES;
+    } else {
+        self.textDisplayView.userInteractionEnabled = NO;
+    }
 }
 
 #pragma mark - TextDisplayViewDelegate

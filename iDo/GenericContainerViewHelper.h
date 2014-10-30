@@ -25,6 +25,7 @@
 + (NSString *) shadowSizeKey;
 + (NSString *) imageNameKey;
 + (NSString *) attibutedStringKey;
++ (NSString *) frameKey;
 + (NSDictionary *) defaultTextAttributes;
 + (NSDictionary *) defaultImageAttributes;
 + (void) mergeChangedAttributes:(NSDictionary *) changedAttributes

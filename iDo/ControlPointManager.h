@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "BorderControlPointView.h"
 
-#define TOP_STICK_HEIGHT 30.f
 #define MIN_CONTENT_HEIGHT 50
 #define MIN_CONTENT_WIDTH 50
 

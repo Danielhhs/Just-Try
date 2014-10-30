@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet SliderWithTooltip *sizeSlider;
 @property (weak, nonatomic) IBOutlet SliderWithTooltip *rotationSlider;
 @property (nonatomic, strong) NSMutableDictionary *attributes;
+
 @end
 
 @implementation EditorPanelViewController
