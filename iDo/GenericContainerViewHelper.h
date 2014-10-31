@@ -26,9 +26,11 @@
 + (NSString *) imageNameKey;
 + (NSString *) attibutedStringKey;
 + (NSString *) frameKey;
++ (NSString *) restoreKey;
 + (NSDictionary *) defaultTextAttributes;
 + (NSDictionary *) defaultImageAttributes;
 + (void) mergeChangedAttributes:(NSDictionary *) changedAttributes
              withFullAttributes:(NSMutableDictionary *) fullAttributes;
-
++ (void) applyAttribute:(NSDictionary *) attributes toContainer:(GenericContainerView *) containerView;
++ (void) resetActualTransformWithView:(GenericContainerView*) container;
 @end

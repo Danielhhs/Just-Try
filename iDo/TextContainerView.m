@@ -10,6 +10,7 @@
 #import "UIView+Snapshot.h"
 #import "TextDisplayView.h"
 #import "CoreTextHelper.h"
+#import "GenericContainerViewHelper.h"
 
 @interface TextContainerView ()<UITextViewDelegate, TextDisplayViewDelegate>
 @property (nonatomic, strong) UITextView *textView;
@@ -118,7 +119,7 @@
     if (characterIndex > 0) {
         characterIndex = characterIndex - 1;
     }
-    UIFont *font = [[self.textView.attributedText attributesAtIndex:characterIndex - 1 effectiveRange:&range] objectForKey:NSFontAttributeName];
+    UIFont *font = [[self.textView.attributedText attributesAtIndex:characterIndex effectiveRange:&range] objectForKey:NSFontAttributeName];
     [self.delegate contentView:self didChangeAttributes:@{[GenericContainerViewHelper fontKey] : font}];
 }
 

@@ -15,7 +15,7 @@
 - (void) editorPanelViewController:(EditorPanelViewController *) editor
                didChangeAttributes:(NSDictionary *) attributes;
 
-- (void) restoreFromEditorPanelViewController:(EditorPanelViewController *) editor;
+- (void) rotationDidFinishInEditorPanelViewController:(EditorPanelViewController *)editor;
 
 @end
 

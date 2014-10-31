@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GenericContainerViewHelper.h"
 #import "ControlPointManager.h"
 
 @class GenericContainerView;
+@class ReflectionView;
 
 @protocol ContentContainerViewDelegate <NSObject>
 
@@ -30,6 +30,9 @@
 
 @interface GenericContainerView : UIView
 
+@property (nonatomic, strong) ReflectionView *reflection;
+@property (nonatomic) BOOL showShadow;
+
 @property (nonatomic, weak) id<ContentContainerViewDelegate> delegate;
 - (NSDictionary *) attributes;
 
@@ -47,12 +50,14 @@
 
 - (void) applyAttributes:(NSDictionary *) attributes;
 
-- (void) restore;
-
 - (void) addReflectionView;
 
 - (void) updateReflectionView;
 
 - (void) updateEditingStatus;
+
+- (void) hideRotationIndicator;
+
+- (CGRect) originalContentFrame;
 
 @end

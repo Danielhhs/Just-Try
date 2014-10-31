@@ -8,8 +8,8 @@
 
 #import "ImageContainerView.h"
 #import "UIView+Snapshot.h"
+#import "GenericContainerViewHelper.h"
 
-#define DEFAULT_IMAGE_EDGE 300
 
 @interface ImageContainerView()
 @property (nonatomic, strong) UIImageView *imageContent;
@@ -17,15 +17,12 @@
 
 @implementation ImageContainerView
 
-- (instancetype) initWithImage:(UIImage *)image
+- (instancetype) initWithAttributes:(NSDictionary *)attributes
 {
-    CGFloat scale = image.size.width / image.size.height;
-    CGFloat width = scale > 1 ? DEFAULT_IMAGE_EDGE : DEFAULT_IMAGE_EDGE / scale;
-    CGFloat height = scale > 1 ? DEFAULT_IMAGE_EDGE : DEFAULT_IMAGE_EDGE / scale;
-    self = [super initWithFrame:CGRectMake(0, 0, width, height)];
+    self = [super initWithAttributes:attributes];
     if (self) {
-        _image = image;
-        [self setUpImageContentWithImage:image];
+        _image = [UIImage imageNamed:attributes[[GenericContainerViewHelper imageNameKey]]];
+        [self setUpImageContentWithImage:_image];
         [self addSubViews];
     }
     return self;

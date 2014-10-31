@@ -8,6 +8,7 @@
 
 #import "ReflectionView.h"
 #import "UIView+Snapshot.h"
+#import "GenericContainerViewHelper.h"
 
 #define REFLECTION_HEIGHT_WIDTH_RATIO 0.2
 #define SPACE_BETWEEN_REFLECTION 7

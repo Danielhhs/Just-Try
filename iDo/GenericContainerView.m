@@ -9,15 +9,18 @@
 #import "GenericContainerView.h"
 #import "ReflectionView.h"
 #import "ShadowHelper.h"
+#import "RotationHelper.h"
+#import "GenericContainerViewHelper.h"
 
 @interface GenericContainerView()
 @property (nonatomic) BOOL showBorder;
-@property (nonatomic, strong) ReflectionView *reflection;
-@property (nonatomic) BOOL showShadow;
+//@property (nonatomic, strong) ReflectionView *reflection;
+//@property (nonatomic) BOOL showShadow;
 @property (nonatomic) CGRect originalContentFrame;  //DELETE when add model support
 @property (nonatomic) CGFloat shadowRatio;          //DELETE when add model support
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) NSMutableDictionary *fullAttributes;
+@property (nonatomic, strong) RotationIndicatorView *rotationIndicator;
 @end
 
 @implementation GenericContainerView
@@ -41,6 +44,7 @@
     [self.reflection updateFrame];
     if (CGAffineTransformIsIdentity(self.transform)) {
         self.originalContentFrame = [self contentViewFrame];
+        [self.rotationIndicator applyToView:self];
     }
     [self updateShadow];
 }
@@ -53,6 +57,7 @@
     if (oldTransformStatus != newTransformStatus) {
         [self updateEditingStatus];
     }
+    [self.rotationIndicator show];
 }
 
 - (void) setup
@@ -65,6 +70,8 @@
     self.layer.shadowColor = [UIColor clearColor].CGColor;
     self.layer.masksToBounds = NO;
     [self setupGestures];
+    _rotationIndicator = [[RotationIndicatorView alloc] initWithFrame:self.frame];
+    [_rotationIndicator applyToView:self];
 }
 
 - (void) awakeFromNib
@@ -91,39 +98,44 @@
 - (void) applyAttributes:(NSDictionary *)attributes
 {
     [GenericContainerViewHelper mergeChangedAttributes:attributes withFullAttributes:self.fullAttributes];
-    NSNumber *rotation = attributes[[GenericContainerViewHelper rotationKey]];
-    if (rotation) {
-        self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, [rotation floatValue] / ANGELS_PER_PI * M_PI);
-    }
-    NSNumber *reflection = attributes[[GenericContainerViewHelper reflectionKey]];
-    if (reflection) {
-        self.reflection.hidden = ![reflection boolValue];
-        if (self.reflection.hidden == NO) {
-            CGFloat reflectionHeight = [self.fullAttributes[[GenericContainerViewHelper reflectionSizeKey]] floatValue];
-            [self.reflection updateReflectionWithWithReflectionHeight:reflectionHeight];
-        }
-    }
-    NSNumber *reflectionAlpha = attributes[[GenericContainerViewHelper reflectionAlphaKey]];
-    if (reflectionAlpha) {
-        self.reflection.alpha = [reflectionAlpha floatValue];
-    }
-    NSNumber *reflectionSize = attributes[[GenericContainerViewHelper reflectionSizeKey]];
-    if (reflectionSize) {
-        self.reflection.height = [reflectionSize floatValue];
-    }
-    NSNumber *shadow = attributes[[GenericContainerViewHelper shadowKey]];
-    if (shadow) {
-        self.showShadow = [shadow boolValue];
-    }
-    NSNumber *shadowAlpha = attributes[[GenericContainerViewHelper shadowAlphaKey]];
-    if (shadowAlpha) {
-        self.layer.shadowOpacity = [shadowAlpha floatValue];
-    }
-    NSNumber *shadowSize = attributes[[GenericContainerViewHelper shadowSizeKey]];
-    if (shadowSize) {
-        self.shadowRatio = [shadowSize doubleValue];
-        self.layer.shadowPath = [ShadowHelper shadowPathWithShadowDepthRatio:[shadowSize doubleValue] originalViewHeight:self.bounds.size.height originalViewContentFrame:self.originalContentFrame].CGPath;
-    }
+    [GenericContainerViewHelper applyAttribute:self.fullAttributes toContainer:self];
+//    NSNumber *rotation = attributes[[GenericContainerViewHelper rotationKey]];
+//    if (rotation) {
+//        self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, [rotation floatValue] / ANGELS_PER_PI * M_PI);
+//    }
+//    NSNumber *reflection = attributes[[GenericContainerViewHelper reflectionKey]];
+//    if (reflection) {
+//        self.reflection.hidden = ![reflection boolValue];
+//        if (self.reflection.hidden == NO) {
+//            CGFloat reflectionHeight = [self.fullAttributes[[GenericContainerViewHelper reflectionSizeKey]] floatValue];
+//            [self.reflection updateReflectionWithWithReflectionHeight:reflectionHeight];
+//        }
+//    }
+//    NSNumber *reflectionAlpha = attributes[[GenericContainerViewHelper reflectionAlphaKey]];
+//    if (reflectionAlpha) {
+//        self.reflection.alpha = [reflectionAlpha floatValue];
+//    }
+//    NSNumber *reflectionSize = attributes[[GenericContainerViewHelper reflectionSizeKey]];
+//    if (reflectionSize) {
+//        self.reflection.height = [reflectionSize floatValue];
+//    }
+//    NSNumber *shadow = attributes[[GenericContainerViewHelper shadowKey]];
+//    if (shadow) {
+//        self.showShadow = [shadow boolValue];
+//    }
+//    NSNumber *shadowAlpha = attributes[[GenericContainerViewHelper shadowAlphaKey]];
+//    if (shadowAlpha) {
+//        self.layer.shadowOpacity = [shadowAlpha floatValue];
+//    }
+//    NSNumber *shadowSize = attributes[[GenericContainerViewHelper shadowSizeKey]];
+//    if (shadowSize) {
+//        self.shadowRatio = [shadowSize doubleValue];
+//        self.layer.shadowPath = [ShadowHelper shadowPathWithShadowDepthRatio:[shadowSize doubleValue] originalViewHeight:self.bounds.size.height originalViewContentFrame:self.originalContentFrame].CGPath;
+//    }
+//    NSNumber *restore = attributes[[GenericContainerViewHelper restoreKey]];
+//    if (restore) {
+//        [self hideRotationIndicator];
+//    }
 }
 
 #pragma mark - User Interations
@@ -171,14 +183,18 @@
 
 - (void) handleRotation:(UIRotationGestureRecognizer *) gesture
 {
-    if (gesture.state == UIGestureRecognizerStateBegan || gesture.state == UIGestureRecognizerStateChanged) {
-        CGAffineTransform transform = CGAffineTransformRotate(self.transform, gesture.rotation);
-        self.transform = transform;
-        CGFloat rotation = atan2f(self.transform.b, self.transform.a);
-        [self.delegate contentView:self didChangeAttributes:@{[GenericContainerViewHelper rotationKey] : @(rotation)}];
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        [GenericContainerViewHelper resetActualTransformWithView:self];
+    } else if (gesture.state == UIGestureRecognizerStateChanged) {
+//        CGAffineTransform transform = CGAffineTransformRotate(self.transform, gesture.rotation);
+//        self.transform = transform;
+//        CGFloat rotation = atan2f(transform.b, transform.a);
+        [self applyAttributes:@{[GenericContainerViewHelper rotationKey] : @(gesture.rotation)}];
+//        [self.delegate contentView:self didChangeAttributes:@{[GenericContainerViewHelper rotationKey] : @(rotation)}];
         gesture.rotation = 0;
     } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
         [self.delegate didFinishChangingInContentView:self];
+        [self.rotationIndicator hide];
     }
 }
 
@@ -223,6 +239,7 @@
 {
     [[ControlPointManager sharedManager] addAndLayoutControlPointsInView:self];
     [self addReflectionView];
+    [self addSubview:self.rotationIndicator];
 }
 
 - (void) setShowBorder:(BOOL)showBorder
@@ -236,12 +253,6 @@
 - (BOOL) isContentFirstResponder
 {
     return self.showBorder;
-}
-
-- (void) restore
-{
-    self.transform = CGAffineTransformIdentity;
-    [self updateEditingStatus];
 }
 
 - (void) addReflectionView
@@ -278,6 +289,11 @@
     } else {
         [[ControlPointManager sharedManager] disableControlPoints];
     }
+}
+
+- (void) hideRotationIndicator
+{
+    [self.rotationIndicator hide];
 }
 
 @end

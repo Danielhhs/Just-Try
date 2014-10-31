@@ -9,7 +9,7 @@
 #import "RotationIndicatorView.h"
 
 #define ROTATION_INDICATOR_OUTAGE 20.f
-#define CENTER_CIRCLE_RATIO 0.1f
+#define CENTER_CIRCLE_RADIUS 10.f
 
 @implementation RotationIndicatorView
 
@@ -35,10 +35,16 @@
 }
 
 #pragma mark - Public APIs
+- (void) setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    if (CGAffineTransformIsIdentity(self.transform)) {
+        [self setNeedsDisplay];
+    }
+}
 - (void) applyToView:(UIView *) view
 {
-    self.frame = CGRectInset(view.frame, ROTATION_INDICATOR_OUTAGE, ROTATION_INDICATOR_OUTAGE);
-    [self setNeedsDisplay];
+    self.frame = CGRectInset(view.bounds, -ROTATION_INDICATOR_OUTAGE, -ROTATION_INDICATOR_OUTAGE);
     self.hidden = YES;
 }
 
@@ -68,10 +74,12 @@
     [verticalLane moveToPoint:CGPointMake(midX, 0)];
     [verticalLane addLineToPoint:CGPointMake(midX, maxY)];
     
-    CGFloat radius = MIN(rect.size.width, rect.size.height) * CENTER_CIRCLE_RATIO;
-    UIBezierPath *centerCircle = [UIBezierPath bezierPathWithArcCenter:CGPointMake(midX, midY) radius:radius startAngle:0 endAngle:M_PI * 2 clockwise:YES];
+    UIBezierPath *centerCircle = [UIBezierPath bezierPathWithArcCenter:CGPointMake(midX, midY) radius:CENTER_CIRCLE_RADIUS startAngle:0 endAngle:M_PI * 2 clockwise:YES];
     
     [[UIColor yellowColor] setStroke];
+    horizontalLane.lineWidth = 2.f;
+    verticalLane.lineWidth = 2.f;
+    centerCircle.lineWidth = 2.f;
     [horizontalLane stroke];
     [verticalLane stroke];
     [centerCircle stroke];

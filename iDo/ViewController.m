@@ -37,7 +37,7 @@
 }
 
 - (IBAction)addImage:(id)sender {
-    ImageContainerView *view = [[ImageContainerView alloc] initWithImage:[UIImage imageNamed:@"background.jpg"]];
+    ImageContainerView *view = [[ImageContainerView alloc] initWithAttributes:[GenericContainerViewHelper defaultImageAttributes]];
     [view applyAttributes:[GenericContainerViewHelper defaultImageAttributes]];
     view.delegate = self;
     [view becomeFirstResponder];
@@ -109,9 +109,9 @@
     [self.currentSelectedContent applyAttributes:attributes];
 }
 
-- (void) restoreFromEditorPanelViewController:(EditorPanelViewController *)editor
+- (void) rotationDidFinishInEditorPanelViewController:(EditorPanelViewController *)editor
 {
-    [self.currentSelectedContent restore];
+    [self.currentSelectedContent hideRotationIndicator];
 }
 
 #pragma mark - TextEditorPanelViewController

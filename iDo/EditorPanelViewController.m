@@ -63,7 +63,8 @@
 
 - (IBAction)restore {
     self.rotationSlider.value = 0;
-    [self.delegate editorPanelViewController:self didChangeAttributes:@{[GenericContainerViewHelper rotationKey] : @(0)}];
+    [self.delegate editorPanelViewController:self didChangeAttributes:@{[GenericContainerViewHelper rotationKey] : @(0),
+                                                                        [GenericContainerViewHelper restoreKey] : @(YES)}];
 }
 
 - (void) applyAttributes:(NSDictionary *)attributes
@@ -197,6 +198,9 @@
 - (void) touchDidEndInSlider:(SliderWithTooltip *)slider
 {
     self.tooltipView.hidden = YES;
+    if ([slider isEqual:self.rotationSlider]) {
+        [self.delegate rotationDidFinishInEditorPanelViewController:self];
+    }
 }
 
 /*
