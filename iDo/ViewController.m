@@ -31,11 +31,6 @@
     [self resignPreviousFirstResponderExceptForContainer:nil];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)addImage:(id)sender {
     ImageContainerView *view = [[ImageContainerView alloc] initWithAttributes:[GenericContainerViewHelper defaultImageAttributes]];
     [view applyAttributes:[GenericContainerViewHelper defaultImageAttributes]];
@@ -90,11 +85,6 @@
             }
         }
     }
-}
-
-- (void) didFinishChangingInContentView:(GenericContainerView *)contentView
-{
-    [[EditorPanelManager sharedManager] handleContentViewDidFinishChanging];
 }
 
 - (void) handleTapOnImage:(ImageContainerView *)container

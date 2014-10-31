@@ -9,7 +9,6 @@
                 <outlet property="addReflectionView" destination="jhU-uY-DpR" id="BsZ-Bv-C3b"/>
                 <outlet property="addShadowView" destination="9cz-dU-fhh" id="ai6-UV-gpY"/>
                 <outlet property="alphaSlider" destination="R7B-nO-aoY" id="8IQ-9W-yYj"/>
-                <outlet property="rotationSlider" destination="2N5-fU-Fwe" id="57y-Iy-0SM"/>
                 <outlet property="sizeSlider" destination="wT3-7q-5E6" id="EC9-rw-8xj"/>
                 <outlet property="tooltipView" destination="uh5-gm-pby" id="fyF-DF-eCn"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -50,14 +49,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rotation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pda-av-1DR">
-                                <rect key="frame" x="34" y="252" width="65" height="21"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jhU-uY-DpR" customClass="EditorButtonView">
                                 <rect key="frame" x="29" y="27" width="75" height="75"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -66,16 +57,6 @@
                                 <rect key="frame" x="201" y="27" width="75" height="75"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-180" maxValue="180" translatesAutoresizingMaskIntoConstraints="NO" id="2N5-fU-Fwe" customClass="SliderWithTooltip">
-                                <rect key="frame" x="101" y="248" width="183" height="31"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="minimumTrackTintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <color key="maximumTrackTintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <color key="thumbTintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <connections>
-                                    <action selector="rotationValueChanged:" destination="-1" eventType="valueChanged" id="Oh9-ZZ-zGq"/>
-                                </connections>
-                            </slider>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="R7B-nO-aoY" customClass="SliderWithTooltip">
                                 <rect key="frame" x="101" y="133" width="174" height="31"/>
                                 <connections>

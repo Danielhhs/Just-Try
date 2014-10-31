@@ -14,9 +14,6 @@
 
 - (void) editorPanelViewController:(EditorPanelViewController *) editor
                didChangeAttributes:(NSDictionary *) attributes;
-
-- (void) rotationDidFinishInEditorPanelViewController:(EditorPanelViewController *)editor;
-
 @end
 
 @interface EditorPanelViewController : UIViewController

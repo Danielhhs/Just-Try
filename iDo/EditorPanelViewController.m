@@ -22,7 +22,6 @@
 @property (weak, nonatomic) IBOutlet TooltipView *tooltipView;
 @property (weak, nonatomic) IBOutlet SliderWithTooltip *alphaSlider;
 @property (weak, nonatomic) IBOutlet SliderWithTooltip *sizeSlider;
-@property (weak, nonatomic) IBOutlet SliderWithTooltip *rotationSlider;
 @property (nonatomic, strong) NSMutableDictionary *attributes;
 
 @end
@@ -41,7 +40,6 @@
     [self.addReflectionView addGestureRecognizer:tapToAddReflection];
     UITapGestureRecognizer *tapToAddShadow = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shadowStatusChanged:)];
     [self.addShadowView addGestureRecognizer:tapToAddShadow];
-    self.rotationSlider.delegate = self;
     self.alphaSlider.delegate = self;
     self.sizeSlider.delegate = self;
 }
@@ -56,7 +54,6 @@
 }
 
 - (IBAction)restore {
-    self.rotationSlider.value = 0;
     [self.delegate editorPanelViewController:self didChangeAttributes:@{[GenericContainerViewHelper rotationKey] : @(0),
                                                                         [GenericContainerViewHelper restoreKey] : @(YES)}];
 }
@@ -64,12 +61,6 @@
 - (void) applyAttributes:(NSDictionary *)attributes
 {
     self.attributes = [attributes mutableCopy];
-    NSNumber *rotation = [attributes objectForKey:[GenericContainerViewHelper rotationKey]];
-    if (rotation) {
-        CGFloat angle = [rotation doubleValue] / M_PI * ANGELS_PER_PI;
-        self.rotationSlider.value = angle;
-        [self updateTooltipViewFromSender:self.rotationSlider];
-    }
     NSNumber *reflection = attributes[[GenericContainerViewHelper reflectionKey]];
     if (reflection) {
         self.addReflectionView.selected = [reflection boolValue];
@@ -192,9 +183,6 @@
 - (void) touchDidEndInSlider:(SliderWithTooltip *)slider
 {
     self.tooltipView.hidden = YES;
-    if ([slider isEqual:self.rotationSlider]) {
-        [self.delegate rotationDidFinishInEditorPanelViewController:self];
-    }
 }
 
 /*

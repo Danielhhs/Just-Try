@@ -24,8 +24,6 @@
 
 - (void) contentView:(GenericContainerView *) contentView
  didChangeAttributes: (NSDictionary *) attributes;
-
-- (void) didFinishChangingInContentView:(GenericContainerView *) contentView;
 @end
 
 @interface GenericContainerView : UIView

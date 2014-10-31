@@ -23,6 +23,7 @@
 		5464580119F4D89900078EAF /* TextEditorPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 546457FF19F4D89900078EAF /* TextEditorPanelViewController.xib */; };
 		546F5CC919FFAFE600C30CBB /* TextDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 546F5CC819FFAFE600C30CBB /* TextDisplayView.m */; };
 		546F5CCC1A00904D00C30CBB /* CoreTextHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 546F5CCB1A00904D00C30CBB /* CoreTextHelper.m */; };
+		547DC9FA1A036EAF004691EC /* Canvas.png in Resources */ = {isa = PBXBuildFile; fileRef = 547DC9F91A036EAE004691EC /* Canvas.png */; };
 		54965B061A00E50F005AF774 /* ShadowHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B051A00E50F005AF774 /* ShadowHelper.m */; };
 		54965B391A020362005AF774 /* RotationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B381A020362005AF774 /* RotationHelper.m */; };
 		54965B3C1A020424005AF774 /* RotationIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B3B1A020424005AF774 /* RotationIndicatorView.m */; };
@@ -88,6 +89,7 @@
 		546F5CC819FFAFE600C30CBB /* TextDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextDisplayView.m; sourceTree = "<group>"; };
 		546F5CCA1A00904D00C30CBB /* CoreTextHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreTextHelper.h; path = ContentViews/CoreTextHelper.h; sourceTree = "<group>"; };
 		546F5CCB1A00904D00C30CBB /* CoreTextHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreTextHelper.m; path = ContentViews/CoreTextHelper.m; sourceTree = "<group>"; };
+		547DC9F91A036EAE004691EC /* Canvas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Canvas.png; sourceTree = "<group>"; };
 		54965B041A00E50F005AF774 /* ShadowHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowHelper.h; sourceTree = "<group>"; };
 		54965B051A00E50F005AF774 /* ShadowHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowHelper.m; sourceTree = "<group>"; };
 		54965B371A020362005AF774 /* RotationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationHelper.h; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 		54D7294119ECE9B5009A0279 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				547DC9F91A036EAE004691EC /* Canvas.png */,
 				54CB19D919EE3BD40044BBDD /* background.jpg */,
 				54D7294219ECE9B5009A0279 /* Info.plist */,
 				54D7294319ECE9B5009A0279 /* main.m */,
@@ -444,6 +447,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5464580119F4D89900078EAF /* TextEditorPanelViewController.xib in Resources */,
+				547DC9FA1A036EAF004691EC /* Canvas.png in Resources */,
 				54CB19DA19EE3BD40044BBDD /* background.jpg in Resources */,
 				54D7294D19ECE9B5009A0279 /* Main.storyboard in Resources */,
 				546457FC19F4B7D200078EAF /* EditorPanelViewController.xib in Resources */,

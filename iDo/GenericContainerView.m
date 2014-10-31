@@ -193,7 +193,6 @@
 //        [self.delegate contentView:self didChangeAttributes:@{[GenericContainerViewHelper rotationKey] : @(rotation)}];
         gesture.rotation = 0;
     } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
-        [self.delegate didFinishChangingInContentView:self];
         [self.rotationIndicator hide];
     }
 }
