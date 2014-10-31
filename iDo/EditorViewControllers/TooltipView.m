@@ -51,6 +51,11 @@
     self.label.text = toolTipText;
 }
 
+- (CGFloat) arrowHeight
+{
+    return ARROW_HEIGHT;
+}
+
 - (void) drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -90,7 +95,7 @@
 #pragma mark - Private Helper
 - (CGRect) frameForLabel
 {
-    return CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height - ARROW_HEIGHT);
+    return CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height - [self arrowHeight]);
 }
 
 @end

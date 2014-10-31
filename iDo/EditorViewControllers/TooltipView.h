@@ -10,4 +10,6 @@
 
 @interface TooltipView : UIView
 @property (nonatomic, strong) NSString *toolTipText;
+
+- (CGFloat) arrowHeight;
 @end

@@ -57,7 +57,7 @@
     if (oldTransformStatus != newTransformStatus) {
         [self updateEditingStatus];
     }
-    [self.rotationIndicator show];
+    [self.rotationIndicator update];
 }
 
 - (void) setup

@@ -11,7 +11,7 @@
 @interface RotationIndicatorView : UIView
 
 - (void) applyToView:(UIView *)view;
-- (void) show;
+- (void) update;
 - (void) hide;
 
 @end

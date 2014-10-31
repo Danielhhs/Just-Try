@@ -45,6 +45,8 @@
 		54E96F6A19F8E53400C5F007 /* ReflectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E96F6919F8E53400C5F007 /* ReflectionView.m */; };
 		54E96F8819F91FA000C5F007 /* TooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E96F8719F91FA000C5F007 /* TooltipView.m */; };
 		54F4C7361A033E37006A3F07 /* RotationBenchMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4C7351A033E37006A3F07 /* RotationBenchMarkView.m */; };
+		54F4C7391A0359B2006A3F07 /* RotationTooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4C7381A0359B2006A3F07 /* RotationTooltipView.m */; };
+		54F4C7521A036B63006A3F07 /* CanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4C7511A036B63006A3F07 /* CanvasView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +130,10 @@
 		54E96F8719F91FA000C5F007 /* TooltipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TooltipView.m; path = EditorViewControllers/TooltipView.m; sourceTree = "<group>"; };
 		54F4C7341A033E37006A3F07 /* RotationBenchMarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationBenchMarkView.h; path = ContentViews/Rotation/RotationBenchMarkView.h; sourceTree = "<group>"; };
 		54F4C7351A033E37006A3F07 /* RotationBenchMarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationBenchMarkView.m; path = ContentViews/Rotation/RotationBenchMarkView.m; sourceTree = "<group>"; };
+		54F4C7371A0359B2006A3F07 /* RotationTooltipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationTooltipView.h; path = ContentViews/Rotation/RotationTooltipView.h; sourceTree = "<group>"; };
+		54F4C7381A0359B2006A3F07 /* RotationTooltipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationTooltipView.m; path = ContentViews/Rotation/RotationTooltipView.m; sourceTree = "<group>"; };
+		54F4C7501A036B63006A3F07 /* CanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CanvasView.h; path = GenericViews/CanvasView.h; sourceTree = "<group>"; };
+		54F4C7511A036B63006A3F07 /* CanvasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CanvasView.m; path = GenericViews/CanvasView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +234,8 @@
 				54965B3B1A020424005AF774 /* RotationIndicatorView.m */,
 				54F4C7341A033E37006A3F07 /* RotationBenchMarkView.h */,
 				54F4C7351A033E37006A3F07 /* RotationBenchMarkView.m */,
+				54F4C7371A0359B2006A3F07 /* RotationTooltipView.h */,
+				54F4C7381A0359B2006A3F07 /* RotationTooltipView.m */,
 			);
 			name = Rotation;
 			sourceTree = "<group>";
@@ -314,6 +322,8 @@
 				546457C119F10BF500078EAF /* Content Views */,
 				546457C219F10C1700078EAF /* UIView+Snapshot.h */,
 				546457C319F10C1700078EAF /* UIView+Snapshot.m */,
+				54F4C7501A036B63006A3F07 /* CanvasView.h */,
+				54F4C7511A036B63006A3F07 /* CanvasView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -466,6 +476,7 @@
 				546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */,
 				546457D119F116B700078EAF /* ImageHelper.m in Sources */,
 				546F5CC919FFAFE600C30CBB /* TextDisplayView.m in Sources */,
+				54F4C7521A036B63006A3F07 /* CanvasView.m in Sources */,
 				54E62D0119FDFA8A0083E0F0 /* TextFontHelper.m in Sources */,
 				546457C719F10D8100078EAF /* EditorPanelManager.m in Sources */,
 				546457CD19F10F3400078EAF /* ImageItem.m in Sources */,
@@ -479,6 +490,7 @@
 				54D7294A19ECE9B5009A0279 /* ViewController.m in Sources */,
 				546457FB19F4B7D200078EAF /* EditorPanelViewController.m in Sources */,
 				54D7294719ECE9B5009A0279 /* AppDelegate.m in Sources */,
+				54F4C7391A0359B2006A3F07 /* RotationTooltipView.m in Sources */,
 				54D7294419ECE9B5009A0279 /* main.m in Sources */,
 				54965B3C1A020424005AF774 /* RotationIndicatorView.m in Sources */,
 				54965B391A020362005AF774 /* RotationHelper.m in Sources */,

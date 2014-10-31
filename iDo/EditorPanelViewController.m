@@ -44,12 +44,6 @@
     self.rotationSlider.delegate = self;
     self.alphaSlider.delegate = self;
     self.sizeSlider.delegate = self;
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - User Interaction 
