@@ -11,7 +11,7 @@
 #import "CoreTextHelper.h"
 #import "UIView+Snapshot.h"
 
-#define CORE_TEXT_EXTRA_SPACE 1
+#define CORE_TEXT_EXTRA_SPACE 2
 
 @interface TextDisplayView()
 @property (nonatomic, strong) UITextView *textView;
@@ -50,7 +50,7 @@
     CGContextScaleCTM(context, 1, -1.f);
     
     UIEdgeInsets insets = self.textView.textContainerInset;
-    CGFloat maxWidth = rect.size.width - insets.left - insets.right;
+    CGFloat maxWidth = rect.size.width - insets.left - insets.right + CORE_TEXT_EXTRA_SPACE;
     CGFloat height = [CoreTextHelper heightForAttributedString:self.textView.attributedText maxWidth:maxWidth] + 2 * CORE_TEXT_EXTRA_SPACE;
     CGRect bounds = CGRectMake(insets.left, insets.bottom + CORE_TEXT_EXTRA_SPACE, maxWidth, height);
     UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRect:bounds];

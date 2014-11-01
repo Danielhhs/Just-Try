@@ -11,20 +11,21 @@
 #import "ImageItem.h"
 #import "TextItem.h"
 #import "GenericContainerView.h"
+#import "SliderEditingViewController.h"
 
 @interface EditorPanelManager : NSObject
 
 + (EditorPanelManager *) sharedManager;
 
-- (void) showEditorPanelInViewController:(UIViewController *) viewController
+- (void) showEditorPanelInViewController:(SliderEditingViewController *) viewController
                           forContentView:(GenericContainerView *)contentView;
 
-- (void) showImageEditorInViewController:(UIViewController *) viewController
+- (void) showImageEditorInViewController:(SliderEditingViewController *) viewController
                               attributes:(NSDictionary *) imageItem;
-- (void) showTextEditorInViewController:(UIViewController *) viewController
+- (void) showTextEditorInViewController:(SliderEditingViewController *) viewController
                              attributes:(NSDictionary *) imageItem;
 
-- (void) dismissAllEditorPanelsFromViewController:(UIViewController *) viewController;
+- (void) dismissAllEditorPanelsFromViewController:(SliderEditingViewController *) viewController;
 
 - (void) makeCurrentEditorApplyChanges:(NSDictionary *) attributes;
 
@@ -32,5 +33,7 @@
 
 + (CGRect) editorPanelFrameInView:(UIView *) parentView;
 + (CGRect) editorPanelFrameOutOfView:(UIView *) parentView;
+
++ (CGFloat) currentEditorWidth;
 
 @end

@@ -19,6 +19,8 @@
 @property (nonatomic) CGRect originalContentFrame;  //DELETE when add model support
 @property (nonatomic) CGFloat shadowRatio;          //DELETE when add model support
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPress;
+@property (nonatomic, strong) UIRotationGestureRecognizer *rotation;
 @property (nonatomic, strong) NSMutableDictionary *fullAttributes;
 @property (nonatomic, strong) RotationIndicatorView *rotationIndicator;
 @end
@@ -98,7 +100,7 @@
 - (void) applyAttributes:(NSDictionary *)attributes
 {
     [GenericContainerViewHelper mergeChangedAttributes:attributes withFullAttributes:self.fullAttributes];
-    [GenericContainerViewHelper applyAttribute:self.fullAttributes toContainer:self];
+    [GenericContainerViewHelper applyAttribute:attributes toContainer:self];
 //    NSNumber *rotation = attributes[[GenericContainerViewHelper rotationKey]];
 //    if (rotation) {
 //        self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, [rotation floatValue] / ANGELS_PER_PI * M_PI);
@@ -144,11 +146,11 @@
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(becomeFirstResponder)];
     [self addGestureRecognizer:self.tap];
     
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-    [self addGestureRecognizer:longPress];
+    self.longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    [self addGestureRecognizer:self.longPress];
     
-    UIRotationGestureRecognizer *rotation = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotation:)];
-    [self addGestureRecognizer:rotation];
+    self.rotation = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotation:)];
+    [self addGestureRecognizer:self.rotation];
 }
 
 - (BOOL) resignFirstResponder
@@ -156,6 +158,8 @@
     [self.delegate contentViewWillResignFirstResponder:self];
     self.showBorder = NO;
     self.tap.enabled = YES;
+    self.longPress.enabled = NO;
+    self.rotation.enabled = NO;
     [[ControlPointManager sharedManager] removeAllControlPointsFromView:self];
     return [super resignFirstResponder];
 }
@@ -164,6 +168,8 @@
 {
     [self.delegate contentViewWillBecomFirstResponder:self];
     self.tap.enabled = NO;
+    self.longPress.enabled = YES;
+    self.rotation.enabled = YES;
     self.showBorder = YES;
     [[ControlPointManager sharedManager] addAndLayoutControlPointsInView:self];
     [self updateEditingStatus];

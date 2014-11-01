@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet TooltipView *tooltipView;
 @property (weak, nonatomic) IBOutlet SliderWithTooltip *alphaSlider;
 @property (weak, nonatomic) IBOutlet SliderWithTooltip *sizeSlider;
+@property (weak, nonatomic) IBOutlet SliderWithTooltip *viewOpacitySlider;
 @property (nonatomic, strong) NSMutableDictionary *attributes;
 
 @end
@@ -96,6 +97,11 @@
     [self.delegate editorPanelViewController:self didChangeAttributes:@{changedKey : @(sender.value)}];
 }
 
+- (IBAction)viewOpacityChanged:(SliderWithTooltip *)sender {
+    [self updateTooltipViewFromSender:sender];
+    [self.attributes setValue:@(sender.value) forKey:[GenericContainerViewHelper viewOpacityKey]];
+    [self.delegate editorPanelViewController:self didChangeAttributes:@{[GenericContainerViewHelper viewOpacityKey] : @(sender.value)}];
+}
 
 - (void) reflectionStatusChanged:(UITapGestureRecognizer *) gesture
 {

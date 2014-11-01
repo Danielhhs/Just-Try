@@ -12,7 +12,6 @@
 #import "UIView+Snapshot.h"
 #import "ImageContainerView.h"
 #import "TextContainerView.h"
-#import "ViewController.h"
 
 #define EDITOR_PANEL_WIDTH 300
 
@@ -60,7 +59,7 @@ static EditorPanelManager *sharedInstance;
     frame.size.width = EDITOR_PANEL_WIDTH;
     frame.size.height = parentView.bounds.size.height;
     frame.origin.x = parentView.bounds.size.width - EDITOR_PANEL_WIDTH;
-    frame.origin.y = 0;
+    frame.origin.y = 64;
     return frame;
 }
 
@@ -70,8 +69,13 @@ static EditorPanelManager *sharedInstance;
     frame.size.width = EDITOR_PANEL_WIDTH;
     frame.size.height = parentView.bounds.size.height;
     frame.origin.x = parentView.bounds.size.width;
-    frame.origin.y = 0;
+    frame.origin.y = 64;
     return frame;
+}
+
++ (CGFloat) currentEditorWidth
+{
+    return sharedInstance.currentEditor.view.frame.size.width;
 }
 
 - (ImageEditorPanelViewController *) createImageEditorViewController
@@ -90,7 +94,7 @@ static EditorPanelManager *sharedInstance;
 }
 
 #pragma mark - Presenting Editor Panels
-- (void) showEditorPanelInViewController:(ViewController *)viewController
+- (void) showEditorPanelInViewController:(SliderEditingViewController *)viewController
                           forContentView:(GenericContainerView *)contentView
 {
     if ([contentView isKindOfClass:[ImageContainerView class]]) {
@@ -100,7 +104,7 @@ static EditorPanelManager *sharedInstance;
     }
 }
 
-- (void) showImageEditorInViewController:(ViewController *)viewController
+- (void) showImageEditorInViewController:(SliderEditingViewController *)viewController
                               attributes:(NSDictionary *)attributes
 {
     self.currentEditor = self.imageEditor;
@@ -109,7 +113,7 @@ static EditorPanelManager *sharedInstance;
     [self.imageEditor applyAttributes:attributes];
 }
 
-- (void) showTextEditorInViewController:(ViewController *)viewController
+- (void) showTextEditorInViewController:(SliderEditingViewController *)viewController
                              attributes:(NSDictionary *)attributes
 {
     self.currentEditor = self.textEditor;
@@ -118,7 +122,7 @@ static EditorPanelManager *sharedInstance;
     [self.textEditor applyAttributes:attributes];
 }
 
-- (void) showCurrentEditorInViewController:(ViewController *) viewController
+- (void) showCurrentEditorInViewController:(SliderEditingViewController *) viewController
 {
     [viewController addChildViewController:self.currentEditor];
     self.currentEditor.view.frame = [EditorPanelManager editorPanelFrameOutOfView:viewController.view];
@@ -126,12 +130,13 @@ static EditorPanelManager *sharedInstance;
     [self.currentEditor didMoveToParentViewController:viewController];
     [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         self.currentEditor.view.frame = [EditorPanelManager editorPanelFrameInView:viewController.view];
+        [viewController adjustCanvasSizeAndPosition];
     } completion:^(BOOL finished) {
     }];
 }
 
 #pragma mark - Dismiss Editor Panels
-- (void) dismissAllEditorPanelsFromViewController:(UIViewController *) viewController
+- (void) dismissAllEditorPanelsFromViewController:(SliderEditingViewController *) viewController
 {
     EditorPanelViewController *animationVC = nil;
     if ([self.currentEditor isKindOfClass:[ImageEditorPanelViewController class]]) {
@@ -139,16 +144,19 @@ static EditorPanelManager *sharedInstance;
     } else if ([self.currentEditor isKindOfClass:[TextEditorPanelViewController class]]) {
         animationVC = [self createTextEditorViewController];
     }
+    [viewController addChildViewController:animationVC];
+    animationVC.view.frame = self.currentEditor.view.frame;
+    
     [self.currentEditor willMoveToParentViewController:nil];
     [self.currentEditor.view removeFromSuperview];
     [self.currentEditor removeFromParentViewController];
+    self.currentEditor = nil;
     
-    [viewController addChildViewController:animationVC];
-    animationVC.view.frame = self.currentEditor.view.frame;
     [viewController.view addSubview:animationVC.view];
     [animationVC didMoveToParentViewController:viewController];
     [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         animationVC.view.frame = [EditorPanelManager editorPanelFrameOutOfView:viewController.view];
+        [viewController adjustCanvasSizeAndPosition];
     } completion:^(BOOL finished) {
         [animationVC willMoveToParentViewController:nil];
         [animationVC.view removeFromSuperview];

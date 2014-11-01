@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@class CanvasView;
+@protocol CanvasViewDelegate <NSObject>
+
+- (void) userDidTapInCanvas:(CanvasView *) canvas;
+
+@end
+
 @interface CanvasView : UIView
 
+@property (nonatomic, strong) UIImage *background;
+@property (nonatomic, weak) id<CanvasViewDelegate> delegate;
+
+- (void) disablePinch;
+- (void) enablePinch;
 @end

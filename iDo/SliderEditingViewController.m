@@ -6,37 +6,47 @@
 //  Copyright (c) 2014 com.microstrategy. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "SliderEditingViewController.h"
 #import "ImageContainerView.h"
 #import "TextContainerView.h"
 #import "EditorPanelManager.h"
 #import "TooltipView.h"
+#import "CanvasView.h"
 
-@interface ViewController ()<ImageContainerViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+#define GAP_BETWEEN_VIEWS 20.f
+
+@interface SliderEditingViewController ()<ImageContainerViewDelegate, CanvasViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic, strong) GenericContainerView *currentSelectedContent;
+@property (weak, nonatomic) IBOutlet CanvasView *canvas;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
+@property (nonatomic) CGFloat offsetForKeyboard;
+@property (nonatomic) CGFloat keyboardOriginY;
 @end
 
-@implementation ViewController
+@implementation SliderEditingViewController
 
-- (void)viewDidLoad {
+- (void) viewDidLoad
+{
     [super viewDidLoad];
-    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnView)]];
+    self.view.backgroundColor = [UIColor darkTextColor];
+    self.canvas.delegate = self;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardShowNotification:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardHideNotification:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - User Interactions
-
-- (void) tapOnView
-{
-    [self resignPreviousFirstResponderExceptForContainer:nil];
-}
 
 - (IBAction)addImage:(id)sender {
     ImageContainerView *view = [[ImageContainerView alloc] initWithAttributes:[GenericContainerViewHelper defaultImageAttributes]];
     [view applyAttributes:[GenericContainerViewHelper defaultImageAttributes]];
     view.delegate = self;
     [view becomeFirstResponder];
-    [self.view addSubview:view];
+    [self.canvas addSubview:view];
 }
 
 - (IBAction)addText:(id)sender {
@@ -44,7 +54,7 @@
     view.delegate = self;
     [view startEditing];
     [view becomeFirstResponder];
-    [self.view addSubview:view];
+    [self.canvas addSubview:view];
 }
 
 #pragma mark - ContentContainerViewDelegate
@@ -67,6 +77,7 @@
 - (void) contentViewDidBecomFirstResponder:(GenericContainerView *)contentView
 {
     self.currentSelectedContent = contentView;
+    [self.canvas disablePinch];
     [[EditorPanelManager sharedManager] showEditorPanelInViewController:self forContentView:contentView];
 }
 
@@ -75,9 +86,15 @@
     [[EditorPanelManager sharedManager] makeCurrentEditorApplyChanges:attributes];
 }
 
+- (void) frameDidChangeForContentView:(GenericContainerView *)contentView
+{
+    CGFloat contentBottom = CGRectGetMaxY(contentView.frame);
+    [self adjustCanvasPositionForContentBottom:contentBottom];
+}
+
 - (void) resignPreviousFirstResponderExceptForContainer:(GenericContainerView *) container
 {
-    for (UIView *subView in self.view.subviews) {
+    for (UIView *subView in self.canvas.subviews) {
         if ([subView isKindOfClass:[GenericContainerView class]] && subView != container) {
             GenericContainerView *containerView = (GenericContainerView *) subView;
             if ([containerView isContentFirstResponder]) {
@@ -97,11 +114,6 @@
 - (void) editorPanelViewController:(EditorPanelViewController *)editor didChangeAttributes:(NSDictionary *)attributes
 {
     [self.currentSelectedContent applyAttributes:attributes];
-}
-
-- (void) rotationDidFinishInEditorPanelViewController:(EditorPanelViewController *)editor
-{
-    [self.currentSelectedContent hideRotationIndicator];
 }
 
 #pragma mark - TextEditorPanelViewController
@@ -141,6 +153,44 @@
     }
 }
 
+#pragma mark - CanvasViewDelegate
+- (void) userDidTapInCanvas:(CanvasView *)canvas
+{
+    [self resignPreviousFirstResponderExceptForContainer:nil];
+    [self.canvas enablePinch];
+}
 
+#pragma mark - Handle Keyboard Event
+- (void) handleKeyboardShowNotification:(NSNotification *)notification
+{
+    CGRect keyboardFrame = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    self.keyboardOriginY = keyboardFrame.origin.y;
+    CGFloat contentBottom = CGRectGetMaxY(self.currentSelectedContent.frame);
+    [self adjustCanvasPositionForContentBottom:contentBottom];
+}
+
+- (void) handleKeyboardHideNotification:(NSNotification *) notification
+{
+    self.canvas.transform = CGAffineTransformTranslate(self.canvas.transform, 0, -1 * self.offsetForKeyboard);
+    self.offsetForKeyboard = 0;
+}
+
+- (void) adjustCanvasSizeAndPosition
+{
+    CGFloat offset = [EditorPanelManager currentEditorWidth] + GAP_BETWEEN_VIEWS;
+    CGFloat scale = (self.canvas.bounds.size.width - offset) / self.canvas.bounds.size.width;
+    CGAffineTransform transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
+    transform = CGAffineTransformTranslate(transform, (-1 * offset +  GAP_BETWEEN_VIEWS) * scale, 0);
+    self.canvas.transform = transform;
+}
+
+- (void) adjustCanvasPositionForContentBottom:(CGFloat) contentBottom
+{
+    CGPoint bottomPoint = [self.view convertPoint:CGPointMake(0, contentBottom) fromView:self.canvas];
+    if (bottomPoint.y + GAP_BETWEEN_VIEWS > self.keyboardOriginY) {
+        self.offsetForKeyboard = (self.keyboardOriginY -bottomPoint.y - GAP_BETWEEN_VIEWS) / self.canvas.transform.a;
+        self.canvas.transform = CGAffineTransformTranslate(self.canvas.transform, 0, self.offsetForKeyboard);
+    }
+}
 
 @end

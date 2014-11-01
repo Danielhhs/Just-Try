@@ -65,6 +65,15 @@
     [super setFrame:[self frameFromTextViewBounds:bounds]];
     self.textDisplayView.frame = [self contentViewFrame];
     self.textView.frame = [self contentViewFrame];
+    if ([self needToAdjustCanvas]) {
+        [self.delegate frameDidChangeForContentView:self];
+    }
+}
+
+- (BOOL) needToAdjustCanvas
+{
+    BOOL withinSuperView = CGRectGetMaxY(self.frame) <= self.superview.bounds.size.height;
+    return self.textView.hidden == NO && withinSuperView;
 }
 
 - (CGRect) contentViewFrame

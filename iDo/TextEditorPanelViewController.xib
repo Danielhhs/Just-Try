@@ -19,17 +19,17 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="300" height="768"/>
+            <rect key="frame" x="0.0" y="0.0" width="300" height="704"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uXl-sm-pp8">
-                    <rect key="frame" x="0.0" y="-1" width="300" height="769"/>
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="704"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="Fwa-LG-Oll">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="769"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jkb-7f-w8Z">
-                                <rect key="frame" x="27" y="319" width="247" height="29"/>
+                                <rect key="frame" x="27" y="355" width="247" height="29"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <segments>
                                     <segment title="Left"/>
@@ -42,41 +42,41 @@
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HGp-zD-fRO" customClass="EditorButtonView">
-                                <rect key="frame" x="21" y="28" width="75" height="75"/>
+                                <rect key="frame" x="21" y="64" width="75" height="75"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dk5-Db-g8K" customClass="EditorButtonView">
-                                <rect key="frame" x="193" y="28" width="75" height="75"/>
+                                <rect key="frame" x="193" y="64" width="75" height="75"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="EiB-Fw-YnH" customClass="SliderWithTooltip">
-                                <rect key="frame" x="93" y="135" width="174" height="31"/>
+                                <rect key="frame" x="93" y="171" width="174" height="31"/>
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <connections>
                                     <action selector="alphaChanged:" destination="-1" eventType="valueChanged" id="EYO-9n-FkO"/>
                                 </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Alpha" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEU-UK-9Gs">
-                                <rect key="frame" x="21" y="138" width="44" height="21"/>
+                                <rect key="frame" x="21" y="174" width="44" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Size" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2lN-Lr-viu">
-                                <rect key="frame" x="23" y="192" width="33" height="21"/>
+                                <rect key="frame" x="23" y="228" width="33" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="thR-pv-Qht" customClass="SliderWithTooltip">
-                                <rect key="frame" x="93" y="189" width="174" height="31"/>
+                                <rect key="frame" x="93" y="225" width="174" height="31"/>
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <connections>
                                     <action selector="sizeChanged:" destination="-1" eventType="valueChanged" id="jek-ZK-3gv"/>
                                 </connections>
                             </slider>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="avL-k6-zQ6">
-                                <rect key="frame" x="8" y="394" width="284" height="162"/>
+                                <rect key="frame" x="8" y="430" width="284" height="162"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <connections>
@@ -85,7 +85,7 @@
                                 </connections>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gTU-41-kk5">
-                                <rect key="frame" x="0.0" y="564" width="300" height="30"/>
+                                <rect key="frame" x="0.0" y="600" width="300" height="30"/>
                                 <state key="normal" title="Restore">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>

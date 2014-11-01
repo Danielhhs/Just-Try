@@ -86,6 +86,11 @@
     return @"RESTORE";
 }
 
++ (NSString *) viewOpacityKey
+{
+    return @"VIEW_OPACITY";
+}
+
 + (NSMutableDictionary *) defaultContentAttributes
 {
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
@@ -95,6 +100,7 @@
     [attributes setValue:@(COUNTER_GOLDEN_RATIO) forKey:[GenericContainerViewHelper reflectionSizeKey]];
     [attributes setValue:@(NO) forKey:[GenericContainerViewHelper reflectionKey]];
     [attributes setValue:@(NO) forKey:[GenericContainerViewHelper shadowKey]];
+    [attributes setValue:@(1) forKey:[GenericContainerViewHelper viewOpacityKey]];
     return attributes;
 }
 
@@ -131,13 +137,19 @@
              withFullAttributes:(NSMutableDictionary *) fullAttributes
 {
     for (NSString *key in [changedAttributes allKeys]) {
-        [fullAttributes setValue:changedAttributes[key] forKey:key];
+        if (![key isEqualToString:[GenericContainerViewHelper restoreKey]]) {
+            [fullAttributes setValue:changedAttributes[key] forKey:key];
+        }
     }
 }
 
-+ (void) applyAttribute:(NSMutableDictionary *)attributes
++ (void) applyAttribute:(NSDictionary *)attributes
             toContainer:(GenericContainerView *)containerView
 {
+    NSNumber *viewOpacity = attributes[[GenericContainerViewHelper viewOpacityKey]];
+    if (viewOpacity) {
+        containerView.alpha = [viewOpacity doubleValue];
+    }
     NSNumber *rotation = attributes[[GenericContainerViewHelper rotationKey]];
     if (rotation) {
         [GenericContainerViewHelper applyRotation:[rotation doubleValue] toView:containerView];
@@ -173,7 +185,6 @@
     NSNumber *restore = attributes[[GenericContainerViewHelper restoreKey]];
     if (restore) {
         containerView.transform = CGAffineTransformIdentity;
-        [attributes removeObjectForKey:[GenericContainerViewHelper restoreKey]];
         [containerView hideRotationIndicator];
     }
 }

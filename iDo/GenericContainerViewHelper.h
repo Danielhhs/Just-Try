@@ -27,6 +27,7 @@
 + (NSString *) attibutedStringKey;
 + (NSString *) frameKey;
 + (NSString *) restoreKey;
++ (NSString *) viewOpacityKey;
 + (NSDictionary *) defaultTextAttributes;
 + (NSDictionary *) defaultImageAttributes;
 + (void) mergeChangedAttributes:(NSDictionary *) changedAttributes

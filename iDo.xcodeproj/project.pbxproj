@@ -33,7 +33,7 @@
 		54D10B5519F7AC9200197694 /* GenericContainerViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D10B5419F7AC9200197694 /* GenericContainerViewHelper.m */; };
 		54D7294419ECE9B5009A0279 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7294319ECE9B5009A0279 /* main.m */; };
 		54D7294719ECE9B5009A0279 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7294619ECE9B5009A0279 /* AppDelegate.m */; };
-		54D7294A19ECE9B5009A0279 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7294919ECE9B5009A0279 /* ViewController.m */; };
+		54D7294A19ECE9B5009A0279 /* SliderEditingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7294919ECE9B5009A0279 /* SliderEditingViewController.m */; };
 		54D7294D19ECE9B5009A0279 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54D7294B19ECE9B5009A0279 /* Main.storyboard */; };
 		54D7294F19ECE9B5009A0279 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54D7294E19ECE9B5009A0279 /* Images.xcassets */; };
 		54D7295219ECE9B5009A0279 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54D7295019ECE9B5009A0279 /* LaunchScreen.xib */; };
@@ -108,8 +108,8 @@
 		54D7294319ECE9B5009A0279 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		54D7294519ECE9B5009A0279 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		54D7294619ECE9B5009A0279 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		54D7294819ECE9B5009A0279 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		54D7294919ECE9B5009A0279 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		54D7294819ECE9B5009A0279 /* SliderEditingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SliderEditingViewController.h; sourceTree = "<group>"; };
+		54D7294919ECE9B5009A0279 /* SliderEditingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SliderEditingViewController.m; sourceTree = "<group>"; };
 		54D7294C19ECE9B5009A0279 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		54D7294E19ECE9B5009A0279 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		54D7295119ECE9B5009A0279 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -277,8 +277,8 @@
 			children = (
 				54D7294519ECE9B5009A0279 /* AppDelegate.h */,
 				54D7294619ECE9B5009A0279 /* AppDelegate.m */,
-				54D7294819ECE9B5009A0279 /* ViewController.h */,
-				54D7294919ECE9B5009A0279 /* ViewController.m */,
+				54D7294819ECE9B5009A0279 /* SliderEditingViewController.h */,
+				54D7294919ECE9B5009A0279 /* SliderEditingViewController.m */,
 				546457CE19F10F3800078EAF /* Model */,
 				546457B919F1070A00078EAF /* Editors */,
 				54D7296A19ECEA25009A0279 /* Views */,
@@ -491,7 +491,7 @@
 				54D10B5519F7AC9200197694 /* GenericContainerViewHelper.m in Sources */,
 				54D7296D19ECEAB9009A0279 /* GenericContainerView.m in Sources */,
 				5464580019F4D89900078EAF /* TextEditorPanelViewController.m in Sources */,
-				54D7294A19ECE9B5009A0279 /* ViewController.m in Sources */,
+				54D7294A19ECE9B5009A0279 /* SliderEditingViewController.m in Sources */,
 				546457FB19F4B7D200078EAF /* EditorPanelViewController.m in Sources */,
 				54D7294719ECE9B5009A0279 /* AppDelegate.m in Sources */,
 				54F4C7391A0359B2006A3F07 /* RotationTooltipView.m in Sources */,
