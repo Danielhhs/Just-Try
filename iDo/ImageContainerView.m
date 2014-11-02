@@ -9,7 +9,7 @@
 #import "ImageContainerView.h"
 #import "UIView+Snapshot.h"
 #import "GenericContainerViewHelper.h"
-
+#import "KeyConstants.h"
 
 @interface ImageContainerView()
 @property (nonatomic, strong) UIImageView *imageContent;
@@ -21,7 +21,7 @@
 {
     self = [super initWithAttributes:attributes];
     if (self) {
-        _image = [UIImage imageNamed:attributes[[GenericContainerViewHelper imageNameKey]]];
+        _image = [UIImage imageNamed:attributes[[KeyConstants imageNameKey]]];
         [self setUpImageContentWithImage:_image];
         [self addSubViews];
     }

@@ -13,6 +13,7 @@
 #import "EditorButtonView.h"
 #import "TooltipView.h"
 #import "SliderWithTooltip.h"
+#import "KeyConstants.h"
 
 #define THUMB_WIDTH_HALF 15
 
@@ -52,22 +53,22 @@
 
 - (IBAction)rotationValueChanged:(UISlider *)sender {
     [self updateTooltipViewFromSender:sender];
-    [self.delegate editorPanelViewController:self didChangeAttributes:@{[GenericContainerViewHelper rotationKey] : @(sender.value)}];
+    [self.delegate editorPanelViewController:self didChangeAttributes:@{[KeyConstants rotationKey] : @(sender.value)}];
 }
 
 - (IBAction)restore {
-    [self.delegate editorPanelViewController:self didChangeAttributes:@{[GenericContainerViewHelper rotationKey] : @(0),
-                                                                        [GenericContainerViewHelper restoreKey] : @(YES)}];
+    [self.delegate editorPanelViewController:self didChangeAttributes:@{[KeyConstants rotationKey] : @(0),
+                                                                        [KeyConstants restoreKey] : @(YES)}];
 }
 
 - (void) applyAttributes:(NSDictionary *)attributes
 {
     self.attributes = [attributes mutableCopy];
-    NSNumber *reflection = attributes[[GenericContainerViewHelper reflectionKey]];
+    NSNumber *reflection = attributes[[KeyConstants reflectionKey]];
     if (reflection) {
         self.addReflectionView.selected = [reflection boolValue];
     }
-    NSNumber *shadow = attributes[[GenericContainerViewHelper shadowKey]];
+    NSNumber *shadow = attributes[[KeyConstants shadowKey]];
     if (shadow) {
         self.addShadowView.selected = [shadow boolValue];
     }
@@ -78,9 +79,9 @@
     [self updateTooltipViewFromSender:sender];
     NSString *changedKey;
     if (self.addReflectionView.selected) {
-        changedKey = [GenericContainerViewHelper reflectionAlphaKey];
+        changedKey = [KeyConstants reflectionAlphaKey];
     } else {
-        changedKey = [GenericContainerViewHelper shadowAlphaKey];
+        changedKey = [KeyConstants shadowAlphaKey];
     }
     [self.attributes setValue:@(sender.value) forKey:changedKey];
     [self.delegate editorPanelViewController:self didChangeAttributes:@{changedKey : @(sender.value)}];
@@ -90,9 +91,9 @@
     [self updateTooltipViewFromSender:sender];
     NSString *changedKey;
     if (self.addReflectionView.selected) {
-        changedKey = [GenericContainerViewHelper reflectionSizeKey];
+        changedKey = [KeyConstants reflectionSizeKey];
     } else {
-        changedKey = [GenericContainerViewHelper shadowSizeKey];
+        changedKey = [KeyConstants shadowSizeKey];
     }
     [self.attributes setValue:@(sender.value) forKey:changedKey];
     [self.delegate editorPanelViewController:self didChangeAttributes:@{changedKey : @(sender.value)}];
@@ -100,8 +101,8 @@
 
 - (IBAction)viewOpacityChanged:(SliderWithTooltip *)sender {
     [self updateTooltipViewFromSender:sender];
-    [self.attributes setValue:@(sender.value) forKey:[GenericContainerViewHelper viewOpacityKey]];
-    [self.delegate editorPanelViewController:self didChangeAttributes:@{[GenericContainerViewHelper viewOpacityKey] : @(sender.value)}];
+    [self.attributes setValue:@(sender.value) forKey:[KeyConstants viewOpacityKey]];
+    [self.delegate editorPanelViewController:self didChangeAttributes:@{[KeyConstants viewOpacityKey] : @(sender.value)}];
 }
 
 - (void) reflectionStatusChanged:(UITapGestureRecognizer *) gesture
@@ -111,8 +112,8 @@
     [self updateReflectionShadowStatus];
     [self updateSliders];
     [self.delegate editorPanelViewController:self didChangeAttributes:@{
-                                                                        [GenericContainerViewHelper reflectionKey] : @(self.addReflectionView.selected),
-                                                                        [GenericContainerViewHelper shadowKey] : @(NO)
+                                                                        [KeyConstants reflectionKey] : @(self.addReflectionView.selected),
+                                                                        [KeyConstants shadowKey] : @(NO)
                                                                         }];
 }
 
@@ -123,15 +124,15 @@
     [self updateReflectionShadowStatus];
     [self updateSliders];
     [self.delegate editorPanelViewController:self didChangeAttributes:@{
-                                                                        [GenericContainerViewHelper shadowKey] : @(self.addShadowView.selected),
-                                                                        [GenericContainerViewHelper reflectionKey] : @(NO)
+                                                                        [KeyConstants shadowKey] : @(self.addShadowView.selected),
+                                                                        [KeyConstants reflectionKey] : @(NO)
                                                                         }];
 }
 
 - (void) updateReflectionShadowStatus
 {
-    [self.attributes setValue:@(self.addReflectionView.selected) forKey:[GenericContainerViewHelper reflectionKey]];
-    [self.attributes setValue:@(self.addShadowView.selected) forKey:[GenericContainerViewHelper reflectionKey]];
+    [self.attributes setValue:@(self.addReflectionView.selected) forKey:[KeyConstants reflectionKey]];
+    [self.attributes setValue:@(self.addShadowView.selected) forKey:[KeyConstants reflectionKey]];
 }
 
 - (void) updateSliders
@@ -139,20 +140,20 @@
     self.sizeSlider.enabled = YES;
     self.alphaSlider.enabled = YES;
     if (self.addReflectionView.selected) {
-        NSNumber *reflectionAlpha = self.attributes[[GenericContainerViewHelper reflectionAlphaKey]];
+        NSNumber *reflectionAlpha = self.attributes[[KeyConstants reflectionAlphaKey]];
         if (reflectionAlpha) {
             [self.alphaSlider setValue:[reflectionAlpha floatValue] animated:YES];
         }
-        NSNumber *reflectionSize = self.attributes[[GenericContainerViewHelper reflectionSizeKey]];
+        NSNumber *reflectionSize = self.attributes[[KeyConstants reflectionSizeKey]];
         if (reflectionSize) {
             [self.sizeSlider setValue:[reflectionSize floatValue] animated:YES];
         }
     } else if (self.addShadowView.selected) {
-        NSNumber *shadowAlpha = self.attributes[[GenericContainerViewHelper shadowAlphaKey]];
+        NSNumber *shadowAlpha = self.attributes[[KeyConstants shadowAlphaKey]];
         if (shadowAlpha) {
             [self.alphaSlider setValue:[shadowAlpha floatValue] animated:YES];
         }
-        NSNumber *shadowSize = self.attributes[[GenericContainerViewHelper shadowSizeKey]];
+        NSNumber *shadowSize = self.attributes[[KeyConstants shadowSizeKey]];
         if (shadowSize) {
             [self.sizeSlider setValue:[shadowSize doubleValue] animated:YES];
         }

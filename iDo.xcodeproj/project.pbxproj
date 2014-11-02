@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		542185241A061565006EBDFD /* KeyConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 542185231A061565006EBDFD /* KeyConstants.m */; };
 		546457BD19F1074900078EAF /* BasicImageEditorContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */; };
 		546457BE19F1074900078EAF /* BasicImageEditorContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 546457BC19F1074900078EAF /* BasicImageEditorContentViewController.xib */; };
 		546457C019F1096200078EAF /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546457BF19F1096200078EAF /* CoreImage.framework */; };
@@ -32,6 +33,7 @@
 		547DCA0E1A04CDA5004691EC /* BordersContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 547DCA0C1A04CDA5004691EC /* BordersContentViewController.xib */; };
 		547DCA121A04D1A3004691EC /* TextEditorPanelContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 547DCA101A04D1A3004691EC /* TextEditorPanelContainerViewController.m */; };
 		547DCA131A04D1A3004691EC /* TextEditorPanelContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 547DCA111A04D1A3004691EC /* TextEditorPanelContainerViewController.xib */; };
+		549567711A05EA18006D6BAE /* CustomTapTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 549567701A05EA18006D6BAE /* CustomTapTextView.m */; };
 		54965B061A00E50F005AF774 /* ShadowHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B051A00E50F005AF774 /* ShadowHelper.m */; };
 		54965B391A020362005AF774 /* RotationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B381A020362005AF774 /* RotationHelper.m */; };
 		54965B3C1A020424005AF774 /* RotationIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B3B1A020424005AF774 /* RotationIndicatorView.m */; };
@@ -39,6 +41,8 @@
 		54CB19DA19EE3BD40044BBDD /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 54CB19D919EE3BD40044BBDD /* background.jpg */; };
 		54CB19DD19EE3D0A0044BBDD /* TextContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CB19DC19EE3D0A0044BBDD /* TextContainerView.m */; };
 		54D10B5519F7AC9200197694 /* GenericContainerViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D10B5419F7AC9200197694 /* GenericContainerViewHelper.m */; };
+		54D333A91A0604EE00F3D7F9 /* UndoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D333A81A0604EE00F3D7F9 /* UndoManager.m */; };
+		54D333AD1A0606A900F3D7F9 /* Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D333AC1A0606A900F3D7F9 /* Operation.m */; };
 		54D7294419ECE9B5009A0279 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7294319ECE9B5009A0279 /* main.m */; };
 		54D7294719ECE9B5009A0279 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7294619ECE9B5009A0279 /* AppDelegate.m */; };
 		54D7294A19ECE9B5009A0279 /* SliderEditingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7294919ECE9B5009A0279 /* SliderEditingViewController.m */; };
@@ -71,6 +75,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		542185221A061565006EBDFD /* KeyConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyConstants.h; path = Helper/KeyConstants.h; sourceTree = "<group>"; };
+		542185231A061565006EBDFD /* KeyConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyConstants.m; path = Helper/KeyConstants.m; sourceTree = "<group>"; };
 		546457BA19F1074900078EAF /* BasicImageEditorContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicImageEditorContentViewController.h; path = EditorViewControllers/BasicImageEditorContentViewController.h; sourceTree = "<group>"; };
 		546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicImageEditorContentViewController.m; path = EditorViewControllers/BasicImageEditorContentViewController.m; sourceTree = "<group>"; };
 		546457BC19F1074900078EAF /* BasicImageEditorContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BasicImageEditorContentViewController.xib; path = EditorViewControllers/BasicImageEditorContentViewController.xib; sourceTree = "<group>"; };
@@ -112,6 +118,8 @@
 		547DCA0F1A04D1A3004691EC /* TextEditorPanelContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextEditorPanelContainerViewController.h; path = EditorViewControllers/Containers/TextEditorPanelContainerViewController.h; sourceTree = "<group>"; };
 		547DCA101A04D1A3004691EC /* TextEditorPanelContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextEditorPanelContainerViewController.m; path = EditorViewControllers/Containers/TextEditorPanelContainerViewController.m; sourceTree = "<group>"; };
 		547DCA111A04D1A3004691EC /* TextEditorPanelContainerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextEditorPanelContainerViewController.xib; path = EditorViewControllers/Containers/TextEditorPanelContainerViewController.xib; sourceTree = "<group>"; };
+		5495676F1A05EA18006D6BAE /* CustomTapTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomTapTextView.h; path = ContentViews/CustomTapTextView.h; sourceTree = "<group>"; };
+		549567701A05EA18006D6BAE /* CustomTapTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomTapTextView.m; path = ContentViews/CustomTapTextView.m; sourceTree = "<group>"; };
 		54965B041A00E50F005AF774 /* ShadowHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowHelper.h; sourceTree = "<group>"; };
 		54965B051A00E50F005AF774 /* ShadowHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowHelper.m; sourceTree = "<group>"; };
 		54965B371A020362005AF774 /* RotationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationHelper.h; sourceTree = "<group>"; };
@@ -125,6 +133,10 @@
 		54CB19DC19EE3D0A0044BBDD /* TextContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextContainerView.m; sourceTree = "<group>"; };
 		54D10B5319F7AC9200197694 /* GenericContainerViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericContainerViewHelper.h; sourceTree = "<group>"; };
 		54D10B5419F7AC9200197694 /* GenericContainerViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericContainerViewHelper.m; sourceTree = "<group>"; };
+		54D333A71A0604EE00F3D7F9 /* UndoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UndoManager.h; path = "Undo Manager/UndoManager.h"; sourceTree = "<group>"; };
+		54D333A81A0604EE00F3D7F9 /* UndoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UndoManager.m; path = "Undo Manager/UndoManager.m"; sourceTree = "<group>"; };
+		54D333AB1A0606A900F3D7F9 /* Operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Operation.h; path = "Undo Manager/Operation.h"; sourceTree = "<group>"; };
+		54D333AC1A0606A900F3D7F9 /* Operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Operation.m; path = "Undo Manager/Operation.m"; sourceTree = "<group>"; };
 		54D7293E19ECE9B5009A0279 /* iDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54D7294219ECE9B5009A0279 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		54D7294319ECE9B5009A0279 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -230,6 +242,8 @@
 			children = (
 				546457CF19F116B700078EAF /* ImageHelper.h */,
 				546457D019F116B700078EAF /* ImageHelper.m */,
+				542185221A061565006EBDFD /* KeyConstants.h */,
+				542185231A061565006EBDFD /* KeyConstants.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -309,8 +323,21 @@
 				546F5CC819FFAFE600C30CBB /* TextDisplayView.m */,
 				546F5CCA1A00904D00C30CBB /* CoreTextHelper.h */,
 				546F5CCB1A00904D00C30CBB /* CoreTextHelper.m */,
+				5495676F1A05EA18006D6BAE /* CustomTapTextView.h */,
+				549567701A05EA18006D6BAE /* CustomTapTextView.m */,
 			);
 			name = Text;
+			sourceTree = "<group>";
+		};
+		54D333AA1A0604F400F3D7F9 /* Undo Manager */ = {
+			isa = PBXGroup;
+			children = (
+				54D333A71A0604EE00F3D7F9 /* UndoManager.h */,
+				54D333A81A0604EE00F3D7F9 /* UndoManager.m */,
+				54D333AB1A0606A900F3D7F9 /* Operation.h */,
+				54D333AC1A0606A900F3D7F9 /* Operation.m */,
+			);
+			name = "Undo Manager";
 			sourceTree = "<group>";
 		};
 		54D7293519ECE9B5009A0279 = {
@@ -343,6 +370,7 @@
 				546457B919F1070A00078EAF /* Editors */,
 				54D7296A19ECEA25009A0279 /* Views */,
 				54D7294B19ECE9B5009A0279 /* Main.storyboard */,
+				54D333AA1A0604F400F3D7F9 /* Undo Manager */,
 				54D7294E19ECE9B5009A0279 /* Images.xcassets */,
 				54D7295019ECE9B5009A0279 /* LaunchScreen.xib */,
 				54D7294119ECE9B5009A0279 /* Supporting Files */,
@@ -555,15 +583,19 @@
 				54F4C7361A033E37006A3F07 /* RotationBenchMarkView.m in Sources */,
 				546457D519F3614100078EAF /* ControlPointManager.m in Sources */,
 				546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */,
+				542185241A061565006EBDFD /* KeyConstants.m in Sources */,
 				546457D119F116B700078EAF /* ImageHelper.m in Sources */,
 				546F5CC919FFAFE600C30CBB /* TextDisplayView.m in Sources */,
+				54D333A91A0604EE00F3D7F9 /* UndoManager.m in Sources */,
 				54F4C7521A036B63006A3F07 /* CanvasView.m in Sources */,
 				547DCA0D1A04CDA5004691EC /* BordersContentViewController.m in Sources */,
 				54E62D0119FDFA8A0083E0F0 /* TextFontHelper.m in Sources */,
+				549567711A05EA18006D6BAE /* CustomTapTextView.m in Sources */,
 				546457C719F10D8100078EAF /* EditorPanelManager.m in Sources */,
 				546457CD19F10F3400078EAF /* ImageItem.m in Sources */,
 				54E96F6A19F8E53400C5F007 /* ReflectionView.m in Sources */,
 				54D7297319ED0FF0009A0279 /* BorderControlPointView.m in Sources */,
+				54D333AD1A0606A900F3D7F9 /* Operation.m in Sources */,
 				54E96F8819F91FA000C5F007 /* TooltipView.m in Sources */,
 				54CB19D819EE37BE0044BBDD /* ImageContainerView.m in Sources */,
 				54D10B5519F7AC9200197694 /* GenericContainerViewHelper.m in Sources */,

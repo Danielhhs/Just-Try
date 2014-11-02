@@ -7,6 +7,7 @@
 //
 
 #import "GenericContainerViewHelper.h"
+#import "KeyConstants.h"
 #import <UIKit/UIKit.h>
 #import "TextFontHelper.h"
 #import "ShadowHelper.h"
@@ -21,115 +22,46 @@
 
 @implementation GenericContainerViewHelper
 
-+ (NSString *) fontKey
-{
-    return @"FONT";
-}
-
-+ (NSString *) alignmentKey
-{
-    return @"ALIGNMENT";
-}
-
-+ (NSString *) rotationKey
-{
-    return @"ROTATION";
-}
-
-+ (NSString *) reflectionKey
-{
-    return @"REFLECTION";
-}
-
-+ (NSString *) shadowKey
-{
-    return @"SHADOW";
-}
-
-+ (NSString *) reflectionAlphaKey
-{
-    return @"REFLECTION_ALPHA";
-}
-
-+ (NSString *) reflectionSizeKey
-{
-    return @"REFLECTION_SIZE";
-}
-
-+ (NSString *) shadowAlphaKey
-{
-    return @"SHADOW_ALPHA";
-}
-
-+ (NSString *) shadowSizeKey
-{
-    return @"SHADOW_SIZE";
-}
-
-+ (NSString *) imageNameKey
-{
-    return @"IMAGE_NAME";
-}
-
-+ (NSString *) attibutedStringKey
-{
-    return @"ATTRIBUTED_STRING";
-}
-
-+ (NSString *) frameKey
-{
-    return @"FRAME";
-}
-
-+ (NSString *) restoreKey
-{
-    return @"RESTORE";
-}
-
-+ (NSString *) viewOpacityKey
-{
-    return @"VIEW_OPACITY";
-}
 
 + (NSMutableDictionary *) defaultContentAttributes
 {
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-    [attributes setValue:@(GOLDEN_RATIO) forKey:[GenericContainerViewHelper shadowAlphaKey]];
-    [attributes setValue:@(COUNTER_GOLDEN_RATIO) forKey:[GenericContainerViewHelper shadowSizeKey]];
-    [attributes setValue:@(GOLDEN_RATIO) forKey:[GenericContainerViewHelper reflectionAlphaKey]];
-    [attributes setValue:@(COUNTER_GOLDEN_RATIO) forKey:[GenericContainerViewHelper reflectionSizeKey]];
-    [attributes setValue:@(NO) forKey:[GenericContainerViewHelper reflectionKey]];
-    [attributes setValue:@(NO) forKey:[GenericContainerViewHelper shadowKey]];
-    [attributes setValue:@(1) forKey:[GenericContainerViewHelper viewOpacityKey]];
+    [attributes setValue:@(GOLDEN_RATIO) forKey:[KeyConstants shadowAlphaKey]];
+    [attributes setValue:@(COUNTER_GOLDEN_RATIO) forKey:[KeyConstants shadowSizeKey]];
+    [attributes setValue:@(GOLDEN_RATIO) forKey:[KeyConstants reflectionAlphaKey]];
+    [attributes setValue:@(COUNTER_GOLDEN_RATIO) forKey:[KeyConstants reflectionSizeKey]];
+    [attributes setValue:@(NO) forKey:[KeyConstants reflectionKey]];
+    [attributes setValue:@(NO) forKey:[KeyConstants shadowKey]];
+    [attributes setValue:@(1) forKey:[KeyConstants viewOpacityKey]];
     return attributes;
 }
 
 + (NSDictionary *) defaultImageAttributes
 {
     NSMutableDictionary *attributes = [GenericContainerViewHelper defaultContentAttributes];
-    [attributes setObject:DEFAULT_IMAGE_NAME forKey:[GenericContainerViewHelper imageNameKey]];
+    [attributes setObject:DEFAULT_IMAGE_NAME forKey:[KeyConstants imageNameKey]];
     UIImage *image = [UIImage imageNamed:DEFAULT_IMAGE_NAME];
     CGFloat scale = image.size.width / image.size.height;
     CGFloat width = scale > 1 ? DEFAULT_IMAGE_EDGE : DEFAULT_IMAGE_EDGE / scale;
     CGFloat height = scale > 1 ? DEFAULT_IMAGE_EDGE : DEFAULT_IMAGE_EDGE / scale;
     CGRect frame = CGRectMake(200, 300, width, height);
-    [attributes setObject:[NSValue valueWithCGRect:frame] forKey:[GenericContainerViewHelper frameKey]];
+    [attributes setObject:[NSValue valueWithCGRect:frame] forKey:[KeyConstants frameKey]];
     return [attributes copy];
 }
 
 + (NSDictionary *) defaultTextAttributes
 {
     NSMutableDictionary *attributes = [GenericContainerViewHelper defaultContentAttributes];
-    [attributes setObject:[TextFontHelper defaultFont] forKey:[GenericContainerViewHelper fontKey]];
-    [attributes setObject:@(TextAlignmentLeft) forKey:[GenericContainerViewHelper alignmentKey]];
+    [attributes setObject:[TextFontHelper defaultFont] forKey:[KeyConstants fontKey]];
+    [attributes setObject:@(TextAlignmentLeft) forKey:[KeyConstants alignmentKey]];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
     NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:PLACE_HOLDER_STRING
                                                                            attributes:@{NSFontAttributeName : [TextFontHelper defaultFont],
                                                                                         NSParagraphStyleAttributeName : paragraphStyle}];
-    [attributes setObject:attributedString forKey:[GenericContainerViewHelper attibutedStringKey]];
+    [attributes setObject:attributedString forKey:[KeyConstants attibutedStringKey]];
     NSValue *frameValue = [NSValue valueWithCGRect:CGRectMake(200, 300, DEFAULT_TEXT_CONTAINER_WIDTH, 2 * CONTROL_POINT_SIZE_HALF + DEFAULT_TEXT_CONTAINER_HEIGHT)];
-    [attributes setObject:frameValue forKey:[GenericContainerViewHelper frameKey]];
+    [attributes setObject:frameValue forKey:[KeyConstants frameKey]];
     return [attributes copy];
 }
 
@@ -137,7 +69,7 @@
              withFullAttributes:(NSMutableDictionary *) fullAttributes
 {
     for (NSString *key in [changedAttributes allKeys]) {
-        if (![key isEqualToString:[GenericContainerViewHelper restoreKey]]) {
+        if (![key isEqualToString:[KeyConstants restoreKey]]) {
             [fullAttributes setValue:changedAttributes[key] forKey:key];
         }
     }
@@ -146,43 +78,43 @@
 + (void) applyAttribute:(NSDictionary *)attributes
             toContainer:(GenericContainerView *)containerView
 {
-    NSNumber *viewOpacity = attributes[[GenericContainerViewHelper viewOpacityKey]];
+    NSNumber *viewOpacity = attributes[[KeyConstants viewOpacityKey]];
     if (viewOpacity) {
         containerView.alpha = [viewOpacity doubleValue];
     }
-    NSNumber *rotation = attributes[[GenericContainerViewHelper rotationKey]];
+    NSNumber *rotation = attributes[[KeyConstants rotationKey]];
     if (rotation) {
         [GenericContainerViewHelper applyRotation:[rotation doubleValue] toView:containerView];
     }
-    NSNumber *reflection = attributes[[GenericContainerViewHelper reflectionKey]];
+    NSNumber *reflection = attributes[[KeyConstants reflectionKey]];
     if (reflection) {
         containerView.reflection.hidden = ![reflection boolValue];
         if (containerView.reflection.hidden == NO) {
-            CGFloat reflectionHeight = [containerView.attributes[[GenericContainerViewHelper reflectionSizeKey]] floatValue];
+            CGFloat reflectionHeight = [containerView.attributes[[KeyConstants reflectionSizeKey]] floatValue];
             [containerView.reflection updateReflectionWithWithReflectionHeight:reflectionHeight];
         }
     }
-    NSNumber *reflectionAlpha = attributes[[GenericContainerViewHelper reflectionAlphaKey]];
+    NSNumber *reflectionAlpha = attributes[[KeyConstants reflectionAlphaKey]];
     if (reflectionAlpha) {
         containerView.reflection.alpha = [reflectionAlpha floatValue];
     }
-    NSNumber *reflectionSize = attributes[[GenericContainerViewHelper reflectionSizeKey]];
+    NSNumber *reflectionSize = attributes[[KeyConstants reflectionSizeKey]];
     if (reflectionSize) {
         containerView.reflection.height = [reflectionSize floatValue];
     }
-    NSNumber *shadow = attributes[[GenericContainerViewHelper shadowKey]];
+    NSNumber *shadow = attributes[[KeyConstants shadowKey]];
     if (shadow) {
         containerView.showShadow = [shadow boolValue];
     }
-    NSNumber *shadowAlpha = attributes[[GenericContainerViewHelper shadowAlphaKey]];
+    NSNumber *shadowAlpha = attributes[[KeyConstants shadowAlphaKey]];
     if (shadowAlpha) {
         containerView.layer.shadowOpacity = [shadowAlpha floatValue];
     }
-    NSNumber *shadowSize = attributes[[GenericContainerViewHelper shadowSizeKey]];
+    NSNumber *shadowSize = attributes[[KeyConstants shadowSizeKey]];
     if (shadowSize) {
         containerView.layer.shadowPath = [ShadowHelper shadowPathWithShadowDepthRatio:[shadowSize doubleValue] originalViewHeight:containerView.bounds.size.height originalViewContentFrame:containerView.originalContentFrame].CGPath;
     }
-    NSNumber *restore = attributes[[GenericContainerViewHelper restoreKey]];
+    NSNumber *restore = attributes[[KeyConstants restoreKey]];
     if (restore) {
         containerView.transform = CGAffineTransformIdentity;
         [containerView hideRotationIndicator];

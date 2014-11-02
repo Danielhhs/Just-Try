@@ -14,22 +14,9 @@
 #define COUNTER_GOLDEN_RATIO 0.372
 
 @interface GenericContainerViewHelper : NSObject
-+ (NSString *) fontKey;
-+ (NSString *) alignmentKey;
-+ (NSString *) rotationKey;
-+ (NSString *) reflectionKey;
-+ (NSString *) shadowKey;
-+ (NSString *) reflectionAlphaKey;
-+ (NSString *) reflectionSizeKey;
-+ (NSString *) shadowAlphaKey;
-+ (NSString *) shadowSizeKey;
-+ (NSString *) imageNameKey;
-+ (NSString *) attibutedStringKey;
-+ (NSString *) frameKey;
-+ (NSString *) restoreKey;
-+ (NSString *) viewOpacityKey;
 + (NSDictionary *) defaultTextAttributes;
 + (NSDictionary *) defaultImageAttributes;
+
 + (void) mergeChangedAttributes:(NSDictionary *) changedAttributes
              withFullAttributes:(NSMutableDictionary *) fullAttributes;
 + (void) applyAttribute:(NSDictionary *) attributes toContainer:(GenericContainerView *) containerView;

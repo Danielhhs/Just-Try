@@ -53,7 +53,7 @@
                         <action selector="sizeChanged:" destination="-1" eventType="valueChanged" id="Ewd-ei-8HS"/>
                     </connections>
                 </slider>
-                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="kW8-m0-L6G" customClass="SliderWithTooltip">
+                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="kW8-m0-L6G" customClass="SliderWithTooltip">
                     <rect key="frame" x="25" y="243" width="248" height="31"/>
                     <connections>
                         <action selector="viewOpacityChanged:" destination="-1" eventType="valueChanged" id="LQj-kR-LsQ"/>

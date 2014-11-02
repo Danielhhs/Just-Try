@@ -9,6 +9,7 @@
 #import "TextBasicEditorPanelViewController.h"
 #import "GenericContainerViewHelper.h"
 #import "TextFontHelper.h"
+#import "KeyConstants.h"
 
 #define PICK_VIEW_FONT_FAMILY_NAME_COMPONENT_INDEX 0
 #define PICK_VIEW_FONT_NAME_COMPONENT_INDEX 1
@@ -36,29 +37,6 @@
 @end
 
 @implementation TextBasicEditorPanelViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(keyboardWillShow:)
-//                                                 name:UIKeyboardWillShowNotification
-//                                               object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(keyboardWillHide:)
-//                                                 name:UIKeyboardWillHideNotification
-//                                               object:nil];
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void) viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void) dealloc
-{
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
 #pragma mark - Event Handling
 
@@ -165,7 +143,7 @@
         inComponent:(NSInteger)component
 {
     [pickerView reloadComponent:PICK_VIEW_FONT_NAME_COMPONENT_INDEX];
-    [self.delegate textAttributes:@{[GenericContainerViewHelper fontKey] : [self fontFromCurrentSelection]} didChangeFromTextEditor:self];
+    [self.delegate textAttributes:@{[KeyConstants fontKey] : [self fontFromCurrentSelection]} didChangeFromTextEditor:self];
 }
 
 - (BOOL) componentIsFontFamilySelector:(NSInteger) component
@@ -197,29 +175,23 @@
 
 - (IBAction)textAlignmentChanged:(UISegmentedControl *)sender {
     self.alignment = sender.selectedSegmentIndex;
-    [self.delegate textAttributes:@{[GenericContainerViewHelper alignmentKey] : @(self.alignment)} didChangeFromTextEditor:self];
+    [self.delegate textAttributes:@{[KeyConstants alignmentKey] : @(self.alignment)} didChangeFromTextEditor:self];
 }
-//
-//#pragma mark - KeyboardEvents
-//- (void) keyboardWillShow:(NSNotification *) notification
-//{
-//    self.view.frame = CGRectOffset(self.view.frame, 0, -1 * KEYBOARD_OFFSET);
-//}
-//
-//- (void) keyboardWillHide:(NSNotification *) notification
-//{
-//    self.view.frame = CGRectOffset(self.view.frame, 0, KEYBOARD_OFFSET);
-//}
 
 #pragma mark - Apply Attributes
 - (void) applyAttributes:(NSDictionary *)attributes
 {
     [super applyAttributes:attributes];
-    UIFont *font = [attributes objectForKey:[GenericContainerViewHelper fontKey]];
+    UIFont *font = [attributes objectForKey:[KeyConstants fontKey]];
     if (font) {
         NSString *familyName = font.familyName;
         NSInteger index = [self.fontFamilies indexOfObject:familyName];
         [self.fontPicker selectRow:index inComponent:PICK_VIEW_FONT_FAMILY_NAME_COMPONENT_INDEX animated:NO];
+        [self.fontPicker reloadComponent:PICK_VIEW_FONT_NAME_COMPONENT_INDEX];
+        
+        NSString *fontName = font.fontName;
+        index = [self.displayingFontNames[index] indexOfObject:[TextFontHelper displayingFontNameFromFamilyName:familyName fontName:fontName]];
+        [self.fontPicker selectRow:index inComponent:PICK_VIEW_FONT_NAME_COMPONENT_INDEX animated:NO];
         
         CGFloat size = font.pointSize;
         index = [self.fontSizes indexOfObject:@(size)];

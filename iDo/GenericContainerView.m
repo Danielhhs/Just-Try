@@ -11,6 +11,7 @@
 #import "ShadowHelper.h"
 #import "RotationHelper.h"
 #import "GenericContainerViewHelper.h"
+#import "KeyConstants.h"
 
 @interface GenericContainerView()
 @property (nonatomic) BOOL showBorder;
@@ -30,7 +31,7 @@
 #pragma mark - Set Up
 - (instancetype) initWithAttributes:(NSDictionary *)attributes
 {
-    CGRect frameValue = [attributes[[GenericContainerViewHelper frameKey]] CGRectValue];
+    CGRect frameValue = [attributes[[KeyConstants frameKey]] CGRectValue];
     self = [self initWithFrame:frameValue];
     if (self) {
         self.fullAttributes = [attributes mutableCopy];
@@ -192,11 +193,7 @@
     if (gesture.state == UIGestureRecognizerStateBegan) {
         [GenericContainerViewHelper resetActualTransformWithView:self];
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
-//        CGAffineTransform transform = CGAffineTransformRotate(self.transform, gesture.rotation);
-//        self.transform = transform;
-//        CGFloat rotation = atan2f(transform.b, transform.a);
-        [self applyAttributes:@{[GenericContainerViewHelper rotationKey] : @(gesture.rotation)}];
-//        [self.delegate contentView:self didChangeAttributes:@{[GenericContainerViewHelper rotationKey] : @(rotation)}];
+        [self applyAttributes:@{[KeyConstants rotationKey] : @(gesture.rotation)}];
         gesture.rotation = 0;
     } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
         [self.rotationIndicator hide];

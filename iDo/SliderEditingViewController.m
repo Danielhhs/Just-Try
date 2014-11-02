@@ -12,6 +12,7 @@
 #import "EditorPanelManager.h"
 #import "TooltipView.h"
 #import "CanvasView.h"
+#import "CustomTapTextView.h"
 
 #define GAP_BETWEEN_VIEWS 20.f
 
@@ -191,6 +192,11 @@
         self.offsetForKeyboard = (self.keyboardOriginY -bottomPoint.y - GAP_BETWEEN_VIEWS) / self.canvas.transform.a;
         self.canvas.transform = CGAffineTransformTranslate(self.canvas.transform, 0, self.offsetForKeyboard);
     }
+}
+
+- (IBAction)addCustomTextView:(id)sender {
+    CustomTapTextView *text = [[CustomTapTextView alloc] initWithFrame:CGRectMake(200, 200, 300, 300)];
+    [self.canvas addSubview:text];
 }
 
 @end

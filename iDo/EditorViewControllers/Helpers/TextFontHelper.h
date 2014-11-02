@@ -34,4 +34,7 @@ typedef NS_ENUM(NSUInteger, TextAlignment) {
 
 + (NSArray *) fullFontNames;
 
++ (NSString *) displayingFontNameFromFamilyName:(NSString *) familyName
+                                       fontName:(NSString *) fontName;
+
 @end

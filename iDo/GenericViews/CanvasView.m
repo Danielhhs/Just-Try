@@ -22,7 +22,6 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [self addGestureRecognizer:tap];
     
-    self.clipsToBounds = YES;
 }
 
 - (void) awakeFromNib
