@@ -1,35 +1,27 @@
 //
-//  ImageEditorPanelViewController.m
+//  TextStyleEditorContentViewController.m
 //  iDo
 //
-//  Created by Huang Hongsen on 10/17/14.
+//  Created by Huang Hongsen on 11/1/14.
 //  Copyright (c) 2014 com.microstrategy. All rights reserved.
 //
 
-#import "ImageEditorPanelViewController.h"
-#import "ImageHelper.h"
-#import "EditorPanelManager.h"
+#import "TextStyleEditorContentViewController.h"
 
-@interface ImageEditorPanelViewController ()
-@property (weak, nonatomic) IBOutlet UIButton *changeImageButton;
+@interface TextStyleEditorContentViewController ()
+
 @end
 
-@implementation ImageEditorPanelViewController
-
+@implementation TextStyleEditorContentViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)buttonTest:(UIButton *)sender {
-    sender.selected = !sender.selected;
 }
 
 /*
@@ -41,6 +33,5 @@
     // Pass the selected object to the new view controller.
 }
 */
-
 
 @end

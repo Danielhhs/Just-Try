@@ -105,8 +105,8 @@
 
 + (CGFloat) heightForAttributedStringInTextView:(UITextView *)textView
 {
-    CGFloat maxWidth = textView.bounds.size.width - textView.textContainerInset.left - textView.textContainerInset.right;
-    CGFloat height = [CoreTextHelper heightForAttributedString:textView.attributedText maxWidth:maxWidth] + textView.textContainerInset.top + textView.textContainerInset.bottom;
+    CGFloat maxWidth = textView.bounds.size.width - textView.textContainerInset.left - textView.textContainerInset.right + 1;
+    CGFloat height = [CoreTextHelper heightForAttributedString:textView.attributedText maxWidth:maxWidth] + textView.textContainerInset.top + textView.textContainerInset.bottom + 1;
     return height;
 }
 

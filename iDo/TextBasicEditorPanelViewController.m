@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 com.microstrategy. All rights reserved.
 //
 
-#import "TextEditorPanelViewController.h"
+#import "TextBasicEditorPanelViewController.h"
 #import "GenericContainerViewHelper.h"
 #import "TextFontHelper.h"
 
@@ -23,7 +23,7 @@
 #define KEYBOARD_OFFSET 200
 
 
-@interface TextEditorPanelViewController ()<UIPickerViewDataSource, UIPickerViewDelegate>
+@interface TextBasicEditorPanelViewController ()<UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIPickerView *fontPicker;
 @property (nonatomic, strong) NSArray *fontFamilies;
@@ -35,18 +35,18 @@
 
 @end
 
-@implementation TextEditorPanelViewController
+@implementation TextBasicEditorPanelViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillShow:)
+//                                                 name:UIKeyboardWillShowNotification
+//                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillHide:)
+//                                                 name:UIKeyboardWillHideNotification
+//                                               object:nil];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -57,7 +57,7 @@
 
 - (void) dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Event Handling
@@ -199,17 +199,17 @@
     self.alignment = sender.selectedSegmentIndex;
     [self.delegate textAttributes:@{[GenericContainerViewHelper alignmentKey] : @(self.alignment)} didChangeFromTextEditor:self];
 }
-
-#pragma mark - KeyboardEvents
-- (void) keyboardWillShow:(NSNotification *) notification
-{
-    self.view.frame = CGRectOffset(self.view.frame, 0, -1 * KEYBOARD_OFFSET);
-}
-
-- (void) keyboardWillHide:(NSNotification *) notification
-{
-    self.view.frame = CGRectOffset(self.view.frame, 0, KEYBOARD_OFFSET);
-}
+//
+//#pragma mark - KeyboardEvents
+//- (void) keyboardWillShow:(NSNotification *) notification
+//{
+//    self.view.frame = CGRectOffset(self.view.frame, 0, -1 * KEYBOARD_OFFSET);
+//}
+//
+//- (void) keyboardWillHide:(NSNotification *) notification
+//{
+//    self.view.frame = CGRectOffset(self.view.frame, 0, KEYBOARD_OFFSET);
+//}
 
 #pragma mark - Apply Attributes
 - (void) applyAttributes:(NSDictionary *)attributes

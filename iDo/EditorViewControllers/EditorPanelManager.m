@@ -7,8 +7,8 @@
 //
 
 #import "EditorPanelManager.h"
-#import "ImageEditorPanelViewController.h"
-#import "TextEditorPanelViewController.h"
+#import "ImageEditorPanelContainerViewController.h"
+#import "TextEditorPanelContainerViewController.h"
 #import "UIView+Snapshot.h"
 #import "ImageContainerView.h"
 #import "TextContainerView.h"
@@ -17,9 +17,9 @@
 
 @interface EditorPanelManager()
 
-@property (nonatomic, strong) ImageEditorPanelViewController *imageEditor;
-@property (nonatomic, strong) EditorPanelViewController *currentEditor;
-@property (nonatomic, strong) TextEditorPanelViewController *textEditor;
+@property (nonatomic, strong) ImageEditorPanelContainerViewController *imageEditor;
+@property (nonatomic, strong) EditorPanelContainerViewController *currentEditor;
+@property (nonatomic, strong) TextEditorPanelContainerViewController *textEditor;
 
 @end
 
@@ -78,14 +78,14 @@ static EditorPanelManager *sharedInstance;
     return sharedInstance.currentEditor.view.frame.size.width;
 }
 
-- (ImageEditorPanelViewController *) createImageEditorViewController
+- (ImageEditorPanelContainerViewController *) createImageEditorViewController
 {
-    return [[ImageEditorPanelViewController alloc] initWithNibName:@"ImageEditorPanelViewController" bundle:[NSBundle mainBundle]];
+    return [[ImageEditorPanelContainerViewController alloc] initWithNibName:@"ImageEditorPanelContainerViewController" bundle:[NSBundle mainBundle]];
 }
 
-- (TextEditorPanelViewController *) createTextEditorViewController
+- (TextEditorPanelContainerViewController *) createTextEditorViewController
 {
-    return [[TextEditorPanelViewController alloc] initWithNibName:@"TextEditorPanelViewController" bundle:[NSBundle mainBundle]];
+    return [[TextEditorPanelContainerViewController alloc] initWithNibName:@"TextEditorPanelContainerViewController" bundle:[NSBundle mainBundle]];
 }
 
 - (void) makeCurrentEditorApplyChanges:(NSDictionary *)attributes
@@ -138,10 +138,10 @@ static EditorPanelManager *sharedInstance;
 #pragma mark - Dismiss Editor Panels
 - (void) dismissAllEditorPanelsFromViewController:(SliderEditingViewController *) viewController
 {
-    EditorPanelViewController *animationVC = nil;
-    if ([self.currentEditor isKindOfClass:[ImageEditorPanelViewController class]]) {
+    EditorPanelContainerViewController *animationVC = nil;
+    if ([self.currentEditor isKindOfClass:[ImageEditorPanelContainerViewController class]]) {
         animationVC = [self createImageEditorViewController];
-    } else if ([self.currentEditor isKindOfClass:[TextEditorPanelViewController class]]) {
+    } else if ([self.currentEditor isKindOfClass:[TextEditorPanelContainerViewController class]]) {
         animationVC = [self createTextEditorViewController];
     }
     [viewController addChildViewController:animationVC];

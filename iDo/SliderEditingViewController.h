@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ImageEditorPanelViewController.h"
-#import "TextEditorPanelViewController.h"
-@interface SliderEditingViewController : UIViewController<TextEditorPanelViewControllerDelegate, ImageEditorPanelViewControllerDelegate>
+#import "EditorPanelContainerViewController.h"
+#import "TextEditorPanelContainerViewController.h"
+
+@interface SliderEditingViewController : UIViewController<TextEditorPanelContainerViewControllerDelegate, EditorPanelContainerViewControllerDelegate>
 
 - (void) adjustCanvasSizeAndPosition;
 

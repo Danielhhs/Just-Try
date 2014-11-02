@@ -110,15 +110,15 @@
     [popOver presentPopoverFromRect:container.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
-#pragma mark - EditorPanelViewControllerDelegate
-- (void) editorPanelViewController:(EditorPanelViewController *)editor didChangeAttributes:(NSDictionary *)attributes
+#pragma mark - EditorPanelContainerViewControllerDelegate
+- (void) editorContainerViewController:(EditorPanelContainerViewController *)container didChangeAttributes:(NSDictionary *)attributes
 {
     [self.currentSelectedContent applyAttributes:attributes];
 }
 
 #pragma mark - TextEditorPanelViewController
 
-- (void) textAttributes:(NSDictionary *)textAttributes didChangeFromTextEditor:(TextEditorPanelViewController *)textEditor
+- (void) textAttributes:(NSDictionary *)textAttributes didChangeFromTextEditor:(TextEditorPanelContainerViewController *)textEditor
 {
     [self.currentSelectedContent applyAttributes:textAttributes];
 }
