@@ -98,27 +98,31 @@ static EditorPanelManager *sharedInstance;
                           forContentView:(GenericContainerView *)contentView
 {
     if ([contentView isKindOfClass:[ImageContainerView class]]) {
-        [self showImageEditorInViewController:viewController attributes:[contentView attributes]];
+        [self showImageEditorInViewController:viewController attributes:[contentView attributes] target:contentView];
     } else if ([contentView isKindOfClass:[TextContainerView class]]) {
-        [self showTextEditorInViewController:viewController attributes:[contentView attributes]];
+        [self showTextEditorInViewController:viewController attributes:[contentView attributes] target:contentView];
     }
 }
 
 - (void) showImageEditorInViewController:(SliderEditingViewController *)viewController
                               attributes:(NSDictionary *)attributes
+                                  target:(id<OperationTarget>) target
 {
     self.currentEditor = self.imageEditor;
-    self.imageEditor.delegate = viewController;
     [self showCurrentEditorInViewController:viewController];
+    self.imageEditor.target = target;
+    self.imageEditor.delegate = viewController;
     [self.imageEditor applyAttributes:attributes];
 }
 
 - (void) showTextEditorInViewController:(SliderEditingViewController *)viewController
                              attributes:(NSDictionary *)attributes
+                                 target:(id<OperationTarget>) target
 {
     self.currentEditor = self.textEditor;
-    self.textEditor.delegate = viewController;
     [self showCurrentEditorInViewController:viewController];
+    self.textEditor.target  = target;
+    self.textEditor.delegate = viewController;
     [self.textEditor applyAttributes:attributes];
 }
 

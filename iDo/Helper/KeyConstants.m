@@ -89,4 +89,9 @@
 {
     return @"DELETE";
 }
+
++ (NSString *) transformKey
+{
+    return @"TRANSFORM";
+}
 @end

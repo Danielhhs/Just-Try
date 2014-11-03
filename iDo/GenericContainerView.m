@@ -12,11 +12,12 @@
 #import "RotationHelper.h"
 #import "GenericContainerViewHelper.h"
 #import "KeyConstants.h"
+#import "UndoManager.h"
+#import "SimpleOperation.h"
+#import "CompoundOperation.h"
 
 @interface GenericContainerView()
-@property (nonatomic) BOOL showBorder;
-//@property (nonatomic, strong) ReflectionView *reflection;
-//@property (nonatomic) BOOL showShadow;
+@property (nonatomic) BOOL showBorder;;
 @property (nonatomic) CGRect originalContentFrame;  //DELETE when add model support
 @property (nonatomic) CGFloat shadowRatio;          //DELETE when add model support
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
@@ -24,6 +25,7 @@
 @property (nonatomic, strong) UIRotationGestureRecognizer *rotation;
 @property (nonatomic, strong) NSMutableDictionary *fullAttributes;
 @property (nonatomic, strong) RotationIndicatorView *rotationIndicator;
+@property (nonatomic, strong) Operation *currentOperation;
 @end
 
 @implementation GenericContainerView
@@ -102,43 +104,6 @@
 {
     [GenericContainerViewHelper mergeChangedAttributes:attributes withFullAttributes:self.fullAttributes];
     [GenericContainerViewHelper applyAttribute:attributes toContainer:self];
-//    NSNumber *rotation = attributes[[GenericContainerViewHelper rotationKey]];
-//    if (rotation) {
-//        self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, [rotation floatValue] / ANGELS_PER_PI * M_PI);
-//    }
-//    NSNumber *reflection = attributes[[GenericContainerViewHelper reflectionKey]];
-//    if (reflection) {
-//        self.reflection.hidden = ![reflection boolValue];
-//        if (self.reflection.hidden == NO) {
-//            CGFloat reflectionHeight = [self.fullAttributes[[GenericContainerViewHelper reflectionSizeKey]] floatValue];
-//            [self.reflection updateReflectionWithWithReflectionHeight:reflectionHeight];
-//        }
-//    }
-//    NSNumber *reflectionAlpha = attributes[[GenericContainerViewHelper reflectionAlphaKey]];
-//    if (reflectionAlpha) {
-//        self.reflection.alpha = [reflectionAlpha floatValue];
-//    }
-//    NSNumber *reflectionSize = attributes[[GenericContainerViewHelper reflectionSizeKey]];
-//    if (reflectionSize) {
-//        self.reflection.height = [reflectionSize floatValue];
-//    }
-//    NSNumber *shadow = attributes[[GenericContainerViewHelper shadowKey]];
-//    if (shadow) {
-//        self.showShadow = [shadow boolValue];
-//    }
-//    NSNumber *shadowAlpha = attributes[[GenericContainerViewHelper shadowAlphaKey]];
-//    if (shadowAlpha) {
-//        self.layer.shadowOpacity = [shadowAlpha floatValue];
-//    }
-//    NSNumber *shadowSize = attributes[[GenericContainerViewHelper shadowSizeKey]];
-//    if (shadowSize) {
-//        self.shadowRatio = [shadowSize doubleValue];
-//        self.layer.shadowPath = [ShadowHelper shadowPathWithShadowDepthRatio:[shadowSize doubleValue] originalViewHeight:self.bounds.size.height originalViewContentFrame:self.originalContentFrame].CGPath;
-//    }
-//    NSNumber *restore = attributes[[GenericContainerViewHelper restoreKey]];
-//    if (restore) {
-//        [self hideRotationIndicator];
-//    }
 }
 
 #pragma mark - User Interations
@@ -192,11 +157,15 @@
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
         [GenericContainerViewHelper resetActualTransformWithView:self];
+        NSValue *fromValue = [NSValue valueWithCGAffineTransform:self.transform];
+        self.currentOperation = [[SimpleOperation alloc] initWithTarget:self key:[KeyConstants transformKey] fromValue:fromValue];
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
         [self applyAttributes:@{[KeyConstants rotationKey] : @(gesture.rotation)}];
         gesture.rotation = 0;
     } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
         [self.rotationIndicator hide];
+        ((SimpleOperation *)self.currentOperation).toValue = [NSValue valueWithCGAffineTransform:self.transform];
+        [[UndoManager sharedManager] pushOperation:self.currentOperation];
     }
 }
 
@@ -296,6 +265,15 @@
 - (void) hideRotationIndicator
 {
     [self.rotationIndicator hide];
+}
+
+#pragma mark - OperationTarget
+- (void) performOperation:(Operation *)operation
+{
+    SimpleOperation *simpleOperation = (SimpleOperation *) operation;
+    NSDictionary *attibutes = @{simpleOperation.key : simpleOperation.toValue};
+    [GenericContainerViewHelper mergeChangedAttributes:attibutes withFullAttributes:self.fullAttributes];
+    [GenericContainerViewHelper applyUndoAttribute:attibutes toContainer:self];
 }
 
 @end

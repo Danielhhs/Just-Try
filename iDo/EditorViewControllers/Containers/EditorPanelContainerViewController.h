@@ -21,6 +21,7 @@
 
 @property (nonatomic, weak) id<EditorPanelContainerViewControllerDelegate> delegate;
 
+@property (nonatomic, weak) id<OperationTarget> target;
 - (void) applyAttributes:(NSDictionary *) attributes;
 - (void) hideTooltip;
 - (CGRect) contentFrameFromYPosition:(CGFloat) yPosition;

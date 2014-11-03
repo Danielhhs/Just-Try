@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Operation.h"
 
 @class SliderWithTooltip;
 
@@ -16,6 +17,8 @@
 
 @interface SliderWithTooltip : UISlider
 
+@property (nonatomic, weak) id<OperationTarget> target;
+@property (nonatomic, strong) NSString *key;
 @property (nonatomic, weak) id<SliderWithToolTipDelegate> delegate;
 
 @end

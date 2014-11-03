@@ -14,6 +14,8 @@
 #import "TooltipView.h"
 #import "SliderWithTooltip.h"
 #import "KeyConstants.h"
+#import "CompoundOperation.h"
+#import "UndoManager.h"
 
 #define THUMB_WIDTH_HALF 15
 
@@ -31,10 +33,6 @@
 @implementation EditorPanelViewController
 
 #pragma mark - Memory Management
-- (void) awakeFromNib
-{
-    [super awakeFromNib];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,20 +43,19 @@
     self.alphaSlider.delegate = self;
     self.sizeSlider.delegate = self;
     self.viewOpacitySlider.delegate = self;
+    self.viewOpacitySlider.key = [KeyConstants viewOpacityKey];
+}
+
+- (void) setTarget:(id<OperationTarget>)target
+{
+    _target = target;
+    self.alphaSlider.target = target;
+    self.sizeSlider.target = target;
+    self.viewOpacitySlider.target = target;
 }
 
 #pragma mark - User Interaction 
 - (IBAction)handleTap:(id)sender {
-}
-
-- (IBAction)rotationValueChanged:(UISlider *)sender {
-    [self updateTooltipViewFromSender:sender];
-    [self.delegate editorPanelViewController:self didChangeAttributes:@{[KeyConstants rotationKey] : @(sender.value)}];
-}
-
-- (IBAction)restore {
-    [self.delegate editorPanelViewController:self didChangeAttributes:@{[KeyConstants rotationKey] : @(0),
-                                                                        [KeyConstants restoreKey] : @(YES)}];
 }
 
 - (void) applyAttributes:(NSDictionary *)attributes
@@ -107,8 +104,14 @@
 
 - (void) reflectionStatusChanged:(UITapGestureRecognizer *) gesture
 {
+    SimpleOperation *reflectionOperation = [[SimpleOperation alloc] initWithTarget:self.target key:[KeyConstants reflectionKey] fromValue:@(self.addReflectionView.selected)];
     self.addReflectionView.selected = !self.addReflectionView.selected;
+    reflectionOperation.toValue = @(self.addReflectionView.selected);
+    SimpleOperation *shadowOperation = [[SimpleOperation alloc] initWithTarget:self.target key:[KeyConstants shadowKey] fromValue:@(self.addShadowView.selected)];
     self.addShadowView.selected = NO;
+    shadowOperation.toValue = @(NO);
+    CompoundOperation *compoundOperation = [[CompoundOperation alloc] initWithOperations:@[reflectionOperation, shadowOperation]];
+    [[UndoManager sharedManager] pushOperation:compoundOperation];
     [self updateReflectionShadowStatus];
     [self updateSliders];
     [self.delegate editorPanelViewController:self didChangeAttributes:@{
@@ -119,8 +122,14 @@
 
 - (void) shadowStatusChanged:(UITapGestureRecognizer *) gesture
 {
+    SimpleOperation *shadowOperation = [[SimpleOperation alloc] initWithTarget:self.target key:[KeyConstants shadowKey] fromValue:@(self.addShadowView.selected)];
     self.addShadowView.selected = !self.addShadowView.selected;
+    shadowOperation.toValue = @(self.addShadowView.selected);
+    SimpleOperation *reflectionOperation = [[SimpleOperation alloc] initWithTarget:self.target key:[KeyConstants reflectionKey] fromValue:@(self.addReflectionView.selected)];
     self.addReflectionView.selected = NO;
+    reflectionOperation.toValue = @(NO);
+    CompoundOperation *compoundOperation = [[CompoundOperation alloc] initWithOperations:@[reflectionOperation, shadowOperation]];
+    [[UndoManager sharedManager] pushOperation:compoundOperation];
     [self updateReflectionShadowStatus];
     [self updateSliders];
     [self.delegate editorPanelViewController:self didChangeAttributes:@{
@@ -132,7 +141,7 @@
 - (void) updateReflectionShadowStatus
 {
     [self.attributes setValue:@(self.addReflectionView.selected) forKey:[KeyConstants reflectionKey]];
-    [self.attributes setValue:@(self.addShadowView.selected) forKey:[KeyConstants reflectionKey]];
+    [self.attributes setValue:@(self.addShadowView.selected) forKey:[KeyConstants shadowKey]];
 }
 
 - (void) updateSliders
@@ -148,6 +157,8 @@
         if (reflectionSize) {
             [self.sizeSlider setValue:[reflectionSize floatValue] animated:YES];
         }
+        self.alphaSlider.key = [KeyConstants reflectionAlphaKey];
+        self.sizeSlider.key = [KeyConstants reflectionSizeKey];
     } else if (self.addShadowView.selected) {
         NSNumber *shadowAlpha = self.attributes[[KeyConstants shadowAlphaKey]];
         if (shadowAlpha) {
@@ -157,6 +168,8 @@
         if (shadowSize) {
             [self.sizeSlider setValue:[shadowSize doubleValue] animated:YES];
         }
+        self.alphaSlider.key = [KeyConstants shadowAlphaKey];
+        self.sizeSlider.key = [KeyConstants shadowSizeKey];
     } else {
         self.sizeSlider.enabled = NO;
         self.alphaSlider.enabled = NO;

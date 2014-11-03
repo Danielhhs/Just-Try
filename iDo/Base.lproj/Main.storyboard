@@ -39,6 +39,16 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="QT3-jN-Syn"/>
+                                    <barButtonItem enabled="NO" systemItem="undo" id="ddu-OJ-aK8">
+                                        <connections>
+                                            <action selector="undo:" destination="BYZ-38-t0r" id="n0H-x7-N6f"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem enabled="NO" systemItem="redo" id="408-Cz-Adb">
+                                        <connections>
+                                            <action selector="redo:" destination="BYZ-38-t0r" id="iyv-2Y-8fv"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem systemItem="trash" id="V5Q-XX-g0m"/>
                                 </items>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -52,6 +62,8 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
                         <outlet property="canvas" destination="3ys-au-8tK" id="Q1E-92-tGN"/>
+                        <outlet property="redoButton" destination="408-Cz-Adb" id="LEp-0d-jji"/>
+                        <outlet property="undoButton" destination="ddu-OJ-aK8" id="3Nr-qA-ur9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

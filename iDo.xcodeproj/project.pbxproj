@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		542185241A061565006EBDFD /* KeyConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 542185231A061565006EBDFD /* KeyConstants.m */; };
+		542185341A07245C006EBDFD /* SimpleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 542185331A07245C006EBDFD /* SimpleOperation.m */; };
+		542185371A072509006EBDFD /* CompoundOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 542185361A072509006EBDFD /* CompoundOperation.m */; };
 		546457BD19F1074900078EAF /* BasicImageEditorContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */; };
 		546457BE19F1074900078EAF /* BasicImageEditorContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 546457BC19F1074900078EAF /* BasicImageEditorContentViewController.xib */; };
 		546457C019F1096200078EAF /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546457BF19F1096200078EAF /* CoreImage.framework */; };
@@ -77,6 +79,10 @@
 /* Begin PBXFileReference section */
 		542185221A061565006EBDFD /* KeyConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyConstants.h; path = Helper/KeyConstants.h; sourceTree = "<group>"; };
 		542185231A061565006EBDFD /* KeyConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyConstants.m; path = Helper/KeyConstants.m; sourceTree = "<group>"; };
+		542185321A07245C006EBDFD /* SimpleOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleOperation.h; path = "Undo Manager/SimpleOperation.h"; sourceTree = "<group>"; };
+		542185331A07245C006EBDFD /* SimpleOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimpleOperation.m; path = "Undo Manager/SimpleOperation.m"; sourceTree = "<group>"; };
+		542185351A072509006EBDFD /* CompoundOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CompoundOperation.h; path = "Undo Manager/CompoundOperation.h"; sourceTree = "<group>"; };
+		542185361A072509006EBDFD /* CompoundOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompoundOperation.m; path = "Undo Manager/CompoundOperation.m"; sourceTree = "<group>"; };
 		546457BA19F1074900078EAF /* BasicImageEditorContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicImageEditorContentViewController.h; path = EditorViewControllers/BasicImageEditorContentViewController.h; sourceTree = "<group>"; };
 		546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicImageEditorContentViewController.m; path = EditorViewControllers/BasicImageEditorContentViewController.m; sourceTree = "<group>"; };
 		546457BC19F1074900078EAF /* BasicImageEditorContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BasicImageEditorContentViewController.xib; path = EditorViewControllers/BasicImageEditorContentViewController.xib; sourceTree = "<group>"; };
@@ -336,6 +342,10 @@
 				54D333A81A0604EE00F3D7F9 /* UndoManager.m */,
 				54D333AB1A0606A900F3D7F9 /* Operation.h */,
 				54D333AC1A0606A900F3D7F9 /* Operation.m */,
+				542185321A07245C006EBDFD /* SimpleOperation.h */,
+				542185331A07245C006EBDFD /* SimpleOperation.m */,
+				542185351A072509006EBDFD /* CompoundOperation.h */,
+				542185361A072509006EBDFD /* CompoundOperation.m */,
 			);
 			name = "Undo Manager";
 			sourceTree = "<group>";
@@ -583,6 +593,8 @@
 				54F4C7361A033E37006A3F07 /* RotationBenchMarkView.m in Sources */,
 				546457D519F3614100078EAF /* ControlPointManager.m in Sources */,
 				546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */,
+				542185341A07245C006EBDFD /* SimpleOperation.m in Sources */,
+				542185371A072509006EBDFD /* CompoundOperation.m in Sources */,
 				542185241A061565006EBDFD /* KeyConstants.m in Sources */,
 				546457D119F116B700078EAF /* ImageHelper.m in Sources */,
 				546F5CC919FFAFE600C30CBB /* TextDisplayView.m in Sources */,

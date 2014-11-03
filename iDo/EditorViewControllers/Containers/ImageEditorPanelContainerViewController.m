@@ -50,6 +50,11 @@
     self.bordersEditor.delegate = self;
 }
 
+- (void) setTarget:(id<OperationTarget>)target
+{
+    self.basicEditor.target = target;
+    self.bordersEditor.target = target;
+}
 
 #pragma mark - User Interaction
 - (IBAction)changeSegment:(UISegmentedControl *)sender {

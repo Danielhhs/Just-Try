@@ -21,9 +21,11 @@
                           forContentView:(GenericContainerView *)contentView;
 
 - (void) showImageEditorInViewController:(SliderEditingViewController *) viewController
-                              attributes:(NSDictionary *) imageItem;
+                              attributes:(NSDictionary *) imageItem
+                                  target:(id<OperationTarget>)target;
 - (void) showTextEditorInViewController:(SliderEditingViewController *) viewController
-                             attributes:(NSDictionary *) imageItem;
+                             attributes:(NSDictionary *) imageItem
+                                 target:(id<OperationTarget>)target;
 
 - (void) dismissAllEditorPanelsFromViewController:(SliderEditingViewController *) viewController;
 

@@ -13,13 +13,16 @@
 #import "TooltipView.h"
 #import "CanvasView.h"
 #import "CustomTapTextView.h"
+#import "UndoManager.h"
 
 #define GAP_BETWEEN_VIEWS 20.f
 
-@interface SliderEditingViewController ()<ImageContainerViewDelegate, CanvasViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface SliderEditingViewController ()<ImageContainerViewDelegate, CanvasViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UndoManagerDelegate>
 @property (nonatomic, strong) GenericContainerView *currentSelectedContent;
 @property (weak, nonatomic) IBOutlet CanvasView *canvas;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *undoButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *redoButton;
 @property (nonatomic) CGFloat offsetForKeyboard;
 @property (nonatomic) CGFloat keyboardOriginY;
 @end
@@ -31,6 +34,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor darkTextColor];
     self.canvas.delegate = self;
+    [[UndoManager sharedManager] setDelegate:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardShowNotification:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardHideNotification:) name:UIKeyboardWillHideNotification object:nil];
 }
@@ -197,6 +201,35 @@
 - (IBAction)addCustomTextView:(id)sender {
     CustomTapTextView *text = [[CustomTapTextView alloc] initWithFrame:CGRectMake(200, 200, 300, 300)];
     [self.canvas addSubview:text];
+}
+
+#pragma mark - Undo and Redo
+- (IBAction)undo:(UIBarButtonItem *)sender {
+    [[UndoManager sharedManager] undo];
+}
+
+- (IBAction)redo:(UIBarButtonItem *)sender {
+    [[UndoManager sharedManager] redo];
+}
+
+- (void) enableRedo
+{
+    self.redoButton.enabled = YES;
+}
+
+- (void) enableUndo
+{
+    self.undoButton.enabled = YES;
+}
+
+- (void) disableUndo
+{
+    self.undoButton.enabled = NO;
+}
+
+- (void) disableRedo
+{
+    self.redoButton.enabled = NO;
 }
 
 @end

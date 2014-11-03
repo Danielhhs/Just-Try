@@ -19,11 +19,11 @@
 @interface EditorPanelViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *glassianView;
+@property (nonatomic, weak) id<OperationTarget> target;
 
 @property (nonatomic, weak) id<EditorPanelViewControllerDelegate> delegate;
 
 - (void) applyAttributes:(NSDictionary *) attributes;
-- (void) restore;
 
 - (void) hideTooltip;
 

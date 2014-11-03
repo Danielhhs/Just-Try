@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ControlPointManager.h"
+#import "Operation.h"
 
 @class GenericContainerView;
 @class ReflectionView;
@@ -28,12 +29,12 @@
 - (void) frameDidChangeForContentView:(GenericContainerView *) contentView;
 @end
 
-@interface GenericContainerView : UIView
+@interface GenericContainerView : UIView<OperationTarget>
 
 @property (nonatomic, strong) ReflectionView *reflection;
 @property (nonatomic) BOOL showShadow;
-
 @property (nonatomic, weak) id<ContentContainerViewDelegate> delegate;
+
 - (NSDictionary *) attributes;
 
 - (instancetype) initWithAttributes:(NSDictionary *) attributes;

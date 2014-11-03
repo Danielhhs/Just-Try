@@ -20,5 +20,8 @@
 + (void) mergeChangedAttributes:(NSDictionary *) changedAttributes
              withFullAttributes:(NSMutableDictionary *) fullAttributes;
 + (void) applyAttribute:(NSDictionary *) attributes toContainer:(GenericContainerView *) containerView;
++ (void) applyUndoAttribute:(NSDictionary *)attributes toContainer:(GenericContainerView *)containerView;
 + (void) resetActualTransformWithView:(GenericContainerView*) container;
+
++ (CGFloat) anglesFromTransform:(CGAffineTransform) transform;
 @end

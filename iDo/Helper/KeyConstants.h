@@ -24,6 +24,7 @@
 + (NSString *) frameKey;
 + (NSString *) restoreKey;
 + (NSString *) viewOpacityKey;
++ (NSString *) transformKey;
 
 +(NSString *) addKey;
 +(NSString *) deleteKey;

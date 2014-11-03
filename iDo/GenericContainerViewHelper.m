@@ -78,13 +78,23 @@
 + (void) applyAttribute:(NSDictionary *)attributes
             toContainer:(GenericContainerView *)containerView
 {
-    NSNumber *viewOpacity = attributes[[KeyConstants viewOpacityKey]];
-    if (viewOpacity) {
-        containerView.alpha = [viewOpacity doubleValue];
-    }
+    [GenericContainerViewHelper applyNoAnimationAttribute:attributes toContainer:containerView];
     NSNumber *rotation = attributes[[KeyConstants rotationKey]];
     if (rotation) {
         [GenericContainerViewHelper applyRotation:[rotation doubleValue] toView:containerView];
+    }
+    NSNumber *restore = attributes[[KeyConstants restoreKey]];
+    if (restore) {
+        containerView.transform = CGAffineTransformIdentity;
+        [containerView hideRotationIndicator];
+    }
+}
+
++ (void) applyNoAnimationAttribute:(NSDictionary *)attributes toContainer:(GenericContainerView *)containerView
+{
+    NSNumber *viewOpacity = attributes[[KeyConstants viewOpacityKey]];
+    if (viewOpacity) {
+        containerView.alpha = [viewOpacity doubleValue];
     }
     NSNumber *reflection = attributes[[KeyConstants reflectionKey]];
     if (reflection) {
@@ -114,11 +124,22 @@
     if (shadowSize) {
         containerView.layer.shadowPath = [ShadowHelper shadowPathWithShadowDepthRatio:[shadowSize doubleValue] originalViewHeight:containerView.bounds.size.height originalViewContentFrame:containerView.originalContentFrame].CGPath;
     }
-    NSNumber *restore = attributes[[KeyConstants restoreKey]];
-    if (restore) {
-        containerView.transform = CGAffineTransformIdentity;
+}
+
++ (void) applyUndoAttribute:(NSDictionary *)attributes toContainer:(GenericContainerView *)containerView
+{
+    [GenericContainerViewHelper applyNoAnimationAttribute:attributes toContainer:containerView];
+    NSValue *transform = attributes[[KeyConstants transformKey]];
+    if (transform) {
+        containerView.transform = [transform CGAffineTransformValue];
         [containerView hideRotationIndicator];
     }
+}
+
++ (CGFloat) anglesFromTransform:(CGAffineTransform)transform
+{
+    CGFloat radians = atan2(transform.b, transform.a);
+    return radians / M_PI * ANGELS_PER_PI;
 }
 
 static CGAffineTransform actualTransform;

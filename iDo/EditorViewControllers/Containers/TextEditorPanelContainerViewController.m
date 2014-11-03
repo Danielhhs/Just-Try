@@ -87,6 +87,13 @@
     [viewController didMoveToParentViewController:self];
 }
 
+- (void) setTarget:(id<OperationTarget>)target
+{
+    self.basicEditor.target = target;
+    self.borderEditor.target = target;
+    self.styleEditor.target = target;
+}
+
 #pragma mark - BasicTextEditorPanelViewControllerDelegate
 - (void) textAttributes:(NSDictionary *)textAttributes didChangeFromTextEditor:(TextBasicEditorPanelViewController *)textEditor
 {
