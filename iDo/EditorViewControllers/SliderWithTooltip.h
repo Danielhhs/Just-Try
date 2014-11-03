@@ -21,4 +21,6 @@
 @property (nonatomic, strong) NSString *key;
 @property (nonatomic, weak) id<SliderWithToolTipDelegate> delegate;
 
+- (SimpleOperation *) setValue:(float)value generateOperations:(BOOL) generateOperations;
+
 @end

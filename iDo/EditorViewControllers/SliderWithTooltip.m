@@ -12,7 +12,7 @@
 
 #define THUMB_RADIUS 5
 
-@interface SliderWithTooltip()
+@interface SliderWithTooltip()<OperationTarget>
 @property (nonatomic, strong) SimpleOperation *operation;
 @end
 
@@ -21,7 +21,7 @@
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
-    self.operation = [[SimpleOperation alloc] initWithTarget:self.target key:self.key fromValue:@(self.value)];
+    self.operation = [[SimpleOperation alloc] initWithTargets:@[self.target, self] key:self.key fromValue:@(self.value)];
 }
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -46,6 +46,26 @@
     self.operation.toValue = @(self.value);
     [[UndoManager sharedManager] pushOperation:self.operation];
     [self.delegate touchDidEndInSlider:self];
+}
+
+#pragma mark - Operation Target
+- (void) performOperation:(Operation *)operation
+{
+    if ([operation isKindOfClass:[SimpleOperation class]]) {
+        SimpleOperation *simpleOperation = (SimpleOperation *)operation;
+        self.value = [((NSNumber *)simpleOperation.toValue) doubleValue];
+    }
+}
+
+- (SimpleOperation *) setValue:(float)value generateOperations:(BOOL)generateOperations
+{
+    SimpleOperation *operation = nil;
+    if (generateOperations) {
+        operation = [[SimpleOperation alloc] initWithTargets:@[self] key:self.key fromValue:@(self.value)];
+        operation.toValue = @(value);
+    }
+    [self setValue:value animated:YES];
+    return operation;
 }
 
 @end

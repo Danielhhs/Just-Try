@@ -158,7 +158,7 @@
     if (gesture.state == UIGestureRecognizerStateBegan) {
         [GenericContainerViewHelper resetActualTransformWithView:self];
         NSValue *fromValue = [NSValue valueWithCGAffineTransform:self.transform];
-        self.currentOperation = [[SimpleOperation alloc] initWithTarget:self key:[KeyConstants transformKey] fromValue:fromValue];
+        self.currentOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants transformKey] fromValue:fromValue];
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
         [self applyAttributes:@{[KeyConstants rotationKey] : @(gesture.rotation)}];
         gesture.rotation = 0;

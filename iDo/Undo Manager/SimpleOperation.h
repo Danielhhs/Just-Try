@@ -10,14 +10,14 @@
 
 @interface SimpleOperation : Operation
 
-
-@property (nonatomic, strong) id<OperationTarget> target;
+@property (nonatomic, strong) NSArray *targets;
 @property (nonatomic, strong) NSString *key;
 @property (nonatomic, strong) NSObject *fromValue;
 @property (nonatomic, strong) NSObject *toValue;
 
-- (instancetype) initWithTarget:(NSObject *) target
-                            key:(NSString *) key
-                      fromValue:(NSObject *) fromValue;
+- (instancetype) initWithTargets:(NSArray *) targets
+                             key:(NSString *) key
+                       fromValue:(NSObject *) fromValue;
 
+- (void) setToValue:(NSObject *)toValue;
 @end

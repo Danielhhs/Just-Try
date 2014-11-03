@@ -23,7 +23,7 @@
         }
         self.operations = [NSMutableArray array];
         for (NSInteger i = 0; i < [targets count]; i++) {
-            SimpleOperation *simpleOperation = [[SimpleOperation alloc] initWithTarget:targets[i] key:keys[i] fromValue:fromValues[i]];
+            SimpleOperation *simpleOperation = [[SimpleOperation alloc] initWithTargets:targets[i] key:keys[i] fromValue:fromValues[i]];
             [self.operations addObject:simpleOperation];
         }
     }

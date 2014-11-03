@@ -8,16 +8,15 @@
 
 #import "SimpleOperation.h"
 #import "KeyConstants.h"
-
 @implementation SimpleOperation
 
-- (instancetype) initWithTarget:(id<OperationTarget>)target
-                            key:(NSString *)key
-                      fromValue:(NSObject *)fromValue
+- (instancetype) initWithTargets:(NSArray *)target
+                             key:(NSString *)key
+                       fromValue:(NSObject *)fromValue
 {
     self = [super init];
     if (self) {
-        _target = target;
+        _targets = target;
         _key = key;
         _fromValue = fromValue;
         _toValue = nil;
@@ -25,7 +24,12 @@
     return self;
 }
 
-- (Operation *) reverseOperation
+- (void) setToValue:(NSObject *)toValue
+{
+    _toValue = toValue;
+}
+
+- (SimpleOperation *) reverseOperation
 {
     NSString *key = self.key;
     if ([self.key isEqualToString:[KeyConstants addKey]]) {
@@ -33,19 +37,23 @@
     } else if ([self.key isEqualToString:[KeyConstants deleteKey]]) {
         key = [KeyConstants addKey];
     }
-    SimpleOperation *reverse = [[SimpleOperation alloc] initWithTarget:self.target key:self.key fromValue:self.toValue];
+    SimpleOperation *reverse = [[SimpleOperation alloc] initWithTargets:self.targets key:self.key fromValue:self.toValue];
     reverse.toValue = self.fromValue;
     return reverse;
 }
 
 - (void) makeTargetPerformReverseOperation
 {
-    [self.target performOperation:[self reverseOperation]];
+    for (id<OperationTarget> target in self.targets) {
+        [target performOperation:(SimpleOperation *)[self reverseOperation]];
+    }
 }
 
 - (void) makeTargetPerformOperation
 {
-    [self.target performOperation:self];
+    for (id<OperationTarget> target in self.targets) {
+        [target performOperation:self];
+    }
 }
 
 @end

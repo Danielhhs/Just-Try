@@ -10,5 +10,5 @@
 
 @interface EditorButtonView : UIView
 @property (nonatomic) BOOL selected;
-
+@property (nonatomic, strong) NSString *key;
 @end

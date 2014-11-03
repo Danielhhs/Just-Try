@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@class Operation;
+@class SimpleOperation;
 
 @protocol OperationTarget <NSObject>
 
-- (void) performOperation:(Operation *) operation;
+- (void) performOperation:(SimpleOperation *) operation;
 
 @end
 
