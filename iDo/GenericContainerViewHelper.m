@@ -124,6 +124,14 @@
     if (shadowSize) {
         containerView.layer.shadowPath = [ShadowHelper shadowPathWithShadowDepthRatio:[shadowSize doubleValue] originalViewHeight:containerView.bounds.size.height originalViewContentFrame:containerView.originalContentFrame].CGPath;
     }
+    NSValue *frame = attributes[[KeyConstants frameKey]];
+    if (frame) {
+        containerView.frame = [frame CGRectValue];
+    }
+    NSValue *center = attributes[[KeyConstants centerKey]];
+    if (center) {
+        containerView.center = [center CGPointValue];
+    }
 }
 
 + (void) applyUndoAttribute:(NSDictionary *)attributes toContainer:(GenericContainerView *)containerView

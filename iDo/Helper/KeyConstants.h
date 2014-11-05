@@ -25,6 +25,8 @@
 + (NSString *) restoreKey;
 + (NSString *) viewOpacityKey;
 + (NSString *) transformKey;
++ (NSString *) textSelectionKey;
++ (NSString *) centerKey;
 
 +(NSString *) addKey;
 +(NSString *) deleteKey;

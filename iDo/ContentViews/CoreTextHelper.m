@@ -112,10 +112,10 @@
 
 + (CGFloat) heightForAttributedString:(NSAttributedString *)attrString maxWidth:(CGFloat) maxWidth
 {
-    NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
-    CGSize size = [attrString boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX) options:options context:nil].size;
-    CGFloat height = ceilf(size.height);
-    return height;
+    UITextView *tempTextView = [[UITextView alloc] init];
+    tempTextView.attributedText = attrString;
+    CGSize size = [tempTextView sizeThatFits:CGSizeMake(maxWidth, FLT_MAX)];
+    return size.height;
 }
 
 @end

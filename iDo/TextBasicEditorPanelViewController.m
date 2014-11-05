@@ -10,6 +10,9 @@
 #import "GenericContainerViewHelper.h"
 #import "TextFontHelper.h"
 #import "KeyConstants.h"
+#import "UndoManager.h"
+#import "SimpleOperation.h"
+#import "CompoundOperation.h"
 
 #define PICK_VIEW_FONT_FAMILY_NAME_COMPONENT_INDEX 0
 #define PICK_VIEW_FONT_NAME_COMPONENT_INDEX 1
@@ -24,7 +27,7 @@
 #define KEYBOARD_OFFSET 200
 
 
-@interface TextBasicEditorPanelViewController ()<UIPickerViewDataSource, UIPickerViewDelegate>
+@interface TextBasicEditorPanelViewController ()<UIPickerViewDataSource, UIPickerViewDelegate, OperationTarget>
 
 @property (weak, nonatomic) IBOutlet UIPickerView *fontPicker;
 @property (nonatomic, strong) NSArray *fontFamilies;
@@ -33,7 +36,8 @@
 @property (nonatomic, strong) NSArray *fontSizes;
 @property (nonatomic) TextAlignment alignment;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *alignmentSegment;
-
+@property (nonatomic, strong) UIFont *lastSelectedFont;
+@property (nonatomic) NSRange selectedRange;
 @end
 
 @implementation TextBasicEditorPanelViewController
@@ -142,8 +146,19 @@
        didSelectRow:(NSInteger)row
         inComponent:(NSInteger)component
 {
-    [pickerView reloadComponent:PICK_VIEW_FONT_NAME_COMPONENT_INDEX];
-    [self.delegate textAttributes:@{[KeyConstants fontKey] : [self fontFromCurrentSelection]} didChangeFromTextEditor:self];
+    if ([self componentIsFontFamilySelector:component]) {
+        [pickerView reloadComponent:PICK_VIEW_FONT_NAME_COMPONENT_INDEX];
+    }
+    UIFont *selectedFont = [self fontFromCurrentSelection];
+    [self.delegate textAttributes:@{[KeyConstants fontKey] : selectedFont} didChangeFromTextEditor:self];
+    SimpleOperation *fontOperation = [[SimpleOperation alloc] initWithTargets:@[self.target, self] key:[KeyConstants fontKey] fromValue:self.lastSelectedFont];
+    fontOperation.toValue = selectedFont;
+    NSValue *textSelectionValue = [NSValue valueWithRange:self.selectedRange];
+    SimpleOperation *selectionOperation = [[SimpleOperation alloc] initWithTargets:@[self.target, self] key:[KeyConstants textSelectionKey] fromValue:textSelectionValue];
+    selectionOperation.toValue = textSelectionValue;
+    CompoundOperation *compoundOperation = [[CompoundOperation alloc] initWithOperations:@[selectionOperation, fontOperation]];
+    [[UndoManager sharedManager] pushOperation:compoundOperation];
+    self.lastSelectedFont = selectedFont;
 }
 
 - (BOOL) componentIsFontFamilySelector:(NSInteger) component
@@ -174,7 +189,10 @@
 #pragma mark - Text Alignment
 
 - (IBAction)textAlignmentChanged:(UISegmentedControl *)sender {
+    SimpleOperation *operation = [[SimpleOperation alloc] initWithTargets:@[self.target, self] key:[KeyConstants alignmentKey] fromValue:@(self.alignment)];
     self.alignment = sender.selectedSegmentIndex;
+    operation.toValue = @(self.alignment);
+    [[UndoManager sharedManager] pushOperation:operation];
     [self.delegate textAttributes:@{[KeyConstants alignmentKey] : @(self.alignment)} didChangeFromTextEditor:self];
 }
 
@@ -196,7 +214,28 @@
         CGFloat size = font.pointSize;
         index = [self.fontSizes indexOfObject:@(size)];
         [self.fontPicker selectRow:index inComponent:PICK_VIEW_SIZE_COMPONENT_INDEX animated:YES];
+        self.lastSelectedFont = font;
     }
+    NSNumber *alignment = [attributes objectForKey:[KeyConstants alignmentKey]];
+    if (alignment) {
+        self.alignmentSegment.selectedSegmentIndex = [alignment integerValue];
+    }
+}
+
+- (void) updateFontPickerByRange:(NSRange)range
+{
+    self.selectedRange = range;
+    if (range.length == 0) {
+        self.fontPicker.userInteractionEnabled = NO;
+    } else {
+        self.fontPicker.userInteractionEnabled= YES;
+    }
+}
+
+#pragma mark - Operation Target
+- (void) performOperation:(SimpleOperation *)operation
+{
+    [self applyAttributes:@{operation.key : operation.toValue}];
 }
 
 @end

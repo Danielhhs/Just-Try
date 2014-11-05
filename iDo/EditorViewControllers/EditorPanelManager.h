@@ -33,6 +33,8 @@
 
 - (void) handleContentViewDidFinishChanging;
 
+- (void) contentViewDidSelectRange:(NSRange) range;
+
 + (CGRect) editorPanelFrameInView:(UIView *) parentView;
 + (CGRect) editorPanelFrameOutOfView:(UIView *) parentView;
 

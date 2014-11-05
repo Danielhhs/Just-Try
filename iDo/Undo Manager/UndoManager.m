@@ -95,4 +95,11 @@ static UndoManager *sharedInstance = nil;
     _cursor = cursor;
 }
 
+- (void) clearRedoStack
+{
+    if ([self.undoStack count] > self.cursor) {
+        [self.undoStack removeObjectsInRange:NSMakeRange(self.cursor, [self.undoStack count] - self.cursor)];
+    }
+}
+
 @end

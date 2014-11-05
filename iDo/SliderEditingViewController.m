@@ -14,10 +14,12 @@
 #import "CanvasView.h"
 #import "CustomTapTextView.h"
 #import "UndoManager.h"
+#import "SimpleOperation.h"
+#import "KeyConstants.h"
 
 #define GAP_BETWEEN_VIEWS 20.f
 
-@interface SliderEditingViewController ()<ImageContainerViewDelegate, CanvasViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UndoManagerDelegate>
+@interface SliderEditingViewController ()<ImageContainerViewDelegate, CanvasViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UndoManagerDelegate, OperationTarget>
 @property (nonatomic, strong) GenericContainerView *currentSelectedContent;
 @property (weak, nonatomic) IBOutlet CanvasView *canvas;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
@@ -68,6 +70,11 @@
     
 }
 
+- (void) contentViewDidSelectTextRange:(NSRange)selectedRange
+{
+    [[EditorPanelManager sharedManager] contentViewDidSelectRange:selectedRange];
+}
+
 - (void) contentViewDidResignFirstResponder:(GenericContainerView *)contentView
 {
     self.currentSelectedContent = nil;
@@ -88,7 +95,12 @@
 
 - (void) contentView:(GenericContainerView *)contentView didChangeAttributes:(NSDictionary *)attributes
 {
-    [[EditorPanelManager sharedManager] makeCurrentEditorApplyChanges:attributes];
+    if (attributes) {
+        [[EditorPanelManager sharedManager] makeCurrentEditorApplyChanges:attributes];
+    }
+    [self enableUndo];
+    [self disableRedo];
+    [[UndoManager sharedManager] clearRedoStack];
 }
 
 - (void) frameDidChangeForContentView:(GenericContainerView *)contentView
@@ -198,13 +210,19 @@
     }
 }
 
-- (IBAction)addCustomTextView:(id)sender {
-    CustomTapTextView *text = [[CustomTapTextView alloc] initWithFrame:CGRectMake(200, 200, 300, 300)];
-    [self.canvas addSubview:text];
+- (IBAction)trash:(id)sender {
+    if (self.currentSelectedContent) {
+        SimpleOperation *deleteOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants deleteKey] fromValue:self.currentSelectedContent];
+        deleteOperation.toValue = self.canvas;
+        [[UndoManager sharedManager] pushOperation:deleteOperation];
+        [self.currentSelectedContent removeFromSuperview];
+        [self.currentSelectedContent resignFirstResponder];
+    }
 }
 
 #pragma mark - Undo and Redo
 - (IBAction)undo:(UIBarButtonItem *)sender {
+    [self.currentSelectedContent pushUnsavedOperation];
     [[UndoManager sharedManager] undo];
 }
 
@@ -230,6 +248,20 @@
 - (void) disableRedo
 {
     self.redoButton.enabled = NO;
+}
+
+- (void) performOperation:(SimpleOperation *)operation
+{
+    if ([operation.key isEqualToString:[KeyConstants deleteKey]]) {
+        GenericContainerView *content = (GenericContainerView *)operation.fromValue;
+        [content removeFromSuperview];
+        [content resignFirstResponder];
+    } else if ([operation.key isEqualToString:[KeyConstants addKey]]) {
+        CanvasView *canvas = (CanvasView *)operation.fromValue;
+        GenericContainerView *content = (GenericContainerView *) operation.toValue;
+        [canvas addSubview:content];
+        [content becomeFirstResponder];
+    }
 }
 
 @end

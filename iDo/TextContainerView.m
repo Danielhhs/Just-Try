@@ -12,9 +12,14 @@
 #import "GenericContainerViewHelper.h"
 #import "CustomTapTextView.h"
 #import "KeyConstants.h"
+#import "SimpleOperation.h"
+#import "UndoManager.h"
+#import "CompoundOperation.h"
 
 @interface TextContainerView ()<CustomTapTextViewDelegate>
 @property (nonatomic, strong) CustomTapTextView *textView;
+@property (nonatomic) NSRange lastSelectedRange;
+@property (nonatomic, strong) NSAttributedString *lastAttrText;
 @end
 
 @implementation TextContainerView
@@ -39,6 +44,8 @@
 {
     self.textView = [[CustomTapTextView alloc] initWithFrame:[self contentViewFrame] attributes:self.attributes];
     self.textView.delegate = self;
+    self.lastSelectedRange = self.textView.selectedRange;
+    self.lastAttrText = self.textView.attributedText;
 }
 
 - (void) addSubViews
@@ -101,11 +108,81 @@
 {
     [self adjustTextViewFrameAndContainerFrame];
     [self updateReflectionView];
+    [self.delegate contentView:self didChangeAttributes:nil];
+}
+
+- (void) textViewWillChangeSelection:(CustomTapTextView *)textView
+{
+    [self createTextOperationAndPushToUndoManager];
 }
 
 - (void) textView:(CustomTapTextView *)textView didSelectFont:(UIFont *)font
 {
     [self.delegate contentView:self didChangeAttributes:@{[KeyConstants fontKey] : font}];
+    [self.delegate contentViewDidSelectTextRange:textView.selectedRange];
+    self.lastSelectedRange = self.textView.selectedRange;
+}
+
+- (void) textViewDidChangeSelection:(UITextView *)textView
+{
+    if (textView.selectedRange.length != 0) {
+        [self.delegate contentViewDidSelectTextRange:textView.selectedRange];
+        self.lastSelectedRange = textView.selectedRange;
+    }
+}
+
+- (BOOL) textViewShouldBeginEditing:(UITextView *)textView
+{
+    self.lastSelectedRange = textView.selectedRange;
+    return YES;
+}
+
+- (void) textViewDidEndEditing:(UITextView *)textView
+{
+    [self createTextOperationAndPushToUndoManager];
+}
+
+- (void) createTextOperationAndPushToUndoManager
+{
+    if (![self.textView.attributedText isEqualToAttributedString:self.lastAttrText]) {
+        [self pushOperationToUndoManagerAndUpdateTextStatus];
+    }
+}
+
+- (SimpleOperation *) selectionOperation
+{
+    SimpleOperation *selectionOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants textSelectionKey] fromValue:[NSValue valueWithRange:self.lastSelectedRange]];
+    NSRange toRange = NSMakeRange(self.lastSelectedRange.location, self.textView.selectedRange.location - self.lastSelectedRange.location);
+    selectionOperation.toValue = [NSValue valueWithRange:toRange];
+    return selectionOperation;
+}
+
+- (void) pushOperationToUndoManagerAndUpdateTextStatus
+{
+    SimpleOperation *selectionOperation = [self selectionOperation];
+    SimpleOperation *textOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants attibutedStringKey] fromValue:self.lastAttrText];
+    textOperation.toValue = self.textView.attributedText;
+    CompoundOperation *compoundOperation = [[CompoundOperation alloc] initWithOperations:@[textOperation, selectionOperation]];
+    [[UndoManager sharedManager] pushOperation:compoundOperation];
+    self.lastAttrText = self.textView.attributedText;
+    self.lastSelectedRange = self.textView.selectedRange;
+}
+
+//- (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+//{
+//    if ([text isEqualToString:@" "] || [text isEqualToString:@"\n"] || [text isEqualToString:@"\t"]) {
+//        SimpleOperation *textOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants attibutedStringKey] fromValue:self.lastAttrText];
+//        NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithAttributedString:textView.attributedText];
+//        [attributedText replaceCharactersInRange:range withString:text];
+//        textOperation.toValue = attributedText;
+//        [self pushTextOperationToUndoManagerAndUpdateTextStatus:textOperation];
+//    }
+//    return YES;
+//}
+
+- (void) textViewDidChangeAttributedText:(CustomTapTextView *)textView
+{
+    [self adjustTextViewFrameAndContainerFrame];
 }
 
 - (void) adjustTextViewFrameAndContainerFrame
@@ -129,7 +206,20 @@
 - (void) applyAttributes:(NSDictionary *)attributes
 {
     [super applyAttributes:attributes];
+    [self applyTextAttributes:attributes];
     [self applyFontAttribute:attributes];
+}
+
+- (void) applyTextAttributes:(NSDictionary *) attributes
+{
+    NSAttributedString *attrText = [attributes objectForKey:[KeyConstants attibutedStringKey]];
+    if (attrText) {
+        self.textView.attributedText = attrText;
+    }
+    NSValue *selectedRange  = [attributes objectForKey:[KeyConstants textSelectionKey]];
+    if (selectedRange) {
+        self.textView.selectedRange = [selectedRange rangeValue];
+    }
 }
 
 - (void) applyFontAttribute:(NSDictionary *) attributes
@@ -154,6 +244,7 @@
         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [attributedString length])];
         self.textView.attributedText = attributedString;
     }
+    self.lastAttrText = self.textView.attributedText;
 }
 
 #pragma mark - Override Super Class Methods
@@ -180,4 +271,15 @@
     }
 }
 
+- (void) performOperation:(SimpleOperation *)operation
+{
+    [super performOperation:operation];
+    [self applyTextAttributes:@{operation.key : operation.toValue}];
+    [self applyFontAttribute:@{operation.key : operation.toValue}];
+}
+
+- (void) pushUnsavedOperation
+{
+    [self createTextOperationAndPushToUndoManager];
+}
 @end

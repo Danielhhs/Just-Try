@@ -37,7 +37,7 @@
     } else if ([self.key isEqualToString:[KeyConstants deleteKey]]) {
         key = [KeyConstants addKey];
     }
-    SimpleOperation *reverse = [[SimpleOperation alloc] initWithTargets:self.targets key:self.key fromValue:self.toValue];
+    SimpleOperation *reverse = [[SimpleOperation alloc] initWithTargets:self.targets key:key fromValue:self.toValue];
     reverse.toValue = self.fromValue;
     return reverse;
 }

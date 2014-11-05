@@ -13,6 +13,10 @@
 
 - (void) textView:(CustomTapTextView *)textView didSelectFont:(UIFont *) font;
 
+- (void) textViewWillChangeSelection:(CustomTapTextView *)textView;
+
+- (void) textViewDidChangeAttributedText:(CustomTapTextView *)textView;
+
 @end
 
 @interface CustomTapTextView : UITextView

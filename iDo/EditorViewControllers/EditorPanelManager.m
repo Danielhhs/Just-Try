@@ -173,5 +173,13 @@ static EditorPanelManager *sharedInstance;
     [self.currentEditor hideTooltip];
 }
 
+- (void) contentViewDidSelectRange:(NSRange)range
+{
+    if ([self.currentEditor isKindOfClass:[TextEditorPanelContainerViewController class]]) {
+        TextEditorPanelContainerViewController *textEditor = (TextEditorPanelContainerViewController *)self.currentEditor;
+        [textEditor updateFontPickerByRange:range];
+    }
+}
+
 
 @end

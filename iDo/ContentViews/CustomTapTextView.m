@@ -9,6 +9,7 @@
 #import "CustomTapTextView.h"
 #import "GenericContainerViewHelper.h"
 #import "KeyConstants.h"
+#import "CoreTextHelper.h"
 
 @interface CustomTapTextView()
 @property (nonatomic, strong) UITapGestureRecognizer *tapToEdit;
@@ -27,6 +28,7 @@
     self.scrollEnabled = NO;
     self.allowsEditingTextAttributes = YES;
     self.tapToLocate = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapToLocate:)];
+    self.tapToLocate.numberOfTapsRequired = 1;
 }
 
 - (instancetype) initWithFrame:(CGRect)frame attributes:(NSDictionary *) attributes
@@ -47,9 +49,9 @@
     [self addGestureRecognizer:self.tapToLocate];
 }
 
-
 - (void) handleTapToLocate:(UITapGestureRecognizer *) tap
 {
+    [self.delegate textViewWillChangeSelection:self];
     NSLayoutManager *layoutManager = [self layoutManager];
     CGPoint location = [tap locationInView:self];
     location.x -= self.textContainerInset.left;
@@ -83,6 +85,12 @@
     [self removeGestureRecognizer:self.tapToLocate];
     self.editable = NO;
     [self resignFirstResponder];
+}
+
+- (void) setAttributedText:(NSAttributedString *)attributedText
+{
+    [super setAttributedText:attributedText];
+    [self.delegate textViewDidChangeAttributedText:self];
 }
 
 @end

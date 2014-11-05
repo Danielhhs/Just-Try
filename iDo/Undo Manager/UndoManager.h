@@ -27,5 +27,6 @@
 - (void) clearup;
 - (void) undo;
 - (void) redo;
+- (void) clearRedoStack;
 
 @end

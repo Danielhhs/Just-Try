@@ -21,11 +21,12 @@
 @property (nonatomic) CGRect originalContentFrame;  //DELETE when add model support
 @property (nonatomic) CGFloat shadowRatio;          //DELETE when add model support
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
-@property (nonatomic, strong) UILongPressGestureRecognizer *longPress;
+@property (nonatomic, strong) UIPanGestureRecognizer *pan;
 @property (nonatomic, strong) UIRotationGestureRecognizer *rotation;
 @property (nonatomic, strong) NSMutableDictionary *fullAttributes;
 @property (nonatomic, strong) RotationIndicatorView *rotationIndicator;
 @property (nonatomic, strong) Operation *currentOperation;
+@property (nonatomic) CGPoint originalCenter;
 @end
 
 @implementation GenericContainerView
@@ -112,8 +113,8 @@
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(becomeFirstResponder)];
     [self addGestureRecognizer:self.tap];
     
-    self.longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-    [self addGestureRecognizer:self.longPress];
+    self.pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    [self addGestureRecognizer:self.pan];
     
     self.rotation = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotation:)];
     [self addGestureRecognizer:self.rotation];
@@ -124,7 +125,7 @@
     [self.delegate contentViewWillResignFirstResponder:self];
     self.showBorder = NO;
     self.tap.enabled = YES;
-    self.longPress.enabled = NO;
+    self.pan.enabled = NO;
     self.rotation.enabled = NO;
     [[ControlPointManager sharedManager] removeAllControlPointsFromView:self];
     return [super resignFirstResponder];
@@ -134,7 +135,7 @@
 {
     [self.delegate contentViewWillBecomFirstResponder:self];
     self.tap.enabled = NO;
-    self.longPress.enabled = YES;
+    self.pan.enabled = YES;
     self.rotation.enabled = YES;
     self.showBorder = YES;
     [[ControlPointManager sharedManager] addAndLayoutControlPointsInView:self];
@@ -142,14 +143,18 @@
     return [super becomeFirstResponder];
 }
 
-- (void) handleLongPress:(UILongPressGestureRecognizer *) gesture
+- (void) handlePan:(UIPanGestureRecognizer *) gesture
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
-        [UIView animateWithDuration:0.5 animations:^{
-            self.center = [gesture locationInView:self.superview];
-        }];
+        self.originalCenter = self.center;
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
-        self.center = [gesture locationInView:self.superview];
+        CGPoint translation = [gesture translationInView:self.superview];
+        self.center = CGPointMake(self.center.x + translation.x, self.center.y + translation.y);
+        [gesture setTranslation:CGPointZero inView:self.superview];
+    } else if (gesture.state == UIGestureRecognizerStateCancelled || gesture.state == UIGestureRecognizerStateEnded) {
+        SimpleOperation *centerOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants centerKey] fromValue:[NSValue valueWithCGPoint:self.originalCenter]];
+        centerOperation.toValue = [NSValue valueWithCGPoint:self.center];
+        [[UndoManager sharedManager] pushOperation:centerOperation];
     }
 }
 
@@ -265,6 +270,11 @@
 - (void) hideRotationIndicator
 {
     [self.rotationIndicator hide];
+}
+
+- (void) pushUnsavedOperation
+{
+    
 }
 
 #pragma mark - OperationTarget

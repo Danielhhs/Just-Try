@@ -94,4 +94,14 @@
 {
     return @"TRANSFORM";
 }
+
++ (NSString *) textSelectionKey
+{
+    return @"TEXT_SELECTION";
+}
+
++ (NSString *) centerKey
+{
+    return @"CENTER";
+}
 @end

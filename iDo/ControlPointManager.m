@@ -8,6 +8,9 @@
 
 #import "ControlPointManager.h"
 #import "GenericContainerView.h"
+#import "UndoManager.h"
+#import "SimpleOperation.h"
+#import "KeyConstants.h"
 
 @interface ControlPointManager ()<BorderControlPointViewDelegate>
 @property (nonatomic, strong) UIView *container;
@@ -20,6 +23,7 @@
 @property (nonatomic, strong) BorderControlPointView *bottomMiddleControlPoint;
 @property (nonatomic, strong) BorderControlPointView *bottomRightControlPoint;
 @property (nonatomic) CGRect previousFrame;
+@property (nonatomic) CGRect originalFrame;
 @end
 
 static ControlPointManager *sharedInstance;
@@ -125,6 +129,18 @@ static ControlPointManager *sharedInstance;
         default:
             break;
     }
+}
+
+- (void) controlPointDidStartMoving:(BorderControlPointView *)controlPoint
+{
+    self.originalFrame = self.containerView.frame;
+}
+
+- (void) controlPointDidFinishMoving:(BorderControlPointView *)controlPoint
+{
+    SimpleOperation *frameOperation = [[SimpleOperation alloc] initWithTargets:@[self.container] key:[KeyConstants frameKey] fromValue:[NSValue valueWithCGRect:self.originalFrame]];
+    frameOperation.toValue = [NSValue valueWithCGRect:self.container.frame];
+    [[UndoManager sharedManager] pushOperation:frameOperation];
 }
 
 #pragma mark - Control points moved handlers
