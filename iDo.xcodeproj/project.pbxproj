@@ -10,6 +10,19 @@
 		542185241A061565006EBDFD /* KeyConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 542185231A061565006EBDFD /* KeyConstants.m */; };
 		542185341A07245C006EBDFD /* SimpleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 542185331A07245C006EBDFD /* SimpleOperation.m */; };
 		542185371A072509006EBDFD /* CompoundOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 542185361A072509006EBDFD /* CompoundOperation.m */; };
+		5421860A1A09E786006EBDFD /* iDoDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 542186081A09E786006EBDFD /* iDoDataModel.xcdatamodeld */; };
+		5421860D1A09F14C006EBDFD /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5421860C1A09F14C006EBDFD /* CoreDataManager.m */; };
+		5421860F1A09F225006EBDFD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5421860E1A09F225006EBDFD /* CoreData.framework */; };
+		5421863F1A09FBBB006EBDFD /* GenericConent+iDo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5421863E1A09FBBB006EBDFD /* GenericConent+iDo.m */; };
+		5436A0041A0A256600A16E2C /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5436A0031A0A256600A16E2C /* CoreDataHelper.m */; };
+		5436A0151A0A269900A16E2C /* ImageContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5436A0141A0A269900A16E2C /* ImageContent.m */; };
+		5436A0181A0A269A00A16E2C /* Proposal.m in Sources */ = {isa = PBXBuildFile; fileRef = 5436A0171A0A269A00A16E2C /* Proposal.m */; };
+		5436A01B1A0A269A00A16E2C /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 5436A01A1A0A269A00A16E2C /* Game.m */; };
+		5436A01E1A0A269A00A16E2C /* Slide.m in Sources */ = {isa = PBXBuildFile; fileRef = 5436A01D1A0A269A00A16E2C /* Slide.m */; };
+		5436A0211A0A269A00A16E2C /* Transition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5436A0201A0A269A00A16E2C /* Transition.m */; };
+		5436A0241A0A269A00A16E2C /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5436A0231A0A269A00A16E2C /* Animation.m */; };
+		5436A0271A0A269A00A16E2C /* TextContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5436A0261A0A269A00A16E2C /* TextContent.m */; };
+		5436A02A1A0A269A00A16E2C /* GenericConent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5436A0291A0A269A00A16E2C /* GenericConent.m */; };
 		546457BD19F1074900078EAF /* BasicImageEditorContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */; };
 		546457BE19F1074900078EAF /* BasicImageEditorContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 546457BC19F1074900078EAF /* BasicImageEditorContentViewController.xib */; };
 		546457C019F1096200078EAF /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546457BF19F1096200078EAF /* CoreImage.framework */; };
@@ -83,6 +96,30 @@
 		542185331A07245C006EBDFD /* SimpleOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimpleOperation.m; path = "Undo Manager/SimpleOperation.m"; sourceTree = "<group>"; };
 		542185351A072509006EBDFD /* CompoundOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CompoundOperation.h; path = "Undo Manager/CompoundOperation.h"; sourceTree = "<group>"; };
 		542185361A072509006EBDFD /* CompoundOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompoundOperation.m; path = "Undo Manager/CompoundOperation.m"; sourceTree = "<group>"; };
+		542186091A09E786006EBDFD /* iDoDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iDoDataModel.xcdatamodel; sourceTree = "<group>"; };
+		5421860B1A09F14C006EBDFD /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataManager.h; path = Model/CoreData/CoreDataManager.h; sourceTree = "<group>"; };
+		5421860C1A09F14C006EBDFD /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataManager.m; path = Model/CoreData/CoreDataManager.m; sourceTree = "<group>"; };
+		5421860E1A09F225006EBDFD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		5421863D1A09FBBB006EBDFD /* GenericConent+iDo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GenericConent+iDo.h"; path = "Model/CoreData/Category/GenericConent+iDo.h"; sourceTree = "<group>"; };
+		5421863E1A09FBBB006EBDFD /* GenericConent+iDo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GenericConent+iDo.m"; path = "Model/CoreData/Category/GenericConent+iDo.m"; sourceTree = "<group>"; };
+		5436A0021A0A256600A16E2C /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataHelper.h; path = Model/CoreData/CoreDataHelper.h; sourceTree = "<group>"; };
+		5436A0031A0A256600A16E2C /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataHelper.m; path = Model/CoreData/CoreDataHelper.m; sourceTree = "<group>"; };
+		5436A0131A0A269900A16E2C /* ImageContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageContent.h; path = "Model/CoreData/Model Objects/ImageContent.h"; sourceTree = "<group>"; };
+		5436A0141A0A269900A16E2C /* ImageContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageContent.m; path = "Model/CoreData/Model Objects/ImageContent.m"; sourceTree = "<group>"; };
+		5436A0161A0A269A00A16E2C /* Proposal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Proposal.h; path = "Model/CoreData/Model Objects/Proposal.h"; sourceTree = "<group>"; };
+		5436A0171A0A269A00A16E2C /* Proposal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Proposal.m; path = "Model/CoreData/Model Objects/Proposal.m"; sourceTree = "<group>"; };
+		5436A0191A0A269A00A16E2C /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Game.h; path = "Model/CoreData/Model Objects/Game.h"; sourceTree = "<group>"; };
+		5436A01A1A0A269A00A16E2C /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Game.m; path = "Model/CoreData/Model Objects/Game.m"; sourceTree = "<group>"; };
+		5436A01C1A0A269A00A16E2C /* Slide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Slide.h; path = "Model/CoreData/Model Objects/Slide.h"; sourceTree = "<group>"; };
+		5436A01D1A0A269A00A16E2C /* Slide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Slide.m; path = "Model/CoreData/Model Objects/Slide.m"; sourceTree = "<group>"; };
+		5436A01F1A0A269A00A16E2C /* Transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Transition.h; path = "Model/CoreData/Model Objects/Transition.h"; sourceTree = "<group>"; };
+		5436A0201A0A269A00A16E2C /* Transition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Transition.m; path = "Model/CoreData/Model Objects/Transition.m"; sourceTree = "<group>"; };
+		5436A0221A0A269A00A16E2C /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Animation.h; path = "Model/CoreData/Model Objects/Animation.h"; sourceTree = "<group>"; };
+		5436A0231A0A269A00A16E2C /* Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Animation.m; path = "Model/CoreData/Model Objects/Animation.m"; sourceTree = "<group>"; };
+		5436A0251A0A269A00A16E2C /* TextContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextContent.h; path = "Model/CoreData/Model Objects/TextContent.h"; sourceTree = "<group>"; };
+		5436A0261A0A269A00A16E2C /* TextContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextContent.m; path = "Model/CoreData/Model Objects/TextContent.m"; sourceTree = "<group>"; };
+		5436A0281A0A269A00A16E2C /* GenericConent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GenericConent.h; path = "Model/CoreData/Model Objects/GenericConent.h"; sourceTree = "<group>"; };
+		5436A0291A0A269A00A16E2C /* GenericConent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GenericConent.m; path = "Model/CoreData/Model Objects/GenericConent.m"; sourceTree = "<group>"; };
 		546457BA19F1074900078EAF /* BasicImageEditorContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicImageEditorContentViewController.h; path = EditorViewControllers/BasicImageEditorContentViewController.h; sourceTree = "<group>"; };
 		546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicImageEditorContentViewController.m; path = EditorViewControllers/BasicImageEditorContentViewController.m; sourceTree = "<group>"; };
 		546457BC19F1074900078EAF /* BasicImageEditorContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BasicImageEditorContentViewController.xib; path = EditorViewControllers/BasicImageEditorContentViewController.xib; sourceTree = "<group>"; };
@@ -186,6 +223,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5421860F1A09F225006EBDFD /* CoreData.framework in Frameworks */,
 				546457C019F1096200078EAF /* CoreImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,6 +238,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		542186101A09F22E006EBDFD /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				542186081A09E786006EBDFD /* iDoDataModel.xcdatamodeld */,
+				5421863C1A09FB47006EBDFD /* Model Objects */,
+				5421860B1A09F14C006EBDFD /* CoreDataManager.h */,
+				5421860C1A09F14C006EBDFD /* CoreDataManager.m */,
+				5436A0021A0A256600A16E2C /* CoreDataHelper.h */,
+				5436A0031A0A256600A16E2C /* CoreDataHelper.m */,
+				542186401A09FC8A006EBDFD /* Category */,
+			);
+			name = "Core Data";
+			sourceTree = "<group>";
+		};
+		5421863C1A09FB47006EBDFD /* Model Objects */ = {
+			isa = PBXGroup;
+			children = (
+				5436A0281A0A269A00A16E2C /* GenericConent.h */,
+				5436A0291A0A269A00A16E2C /* GenericConent.m */,
+				5436A0251A0A269A00A16E2C /* TextContent.h */,
+				5436A0261A0A269A00A16E2C /* TextContent.m */,
+				5436A0221A0A269A00A16E2C /* Animation.h */,
+				5436A0231A0A269A00A16E2C /* Animation.m */,
+				5436A01F1A0A269A00A16E2C /* Transition.h */,
+				5436A0201A0A269A00A16E2C /* Transition.m */,
+				5436A01C1A0A269A00A16E2C /* Slide.h */,
+				5436A01D1A0A269A00A16E2C /* Slide.m */,
+				5436A0191A0A269A00A16E2C /* Game.h */,
+				5436A01A1A0A269A00A16E2C /* Game.m */,
+				5436A0161A0A269A00A16E2C /* Proposal.h */,
+				5436A0171A0A269A00A16E2C /* Proposal.m */,
+				5436A0131A0A269900A16E2C /* ImageContent.h */,
+				5436A0141A0A269900A16E2C /* ImageContent.m */,
+			);
+			name = "Model Objects";
+			sourceTree = "<group>";
+		};
+		542186401A09FC8A006EBDFD /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				5421863D1A09FBBB006EBDFD /* GenericConent+iDo.h */,
+				5421863E1A09FBBB006EBDFD /* GenericConent+iDo.m */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
 		546457B919F1070A00078EAF /* Editors */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +323,7 @@
 				546457CC19F10F3400078EAF /* ImageItem.m */,
 				546457DD19F37E3100078EAF /* TextItem.h */,
 				546457DE19F37E3100078EAF /* TextItem.m */,
+				542186101A09F22E006EBDFD /* Core Data */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -353,6 +438,7 @@
 		54D7293519ECE9B5009A0279 = {
 			isa = PBXGroup;
 			children = (
+				5421860E1A09F225006EBDFD /* CoreData.framework */,
 				546457BF19F1096200078EAF /* CoreImage.framework */,
 				54D7294019ECE9B5009A0279 /* iDo */,
 				54D7295A19ECE9B5009A0279 /* iDoTests */,
@@ -586,13 +672,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5421860A1A09E786006EBDFD /* iDoDataModel.xcdatamodeld in Sources */,
 				546457DC19F37DF500078EAF /* ContentItem.m in Sources */,
 				546457DF19F37E3100078EAF /* TextItem.m in Sources */,
+				5436A0211A0A269A00A16E2C /* Transition.m in Sources */,
 				54CB19DD19EE3D0A0044BBDD /* TextContainerView.m in Sources */,
 				54E96F6719F8CB6A00C5F007 /* EditorButtonView.m in Sources */,
+				5436A0181A0A269A00A16E2C /* Proposal.m in Sources */,
 				54F4C7361A033E37006A3F07 /* RotationBenchMarkView.m in Sources */,
 				546457D519F3614100078EAF /* ControlPointManager.m in Sources */,
 				546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */,
+				5421863F1A09FBBB006EBDFD /* GenericConent+iDo.m in Sources */,
 				542185341A07245C006EBDFD /* SimpleOperation.m in Sources */,
 				542185371A072509006EBDFD /* CompoundOperation.m in Sources */,
 				542185241A061565006EBDFD /* KeyConstants.m in Sources */,
@@ -603,11 +693,14 @@
 				547DCA0D1A04CDA5004691EC /* BordersContentViewController.m in Sources */,
 				54E62D0119FDFA8A0083E0F0 /* TextFontHelper.m in Sources */,
 				549567711A05EA18006D6BAE /* CustomTapTextView.m in Sources */,
+				5421860D1A09F14C006EBDFD /* CoreDataManager.m in Sources */,
 				546457C719F10D8100078EAF /* EditorPanelManager.m in Sources */,
 				546457CD19F10F3400078EAF /* ImageItem.m in Sources */,
 				54E96F6A19F8E53400C5F007 /* ReflectionView.m in Sources */,
 				54D7297319ED0FF0009A0279 /* BorderControlPointView.m in Sources */,
+				5436A0151A0A269900A16E2C /* ImageContent.m in Sources */,
 				54D333AD1A0606A900F3D7F9 /* Operation.m in Sources */,
+				5436A01E1A0A269A00A16E2C /* Slide.m in Sources */,
 				54E96F8819F91FA000C5F007 /* TooltipView.m in Sources */,
 				54CB19D819EE37BE0044BBDD /* ImageContainerView.m in Sources */,
 				54D10B5519F7AC9200197694 /* GenericContainerViewHelper.m in Sources */,
@@ -621,12 +714,17 @@
 				547DCA121A04D1A3004691EC /* TextEditorPanelContainerViewController.m in Sources */,
 				547DCA021A04CAC5004691EC /* EditorPanelContainerViewController.m in Sources */,
 				54D7294419ECE9B5009A0279 /* main.m in Sources */,
+				5436A0241A0A269A00A16E2C /* Animation.m in Sources */,
+				5436A01B1A0A269A00A16E2C /* Game.m in Sources */,
 				54965B3C1A020424005AF774 /* RotationIndicatorView.m in Sources */,
 				54965B391A020362005AF774 /* RotationHelper.m in Sources */,
+				5436A02A1A0A269A00A16E2C /* GenericConent.m in Sources */,
+				5436A0041A0A256600A16E2C /* CoreDataHelper.m in Sources */,
 				546F5CCC1A00904D00C30CBB /* CoreTextHelper.m in Sources */,
 				54965B061A00E50F005AF774 /* ShadowHelper.m in Sources */,
 				54E8B9CB19FA271200AD324D /* SliderWithTooltip.m in Sources */,
 				546457BD19F1074900078EAF /* BasicImageEditorContentViewController.m in Sources */,
+				5436A0271A0A269A00A16E2C /* TextContent.m in Sources */,
 				547DCA071A04CB4C004691EC /* ImageEditorPanelContainerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -834,6 +932,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		542186081A09E786006EBDFD /* iDoDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				542186091A09E786006EBDFD /* iDoDataModel.xcdatamodel */,
+			);
+			currentVersion = 542186091A09E786006EBDFD /* iDoDataModel.xcdatamodel */;
+			name = iDoDataModel.xcdatamodeld;
+			path = Model/CoreData/iDoDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 54D7293619ECE9B5009A0279 /* Project object */;
 }

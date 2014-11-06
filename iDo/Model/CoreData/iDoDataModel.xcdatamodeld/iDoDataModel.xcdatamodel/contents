@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6244" systemVersion="13E28" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Animation" representedClassName="Animation" syncable="YES">
+        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="triggerTime" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="container" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GenericConent" inverseName="animations" inverseEntity="GenericConent" syncable="YES"/>
+    </entity>
+    <entity name="Game" representedClassName="Game" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="unique" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="proposal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Proposal" inverseName="games" inverseEntity="Proposal" syncable="YES"/>
+    </entity>
+    <entity name="GenericConent" representedClassName="GenericConent" syncable="YES">
+        <attribute name="center" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="frame" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="opacity" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="reflection" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="reflectionAlpha" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="reflectionSize" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="rotation" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="shadow" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="shadowAlpha" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="shadowSize" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="transform" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="unique" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="animations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Animation" inverseName="container" inverseEntity="Animation" syncable="YES"/>
+        <relationship name="slide" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Slide" inverseName="contents" inverseEntity="Slide" syncable="YES"/>
+    </entity>
+    <entity name="ImageContent" representedClassName="ImageContent" parentEntity="GenericConent" syncable="YES">
+        <attribute name="filter" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Proposal" representedClassName="Proposal" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unique" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="games" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Game" inverseName="proposal" inverseEntity="Game" syncable="YES"/>
+        <relationship name="slides" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Slide" inverseName="proposal" inverseEntity="Slide" syncable="YES"/>
+    </entity>
+    <entity name="Slide" representedClassName="Slide" syncable="YES">
+        <attribute name="background" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unique" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="contents" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GenericConent" inverseName="slide" inverseEntity="GenericConent" syncable="YES"/>
+        <relationship name="proposal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Proposal" inverseName="slides" inverseEntity="Proposal" syncable="YES"/>
+        <relationship name="transitions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Transition" inverseName="slide" inverseEntity="Transition" syncable="YES"/>
+    </entity>
+    <entity name="TextContent" representedClassName="TextContent" parentEntity="GenericConent" syncable="YES">
+        <attribute name="attributes" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Transition" representedClassName="Transition" syncable="YES">
+        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="event" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="slide" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Slide" inverseName="transitions" inverseEntity="Slide" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Animation" positionX="-2943" positionY="-439" width="128" height="118"/>
+        <element name="Game" positionX="-3152" positionY="-826" width="128" height="105"/>
+        <element name="GenericConent" positionX="-3015" positionY="-709" width="128" height="255"/>
+        <element name="ImageContent" positionX="-2799" positionY="-666" width="128" height="73"/>
+        <element name="Proposal" positionX="-3501" positionY="-769" width="128" height="105"/>
+        <element name="Slide" positionX="-3222" positionY="-639" width="128" height="120"/>
+        <element name="TextContent" positionX="-2810" positionY="-565" width="128" height="75"/>
+        <element name="Transition" positionX="-3186" positionY="-403" width="128" height="105"/>
+    </elements>
+</model>
