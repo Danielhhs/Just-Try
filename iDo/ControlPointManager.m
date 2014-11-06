@@ -11,6 +11,7 @@
 #import "UndoManager.h"
 #import "SimpleOperation.h"
 #import "KeyConstants.h"
+#import "TextContainerView.h"
 
 @interface ControlPointManager ()<BorderControlPointViewDelegate>
 @property (nonatomic, strong) UIView *container;
@@ -259,14 +260,16 @@ static ControlPointManager *sharedInstance;
 
 - (void) addControlPoints
 {
-    [self.container addSubview:self.topLeftControlPoint];
-    [self.container addSubview:self.topMiddleControlPoint];
-    [self.container addSubview:self.topRightControlPoint];
+    if (![self.container isKindOfClass:[TextContainerView class]]) {
+        [self.container addSubview:self.topLeftControlPoint];
+        [self.container addSubview:self.topMiddleControlPoint];
+        [self.container addSubview:self.topRightControlPoint];
+        [self.container addSubview:self.bottomLeftControlPoint];
+        [self.container addSubview:self.bottomMiddleControlPoint];
+        [self.container addSubview:self.bottomRightControlPoint];
+    }
     [self.container addSubview:self.middleLeftControlPoint];
     [self.container addSubview:self.middleRightControlPoint];
-    [self.container addSubview:self.bottomLeftControlPoint];
-    [self.container addSubview:self.bottomMiddleControlPoint];
-    [self.container addSubview:self.bottomRightControlPoint];
 }
 
 - (void) disableControlPoints
@@ -295,14 +298,16 @@ static ControlPointManager *sharedInstance;
 
 - (void) layoutControlPoints
 {
-    self.topLeftControlPoint.center = CGPointMake(CONTROL_POINT_SIZE_HALF, [self centerYForTopControlPoints]);
-    self.topMiddleControlPoint.center = CGPointMake([self centerXForMiddleControlPoints], [self centerYForTopControlPoints]);
-    self.topRightControlPoint.center = CGPointMake([self centerXForRightControlPoints], [self centerYForTopControlPoints]);
+    if (![self.container isKindOfClass:[TextContainerView class]]) {
+        self.topLeftControlPoint.center = CGPointMake(CONTROL_POINT_SIZE_HALF, [self centerYForTopControlPoints]);
+        self.topMiddleControlPoint.center = CGPointMake([self centerXForMiddleControlPoints], [self centerYForTopControlPoints]);
+        self.topRightControlPoint.center = CGPointMake([self centerXForRightControlPoints], [self centerYForTopControlPoints]);
+        self.bottomLeftControlPoint.center = CGPointMake(CONTROL_POINT_SIZE_HALF, [self centerYForBottomControlPoints]);
+        self.bottomMiddleControlPoint.center = CGPointMake([self centerXForMiddleControlPoints], [self centerYForBottomControlPoints]);
+        self.bottomRightControlPoint.center = CGPointMake([self centerXForRightControlPoints], [self centerYForBottomControlPoints]);
+    }
     self.middleLeftControlPoint.center = CGPointMake(CONTROL_POINT_SIZE_HALF, [self centerYForMiddleControlPoints]);
     self.middleRightControlPoint.center = CGPointMake([self centerXForRightControlPoints], [self centerYForMiddleControlPoints]);
-    self.bottomLeftControlPoint.center = CGPointMake(CONTROL_POINT_SIZE_HALF, [self centerYForBottomControlPoints]);
-    self.bottomMiddleControlPoint.center = CGPointMake([self centerXForMiddleControlPoints], [self centerYForBottomControlPoints]);
-    self.bottomRightControlPoint.center = CGPointMake([self centerXForRightControlPoints], [self centerYForBottomControlPoints]);
 }
 
 - (CGPoint) pointBytranslation:(CGPoint)translation

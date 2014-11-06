@@ -37,7 +37,7 @@
 - (void) setupSubViewsWithAttributes:(NSDictionary *) attributes
 {
     [self setupTextViewWithAttributedString:attributes];
-    [self adjustTextViewFrameAndContainerFrame];
+    [self adjustTextViewBoundsAndContainerBounds];
 }
 
 - (void) setupTextViewWithAttributedString:(NSDictionary *) attributes
@@ -57,11 +57,7 @@
 - (void) setFrame:(CGRect)frame
 {
     [super setFrame:frame];
-    self.textView.frame = [self contentViewFrame];
-    CGFloat height = [CoreTextHelper heightForAttributedStringInTextView:self.textView];
-    CGRect bounds = CGRectMake(0, 0, frame.size.width, height);
-    [super setFrame:[self frameFromTextViewBounds:bounds]];
-    self.textView.frame = [self contentViewFrame];
+    [self adjustTextViewBoundsAndContainerBounds];
     if ([self needToAdjustCanvas]) {
         [self.delegate frameDidChangeForContentView:self];
     }
@@ -106,7 +102,7 @@
 #pragma mark - CustomTextViewDelegate
 -(void) textViewDidChange:(UITextView *)textView
 {
-    [self adjustTextViewFrameAndContainerFrame];
+    [self adjustTextViewBoundsAndContainerBounds];
     [self updateReflectionView];
     [self.delegate contentView:self didChangeAttributes:nil];
 }
@@ -168,38 +164,28 @@
     self.lastSelectedRange = self.textView.selectedRange;
 }
 
-//- (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-//{
-//    if ([text isEqualToString:@" "] || [text isEqualToString:@"\n"] || [text isEqualToString:@"\t"]) {
-//        SimpleOperation *textOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants attibutedStringKey] fromValue:self.lastAttrText];
-//        NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithAttributedString:textView.attributedText];
-//        [attributedText replaceCharactersInRange:range withString:text];
-//        textOperation.toValue = attributedText;
-//        [self pushTextOperationToUndoManagerAndUpdateTextStatus:textOperation];
-//    }
-//    return YES;
-//}
-
 - (void) textViewDidChangeAttributedText:(CustomTapTextView *)textView
 {
-    [self adjustTextViewFrameAndContainerFrame];
+    [self adjustTextViewBoundsAndContainerBounds];
 }
 
-- (void) adjustTextViewFrameAndContainerFrame
+- (void) adjustTextViewBoundsAndContainerBounds
 {
+    self.textView.frame = [self contentViewFrame];
     CGFloat height = [CoreTextHelper heightForAttributedStringInTextView:self.textView];
     self.textView.bounds = CGRectMake(0, 0, self.textView.bounds.size.width, height);
-    self.frame = [self frameFromTextViewBounds:[self.textView bounds]];
+    self.bounds = [self boundsFromTextViewBounds:[self.textView bounds]];
+    self.textView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
 
-- (CGRect) frameFromTextViewBounds:(CGRect) textViewBounds
+- (CGRect) boundsFromTextViewBounds:(CGRect) textViewBounds
 {
-    CGRect frame;
-    frame.origin.x = self.frame.origin.x;
-    frame.origin.y = self.frame.origin.y;
-    frame.size.width = self.frame.size.width;
-    frame.size.height = 2 * CONTROL_POINT_SIZE_HALF + textViewBounds.size.height + 2 * CONTROL_POINT_RADIUS;
-    return frame;
+    CGRect bounds;
+    bounds.origin.x = 0;
+    bounds.origin.y = 0;
+    bounds.size.width = self.bounds.size.width;
+    bounds.size.height = 2 * CONTROL_POINT_SIZE_HALF + textViewBounds.size.height + 2 * CONTROL_POINT_RADIUS;
+    return bounds;
 }
 
 #pragma mark - Apply Attributes
@@ -235,7 +221,7 @@
         self.textView.attributedText = attributedString;
         [self.textView select:self];
         self.textView.selectedRange = selectedRange;
-        [self adjustTextViewFrameAndContainerFrame];
+        [self adjustTextViewBoundsAndContainerBounds];
     }
     NSNumber *alignment = [attributes objectForKey:[KeyConstants alignmentKey]];
     if (alignment) {
@@ -264,11 +250,11 @@
 - (void) updateEditingStatus
 {
     [super updateEditingStatus];
-    if (CGAffineTransformIsIdentity(self.transform)) {
-        self.textView.userInteractionEnabled = YES;
-    } else {
-        self.textView.userInteractionEnabled = NO;
-    }
+//    if (CGAffineTransformIsIdentity(self.transform)) {
+//        self.textView.userInteractionEnabled = YES;
+//    } else {
+//        self.textView.userInteractionEnabled = NO;
+//    }
 }
 
 - (void) performOperation:(SimpleOperation *)operation

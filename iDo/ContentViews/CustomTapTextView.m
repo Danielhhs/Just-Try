@@ -22,6 +22,7 @@
 {
     self.backgroundColor = [UIColor clearColor];
     self.editable = NO;
+    self.selectable = NO;
     
     self.tapToEdit = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapToEdit:)];
     self.attributedText = attributes[[KeyConstants attibutedStringKey]];
@@ -44,6 +45,7 @@
 - (void) handleTapToEdit:(UITapGestureRecognizer *) tap
 {
     self.editable = YES;
+    self.selectable = YES;
     [self becomeFirstResponder];
     [self removeGestureRecognizer:self.tapToEdit];
     [self addGestureRecognizer:self.tapToLocate];
@@ -84,6 +86,7 @@
     [self removeGestureRecognizer:self.tapToEdit];
     [self removeGestureRecognizer:self.tapToLocate];
     self.editable = NO;
+    self.selectable = NO;
     [self resignFirstResponder];
 }
 

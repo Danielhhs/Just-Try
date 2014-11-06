@@ -46,6 +46,8 @@
     self.sizeSlider.delegate = self;
     self.viewOpacitySlider.delegate = self;
     self.viewOpacitySlider.key = [KeyConstants viewOpacityKey];
+    
+    self.attributes = [NSMutableDictionary dictionary];
 }
 
 - (void) setTarget:(id<OperationTarget>)target
@@ -62,7 +64,7 @@
 
 - (void) applyAttributes:(NSDictionary *)attributes
 {
-    self.attributes = [attributes mutableCopy];
+    [GenericContainerViewHelper mergeChangedAttributes:attributes withFullAttributes:self.attributes];
     NSNumber *reflection = attributes[[KeyConstants reflectionKey]];
     if (reflection) {
         self.addReflectionView.selected = [reflection boolValue];

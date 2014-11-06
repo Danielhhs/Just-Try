@@ -14,6 +14,7 @@
 #import "TextContainerView.h"
 
 #define EDITOR_PANEL_WIDTH 300
+#define TOP_BAR_HEIGHT 44
 
 @interface EditorPanelManager()
 
@@ -59,7 +60,7 @@ static EditorPanelManager *sharedInstance;
     frame.size.width = EDITOR_PANEL_WIDTH;
     frame.size.height = parentView.bounds.size.height;
     frame.origin.x = parentView.bounds.size.width - EDITOR_PANEL_WIDTH;
-    frame.origin.y = 64;
+    frame.origin.y = TOP_BAR_HEIGHT;
     return frame;
 }
 
@@ -69,7 +70,7 @@ static EditorPanelManager *sharedInstance;
     frame.size.width = EDITOR_PANEL_WIDTH;
     frame.size.height = parentView.bounds.size.height;
     frame.origin.x = parentView.bounds.size.width;
-    frame.origin.y = 64;
+    frame.origin.y = TOP_BAR_HEIGHT;
     return frame;
 }
 

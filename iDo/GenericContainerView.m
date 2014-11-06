@@ -55,6 +55,16 @@
     [self updateShadow];
 }
 
+- (void) setBounds:(CGRect)bounds
+{
+    [super setBounds:bounds];
+    [self setNeedsDisplay];
+    [[ControlPointManager sharedManager] layoutControlPoints];
+    [self.reflection updateFrame];
+    [self.rotationIndicator applyToView:self];
+    [self updateShadow];
+}
+
 - (void) setTransform:(CGAffineTransform)transform
 {
     BOOL oldTransformStatus = CGAffineTransformIsIdentity(self.transform);
@@ -240,9 +250,7 @@
 
 - (void) updateReflectionView
 {
-    if (CGAffineTransformIsIdentity(self.transform)) {
-        [self.reflection updateFrame];
-    }
+    [self.reflection updateFrame];
 }
 
 - (UIImage *) contentSnapshot

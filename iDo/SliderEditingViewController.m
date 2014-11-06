@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *redoButton;
 @property (nonatomic) CGFloat offsetForKeyboard;
 @property (nonatomic) CGFloat keyboardOriginY;
+@property (nonatomic) NSUInteger currentSelectionOriginalIndex;
 @end
 
 @implementation SliderEditingViewController
@@ -78,12 +79,15 @@
 - (void) contentViewDidResignFirstResponder:(GenericContainerView *)contentView
 {
     self.currentSelectedContent = nil;
+    [self switchView:contentView toIndex:self.currentSelectionOriginalIndex inSuperView:self.canvas];
     [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
 }
 
 - (void) contentViewWillBecomFirstResponder:(GenericContainerView *)contentView
 {
     [self resignPreviousFirstResponderExceptForContainer:contentView];
+    self.currentSelectionOriginalIndex = [[self.canvas subviews] indexOfObject:contentView];
+    [self switchView:contentView toIndex:[[self.canvas subviews] count] - 1 inSuperView:self.canvas];
 }
 
 - (void) contentViewDidBecomFirstResponder:(GenericContainerView *)contentView
@@ -262,6 +266,12 @@
         [canvas addSubview:content];
         [content becomeFirstResponder];
     }
+}
+
+- (void) switchView:(UIView *) view toIndex:(NSUInteger) index inSuperView:(UIView *) superView
+{
+    [view removeFromSuperview];
+    [superView insertSubview:view atIndex:index];
 }
 
 @end

@@ -16,5 +16,5 @@
 
 - (void) startEditing;
 
-- (void) adjustTextViewFrameAndContainerFrame;
+- (void) adjustTextViewBoundsAndContainerBounds;
 @end
