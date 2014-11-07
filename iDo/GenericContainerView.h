@@ -27,8 +27,6 @@
  didChangeAttributes: (NSDictionary *) attributes;
 
 - (void) frameDidChangeForContentView:(GenericContainerView *) contentView;
-
-- (void) contentViewDidSelectTextRange:(NSRange) selectedRange;
 @end
 
 @interface GenericContainerView : UIView<OperationTarget>

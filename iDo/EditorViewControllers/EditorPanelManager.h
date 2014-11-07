@@ -35,6 +35,8 @@
 
 - (void) contentViewDidSelectRange:(NSRange) range;
 
+- (void) selectTextBasicEditorPanel;
+
 + (CGRect) editorPanelFrameInView:(UIView *) parentView;
 + (CGRect) editorPanelFrameOutOfView:(UIView *) parentView;
 

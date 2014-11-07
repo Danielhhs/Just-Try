@@ -51,6 +51,7 @@
 
 - (void) selectBasicEditor
 {
+    self.textEditorSelector.selectedSegmentIndex = BASIC_EDITOR_INDEX;
     [self removeSubViewController:self.styleEditor];
     [self removeSubViewController:self.borderEditor];
     [self addSubViewController:self.basicEditor];
@@ -61,6 +62,7 @@
     [self removeSubViewController:self.basicEditor];
     [self removeSubViewController:self.borderEditor];
     [self addSubViewController:self.styleEditor];
+    [self.delegate textEditorDidSelectNonBasicEditor:self];
 }
 
 - (void) selectBorderEditor
@@ -68,6 +70,7 @@
     [self removeSubViewController:self.basicEditor];
     [self removeSubViewController:self.styleEditor];
     [self addSubViewController:self.borderEditor];
+    [self.delegate textEditorDidSelectNonBasicEditor:self];
 }
 
 - (void) removeSubViewController:(UIViewController *) viewController

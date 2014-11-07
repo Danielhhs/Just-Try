@@ -14,6 +14,7 @@
 
 - (void) textAttributes:(NSDictionary *)textAttributes didChangeFromTextEditor:(TextEditorPanelContainerViewController *)textEditorContainer;
 
+- (void) textEditorDidSelectNonBasicEditor:(TextEditorPanelContainerViewController *) textEditorController;
 @end
 
 @interface TextEditorPanelContainerViewController : EditorPanelContainerViewController
@@ -21,4 +22,5 @@
 @property (nonatomic, weak) id<TextEditorPanelContainerViewControllerDelegate> delegate;
 
 - (void) updateFontPickerByRange:(NSRange) range;
+- (void) selectBasicEditor;
 @end

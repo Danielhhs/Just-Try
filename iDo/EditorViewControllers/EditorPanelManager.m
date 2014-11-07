@@ -182,5 +182,13 @@ static EditorPanelManager *sharedInstance;
     }
 }
 
+- (void) selectTextBasicEditorPanel
+{
+    if ([self.currentEditor isKindOfClass:[TextEditorPanelContainerViewController class]]) {
+        TextEditorPanelContainerViewController *textEditor = (TextEditorPanelContainerViewController *)self.currentEditor;
+        [textEditor selectBasicEditor];
+    }
+}
+
 
 @end

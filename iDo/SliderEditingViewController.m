@@ -19,13 +19,12 @@
 
 #define GAP_BETWEEN_VIEWS 20.f
 
-@interface SliderEditingViewController ()<ImageContainerViewDelegate, CanvasViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UndoManagerDelegate, OperationTarget>
+@interface SliderEditingViewController ()<ImageContainerViewDelegate, TextContainerViewDelegate, CanvasViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UndoManagerDelegate, OperationTarget>
 @property (nonatomic, strong) GenericContainerView *currentSelectedContent;
 @property (weak, nonatomic) IBOutlet CanvasView *canvas;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *undoButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *redoButton;
-@property (nonatomic) CGFloat offsetForKeyboard;
 @property (nonatomic) CGFloat keyboardOriginY;
 @property (nonatomic) NSUInteger currentSelectionOriginalIndex;
 @end
@@ -71,7 +70,7 @@
     
 }
 
-- (void) contentViewDidSelectTextRange:(NSRange)selectedRange
+- (void) textViewDidSelectTextRange:(NSRange)selectedRange
 {
     [[EditorPanelManager sharedManager] contentViewDidSelectRange:selectedRange];
 }
@@ -131,6 +130,11 @@
     [popOver presentPopoverFromRect:container.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
+- (void) textViewDidStartEditing:(TextContainerView *)textView
+{
+    [[EditorPanelManager sharedManager] selectTextBasicEditorPanel];
+}
+
 #pragma mark - EditorPanelContainerViewControllerDelegate
 - (void) editorContainerViewController:(EditorPanelContainerViewController *)container didChangeAttributes:(NSDictionary *)attributes
 {
@@ -144,6 +148,10 @@
     [self.currentSelectedContent applyAttributes:textAttributes];
 }
 
+- (void) textEditorDidSelectNonBasicEditor:(TextEditorPanelContainerViewController *)textEditorController
+{
+    [((TextContainerView *)self.currentSelectedContent) finishEditing];
+}
 
 #pragma mark - ImagePicker
 - (UIImagePickerController *) imagePicker
@@ -192,8 +200,8 @@
 
 - (void) handleKeyboardHideNotification:(NSNotification *) notification
 {
-    self.canvas.transform = CGAffineTransformTranslate(self.canvas.transform, 0, -1 * self.offsetForKeyboard);
-    self.offsetForKeyboard = 0;
+    self.canvas.transform = CGAffineTransformTranslate(self.canvas.transform, 0, -1 * self.canvas.transform.ty);
+    [((TextContainerView *)self.currentSelectedContent) finishEditing];
 }
 
 - (void) adjustCanvasSizeAndPosition
@@ -208,10 +216,8 @@
 - (void) adjustCanvasPositionForContentBottom:(CGFloat) contentBottom
 {
     CGPoint bottomPoint = [self.view convertPoint:CGPointMake(0, contentBottom) fromView:self.canvas];
-    if (bottomPoint.y + GAP_BETWEEN_VIEWS > self.keyboardOriginY) {
-        self.offsetForKeyboard = (self.keyboardOriginY -bottomPoint.y - GAP_BETWEEN_VIEWS) / self.canvas.transform.a;
-        self.canvas.transform = CGAffineTransformTranslate(self.canvas.transform, 0, self.offsetForKeyboard);
-    }
+    CGFloat offsetForKeyboard = (self.keyboardOriginY -bottomPoint.y - GAP_BETWEEN_VIEWS) / self.canvas.transform.a;
+    self.canvas.transform = CGAffineTransformTranslate(self.canvas.transform, 0, offsetForKeyboard);
 }
 
 - (IBAction)trash:(id)sender {

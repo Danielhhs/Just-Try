@@ -20,6 +20,7 @@
 @property (nonatomic, strong) CustomTapTextView *textView;
 @property (nonatomic) NSRange lastSelectedRange;
 @property (nonatomic, strong) NSAttributedString *lastAttrText;
+@property (nonatomic) BOOL selected;
 @end
 
 @implementation TextContainerView
@@ -63,10 +64,18 @@
     }
 }
 
+- (void) setBounds:(CGRect)bounds
+{
+    [super setBounds:bounds];
+    if ([self needToAdjustCanvas]) {
+        [self.delegate frameDidChangeForContentView:self];
+    }
+}
+
 - (BOOL) needToAdjustCanvas
 {
-    BOOL withinSuperView = CGRectGetMaxY(self.frame) <= self.superview.bounds.size.height;
-    return self.textView.editable == YES && withinSuperView;
+//    BOOL withinSuperView = CGRectGetMaxY(self.frame) <= self.superview.bounds.size.height;
+    return [self.textView isFirstResponder];
 }
 
 - (CGRect) contentViewFrame
@@ -79,8 +88,11 @@
 - (BOOL) resignFirstResponder
 {
     BOOL result = [super resignFirstResponder];
+    self.selected = NO;
     [self.textView finishEditing];
+    [self adjustTextViewBoundsAndContainerBounds];
     [super updateReflectionView];
+    [self createTextOperationAndPushToUndoManager];
     [self.delegate contentViewDidResignFirstResponder:self];
     return result;
 }
@@ -89,6 +101,7 @@
 {
     BOOL result = [super becomeFirstResponder];
     [self.textView readyToEdit];
+    self.selected = YES;
     [self.delegate contentViewDidBecomFirstResponder:self];
     [self updateEditingStatus];
     return result;
@@ -97,6 +110,14 @@
 - (void) startEditing
 {
     [self.textView becomeFirstResponder];
+}
+
+- (void) finishEditing
+{
+    [self.textView finishEditing];
+    if (self.selected) {
+        [self.textView readyToEdit];
+    }
 }
 
 #pragma mark - CustomTextViewDelegate
@@ -115,14 +136,14 @@
 - (void) textView:(CustomTapTextView *)textView didSelectFont:(UIFont *)font
 {
     [self.delegate contentView:self didChangeAttributes:@{[KeyConstants fontKey] : font}];
-    [self.delegate contentViewDidSelectTextRange:textView.selectedRange];
+    [self.delegate textViewDidSelectTextRange:textView.selectedRange];
     self.lastSelectedRange = self.textView.selectedRange;
 }
 
 - (void) textViewDidChangeSelection:(UITextView *)textView
 {
     if (textView.selectedRange.length != 0) {
-        [self.delegate contentViewDidSelectTextRange:textView.selectedRange];
+        [self.delegate textViewDidSelectTextRange:textView.selectedRange];
         self.lastSelectedRange = textView.selectedRange;
     }
 }
@@ -130,6 +151,8 @@
 - (BOOL) textViewShouldBeginEditing:(UITextView *)textView
 {
     self.lastSelectedRange = textView.selectedRange;
+    [self.delegate textViewDidStartEditing:self];
+    
     return YES;
 }
 
@@ -245,16 +268,6 @@
 - (UIImage *) contentSnapshot
 {
     return [self.textView snapshot];
-}
-
-- (void) updateEditingStatus
-{
-    [super updateEditingStatus];
-//    if (CGAffineTransformIsIdentity(self.transform)) {
-//        self.textView.userInteractionEnabled = YES;
-//    } else {
-//        self.textView.userInteractionEnabled = NO;
-//    }
 }
 
 - (void) performOperation:(SimpleOperation *)operation
