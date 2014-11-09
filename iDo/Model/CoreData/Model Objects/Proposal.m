@@ -2,7 +2,7 @@
 //  Proposal.m
 //  iDo
 //
-//  Created by Huang Hongsen on 11/5/14.
+//  Created by Huang Hongsen on 11/8/14.
 //  Copyright (c) 2014 com.microstrategy. All rights reserved.
 //
 
@@ -13,8 +13,9 @@
 
 @implementation Proposal
 
-@dynamic unique;
 @dynamic name;
+@dynamic unique;
+@dynamic thumbnail;
 @dynamic games;
 @dynamic slides;
 

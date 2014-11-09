@@ -34,9 +34,10 @@
 #pragma mark - Set Up
 - (instancetype) initWithAttributes:(NSDictionary *)attributes
 {
-    CGRect frameValue = [attributes[[KeyConstants frameKey]] CGRectValue];
+    CGRect frameValue = [GenericContainerViewHelper frameFromAttributes:attributes];
     self = [self initWithFrame:frameValue];
     if (self) {
+        self.transform = [attributes[[KeyConstants transformKey]] CGAffineTransformValue];
         self.fullAttributes = [attributes mutableCopy];
     }
     return self;
@@ -132,7 +133,6 @@
 
 - (BOOL) resignFirstResponder
 {
-    [self.delegate contentViewWillResignFirstResponder:self];
     self.showBorder = NO;
     self.tap.enabled = YES;
     self.pan.enabled = NO;

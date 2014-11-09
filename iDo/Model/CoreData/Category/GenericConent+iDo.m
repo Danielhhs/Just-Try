@@ -16,19 +16,9 @@
                           inManageObjectContext:(NSManagedObjectContext *)managedObjectContext
 {
     GenericConent *content = nil;
-    
     content = [NSEntityDescription insertNewObjectForEntityForName:@"GenericContent" inManagedObjectContext:managedObjectContext];
-    content.center = [CoreDataHelper encodeNSValue:attributes[[KeyConstants centerKey]]];
-    content.frame = [CoreDataHelper encodeNSValue:attributes[[KeyConstants frameKey]]];
-    content.opacity = attributes[[KeyConstants viewOpacityKey]];
-    content.reflection = attributes[[KeyConstants reflectionKey]];
-    content.reflectionAlpha = attributes[[KeyConstants reflectionAlphaKey]];
-    content.reflectionSize = attributes[[KeyConstants reflectionSizeKey]];
-    content.shadow = attributes[[KeyConstants shadowKey]];
-    content.shadowAlpha = attributes[[KeyConstants shadowAlphaKey]];
-    content.shadowSize = attributes[[KeyConstants shadowSizeKey]];
-    content.rotation = attributes[[KeyConstants rotationKey]];
-    content.transform = [CoreDataHelper encodeNSValue:attributes[[KeyConstants transformKey]]];
+    
+    [GenericConent applyAttributes:attributes toGenericContent:content inManageObjectContext:managedObjectContext];
     
     return content;
 }
@@ -37,7 +27,7 @@
 {
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
     [attributes setValue:[CoreDataHelper decodeNSData:content.center] forKey:[KeyConstants centerKey]];
-    [attributes setValue:[CoreDataHelper decodeNSData:content.frame] forKey:[KeyConstants frameKey]];
+    [attributes setValue:[CoreDataHelper decodeNSData:content.bounds] forKey:[KeyConstants boundsKey]];
     [attributes setValue:content.opacity forKey:[KeyConstants viewOpacityKey]];
     [attributes setValue:content.reflection forKey:[KeyConstants reflectionKey]];
     [attributes setValue:content.reflectionAlpha forKey:[KeyConstants reflectionAlphaKey]];
@@ -51,4 +41,19 @@
     return attributes;
 }
 
+
++ (void) applyAttributes:(NSDictionary *) attributes toGenericContent:(GenericConent *) content inManageObjectContext:(NSManagedObjectContext *) manageObjectContext
+{
+    content.center = [CoreDataHelper encodeObject:attributes[[KeyConstants centerKey]]];
+    content.bounds = [CoreDataHelper encodeObject:attributes[[KeyConstants boundsKey]]];
+    content.opacity = attributes[[KeyConstants viewOpacityKey]];
+    content.reflection = attributes[[KeyConstants reflectionKey]];
+    content.reflectionAlpha = attributes[[KeyConstants reflectionAlphaKey]];
+    content.reflectionSize = attributes[[KeyConstants reflectionSizeKey]];
+    content.shadow = attributes[[KeyConstants shadowKey]];
+    content.shadowAlpha = attributes[[KeyConstants shadowAlphaKey]];
+    content.shadowSize = attributes[[KeyConstants shadowSizeKey]];
+    content.rotation = attributes[[KeyConstants rotationKey]];
+    content.transform = [CoreDataHelper encodeObject:attributes[[KeyConstants transformKey]]];
+}
 @end

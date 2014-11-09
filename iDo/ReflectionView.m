@@ -9,6 +9,7 @@
 #import "ReflectionView.h"
 #import "UIView+Snapshot.h"
 #import "GenericContainerViewHelper.h"
+#import "DrawingConstants.h"
 
 #define REFLECTION_HEIGHT_WIDTH_RATIO 0.2
 #define SPACE_BETWEEN_REFLECTION 7
@@ -22,8 +23,8 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         _originalView = originalView;
-        _height = COUNTER_GOLDEN_RATIO;
-        _image = [self reflectedImage:originalView withHeight:self.bounds.size.height * COUNTER_GOLDEN_RATIO];
+        _height = [DrawingConstants counterGoldenRatio];
+        _image = [self reflectedImage:originalView withHeight:self.bounds.size.height * [DrawingConstants counterGoldenRatio]];
     }
     return self;
 }

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fTw-BR-4tz">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
-        <!--Slider Editing View Controller-->
+        <!--Slides Editing View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="SliderEditingViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SlidesEditingViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,13 +16,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ys-au-8tK" customClass="CanvasView">
-                                <rect key="frame" x="0.0" y="44" width="1024" height="724"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="dVl-jm-lfK">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
                                 <items>
+                                    <barButtonItem title="Proposals" id="sxq-fH-gxP">
+                                        <connections>
+                                            <action selector="backToProposals:" destination="BYZ-38-t0r" id="7U8-cY-K1x"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Slides" id="Ac1-kI-IAL">
+                                        <connections>
+                                            <action selector="showSlideThumbnails:" destination="BYZ-38-t0r" id="j5d-HV-3AJ"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem title="Image" id="gfy-X9-k0b">
                                         <connections>
                                             <action selector="addImage:" destination="BYZ-38-t0r" id="26N-yE-o9u"/>
@@ -44,6 +50,11 @@
                                             <action selector="redo:" destination="BYZ-38-t0r" id="iyv-2Y-8fv"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem title="Item" systemItem="save" id="kMI-f5-yXg">
+                                        <connections>
+                                            <action selector="saveProposal:" destination="BYZ-38-t0r" id="Kop-qD-8la"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem systemItem="trash" id="V5Q-XX-g0m">
                                         <connections>
                                             <action selector="trash:" destination="BYZ-38-t0r" id="AuD-5m-6x3"/>
@@ -52,8 +63,12 @@
                                 </items>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ys-au-8tK" customClass="CanvasView">
+                                <rect key="frame" x="0.0" y="44" width="1024" height="724"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
@@ -67,7 +82,100 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="16" y="133"/>
+            <point key="canvasLocation" x="545" y="-97"/>
+        </scene>
+        <!--Proposal Over View View Controller-->
+        <scene sceneID="9AV-qe-Cod">
+            <objects>
+                <viewController id="fTw-BR-4tz" customClass="ProposalOverViewViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WWe-cc-S4x"/>
+                        <viewControllerLayoutGuide type="bottom" id="b6U-BH-VNc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="q32-he-yNL">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="biY-Za-Ju0">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
+                                <items>
+                                    <barButtonItem systemItem="add" id="Reb-RZ-VGv">
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="New Proposal" id="H1n-Mj-fCM"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="barTintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </toolbar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Uwc-i4-ZL7">
+                                <rect key="frame" x="15" y="61" width="995" height="687"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="XZK-mB-TpH">
+                                    <size key="itemSize" width="267" height="230"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="proposalCell" id="bKf-Mx-vHL" customClass="ProposalCollectionViewCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="266" height="230"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cqB-qa-XIq">
+                                                    <rect key="frame" x="0.0" y="0.0" width="266" height="200"/>
+                                                </imageView>
+                                                <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mj2-GT-iGt">
+                                                    <rect key="frame" x="0.0" y="200" width="266" height="30"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <size key="customSize" width="266" height="230"/>
+                                        <connections>
+                                            <outlet property="nameView" destination="mj2-GT-iGt" id="KAT-eL-3qn"/>
+                                            <outlet property="thumbnailView" destination="cqB-qa-XIq" id="xTU-bx-Uub"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="kIz-tV-SUM" appends="YES" id="qcu-aj-60b"/>
+                        </connections>
+                    </view>
+                    <navigationItem key="navigationItem" id="9xf-Kg-InN">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="cSj-HV-dvo"/>
+                    </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <outlet property="proposalsCollectionView" destination="Uwc-i4-ZL7" id="vke-bL-apM"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="Edit Proposal" id="tC2-Mw-8tZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FtX-cs-dbt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="kIz-tV-SUM">
+                    <connections>
+                        <action selector="handleTap:" destination="fTw-BR-4tz" id="XgI-q4-kvj"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="-677" y="-264"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="tC2-Mw-8tZ"/>
+    </inferredMetricsTieBreakers>
 </document>

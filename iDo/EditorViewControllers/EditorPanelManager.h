@@ -7,27 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ContentItem.h"
-#import "ImageItem.h"
-#import "TextItem.h"
 #import "GenericContainerView.h"
-#import "SliderEditingViewController.h"
+#import "SlidesEditingViewController.h"
 
 @interface EditorPanelManager : NSObject
 
 + (EditorPanelManager *) sharedManager;
 
-- (void) showEditorPanelInViewController:(SliderEditingViewController *) viewController
+- (void) showEditorPanelInViewController:(SlidesEditingViewController *) viewController
                           forContentView:(GenericContainerView *)contentView;
 
-- (void) showImageEditorInViewController:(SliderEditingViewController *) viewController
+- (void) showImageEditorInViewController:(SlidesEditingViewController *) viewController
                               attributes:(NSDictionary *) imageItem
                                   target:(id<OperationTarget>)target;
-- (void) showTextEditorInViewController:(SliderEditingViewController *) viewController
+- (void) showTextEditorInViewController:(SlidesEditingViewController *) viewController
                              attributes:(NSDictionary *) imageItem
                                  target:(id<OperationTarget>)target;
 
-- (void) dismissAllEditorPanelsFromViewController:(SliderEditingViewController *) viewController;
+- (void) dismissAllEditorPanelsFromViewController:(SlidesEditingViewController *) viewController;
 
 - (void) makeCurrentEditorApplyChanges:(NSDictionary *) attributes;
 

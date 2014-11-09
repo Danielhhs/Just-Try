@@ -135,6 +135,7 @@
 
 - (void) textView:(CustomTapTextView *)textView didSelectFont:(UIFont *)font
 {
+    [self adjustTextViewBoundsAndContainerBounds];
     [self.delegate contentView:self didChangeAttributes:@{[KeyConstants fontKey] : font}];
     [self.delegate textViewDidSelectTextRange:textView.selectedRange];
     self.lastSelectedRange = self.textView.selectedRange;

@@ -10,9 +10,10 @@
 #import "EditorPanelContainerViewController.h"
 #import "TextEditorPanelContainerViewController.h"
 
-@interface SliderEditingViewController : UIViewController<TextEditorPanelContainerViewControllerDelegate, EditorPanelContainerViewControllerDelegate>
+@interface SlidesEditingViewController : UIViewController<TextEditorPanelContainerViewControllerDelegate, EditorPanelContainerViewControllerDelegate>
 
 - (void) adjustCanvasSizeAndPosition;
 
+@property (nonatomic, strong) NSDictionary *proposalAttributes;
 @end
 

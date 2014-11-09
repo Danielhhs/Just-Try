@@ -9,8 +9,6 @@
 #import "RotationHelper.h"
 #import "RotationIndicatorView.h"
 
-#define ANGELS_PER_PI 180
-
 @implementation RotationHelper
 
 + (void) applyRotationIndicator:(RotationIndicatorView *)rotationIndicator

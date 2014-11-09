@@ -9,11 +9,12 @@
 #import "RotationIndicatorView.h"
 #import "RotationBenchMarkView.h"
 #import "RotationTooltipView.h"
+#import "DrawingConstants.h"
 
 #define ROTATION_INDICATOR_OUTAGE 40.f
 #define CENTER_CIRCLE_RADIUS 10.f
 #define TOOLTIP_WIDTH_HALF 35.f
-#define ANGELS_PER_PI 180
+
 @interface RotationIndicatorView ()
 @property (nonatomic, strong) RotationTooltipView *tooltip;
 @property (nonatomic, strong) RotationBenchMarkView *benchMark;
@@ -117,7 +118,7 @@
 {
     CGAffineTransform transform = [self.superview transform];
     CGFloat radians = atan2f(transform.b, transform.a);
-    return radians * ANGELS_PER_PI / M_PI;
+    return radians * [DrawingConstants angelsPerPi] / M_PI;
 }
 
 @end

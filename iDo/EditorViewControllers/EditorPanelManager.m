@@ -12,9 +12,9 @@
 #import "UIView+Snapshot.h"
 #import "ImageContainerView.h"
 #import "TextContainerView.h"
+#import "DrawingConstants.h"
 
 #define EDITOR_PANEL_WIDTH 300
-#define TOP_BAR_HEIGHT 44
 
 @interface EditorPanelManager()
 
@@ -60,7 +60,7 @@ static EditorPanelManager *sharedInstance;
     frame.size.width = EDITOR_PANEL_WIDTH;
     frame.size.height = parentView.bounds.size.height;
     frame.origin.x = parentView.bounds.size.width - EDITOR_PANEL_WIDTH;
-    frame.origin.y = TOP_BAR_HEIGHT;
+    frame.origin.y = [DrawingConstants topBarHeight];
     return frame;
 }
 
@@ -70,7 +70,7 @@ static EditorPanelManager *sharedInstance;
     frame.size.width = EDITOR_PANEL_WIDTH;
     frame.size.height = parentView.bounds.size.height;
     frame.origin.x = parentView.bounds.size.width;
-    frame.origin.y = TOP_BAR_HEIGHT;
+    frame.origin.y = [DrawingConstants topBarHeight];
     return frame;
 }
 
@@ -95,7 +95,7 @@ static EditorPanelManager *sharedInstance;
 }
 
 #pragma mark - Presenting Editor Panels
-- (void) showEditorPanelInViewController:(SliderEditingViewController *)viewController
+- (void) showEditorPanelInViewController:(SlidesEditingViewController *)viewController
                           forContentView:(GenericContainerView *)contentView
 {
     if ([contentView isKindOfClass:[ImageContainerView class]]) {
@@ -105,7 +105,7 @@ static EditorPanelManager *sharedInstance;
     }
 }
 
-- (void) showImageEditorInViewController:(SliderEditingViewController *)viewController
+- (void) showImageEditorInViewController:(SlidesEditingViewController *)viewController
                               attributes:(NSDictionary *)attributes
                                   target:(id<OperationTarget>) target
 {
@@ -116,7 +116,7 @@ static EditorPanelManager *sharedInstance;
     [self.imageEditor applyAttributes:attributes];
 }
 
-- (void) showTextEditorInViewController:(SliderEditingViewController *)viewController
+- (void) showTextEditorInViewController:(SlidesEditingViewController *)viewController
                              attributes:(NSDictionary *)attributes
                                  target:(id<OperationTarget>) target
 {
@@ -127,7 +127,7 @@ static EditorPanelManager *sharedInstance;
     [self.textEditor applyAttributes:attributes];
 }
 
-- (void) showCurrentEditorInViewController:(SliderEditingViewController *) viewController
+- (void) showCurrentEditorInViewController:(SlidesEditingViewController *) viewController
 {
     [viewController addChildViewController:self.currentEditor];
     self.currentEditor.view.frame = [EditorPanelManager editorPanelFrameOutOfView:viewController.view];
@@ -141,7 +141,7 @@ static EditorPanelManager *sharedInstance;
 }
 
 #pragma mark - Dismiss Editor Panels
-- (void) dismissAllEditorPanelsFromViewController:(SliderEditingViewController *) viewController
+- (void) dismissAllEditorPanelsFromViewController:(SlidesEditingViewController *) viewController
 {
     EditorPanelContainerViewController *animationVC = nil;
     if ([self.currentEditor isKindOfClass:[ImageEditorPanelContainerViewController class]]) {

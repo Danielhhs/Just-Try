@@ -2,7 +2,7 @@
 //  Slide.h
 //  iDo
 //
-//  Created by Huang Hongsen on 11/5/14.
+//  Created by Huang Hongsen on 11/8/14.
 //  Copyright (c) 2014 com.microstrategy. All rights reserved.
 //
 
@@ -14,7 +14,9 @@
 @interface Slide : NSManagedObject
 
 @property (nonatomic, retain) NSString * background;
+@property (nonatomic, retain) NSNumber * index;
 @property (nonatomic, retain) NSNumber * unique;
+@property (nonatomic, retain) NSData * thumbnail;
 @property (nonatomic, retain) NSSet *contents;
 @property (nonatomic, retain) Proposal *proposal;
 @property (nonatomic, retain) NSSet *transitions;

@@ -10,16 +10,45 @@
 
 @implementation KeyConstants
 
-+ (NSString *) fontKey
+#pragma mark - Proposal
++ (NSString *) proposalNameKey
 {
-    return @"FONT";
+    return @"PROPOSAL_NAME";
 }
 
-+ (NSString *) alignmentKey
++ (NSString *) proposalGamesKey
 {
-    return @"ALIGNMENT";
+    return @"PROPOSAL_GAMES";
 }
 
++ (NSString *) proposalSlidesKey
+{
+    return @"PROPOSAL_SLIDES";
+}
+
++ (NSString *) proposalThumbnailKey
+{
+    return @"PROPOSAL_THUMBNAIL";
+}
+
+#pragma mark - Slide
+
++ (NSString *) slideBackgroundKey
+{
+    return @"SLIDE_BACKGROUND";
+}
+
++ (NSString *) slideContentsKey
+{
+    return @"SLIDE_CONTENTS";
+}
+
++ (NSString *) slideThumbnailKey
+{
+    return @"SLIDE_THUMBNAIL";
+}
+
+#pragma mark - Generic Content
 + (NSString *) rotationKey
 {
     return @"ROTATION";
@@ -54,10 +83,40 @@
 {
     return @"SHADOW_SIZE";
 }
-
-+ (NSString *) imageNameKey
++ (NSString *) boundsKey
 {
-    return @"IMAGE_NAME";
+    return @"BOUNDS";
+}
+
++ (NSString *) viewOpacityKey
+{
+    return @"VIEW_OPACITY";
+}
+
++ (NSString *) transformKey
+{
+    return @"TRANSFORM";
+}
+
++ (NSString *) centerKey
+{
+    return @"CENTER";
+}
++ (NSString *) contentTypeKey
+{
+    return @"CONTENT_TYPE";
+}
+
+
+#pragma mark - Text Content
++ (NSString *) fontKey
+{
+    return @"FONT";
+}
+
++ (NSString *) alignmentKey
+{
+    return @"ALIGNMENT";
 }
 
 + (NSString *) attibutedStringKey
@@ -65,20 +124,23 @@
     return @"ATTRIBUTED_STRING";
 }
 
-+ (NSString *) frameKey
++ (NSString *) textSelectionKey
 {
-    return @"FRAME";
+    return @"TEXT_SELECTION";
 }
 
-+ (NSString *) restoreKey
+#pragma mark - Image Content
++ (NSString *) imageNameKey
 {
-    return @"RESTORE";
+    return @"IMAGE_NAME";
 }
 
-+ (NSString *) viewOpacityKey
++ (NSString *) filterKey
 {
-    return @"VIEW_OPACITY";
+    return @"FILTER";
 }
+
+#pragma mark - Operation
 
 + (NSString *) addKey
 {
@@ -90,18 +152,8 @@
     return @"DELETE";
 }
 
-+ (NSString *) transformKey
++ (NSString *) uniqueKey
 {
-    return @"TRANSFORM";
-}
-
-+ (NSString *) textSelectionKey
-{
-    return @"TEXT_SELECTION";
-}
-
-+ (NSString *) centerKey
-{
-    return @"CENTER";
+    return @"UNIQUE";
 }
 @end

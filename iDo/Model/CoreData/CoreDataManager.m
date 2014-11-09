@@ -8,7 +8,10 @@
 
 #import "CoreDataManager.h"
 #import <CoreData/CoreData.h>
+#import "CoreDataHelper.h"
 #import <UIKit/UIKit.h>
+#import "DefaultValueGenerator.h"
+#import "Proposal+iDo.h"
 @interface CoreDataManager()
 @property (nonatomic, strong) UIManagedDocument *document;
 @end
@@ -26,9 +29,6 @@ static CoreDataManager *sharedInstance;
 - (instancetype) initInternal
 {
     self = [super init];
-    if (self) {
-        [self createOrOpenDataModel];
-    }
     return self;
 }
 
@@ -41,13 +41,13 @@ static CoreDataManager *sharedInstance;
 }
 
 #pragma mark - Public APIs
-+ (NSManagedObjectContext *) databaseContext
+- (NSManagedObjectContext *) databaseContext
 {
     return sharedInstance.document.managedObjectContext;
 }
 
 #pragma mark - Managed Document
-- (void) createOrOpenDataModel
+- (void) openDataModelAndLoadProposals
 {
     self.document = [[UIManagedDocument alloc] initWithFileURL:[self modelURL]];
     BOOL fileExist = [[NSFileManager defaultManager] fileExistsAtPath:[self modelURL].path];
@@ -65,8 +65,30 @@ static CoreDataManager *sharedInstance;
 - (void) documentIsReady
 {
     if (self.document.documentState == UIDocumentStateNormal) {
-        
+        [self loadProposals];
     }
+}
+
+- (void) loadProposals
+{
+    NSArray *proposals = [CoreDataHelper loadAllProposalsFromManagedObjectContext:self.document.managedObjectContext];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate managerFinishLoadingProposals:proposals];
+    });
+}
+
+- (void) saveProposalWithProposalChanges:(NSDictionary *)proposalChanges
+{
+//    [Proposal applyProposalAttributes:proposalAttributes toProposal:self.currentProposal];
+    [self saveDocument];
+    [self loadProposals];
+}
+
+- (void) createNewProposal
+{
+    Proposal *proposal = [Proposal proposalFromAttributes:[DefaultValueGenerator defaultProposalAttributes] inManagedObjectContext:self.document.managedObjectContext];
+    self.currentProposal = proposal;
+    [self saveDocument];
 }
 
 - (NSURL *) modelURL

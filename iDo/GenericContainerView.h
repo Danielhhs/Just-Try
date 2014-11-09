@@ -19,14 +19,14 @@
 
 - (void) contentViewDidBecomFirstResponder:(GenericContainerView *) contentView;
 
-- (void) contentViewWillResignFirstResponder:(GenericContainerView *) contentView;
-
 - (void) contentViewDidResignFirstResponder:(GenericContainerView *) contentView;
 
 - (void) contentView:(GenericContainerView *) contentView
  didChangeAttributes: (NSDictionary *) attributes;
 
 - (void) frameDidChangeForContentView:(GenericContainerView *) contentView;
+@optional
+- (void) contentViewWillResignFirstResponder:(GenericContainerView *) contentView;
 @end
 
 @interface GenericContainerView : UIView<OperationTarget>

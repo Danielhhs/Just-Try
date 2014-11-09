@@ -10,6 +10,7 @@
 #import "GenericContainerView.h"
 #import "UndoManager.h"
 #import "SimpleOperation.h"
+#import "CompoundOperation.h"
 #import "KeyConstants.h"
 #import "TextContainerView.h"
 
@@ -24,7 +25,8 @@
 @property (nonatomic, strong) BorderControlPointView *bottomMiddleControlPoint;
 @property (nonatomic, strong) BorderControlPointView *bottomRightControlPoint;
 @property (nonatomic) CGRect previousFrame;
-@property (nonatomic) CGRect originalFrame;
+@property (nonatomic) CGRect originalBounds;
+@property (nonatomic) CGPoint originalCenter;
 @end
 
 static ControlPointManager *sharedInstance;
@@ -134,13 +136,18 @@ static ControlPointManager *sharedInstance;
 
 - (void) controlPointDidStartMoving:(BorderControlPointView *)controlPoint
 {
-    self.originalFrame = self.containerView.frame;
+    self.originalBounds = self.containerView.bounds;
+    self.originalCenter = self.containerView.center;
 }
 
 - (void) controlPointDidFinishMoving:(BorderControlPointView *)controlPoint
 {
-    SimpleOperation *frameOperation = [[SimpleOperation alloc] initWithTargets:@[self.container] key:[KeyConstants frameKey] fromValue:[NSValue valueWithCGRect:self.originalFrame]];
-    frameOperation.toValue = [NSValue valueWithCGRect:self.container.frame];
+    SimpleOperation *boundsOperation = [[SimpleOperation alloc] initWithTargets:@[self.container] key:[KeyConstants boundsKey] fromValue:[NSValue valueWithCGRect:self.originalBounds]];
+    boundsOperation.toValue = [NSValue valueWithCGRect:self.container.bounds];
+    SimpleOperation *centerOperation = [[SimpleOperation alloc] initWithTargets:@[self.container] key:[KeyConstants centerKey] fromValue:[NSValue valueWithCGPoint:self.originalCenter]];
+    centerOperation.toValue = [NSValue valueWithCGPoint:self.container.center];
+    
+    CompoundOperation *frameOperation = [[CompoundOperation alloc] initWithOperations:@[boundsOperation, centerOperation]];
     [[UndoManager sharedManager] pushOperation:frameOperation];
 }
 

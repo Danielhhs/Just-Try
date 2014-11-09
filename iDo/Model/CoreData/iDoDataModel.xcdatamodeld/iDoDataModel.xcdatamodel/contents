@@ -14,8 +14,10 @@
         <relationship name="proposal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Proposal" inverseName="games" inverseEntity="Proposal" syncable="YES"/>
     </entity>
     <entity name="GenericConent" representedClassName="GenericConent" syncable="YES">
+        <attribute name="bounds" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="center" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="frame" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="contentType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="opacity" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="reflection" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="reflectionAlpha" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -35,12 +37,15 @@
     </entity>
     <entity name="Proposal" representedClassName="Proposal" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="unique" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="games" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Game" inverseName="proposal" inverseEntity="Game" syncable="YES"/>
         <relationship name="slides" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Slide" inverseName="proposal" inverseEntity="Slide" syncable="YES"/>
     </entity>
     <entity name="Slide" representedClassName="Slide" syncable="YES">
         <attribute name="background" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="unique" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="contents" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GenericConent" inverseName="slide" inverseEntity="GenericConent" syncable="YES"/>
         <relationship name="proposal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Proposal" inverseName="slides" inverseEntity="Proposal" syncable="YES"/>
@@ -59,10 +64,10 @@
     <elements>
         <element name="Animation" positionX="-2943" positionY="-439" width="128" height="118"/>
         <element name="Game" positionX="-3152" positionY="-826" width="128" height="105"/>
-        <element name="GenericConent" positionX="-3015" positionY="-709" width="128" height="255"/>
+        <element name="GenericConent" positionX="-3015" positionY="-709" width="128" height="283"/>
         <element name="ImageContent" positionX="-2799" positionY="-666" width="128" height="73"/>
-        <element name="Proposal" positionX="-3501" positionY="-769" width="128" height="105"/>
-        <element name="Slide" positionX="-3222" positionY="-639" width="128" height="120"/>
+        <element name="Proposal" positionX="-3501" positionY="-769" width="128" height="120"/>
+        <element name="Slide" positionX="-3222" positionY="-639" width="128" height="148"/>
         <element name="TextContent" positionX="-2810" positionY="-565" width="128" height="75"/>
         <element name="Transition" positionX="-3186" positionY="-403" width="128" height="105"/>
     </elements>

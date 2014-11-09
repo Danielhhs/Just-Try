@@ -12,66 +12,16 @@
 #import "TextFontHelper.h"
 #import "ShadowHelper.h"
 #import "ReflectionView.h"
-
-#define DEFAULT_IMAGE_EDGE 300
-
-#define DEFAULT_TEXT_CONTAINER_WIDTH 300.f
-#define DEFAULT_TEXT_CONTAINER_HEIGHT 30
-#define DEFAULT_IMAGE_NAME @"background.jpg"
-#define PLACE_HOLDER_STRING @"Any Thing You Want to Say"
+#import "DrawingConstants.h"
 
 @implementation GenericContainerViewHelper
 
-
-+ (NSMutableDictionary *) defaultContentAttributes
-{
-    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-    [attributes setValue:@(GOLDEN_RATIO) forKey:[KeyConstants shadowAlphaKey]];
-    [attributes setValue:@(COUNTER_GOLDEN_RATIO) forKey:[KeyConstants shadowSizeKey]];
-    [attributes setValue:@(GOLDEN_RATIO) forKey:[KeyConstants reflectionAlphaKey]];
-    [attributes setValue:@(COUNTER_GOLDEN_RATIO) forKey:[KeyConstants reflectionSizeKey]];
-    [attributes setValue:@(NO) forKey:[KeyConstants reflectionKey]];
-    [attributes setValue:@(NO) forKey:[KeyConstants shadowKey]];
-    [attributes setValue:@(1) forKey:[KeyConstants viewOpacityKey]];
-    return attributes;
-}
-
-+ (NSDictionary *) defaultImageAttributes
-{
-    NSMutableDictionary *attributes = [GenericContainerViewHelper defaultContentAttributes];
-    [attributes setObject:DEFAULT_IMAGE_NAME forKey:[KeyConstants imageNameKey]];
-    UIImage *image = [UIImage imageNamed:DEFAULT_IMAGE_NAME];
-    CGFloat scale = image.size.width / image.size.height;
-    CGFloat width = scale > 1 ? DEFAULT_IMAGE_EDGE : DEFAULT_IMAGE_EDGE / scale;
-    CGFloat height = scale > 1 ? DEFAULT_IMAGE_EDGE : DEFAULT_IMAGE_EDGE / scale;
-    CGRect frame = CGRectMake(200, 300, width, height);
-    [attributes setObject:[NSValue valueWithCGRect:frame] forKey:[KeyConstants frameKey]];
-    return [attributes copy];
-}
-
-+ (NSDictionary *) defaultTextAttributes
-{
-    NSMutableDictionary *attributes = [GenericContainerViewHelper defaultContentAttributes];
-    [attributes setObject:[TextFontHelper defaultFont] forKey:[KeyConstants fontKey]];
-    [attributes setObject:@(TextAlignmentLeft) forKey:[KeyConstants alignmentKey]];
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:PLACE_HOLDER_STRING
-                                                                           attributes:@{NSFontAttributeName : [TextFontHelper defaultFont],
-                                                                                        NSParagraphStyleAttributeName : paragraphStyle}];
-    [attributes setObject:attributedString forKey:[KeyConstants attibutedStringKey]];
-    NSValue *frameValue = [NSValue valueWithCGRect:CGRectMake(200, 300, DEFAULT_TEXT_CONTAINER_WIDTH, 2 * CONTROL_POINT_SIZE_HALF + DEFAULT_TEXT_CONTAINER_HEIGHT)];
-    [attributes setObject:frameValue forKey:[KeyConstants frameKey]];
-    return [attributes copy];
-}
 
 + (void) mergeChangedAttributes:(NSDictionary *) changedAttributes
              withFullAttributes:(NSMutableDictionary *) fullAttributes
 {
     for (NSString *key in [changedAttributes allKeys]) {
-        if (![key isEqualToString:[KeyConstants restoreKey]]) {
-            [fullAttributes setValue:changedAttributes[key] forKey:key];
-        }
+        [fullAttributes setValue:changedAttributes[key] forKey:key];
     }
 }
 
@@ -82,11 +32,6 @@
     NSNumber *rotation = attributes[[KeyConstants rotationKey]];
     if (rotation) {
         [GenericContainerViewHelper applyRotation:[rotation doubleValue] toView:containerView];
-    }
-    NSNumber *restore = attributes[[KeyConstants restoreKey]];
-    if (restore) {
-        containerView.transform = CGAffineTransformIdentity;
-        [containerView hideRotationIndicator];
     }
 }
 
@@ -124,9 +69,9 @@
     if (shadowSize) {
         containerView.layer.shadowPath = [ShadowHelper shadowPathWithShadowDepthRatio:[shadowSize doubleValue] originalViewHeight:containerView.bounds.size.height originalViewContentFrame:containerView.originalContentFrame].CGPath;
     }
-    NSValue *frame = attributes[[KeyConstants frameKey]];
-    if (frame) {
-        containerView.frame = [frame CGRectValue];
+    NSValue *bounds = attributes[[KeyConstants boundsKey]];
+    if (bounds) {
+        containerView.bounds = [bounds CGRectValue];
     }
     NSValue *center = attributes[[KeyConstants centerKey]];
     if (center) {
@@ -147,7 +92,7 @@
 + (CGFloat) anglesFromTransform:(CGAffineTransform)transform
 {
     CGFloat radians = atan2(transform.b, transform.a);
-    return radians / M_PI * ANGELS_PER_PI;
+    return radians / M_PI * [DrawingConstants angelsPerPi];
 }
 
 static CGAffineTransform actualTransform;
@@ -157,7 +102,7 @@ static CGAffineTransform actualTransform;
 {
     actualTransform = CGAffineTransformRotate(actualTransform, rotation);
     CGFloat actualRotation = atan2f(actualTransform.b, actualTransform.a);
-    actualRotation = actualRotation / M_PI * ANGELS_PER_PI;
+    actualRotation = actualRotation / M_PI * [DrawingConstants angelsPerPi];
     if ((actualRotation > -5 && actualRotation < 5) || (actualRotation > 355 && actualRotation < 360)) {
         actualRotation = 0;
     } else if (actualRotation > 85 && actualRotation < 95) {
@@ -167,11 +112,26 @@ static CGAffineTransform actualTransform;
     } else if (actualRotation > 220 && actualRotation < 230) {
         actualRotation = 225;
     }
-    view.transform = CGAffineTransformRotate(CGAffineTransformIdentity, actualRotation / ANGELS_PER_PI * M_PI);
+    view.transform = CGAffineTransformRotate(CGAffineTransformIdentity, actualRotation / [DrawingConstants angelsPerPi] * M_PI);
 }
 
 + (void) resetActualTransformWithView:(GenericContainerView *) container
 {
     actualTransform = container.transform;
+}
+
++ (CGRect) frameFromAttributes:(NSDictionary *)attributes
+{
+    CGRect bounds = [attributes[[KeyConstants boundsKey]] CGRectValue];
+    CGPoint center = [attributes[[KeyConstants centerKey]] CGPointValue];
+    return [GenericContainerViewHelper frameFromBounds:bounds center:center];
+}
+
++ (CGRect) frameFromBounds:(CGRect)bounds center:(CGPoint)center
+{
+    CGFloat midX = CGRectGetMidX(bounds);
+    CGFloat midY = CGRectGetMidY(bounds);
+    CGRect frame = CGRectOffset(bounds, center.x - midX, center.y - midY);
+    return frame;
 }
 @end
