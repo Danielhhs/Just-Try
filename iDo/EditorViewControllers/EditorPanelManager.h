@@ -19,10 +19,12 @@
 
 - (void) showImageEditorInViewController:(SlidesContainerViewController *) viewController
                               attributes:(NSDictionary *) imageItem
-                                  target:(id<OperationTarget>)target;
+                                  target:(id<OperationTarget>)target
+                                animated:(BOOL) animated;
 - (void) showTextEditorInViewController:(SlidesContainerViewController *) viewController
                              attributes:(NSDictionary *) imageItem
-                                 target:(id<OperationTarget>)target;
+                                 target:(id<OperationTarget>)target
+                               animated:(BOOL) animated;
 
 - (void) dismissAllEditorPanelsFromViewController:(SlidesContainerViewController *) viewController;
 

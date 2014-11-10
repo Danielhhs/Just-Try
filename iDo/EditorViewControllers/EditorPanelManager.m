@@ -98,19 +98,36 @@ static EditorPanelManager *sharedInstance;
 - (void) showEditorPanelInViewController:(SlidesContainerViewController *)viewController
                           forContentView:(GenericContainerView *)contentView
 {
+    if (self.currentEditor) {
+        [self switchCurrentEditoToEditorForView:contentView inViewController:viewController];
+    } else {
+        if ([contentView isKindOfClass:[ImageContainerView class]]) {
+            [self showImageEditorInViewController:viewController attributes:[contentView attributes] target:contentView animated:YES];
+        } else if ([contentView isKindOfClass:[TextContainerView class]]) {
+            [self showTextEditorInViewController:viewController attributes:[contentView attributes] target:contentView animated:YES];
+        }
+    }
+}
+
+
+- (void) showEditorPanelInViewController:(SlidesContainerViewController *)viewController
+                          forContentView:(GenericContainerView *)contentView
+                                animated:(BOOL) animated
+{
     if ([contentView isKindOfClass:[ImageContainerView class]]) {
-        [self showImageEditorInViewController:viewController attributes:[contentView attributes] target:contentView];
+        [self showImageEditorInViewController:viewController attributes:[contentView attributes] target:contentView animated:animated];
     } else if ([contentView isKindOfClass:[TextContainerView class]]) {
-        [self showTextEditorInViewController:viewController attributes:[contentView attributes] target:contentView];
+        [self showTextEditorInViewController:viewController attributes:[contentView attributes] target:contentView animated:animated];
     }
 }
 
 - (void) showImageEditorInViewController:(SlidesContainerViewController *)viewController
                               attributes:(NSDictionary *)attributes
                                   target:(id<OperationTarget>) target
+                                animated:(BOOL) animated
 {
     self.currentEditor = self.imageEditor;
-    [self showCurrentEditorInViewController:viewController];
+    [self showCurrentEditorInViewController:viewController animated:animated];
     self.imageEditor.target = target;
     self.imageEditor.delegate = viewController.editorViewController;
     [self.imageEditor applyAttributes:attributes];
@@ -119,25 +136,30 @@ static EditorPanelManager *sharedInstance;
 - (void) showTextEditorInViewController:(SlidesContainerViewController *)viewController
                              attributes:(NSDictionary *)attributes
                                  target:(id<OperationTarget>) target
+                               animated:(BOOL) animated
 {
     self.currentEditor = self.textEditor;
-    [self showCurrentEditorInViewController:viewController];
+    [self showCurrentEditorInViewController:viewController animated:animated];
     self.textEditor.target  = target;
     self.textEditor.delegate = viewController.editorViewController;
     [self.textEditor applyAttributes:attributes];
 }
 
-- (void) showCurrentEditorInViewController:(SlidesContainerViewController *) viewController
+- (void) showCurrentEditorInViewController:(SlidesContainerViewController *) viewController animated:(BOOL) animated
 {
     [viewController addChildViewController:self.currentEditor];
     self.currentEditor.view.frame = [EditorPanelManager editorPanelFrameOutOfView:viewController.view];
     [viewController.view addSubview:self.currentEditor.view];
     [self.currentEditor didMoveToParentViewController:viewController];
-    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+    if (animated) {
+        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.currentEditor.view.frame = [EditorPanelManager editorPanelFrameInView:viewController.view];
+            [viewController adjustCanvasSizeAndPosition];
+        } completion:^(BOOL finished) {
+        }];
+    } else {
         self.currentEditor.view.frame = [EditorPanelManager editorPanelFrameInView:viewController.view];
-        [viewController adjustCanvasSizeAndPosition];
-    } completion:^(BOOL finished) {
-    }];
+    }
 }
 
 #pragma mark - Dismiss Editor Panels
@@ -167,6 +189,15 @@ static EditorPanelManager *sharedInstance;
         [animationVC.view removeFromSuperview];
         [animationVC removeFromParentViewController];
     }];
+}
+
+- (void) switchCurrentEditoToEditorForView:(GenericContainerView *) content inViewController:(SlidesContainerViewController *) viewController
+{
+    [self.currentEditor willMoveToParentViewController:nil];
+    [self.currentEditor.view removeFromSuperview];
+    [self.currentEditor removeFromParentViewController];
+    
+    [self showEditorPanelInViewController:viewController forContentView:content animated:NO];
 }
 
 - (void) handleContentViewDidFinishChanging

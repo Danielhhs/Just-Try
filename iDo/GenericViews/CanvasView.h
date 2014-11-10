@@ -20,6 +20,7 @@
 @property (nonatomic, strong) UIImage *background;
 @property (nonatomic, weak) id<CanvasViewDelegate> delegate;
 
+- (instancetype) initWithAttributes:(NSDictionary *) attributes;
 - (void) disablePinch;
 - (void) enablePinch;
 @end

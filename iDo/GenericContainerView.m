@@ -134,8 +134,6 @@
 {
     self.showBorder = NO;
     self.tap.enabled = YES;
-    self.pan.enabled = NO;
-    self.rotation.enabled = NO;
     [[ControlPointManager sharedManager] removeAllControlPointsFromView:self];
     return [super resignFirstResponder];
 }
@@ -144,8 +142,6 @@
 {
     [self.delegate contentViewWillBecomFirstResponder:self];
     self.tap.enabled = NO;
-    self.pan.enabled = YES;
-    self.rotation.enabled = YES;
     self.showBorder = YES;
     [[ControlPointManager sharedManager] addAndLayoutControlPointsInView:self];
     [self updateEditingStatus];
@@ -156,6 +152,7 @@
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
         self.originalCenter = self.center;
+        [self becomeFirstResponder];
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
         CGPoint translation = [gesture translationInView:self.superview];
         self.center = CGPointMake(self.center.x + translation.x, self.center.y + translation.y);
@@ -173,6 +170,7 @@
         [GenericContainerViewHelper resetActualTransformWithView:self];
         NSValue *fromValue = [NSValue valueWithCGAffineTransform:self.transform];
         self.currentOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants transformKey] fromValue:fromValue];
+        [self becomeFirstResponder];
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
         [self applyAttributes:@{[KeyConstants rotationKey] : @(gesture.rotation)}];
         gesture.rotation = 0;
@@ -222,7 +220,6 @@
 
 - (void) addSubViews
 {
-    [[ControlPointManager sharedManager] addAndLayoutControlPointsInView:self];
     [self addReflectionView];
     [self addSubview:self.rotationIndicator];
 }

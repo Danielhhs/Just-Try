@@ -57,6 +57,7 @@
 {
     _proposalAttributes = proposalAttributes;
     [[SlideThumbnailsManager sharedManager] setupThumbnailsWithProposalAttributes:proposalAttributes];
+    self.editorViewController.slideAttributes = [self.proposalAttributes[[KeyConstants slideContentsKey]] lastObject];
 }
 
 #pragma mark - Add Content Views
@@ -87,7 +88,7 @@
 
 - (void) handleKeyboardHideNotification:(NSNotification *) notification
 {
-    self.editorViewController.view.transform = CGAffineTransformTranslate(self.editorViewController.view.transform, 0, -1 * self.editorViewController.view.transform.ty);
+    [CanvasAdjustmentHelper adjustCanvasSizeAndPosition:self.editorViewController.view];
     [((TextContainerView *)self.editorViewController.currentSelectedContent) finishEditing];
 }
 
@@ -149,6 +150,7 @@
 #pragma mark - SliderThumbnailViewController
 - (IBAction)showSlideThumbnails:(id)sender {
     [self.editorViewController resignPreviousFirstResponderExceptForContainer:nil];
+    [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
     [[SlideThumbnailsManager sharedManager] showThumbnailsInViewController:self];
 }
 
@@ -172,7 +174,7 @@
     [[EditorPanelManager sharedManager] showEditorPanelInViewController:self forContentView:content];
 }
 
-- (void) contentViewDidResignFirstResponder:(GenericContainerView *)content
+- (void) allContentViewDidResignFirstResponder
 {
     [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
 }

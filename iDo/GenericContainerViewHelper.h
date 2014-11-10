@@ -17,6 +17,8 @@
 + (void) applyUndoAttribute:(NSDictionary *)attributes toContainer:(GenericContainerView *)containerView;
 + (void) resetActualTransformWithView:(GenericContainerView*) container;
 
++ (GenericContainerView *) contentViewFromAttributes:(NSDictionary *)attributes;
+
 + (CGFloat) anglesFromTransform:(CGAffineTransform) transform;
 
 + (CGRect) frameFromAttributes:(NSDictionary *) attributes;

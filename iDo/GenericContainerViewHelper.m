@@ -13,6 +13,9 @@
 #import "ShadowHelper.h"
 #import "ReflectionView.h"
 #import "DrawingConstants.h"
+#import "GenericContentConstants.h"
+#import "ImageContainerView.h"
+#import "TextContainerView.h"
 
 @implementation GenericContainerViewHelper
 
@@ -133,5 +136,22 @@ static CGAffineTransform actualTransform;
     CGFloat midY = CGRectGetMidY(bounds);
     CGRect frame = CGRectOffset(bounds, center.x - midX, center.y - midY);
     return frame;
+}
+
++ (GenericContainerView *) contentViewFromAttributes:(NSDictionary *)attributes
+{
+    GenericContainerView *content = nil;
+    ContentViewType type = [attributes[[KeyConstants contentTypeKey]] integerValue];
+    switch (type) {
+        case ContentViewTypeImage:
+            content = [[ImageContainerView alloc] initWithAttributes:attributes];
+            break;
+        case ContentViewTypeText:
+            content = [[TextContainerView alloc] initWithAttributes:attributes];
+            
+        default:
+            break;
+    }
+    return content;
 }
 @end

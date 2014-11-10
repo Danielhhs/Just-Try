@@ -7,6 +7,8 @@
 //
 
 #import "CanvasView.h"
+#import "KeyConstants.h"
+#import "GenericContainerViewHelper.h"
 
 @interface CanvasView ()
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinch;
@@ -14,27 +16,32 @@
 
 @implementation CanvasView
 
-- (void) setup
+- (void) setupWithAttributes:(NSDictionary *) attributes
 {
     self.pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
     [self addGestureRecognizer:self.pinch];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [self addGestureRecognizer:tap];
+    
+    UIImage *background = attributes[[KeyConstants slideBackgroundKey]];
+    self.layer.contents = (__bridge id)background.CGImage;
+    
+    NSArray *contents = attributes[[KeyConstants slideContentsKey]];
+    
+    for (NSDictionary *content in contents) {
+        GenericContainerView *contentView = [GenericContainerViewHelper contentViewFromAttributes:content];
+        [self addSubview:contentView];
+    }
         
 }
 
-- (void) awakeFromNib
+- (instancetype) initWithAttributes:(NSDictionary *)attributes
 {
-    [super awakeFromNib];
-    [self setup];
-}
-
-- (instancetype) initWithFrame:(CGRect)frame
-{
+    CGRect frame = [UIScreen mainScreen].bounds;
     self = [super initWithFrame:frame];
     if (self) {
-        [self setup];
+        [self setupWithAttributes:attributes];
     }
     return self;
 }

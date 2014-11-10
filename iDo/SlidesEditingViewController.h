@@ -19,7 +19,7 @@
 - (void) adjustCanvasPositionForContentBottom:(CGFloat) contentBottom;
 - (void) contentDidChangeFromEditingController:(SlidesEditingViewController *)editingController;
 - (void) contentViewDidBecomeFirstResponder:(GenericContainerView *) content;
-- (void) contentViewDidResignFirstResponder:(GenericContainerView *) content;
+- (void) allContentViewDidResignFirstResponder;
 
 @end
 
@@ -27,6 +27,7 @@
 
 @property (nonatomic, strong) GenericContainerView *currentSelectedContent;
 @property (nonatomic, weak) id<SlidesEditingViewControllerDelegate> delegate;
+@property (nonatomic, strong) NSDictionary *slideAttributes;
 
 - (void) resignPreviousFirstResponderExceptForContainer:(GenericContainerView *) container;
 - (void) addContentViewToCanvas:(GenericContainerView *) content;

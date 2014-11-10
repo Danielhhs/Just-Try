@@ -66,6 +66,7 @@
 		54E96F6719F8CB6A00C5F007 /* EditorButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E96F6619F8CB6A00C5F007 /* EditorButtonView.m */; };
 		54E96F6A19F8E53400C5F007 /* ReflectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E96F6919F8E53400C5F007 /* ReflectionView.m */; };
 		54E96F8819F91FA000C5F007 /* TooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E96F8719F91FA000C5F007 /* TooltipView.m */; };
+		54EE541E1A10E7CB00CA1AF7 /* GenericContentConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54EE541D1A10E7CB00CA1AF7 /* GenericContentConstants.m */; };
 		54F0C4431A0C9478009B4B0D /* TextContent+iDo.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C4421A0C9478009B4B0D /* TextContent+iDo.m */; };
 		54F0C4461A0CA8B6009B4B0D /* ImageContent+iDo.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C4451A0CA8B6009B4B0D /* ImageContent+iDo.m */; };
 		54F0C4561A0CAE0C009B4B0D /* Slide+iDo.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C4551A0CAE0C009B4B0D /* Slide+iDo.m */; };
@@ -205,6 +206,8 @@
 		54E96F6919F8E53400C5F007 /* ReflectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReflectionView.m; sourceTree = "<group>"; };
 		54E96F8619F91FA000C5F007 /* TooltipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TooltipView.h; path = EditorViewControllers/TooltipView.h; sourceTree = "<group>"; };
 		54E96F8719F91FA000C5F007 /* TooltipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TooltipView.m; path = EditorViewControllers/TooltipView.m; sourceTree = "<group>"; };
+		54EE541C1A10E7CB00CA1AF7 /* GenericContentConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GenericContentConstants.h; path = Model/GenericContentConstants.h; sourceTree = "<group>"; };
+		54EE541D1A10E7CB00CA1AF7 /* GenericContentConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GenericContentConstants.m; path = Model/GenericContentConstants.m; sourceTree = "<group>"; };
 		54F0C4411A0C9478009B4B0D /* TextContent+iDo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TextContent+iDo.h"; path = "Model/CoreData/Category/TextContent+iDo.h"; sourceTree = "<group>"; };
 		54F0C4421A0C9478009B4B0D /* TextContent+iDo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TextContent+iDo.m"; path = "Model/CoreData/Category/TextContent+iDo.m"; sourceTree = "<group>"; };
 		54F0C4441A0CA8B6009B4B0D /* ImageContent+iDo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ImageContent+iDo.h"; path = "Model/CoreData/Category/ImageContent+iDo.h"; sourceTree = "<group>"; };
@@ -354,6 +357,8 @@
 			isa = PBXGroup;
 			children = (
 				542186101A09F22E006EBDFD /* Core Data */,
+				54EE541C1A10E7CB00CA1AF7 /* GenericContentConstants.h */,
+				54EE541D1A10E7CB00CA1AF7 /* GenericContentConstants.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -770,6 +775,7 @@
 				546457D519F3614100078EAF /* ControlPointManager.m in Sources */,
 				546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */,
 				5421863F1A09FBBB006EBDFD /* GenericConent+iDo.m in Sources */,
+				54EE541E1A10E7CB00CA1AF7 /* GenericContentConstants.m in Sources */,
 				54F0C4901A0DD918009B4B0D /* Proposal.m in Sources */,
 				542185341A07245C006EBDFD /* SimpleOperation.m in Sources */,
 				542185371A072509006EBDFD /* CompoundOperation.m in Sources */,

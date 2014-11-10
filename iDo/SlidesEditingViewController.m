@@ -17,17 +17,19 @@
 #import "UIView+Snapshot.h"
 
 @interface SlidesEditingViewController ()<CanvasViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, OperationTarget>
-@property (weak, nonatomic) IBOutlet CanvasView *canvas;
+@property (strong, nonatomic) CanvasView *canvas;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 @property (nonatomic) NSUInteger currentSelectionOriginalIndex;
 @end
 
 @implementation SlidesEditingViewController
 
-- (void) viewDidLoad
+- (void) viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
+    self.canvas = [[CanvasView alloc] initWithAttributes:self.slideAttributes];
     self.canvas.delegate = self;
+    [self.view addSubview:self.canvas];
 }
 
 #pragma mark - ContentContainerViewDelegate
@@ -40,7 +42,6 @@
 {
     self.currentSelectedContent = nil;
     [self switchView:contentView toIndex:self.currentSelectionOriginalIndex inSuperView:self.canvas];
-    [self.delegate contentViewDidResignFirstResponder:contentView];
 }
 
 - (void) contentViewWillBecomFirstResponder:(GenericContainerView *)contentView
@@ -146,6 +147,7 @@
 {
     [self resignPreviousFirstResponderExceptForContainer:nil];
     [self.canvas enablePinch];
+    [self.delegate allContentViewDidResignFirstResponder];
 }
 
 - (void) performOperation:(SimpleOperation *)operation

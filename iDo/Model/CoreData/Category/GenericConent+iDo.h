@@ -7,13 +7,7 @@
 //
 
 #import "GenericConent.h"
-
-
-typedef NS_ENUM(NSUInteger, ContentViewType) {
-    ContentViewTypeImage = 0,
-    ContentViewTypeText = 1,
-    ContentViewTypeVideo = 2
-};
+#import "GenericContentConstants.h"
 
 @interface GenericConent (iDo)
 

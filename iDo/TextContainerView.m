@@ -32,6 +32,7 @@
         [self setupSubViewsWithAttributes:attributes];
         [self addSubViews];
         [GenericContainerViewHelper applyUndoAttribute:attributes toContainer:self];
+        [self adjustTextViewBoundsAndContainerBounds];
     }
     return self;
 }
