@@ -187,14 +187,14 @@
 - (void)drawRect:(CGRect)rect {
     UIBezierPath *borderPath = [UIBezierPath bezierPathWithRect:[[ControlPointManager sharedManager] borderRectFromContainerViewBounds:rect]];
     
-    borderPath.lineWidth = 2.f;
+    borderPath.lineWidth = 3.f;
     [[self borderStrokeColor] setStroke];
     [borderPath stroke];
 }
 
 - (UIColor *) borderStrokeColor
 {
-    return self.showBorder ? [UIColor blueColor] : [UIColor clearColor];
+    return self.showBorder ? [[ControlPointManager sharedManager] borderColor] : [UIColor clearColor];
 }
 
 - (void) setShowShadow:(BOOL)showShadow

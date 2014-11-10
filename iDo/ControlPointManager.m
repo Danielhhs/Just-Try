@@ -353,4 +353,9 @@ static ControlPointManager *sharedInstance;
     return result;
 }
 
+- (UIColor *) borderColor
+{
+    return [UIColor blueColor];
+}
+
 @end

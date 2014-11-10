@@ -7,6 +7,8 @@
 //
 
 #import "BorderControlPointView.h"
+#import "ControlPointManager.h"
+#define CONTROL_POINT_SMALL_CIRCLE_RADIUS 5.f
 
 @implementation BorderControlPointView
 
@@ -44,9 +46,13 @@
 - (void)drawRect:(CGRect)rect {
     // Drawing code
     CGPoint center = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
-    UIBezierPath *circle = [UIBezierPath bezierPathWithArcCenter:center radius:CONTROL_POINT_RADIUS startAngle:0 endAngle:M_PI * 2 clockwise:YES];
-    [[UIColor greenColor] setFill];
-    [circle fill];
+    UIBezierPath *bigCircle = [UIBezierPath bezierPathWithArcCenter:center radius:CONTROL_POINT_RADIUS startAngle:0 endAngle:M_PI * 2 clockwise:YES];
+    [[UIColor whiteColor] setFill];
+    [bigCircle fill];
+    
+    UIBezierPath *smallCircle = [UIBezierPath bezierPathWithArcCenter:center radius:CONTROL_POINT_SMALL_CIRCLE_RADIUS startAngle:0 endAngle:M_PI * 2 clockwise:YES];
+    [[[ControlPointManager sharedManager] borderColor] setFill];
+    [smallCircle fill];
 }
 
 

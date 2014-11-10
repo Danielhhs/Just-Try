@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #define CONTROL_POINT_SIZE_HALF 20.f
-#define CONTROL_POINT_RADIUS 5.F
+#define CONTROL_POINT_RADIUS 7.F
 @class BorderControlPointView;
 @protocol BorderControlPointViewDelegate <NSObject>
 
