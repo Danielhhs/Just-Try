@@ -41,4 +41,9 @@
     return 180;
 }
 
++ (CGFloat) gapBetweenViews
+{
+    return 12.f;
+}
+
 @end

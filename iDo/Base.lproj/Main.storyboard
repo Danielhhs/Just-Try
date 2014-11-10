@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
-        <!--Slides Editing View Controller-->
+        <!--Slides Container View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="SlidesEditingViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SlidesContainerViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -21,12 +21,12 @@
                                 <items>
                                     <barButtonItem title="Proposals" id="sxq-fH-gxP">
                                         <connections>
-                                            <action selector="backToProposals:" destination="BYZ-38-t0r" id="7U8-cY-K1x"/>
+                                            <action selector="backToProposals:" destination="BYZ-38-t0r" id="YbA-oT-aeA"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="Slides" id="Ac1-kI-IAL">
                                         <connections>
-                                            <action selector="showSlideThumbnails:" destination="BYZ-38-t0r" id="j5d-HV-3AJ"/>
+                                            <action selector="showSlideThumbnails:" destination="BYZ-38-t0r" id="7DJ-K3-Mj5"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="Image" id="gfy-X9-k0b">
@@ -42,31 +42,27 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="QT3-jN-Syn"/>
                                     <barButtonItem enabled="NO" systemItem="undo" id="ddu-OJ-aK8">
                                         <connections>
-                                            <action selector="undo:" destination="BYZ-38-t0r" id="n0H-x7-N6f"/>
+                                            <action selector="undo:" destination="BYZ-38-t0r" id="g2e-PH-I4o"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem enabled="NO" systemItem="redo" id="408-Cz-Adb">
                                         <connections>
-                                            <action selector="redo:" destination="BYZ-38-t0r" id="iyv-2Y-8fv"/>
+                                            <action selector="redo:" destination="BYZ-38-t0r" id="KyV-XE-3zR"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="Item" systemItem="save" id="kMI-f5-yXg">
                                         <connections>
-                                            <action selector="saveProposal:" destination="BYZ-38-t0r" id="Kop-qD-8la"/>
+                                            <action selector="saveProposal:" destination="BYZ-38-t0r" id="39g-TD-Bjv"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem systemItem="trash" id="V5Q-XX-g0m">
                                         <connections>
-                                            <action selector="trash:" destination="BYZ-38-t0r" id="AuD-5m-6x3"/>
+                                            <action selector="trash:" destination="BYZ-38-t0r" id="NqW-7k-OGt"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ys-au-8tK" customClass="CanvasView">
-                                <rect key="frame" x="0.0" y="44" width="1024" height="724"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     </view>
@@ -75,14 +71,13 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
-                        <outlet property="canvas" destination="3ys-au-8tK" id="Q1E-92-tGN"/>
-                        <outlet property="redoButton" destination="408-Cz-Adb" id="LEp-0d-jji"/>
-                        <outlet property="undoButton" destination="ddu-OJ-aK8" id="3Nr-qA-ur9"/>
+                        <outlet property="redoButton" destination="408-Cz-Adb" id="z4q-fG-01e"/>
+                        <outlet property="undoButton" destination="ddu-OJ-aK8" id="ZhK-Xk-qpg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="545" y="-97"/>
+            <point key="canvasLocation" x="229" y="-85"/>
         </scene>
         <!--Proposal Over View View Controller-->
         <scene sceneID="9AV-qe-Cod">

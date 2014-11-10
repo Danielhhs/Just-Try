@@ -7,29 +7,18 @@
 //
 
 #import "SlidesEditingViewController.h"
-#import "ImageContainerView.h"
-#import "TextContainerView.h"
-#import "EditorPanelManager.h"
 #import "TooltipView.h"
+#import "EditorPanelManager.h"
 #import "CanvasView.h"
 #import "CustomTapTextView.h"
 #import "UndoManager.h"
 #import "SimpleOperation.h"
 #import "KeyConstants.h"
 #import "UIView+Snapshot.h"
-#import "CoreDataManager.h"
-#import "DefaultValueGenerator.h"
-#import "SlideThumbnailsManager.h"
 
-#define GAP_BETWEEN_VIEWS 20.f
-
-@interface SlidesEditingViewController ()<ImageContainerViewDelegate, TextContainerViewDelegate, CanvasViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UndoManagerDelegate, OperationTarget>
-@property (nonatomic, strong) GenericContainerView *currentSelectedContent;
+@interface SlidesEditingViewController ()<CanvasViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, OperationTarget>
 @property (weak, nonatomic) IBOutlet CanvasView *canvas;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *undoButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *redoButton;
-@property (nonatomic) CGFloat keyboardOriginY;
 @property (nonatomic) NSUInteger currentSelectionOriginalIndex;
 @end
 
@@ -38,39 +27,7 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor darkTextColor];
     self.canvas.delegate = self;
-    [[UndoManager sharedManager] setDelegate:self];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardShowNotification:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardHideNotification:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void) dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void) setProposalAttributes:(NSDictionary *)proposalAttributes
-{
-    _proposalAttributes = proposalAttributes;
-    [[SlideThumbnailsManager sharedManager] setupThumbnailsWithProposalAttributes:proposalAttributes];
-}
-
-#pragma mark - User Interactions
-
-- (IBAction)addImage:(id)sender {
-    ImageContainerView *view = [[ImageContainerView alloc] initWithAttributes:[DefaultValueGenerator defaultImageAttributes]];
-    view.delegate = self;
-    [view becomeFirstResponder];
-    [self.canvas addSubview:view];
-}
-
-- (IBAction)addText:(id)sender {
-    TextContainerView *view = [[TextContainerView alloc] initWithAttributes:[DefaultValueGenerator defaultTextAttributes]];
-    view.delegate = self;
-    [view startEditing];
-    [view becomeFirstResponder];
-    [self.canvas addSubview:view];
 }
 
 #pragma mark - ContentContainerViewDelegate
@@ -83,7 +40,7 @@
 {
     self.currentSelectedContent = nil;
     [self switchView:contentView toIndex:self.currentSelectionOriginalIndex inSuperView:self.canvas];
-    [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
+    [self.delegate contentViewDidResignFirstResponder:contentView];
 }
 
 - (void) contentViewWillBecomFirstResponder:(GenericContainerView *)contentView
@@ -97,8 +54,7 @@
     self.currentSelectedContent = contentView;
     [self.canvas disablePinch];
     [self switchView:contentView toIndex:[[self.canvas subviews] count] - 1 inSuperView:self.canvas];
-    [[SlideThumbnailsManager sharedManager] hideThumnailsFromViewController:self];
-    [[EditorPanelManager sharedManager] showEditorPanelInViewController:self forContentView:contentView];
+    [self.delegate contentViewDidBecomeFirstResponder:contentView];
 }
 
 - (void) contentView:(GenericContainerView *)contentView didChangeAttributes:(NSDictionary *)attributes
@@ -106,15 +62,14 @@
     if (attributes) {
         [[EditorPanelManager sharedManager] makeCurrentEditorApplyChanges:attributes];
     }
-    [self enableUndo];
-    [self disableRedo];
+    [self.delegate contentDidChangeFromEditingController:self];
     [[UndoManager sharedManager] clearRedoStack];
 }
 
 - (void) frameDidChangeForContentView:(GenericContainerView *)contentView
 {
     CGFloat contentBottom = CGRectGetMaxY(contentView.frame);
-    [self adjustCanvasPositionForContentBottom:contentBottom];
+    [self.delegate adjustCanvasPositionForContentBottom:contentBottom];
 }
 
 - (void) resignPreviousFirstResponderExceptForContainer:(GenericContainerView *) container
@@ -193,70 +148,6 @@
     [self.canvas enablePinch];
 }
 
-#pragma mark - Handle Keyboard Event
-- (void) handleKeyboardShowNotification:(NSNotification *)notification
-{
-    CGRect keyboardFrame = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    self.keyboardOriginY = keyboardFrame.origin.y;
-    CGFloat contentBottom = CGRectGetMaxY(self.currentSelectedContent.frame);
-    [self adjustCanvasPositionForContentBottom:contentBottom];
-}
-
-- (void) handleKeyboardHideNotification:(NSNotification *) notification
-{
-    self.canvas.transform = CGAffineTransformTranslate(self.canvas.transform, 0, -1 * self.canvas.transform.ty);
-    [((TextContainerView *)self.currentSelectedContent) finishEditing];
-}
-
-- (void) adjustCanvasSizeAndPosition
-{
-    CGFloat offset = [EditorPanelManager currentEditorWidth] + GAP_BETWEEN_VIEWS;
-    if (offset == GAP_BETWEEN_VIEWS) {
-        offset = -1 * [[SlideThumbnailsManager sharedManager] thumbnailViewControllerWidth] - GAP_BETWEEN_VIEWS;
-    }
-    CGFloat scale = (self.canvas.bounds.size.width - abs(offset)) / self.canvas.bounds.size.width;
-    CGAffineTransform transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
-    transform = CGAffineTransformTranslate(transform, (-1 * offset +  GAP_BETWEEN_VIEWS) * scale, 0);
-    self.canvas.transform = transform;
-}
-
-- (void) adjustCanvasPositionForContentBottom:(CGFloat) contentBottom
-{
-    CGPoint bottomPoint = [self.view convertPoint:CGPointMake(0, contentBottom) fromView:self.canvas];
-    CGFloat offsetForKeyboard = (self.keyboardOriginY -bottomPoint.y - GAP_BETWEEN_VIEWS) / self.canvas.transform.a;
-    self.canvas.transform = CGAffineTransformTranslate(self.canvas.transform, 0, offsetForKeyboard);
-}
-
-#pragma mark - Undo and Redo
-- (IBAction)undo:(UIBarButtonItem *)sender {
-    [self.currentSelectedContent pushUnsavedOperation];
-    [[UndoManager sharedManager] undo];
-}
-
-- (IBAction)redo:(UIBarButtonItem *)sender {
-    [[UndoManager sharedManager] redo];
-}
-
-- (void) enableRedo
-{
-    self.redoButton.enabled = YES;
-}
-
-- (void) enableUndo
-{
-    self.undoButton.enabled = YES;
-}
-
-- (void) disableUndo
-{
-    self.undoButton.enabled = NO;
-}
-
-- (void) disableRedo
-{
-    self.redoButton.enabled = NO;
-}
-
 - (void) performOperation:(SimpleOperation *)operation
 {
     if ([operation.key isEqualToString:[KeyConstants deleteKey]]) {
@@ -273,36 +164,29 @@
 
 - (void) switchView:(UIView *) view toIndex:(NSUInteger) index inSuperView:(UIView *) superView
 {
-    if ([[superView subviews] count] > 1) {
-        [superView insertSubview:view atIndex:index];
-    }
+    [superView insertSubview:view atIndex:index];
 }
 
-#pragma mark - Tool Bar Actions
-
-- (IBAction)trash:(id)sender {
-    if (self.currentSelectedContent) {
-        SimpleOperation *deleteOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants deleteKey] fromValue:self.currentSelectedContent];
-        deleteOperation.toValue = self.canvas;
-        [[UndoManager sharedManager] pushOperation:deleteOperation];
-        [self.currentSelectedContent removeFromSuperview];
-        [self.currentSelectedContent resignFirstResponder];
-    }
+#pragma mark - Add & Remove Contents
+- (void) addContentViewToCanvas:(GenericContainerView *)content
+{
+    [self.canvas addSubview:content];
+    content.center = [self canvasCenter];
+    [content becomeFirstResponder];
 }
 
-- (IBAction)saveProposal:(id)sender {
-    [self.proposalAttributes setValue:[self.canvas snapshot] forKey:[KeyConstants proposalThumbnailKey]];
-    [[CoreDataManager sharedManager] saveProposalWithProposalChanges:self.proposalAttributes];
+- (void) removeCurrentContentViewFromCanvas
+{
+    [self.currentSelectedContent resignFirstResponder];
+    [self.currentSelectedContent removeFromSuperview];
 }
 
-- (IBAction)backToProposals:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - SliderThumbnailViewController
-- (IBAction)showSlideThumbnails:(id)sender {
-    [self resignPreviousFirstResponderExceptForContainer:nil];
-    [[SlideThumbnailsManager sharedManager] showThumbnailsInViewController:self];
+- (CGPoint) canvasCenter
+{
+    CGPoint center;
+    center.x = CGRectGetMidX(self.canvas.bounds);
+    center.y = CGRectGetMidY(self.canvas.bounds);
+    return center;
 }
 
 

@@ -70,7 +70,37 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x2F-XW-axi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="60" y="271"/>
+            <point key="canvasLocation" x="-131" y="263"/>
+        </scene>
+        <!--Slides Editing View Controller-->
+        <scene sceneID="fSe-rA-bii">
+            <objects>
+                <viewController storyboardIdentifier="SlidesEditingViewController" id="28b-Io-C3r" customClass="SlidesEditingViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GQ2-vm-a1H"/>
+                        <viewControllerLayoutGuide type="bottom" id="2eI-RP-Qh7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dCG-Lu-WUP">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xQz-1g-ums" customClass="CanvasView">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="1024" height="768"/>
+                    <connections>
+                        <outlet property="canvas" destination="xQz-1g-ums" id="Agq-Vi-adL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J3z-H4-GnT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="543" y="263"/>
         </scene>
     </scenes>
 </document>

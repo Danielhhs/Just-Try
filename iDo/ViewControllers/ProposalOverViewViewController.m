@@ -10,7 +10,7 @@
 #import "CoreDataManager.h"
 #import "ProposalCollectionViewCell.h"
 #import "KeyConstants.h"
-#import "SlidesEditingViewController.h"
+#import "SlidesContainerViewController.h"
 
 @interface ProposalOverViewViewController()<CoreDataManagerDelegate, UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UICollectionView *proposalsCollectionView;
@@ -70,8 +70,8 @@
     if ([segue.identifier isEqualToString:@"New Proposal"]) {
         [[CoreDataManager sharedManager] createNewProposal];
     } else if ([segue.identifier isEqualToString:@"Edit Proposal"]) {
-        SlidesEditingViewController *slideEditingVC = (SlidesEditingViewController *)segue.destinationViewController;
-        slideEditingVC.proposalAttributes = self.proposals[self.selectedProposalIndex];
+        SlidesContainerViewController *slideContainerVC = (SlidesContainerViewController *)segue.destinationViewController;
+        slideContainerVC.proposalAttributes = self.proposals[self.selectedProposalIndex];
     }
 }
 

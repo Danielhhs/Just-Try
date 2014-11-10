@@ -95,7 +95,7 @@ static EditorPanelManager *sharedInstance;
 }
 
 #pragma mark - Presenting Editor Panels
-- (void) showEditorPanelInViewController:(SlidesEditingViewController *)viewController
+- (void) showEditorPanelInViewController:(SlidesContainerViewController *)viewController
                           forContentView:(GenericContainerView *)contentView
 {
     if ([contentView isKindOfClass:[ImageContainerView class]]) {
@@ -105,29 +105,29 @@ static EditorPanelManager *sharedInstance;
     }
 }
 
-- (void) showImageEditorInViewController:(SlidesEditingViewController *)viewController
+- (void) showImageEditorInViewController:(SlidesContainerViewController *)viewController
                               attributes:(NSDictionary *)attributes
                                   target:(id<OperationTarget>) target
 {
     self.currentEditor = self.imageEditor;
     [self showCurrentEditorInViewController:viewController];
     self.imageEditor.target = target;
-    self.imageEditor.delegate = viewController;
+    self.imageEditor.delegate = viewController.editorViewController;
     [self.imageEditor applyAttributes:attributes];
 }
 
-- (void) showTextEditorInViewController:(SlidesEditingViewController *)viewController
+- (void) showTextEditorInViewController:(SlidesContainerViewController *)viewController
                              attributes:(NSDictionary *)attributes
                                  target:(id<OperationTarget>) target
 {
     self.currentEditor = self.textEditor;
     [self showCurrentEditorInViewController:viewController];
     self.textEditor.target  = target;
-    self.textEditor.delegate = viewController;
+    self.textEditor.delegate = viewController.editorViewController;
     [self.textEditor applyAttributes:attributes];
 }
 
-- (void) showCurrentEditorInViewController:(SlidesEditingViewController *) viewController
+- (void) showCurrentEditorInViewController:(SlidesContainerViewController *) viewController
 {
     [viewController addChildViewController:self.currentEditor];
     self.currentEditor.view.frame = [EditorPanelManager editorPanelFrameOutOfView:viewController.view];
@@ -141,7 +141,7 @@ static EditorPanelManager *sharedInstance;
 }
 
 #pragma mark - Dismiss Editor Panels
-- (void) dismissAllEditorPanelsFromViewController:(SlidesEditingViewController *) viewController
+- (void) dismissAllEditorPanelsFromViewController:(SlidesContainerViewController *) viewController
 {
     EditorPanelContainerViewController *animationVC = nil;
     if ([self.currentEditor isKindOfClass:[ImageEditorPanelContainerViewController class]]) {

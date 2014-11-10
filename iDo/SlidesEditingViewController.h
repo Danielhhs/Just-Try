@@ -9,11 +9,28 @@
 #import <UIKit/UIKit.h>
 #import "EditorPanelContainerViewController.h"
 #import "TextEditorPanelContainerViewController.h"
+#import "ImageContainerView.h"
+#import "TextContainerView.h"
+#import "CanvasView.h"
 
-@interface SlidesEditingViewController : UIViewController<TextEditorPanelContainerViewControllerDelegate, EditorPanelContainerViewControllerDelegate>
+@class SlidesEditingViewController;
+@protocol SlidesEditingViewControllerDelegate <NSObject>
 
-- (void) adjustCanvasSizeAndPosition;
+- (void) adjustCanvasPositionForContentBottom:(CGFloat) contentBottom;
+- (void) contentDidChangeFromEditingController:(SlidesEditingViewController *)editingController;
+- (void) contentViewDidBecomeFirstResponder:(GenericContainerView *) content;
+- (void) contentViewDidResignFirstResponder:(GenericContainerView *) content;
 
-@property (nonatomic, strong) NSDictionary *proposalAttributes;
+@end
+
+@interface SlidesEditingViewController : UIViewController<ImageContainerViewDelegate, TextContainerViewDelegate, TextEditorPanelContainerViewControllerDelegate, EditorPanelContainerViewControllerDelegate>
+
+@property (nonatomic, strong) GenericContainerView *currentSelectedContent;
+@property (nonatomic, weak) id<SlidesEditingViewControllerDelegate> delegate;
+
+- (void) resignPreviousFirstResponderExceptForContainer:(GenericContainerView *) container;
+- (void) addContentViewToCanvas:(GenericContainerView *) content;
+- (void) removeCurrentContentViewFromCanvas;
+- (CanvasView *) canvas;
 @end
 

@@ -23,4 +23,6 @@
 
 + (CGFloat) angelsPerPi;
 
++ (CGFloat) gapBetweenViews;
+
 @end

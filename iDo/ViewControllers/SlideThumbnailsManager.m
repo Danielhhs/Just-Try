@@ -9,7 +9,7 @@
 #import "SlideThumbnailsManager.h"
 #import "SlidesThumbnailViewController.h"
 #import "DrawingConstants.h"
-#import "SlidesEditingViewController.h"
+#import "SlidesContainerViewController.h"
 
 @interface SlideThumbnailsManager ()
 @property (nonatomic, strong) SlidesThumbnailViewController *slidesThumbnailController;
@@ -61,25 +61,25 @@ static SlideThumbnailsManager *sharedInstance;
     self.thumbnailIsDisplaying = YES;
     [UIView animateWithDuration:[DrawingConstants counterGoldenRatio] animations:^{
         self.slidesThumbnailController.view.transform = CGAffineTransformIdentity;
-        if ([controller isKindOfClass:[SlidesEditingViewController class]]) {
-            [((SlidesEditingViewController *) controller) adjustCanvasSizeAndPosition];
+        if ([controller isKindOfClass:[SlidesContainerViewController class]]) {
+            [((SlidesContainerViewController *) controller) adjustCanvasSizeAndPosition];
         }
     }];
 }
 
 - (void) hideThumnailsFromViewController:(UIViewController *)controller
 {
+    self.thumbnailIsDisplaying = NO;
     [UIView animateWithDuration:[DrawingConstants counterGoldenRatio] animations:^{
         self.slidesThumbnailController.view.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -1 * [DrawingConstants slidesThumbnailWidth], 0);
-        if ([controller isKindOfClass:[SlidesEditingViewController class]]) {
-            [((SlidesEditingViewController *) controller) adjustCanvasSizeAndPosition];
+        if ([controller isKindOfClass:[SlidesContainerViewController class]]) {
+            [((SlidesContainerViewController *) controller) adjustCanvasSizeAndPosition];
         }
     } completion:^(BOOL finished) {
         self.slidesThumbnailController.view.transform = CGAffineTransformIdentity;
         [self.slidesThumbnailController willMoveToParentViewController:nil];
         [self.slidesThumbnailController.view removeFromSuperview];
         [self.slidesThumbnailController removeFromParentViewController];
-        self.thumbnailIsDisplaying = NO;
     }];
     
 }
