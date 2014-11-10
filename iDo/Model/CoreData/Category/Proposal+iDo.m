@@ -59,6 +59,7 @@
             [Slide applySlideAttributes:slidesAttributes[i] toSlide:slide inManageObjectContext:managedObjectContext];
         }
         slide.index = @(i);
+        [proposal addSlidesObject:slide];
     }
     
 }

@@ -37,7 +37,6 @@
     CGRect frameValue = [GenericContainerViewHelper frameFromAttributes:attributes];
     self = [self initWithFrame:frameValue];
     if (self) {
-        self.transform = [attributes[[KeyConstants transformKey]] CGAffineTransformValue];
         self.fullAttributes = [attributes mutableCopy];
     }
     return self;

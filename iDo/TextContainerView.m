@@ -31,6 +31,7 @@
     if (self) {
         [self setupSubViewsWithAttributes:attributes];
         [self addSubViews];
+        [GenericContainerViewHelper applyUndoAttribute:attributes toContainer:self];
     }
     return self;
 }
@@ -74,7 +75,6 @@
 
 - (BOOL) needToAdjustCanvas
 {
-//    BOOL withinSuperView = CGRectGetMaxY(self.frame) <= self.superview.bounds.size.height;
     return [self.textView isFirstResponder];
 }
 

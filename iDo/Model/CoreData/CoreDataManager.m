@@ -88,12 +88,11 @@ static CoreDataManager *sharedInstance;
 {
     Proposal *proposal = [Proposal proposalFromAttributes:[DefaultValueGenerator defaultProposalAttributes] inManagedObjectContext:self.document.managedObjectContext];
     self.currentProposal = proposal;
-    [self saveDocument];
 }
 
 - (NSURL *) modelURL
 {
-    return [[self documentsURL] URLByAppendingPathComponent:@"iDoDataModel"];
+    return [[self documentsURL] URLByAppendingPathComponent:@"iDoDataModel1"];
 }
 
 - (NSURL *) documentsURL
@@ -104,7 +103,7 @@ static CoreDataManager *sharedInstance;
 - (void) saveDocument
 {
     [self.document saveToURL:[self modelURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success) {
-        
+        NSLog(@"Sucess = %d", success);
     }];
 }
 

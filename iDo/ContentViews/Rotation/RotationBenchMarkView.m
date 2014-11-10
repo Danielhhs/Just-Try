@@ -41,6 +41,12 @@
     }
 }
 
+- (void) setBounds:(CGRect)bounds
+{
+    [super setBounds:bounds];
+    [self setNeedsDisplay];
+}
+
 #pragma mark - Drawing
 - (void) drawRect:(CGRect)rect
 {

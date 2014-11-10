@@ -50,6 +50,12 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void) setProposalAttributes:(NSDictionary *)proposalAttributes
+{
+    _proposalAttributes = proposalAttributes;
+    [[SlideThumbnailsManager sharedManager] setupThumbnailsWithProposalAttributes:proposalAttributes];
+}
+
 #pragma mark - User Interactions
 
 - (IBAction)addImage:(id)sender {
@@ -285,6 +291,7 @@
 }
 
 - (IBAction)saveProposal:(id)sender {
+    [self.proposalAttributes setValue:[self.canvas snapshot] forKey:[KeyConstants proposalThumbnailKey]];
     [[CoreDataManager sharedManager] saveProposalWithProposalChanges:self.proposalAttributes];
 }
 

@@ -78,8 +78,8 @@
 		54F0C4DC1A0E3DD6009B4B0D /* Slide.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C4DB1A0E3DD6009B4B0D /* Slide.m */; };
 		54F0C4E01A0F233E009B4B0D /* SlideThumbnailsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C4DF1A0F233E009B4B0D /* SlideThumbnailsManager.m */; };
 		54F0C4E31A0F25F4009B4B0D /* DrawingConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C4E21A0F25F4009B4B0D /* DrawingConstants.m */; };
-		54F0C4E71A0F2B54009B4B0D /* SlidesThumbnailCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C4E51A0F2B54009B4B0D /* SlidesThumbnailCollectionViewController.m */; };
-		54F0C4E81A0F2B54009B4B0D /* SlidesThumbnailCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54F0C4E61A0F2B54009B4B0D /* SlidesThumbnailCollectionViewController.xib */; };
+		54F0C4EC1A0F407D009B4B0D /* SlidesThumbnailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C4EA1A0F407D009B4B0D /* SlidesThumbnailViewController.m */; };
+		54F0C4FC1A0F4563009B4B0D /* UtilViewControllers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54F0C4FB1A0F4563009B4B0D /* UtilViewControllers.storyboard */; };
 		54F4C7361A033E37006A3F07 /* RotationBenchMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4C7351A033E37006A3F07 /* RotationBenchMarkView.m */; };
 		54F4C7391A0359B2006A3F07 /* RotationTooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4C7381A0359B2006A3F07 /* RotationTooltipView.m */; };
 		54F4C7521A036B63006A3F07 /* CanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4C7511A036B63006A3F07 /* CanvasView.m */; };
@@ -227,9 +227,9 @@
 		54F0C4DF1A0F233E009B4B0D /* SlideThumbnailsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlideThumbnailsManager.m; path = ViewControllers/SlideThumbnailsManager.m; sourceTree = "<group>"; };
 		54F0C4E11A0F25F4009B4B0D /* DrawingConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DrawingConstants.h; path = Helper/DrawingConstants.h; sourceTree = "<group>"; };
 		54F0C4E21A0F25F4009B4B0D /* DrawingConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawingConstants.m; path = Helper/DrawingConstants.m; sourceTree = "<group>"; };
-		54F0C4E41A0F2B54009B4B0D /* SlidesThumbnailCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlidesThumbnailCollectionViewController.h; path = ViewControllers/SlidesThumbnailCollectionViewController.h; sourceTree = "<group>"; };
-		54F0C4E51A0F2B54009B4B0D /* SlidesThumbnailCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlidesThumbnailCollectionViewController.m; path = ViewControllers/SlidesThumbnailCollectionViewController.m; sourceTree = "<group>"; };
-		54F0C4E61A0F2B54009B4B0D /* SlidesThumbnailCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SlidesThumbnailCollectionViewController.xib; path = ViewControllers/SlidesThumbnailCollectionViewController.xib; sourceTree = "<group>"; };
+		54F0C4E91A0F407D009B4B0D /* SlidesThumbnailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlidesThumbnailViewController.h; path = ViewControllers/SlidesThumbnailViewController.h; sourceTree = "<group>"; };
+		54F0C4EA1A0F407D009B4B0D /* SlidesThumbnailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlidesThumbnailViewController.m; path = ViewControllers/SlidesThumbnailViewController.m; sourceTree = "<group>"; };
+		54F0C4FB1A0F4563009B4B0D /* UtilViewControllers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = UtilViewControllers.storyboard; path = ViewControllers/UtilViewControllers.storyboard; sourceTree = "<group>"; };
 		54F4C7341A033E37006A3F07 /* RotationBenchMarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationBenchMarkView.h; path = ContentViews/Rotation/RotationBenchMarkView.h; sourceTree = "<group>"; };
 		54F4C7351A033E37006A3F07 /* RotationBenchMarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationBenchMarkView.m; path = ContentViews/Rotation/RotationBenchMarkView.m; sourceTree = "<group>"; };
 		54F4C7371A0359B2006A3F07 /* RotationTooltipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationTooltipView.h; path = ContentViews/Rotation/RotationTooltipView.h; sourceTree = "<group>"; };
@@ -490,7 +490,6 @@
 				54D7294619ECE9B5009A0279 /* AppDelegate.m */,
 				54F0C48A1A0DCF2A009B4B0D /* Controllers */,
 				546457CE19F10F3800078EAF /* Model */,
-				546457B919F1070A00078EAF /* Editors */,
 				54D7296A19ECEA25009A0279 /* Views */,
 				54D333AA1A0604F400F3D7F9 /* Undo Manager */,
 				54D7294E19ECE9B5009A0279 /* Images.xcassets */,
@@ -580,6 +579,7 @@
 		54F0C48A1A0DCF2A009B4B0D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				546457B919F1070A00078EAF /* Editors */,
 				54F0C4CF1A0E3788009B4B0D /* Slide Editing */,
 				54F0C4911A0DE28A009B4B0D /* Proposal Overview */,
 			);
@@ -621,9 +621,9 @@
 			children = (
 				54F0C4DE1A0F233E009B4B0D /* SlideThumbnailsManager.h */,
 				54F0C4DF1A0F233E009B4B0D /* SlideThumbnailsManager.m */,
-				54F0C4E41A0F2B54009B4B0D /* SlidesThumbnailCollectionViewController.h */,
-				54F0C4E51A0F2B54009B4B0D /* SlidesThumbnailCollectionViewController.m */,
-				54F0C4E61A0F2B54009B4B0D /* SlidesThumbnailCollectionViewController.xib */,
+				54F0C4E91A0F407D009B4B0D /* SlidesThumbnailViewController.h */,
+				54F0C4EA1A0F407D009B4B0D /* SlidesThumbnailViewController.m */,
+				54F0C4FB1A0F4563009B4B0D /* UtilViewControllers.storyboard */,
 			);
 			name = Thumbnails;
 			sourceTree = "<group>";
@@ -721,11 +721,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				54FF2BC31A04DDB6002EB326 /* TextStyleEditorContentViewController.xib in Resources */,
-				54F0C4E81A0F2B54009B4B0D /* SlidesThumbnailCollectionViewController.xib in Resources */,
 				547DCA081A04CB4C004691EC /* ImageEditorPanelContainerViewController.xib in Resources */,
 				547DCA131A04D1A3004691EC /* TextEditorPanelContainerViewController.xib in Resources */,
 				5464580119F4D89900078EAF /* TextBasicEditorPanelViewController.xib in Resources */,
 				547DC9FA1A036EAF004691EC /* Canvas.png in Resources */,
+				54F0C4FC1A0F4563009B4B0D /* UtilViewControllers.storyboard in Resources */,
 				54CB19DA19EE3BD40044BBDD /* background.jpg in Resources */,
 				54D7294D19ECE9B5009A0279 /* Main.storyboard in Resources */,
 				546457FC19F4B7D200078EAF /* EditorPanelViewController.xib in Resources */,
@@ -779,13 +779,13 @@
 				54E96F6A19F8E53400C5F007 /* ReflectionView.m in Sources */,
 				54F0C4941A0DE3E5009B4B0D /* ProposalCollectionViewCell.m in Sources */,
 				54D7297319ED0FF0009A0279 /* BorderControlPointView.m in Sources */,
-				54F0C4E71A0F2B54009B4B0D /* SlidesThumbnailCollectionViewController.m in Sources */,
 				5436A0151A0A269900A16E2C /* ImageContent.m in Sources */,
 				54D333AD1A0606A900F3D7F9 /* Operation.m in Sources */,
 				54E96F8819F91FA000C5F007 /* TooltipView.m in Sources */,
 				54CB19D819EE37BE0044BBDD /* ImageContainerView.m in Sources */,
 				54F0C4431A0C9478009B4B0D /* TextContent+iDo.m in Sources */,
 				54D10B5519F7AC9200197694 /* GenericContainerViewHelper.m in Sources */,
+				54F0C4EC1A0F407D009B4B0D /* SlidesThumbnailViewController.m in Sources */,
 				54D7296D19ECEAB9009A0279 /* GenericContainerView.m in Sources */,
 				54F0C4971A0DF7B1009B4B0D /* DefaultValueGenerator.m in Sources */,
 				5464580019F4D89900078EAF /* TextBasicEditorPanelViewController.m in Sources */,

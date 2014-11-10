@@ -41,6 +41,7 @@
     NSMutableDictionary *attribtues = [NSMutableDictionary dictionary];
     
     [attribtues setValue:DEFAULT_BACKGROUND_IMAGE forKey:[KeyConstants slideBackgroundKey]];
+    [attribtues setValue:[UIImage imageNamed:DEFAULT_BACKGROUND_IMAGE] forKey:[KeyConstants slideThumbnailKey]];
     
     return attribtues;
 }

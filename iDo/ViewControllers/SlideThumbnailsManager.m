@@ -7,12 +7,12 @@
 //
 
 #import "SlideThumbnailsManager.h"
-#import "SlidesThumbnailCollectionViewController.h"
+#import "SlidesThumbnailViewController.h"
 #import "DrawingConstants.h"
 #import "SlidesEditingViewController.h"
 
 @interface SlideThumbnailsManager ()
-@property (nonatomic, strong) SlidesThumbnailCollectionViewController *slidesThumbnailController;
+@property (nonatomic, strong) SlidesThumbnailViewController *slidesThumbnailController;
 @property (nonatomic) BOOL thumbnailIsDisplaying;
 @end
 
@@ -30,7 +30,9 @@ static SlideThumbnailsManager *sharedInstance;
 {
     self = [super init];
     if (self) {
-        self.slidesThumbnailController = [[SlidesThumbnailCollectionViewController alloc] initWithNibName:@"SlidesThumbnailCollectionViewController" bundle:[NSBundle mainBundle]];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"UtilViewControllers" bundle:[NSBundle mainBundle]];
+        self.slidesThumbnailController = [storyboard instantiateViewControllerWithIdentifier:@"SlidesThumbnailViewController"];
+        
     }
     return self;
 }
@@ -41,6 +43,11 @@ static SlideThumbnailsManager *sharedInstance;
         sharedInstance = [[SlideThumbnailsManager alloc] initInternal];
     }
     return sharedInstance;
+}
+
+- (void) setupThumbnailsWithProposalAttributes:(NSDictionary *)proposalAttributes
+{
+    self.slidesThumbnailController.proposalAttributes = proposalAttributes;
 }
 
 #pragma mark - Thumbnail Show & Hide

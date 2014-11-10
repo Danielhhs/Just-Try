@@ -58,6 +58,13 @@
     }
 }
 
+- (void) setBounds:(CGRect)bounds
+{
+    [super setBounds:bounds];
+    self.benchMark.bounds = bounds;
+    [self setNeedsDisplay];
+}
+
 - (void) applyToView:(UIView *) view
 {
     self.frame = CGRectInset(view.bounds, -ROTATION_INDICATOR_OUTAGE, -ROTATION_INDICATOR_OUTAGE);

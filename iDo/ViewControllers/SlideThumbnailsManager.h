@@ -19,4 +19,6 @@
 
 - (CGFloat) thumbnailViewControllerWidth;
 
+- (void) setupThumbnailsWithProposalAttributes:(NSDictionary *) proposalAttributes;
+
 @end

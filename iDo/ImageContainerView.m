@@ -24,6 +24,8 @@
         _image = [UIImage imageNamed:attributes[[KeyConstants imageNameKey]]];
         [self setUpImageContentWithImage:_image];
         [self addSubViews];
+        [self hideRotationIndicator];
+        [GenericContainerViewHelper applyUndoAttribute:attributes toContainer:self];
     }
     return self;
 }
