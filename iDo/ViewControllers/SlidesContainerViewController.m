@@ -17,24 +17,30 @@
 #import "CoreDataManager.h"
 #import "UIView+Snapshot.h"
 #import "CanvasAdjustmentHelper.h"
+#import "ProposalAttributesManager.h"
 
 #define GAP_BETWEEN_VIEWS 20.f
 
-@interface SlidesContainerViewController ()<UndoManagerDelegate, SlidesEditingViewControllerDelegate>
+@interface SlidesContainerViewController ()<UndoManagerDelegate, SlidesEditingViewControllerDelegate, SlidesThumbnailViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *undoButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *redoButton;
+@property (nonatomic) NSInteger currentSelectSlideIndex;
 @property (nonatomic) CGFloat keyboardOriginY;
 @end
 
 @implementation SlidesContainerViewController
 
 #pragma mark - Memory Management
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void) awakeFromNib
+{
     [[UndoManager sharedManager] setDelegate:self];
     [self setupEditorViewController];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardShowNotification:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardHideNotification:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
 }
 
 - (void) setupEditorViewController
@@ -53,11 +59,13 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void) setProposalAttributes:(NSDictionary *)proposalAttributes
+- (void) setProposalAttributes:(NSMutableDictionary *)proposalAttributes
 {
     _proposalAttributes = proposalAttributes;
     [[SlideThumbnailsManager sharedManager] setupThumbnailsWithProposalAttributes:proposalAttributes];
-    self.editorViewController.slideAttributes = [self.proposalAttributes[[KeyConstants slideContentsKey]] lastObject];
+    [[SlideThumbnailsManager sharedManager] setSlideThumbnailControllerDelegate:self];
+    NSArray *slides = self.proposalAttributes[[KeyConstants proposalSlidesKey]];
+    self.editorViewController.slideAttributes = [slides lastObject];
 }
 
 #pragma mark - Add Content Views
@@ -147,14 +155,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - SliderThumbnailViewController
-- (IBAction)showSlideThumbnails:(id)sender {
-    [self.editorViewController resignPreviousFirstResponderExceptForContainer:nil];
-    [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
-    [[SlideThumbnailsManager sharedManager] showThumbnailsInViewController:self];
-}
-
-#pragma mark - SlidesEditingViewController
+#pragma mark - SlidesEditingViewControllerDelegate
 - (void) contentDidChangeFromEditingController:(SlidesEditingViewController *)editingController
 {
     [self enableUndo];
@@ -177,6 +178,34 @@
 - (void) allContentViewDidResignFirstResponder
 {
     [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
+}
+
+- (void) slidesEditingViewController:(SlidesEditingViewController *)editingViewController didFinishEditingSlide:(NSMutableDictionary *)slide
+{
+    [[ProposalAttributesManager sharedManager] saveSlide:slide toProposal:self.proposalAttributes];
+}
+
+#pragma mark - SliderThumbnailViewController
+- (IBAction)showSlideThumbnails:(id)sender {
+    [self.editorViewController resignPreviousFirstResponderExceptForContainer:nil];
+    [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
+    [[SlideThumbnailsManager sharedManager] showThumbnailsInViewController:self];
+    [[SlideThumbnailsManager sharedManager] selectSlideAtIndex:self.currentSelectSlideIndex];
+}
+
+#pragma mark - SlidesThumbnailViewControllerDelegate
+- (void) slideDidAddAtIndex:(NSInteger)index fromSlidesThumbnailViewController:(SlidesThumbnailViewController *)thumbnailController
+{
+    [[ProposalAttributesManager sharedManager] addNewSlideToProposal:self.proposalAttributes atIndex:index];
+    [[SlideThumbnailsManager sharedManager] setupThumbnailsWithProposalAttributes:self.proposalAttributes];
+    [[SlideThumbnailsManager sharedManager] selectSlideAtIndex:index];
+}
+
+- (void) slideThumbnailController:(SlidesThumbnailViewController *)thumbnailController didSelectSlideAtIndex:(NSInteger)index
+{
+    self.currentSelectSlideIndex = index;
+    NSArray *slides = [self.proposalAttributes objectForKey:[KeyConstants proposalSlidesKey]];
+    [self.editorViewController updateCanvasWithSlide:slides[index]];
 }
 
 @end

@@ -19,12 +19,12 @@
 @interface CoreDataManager : NSObject
 
 @property (nonatomic, weak) id<CoreDataManagerDelegate> delegate;
-@property (nonatomic, strong) Proposal *currentProposal;
 
 + (CoreDataManager *) sharedManager;
 
 - (NSManagedObjectContext *) databaseContext;
 - (void) openDataModelAndLoadProposals;
 - (void) saveProposalWithProposalChanges:(NSDictionary *) proposalChanges;
-- (void) createNewProposal;
+- (NSMutableDictionary *) createNewProposal;
+- (void) setSelectedProposalIndex:(NSInteger)index;
 @end

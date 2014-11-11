@@ -8,22 +8,15 @@
 
 #import "SlidesThumbnailViewController.h"
 #import "KeyConstants.h"
+#import "ThumbnailCollectionViewCell.h"
 
-@interface SlidesThumbnailViewController ()<UICollectionViewDataSource>
+@interface SlidesThumbnailViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *thumbnailsCollectionView;
-@property (nonatomic, strong) NSArray *slides;
 @end
 
 static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
 
 @implementation SlidesThumbnailViewController
-
-- (void) setProposalAttributes:(NSDictionary *)proposalAttributes
-{
-    _proposalAttributes = proposalAttributes;
-    
-    self.slides = proposalAttributes[[KeyConstants proposalSlidesKey]];
-}
 
 - (void) setSlides:(NSArray *)slides
 {
@@ -31,9 +24,10 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
     [self.thumbnailsCollectionView reloadData];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void) setCurrentSelectedIndex:(NSInteger)currentSelectedIndex
+{
+    _currentSelectedIndex = currentSelectedIndex;
+    [self.thumbnailsCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForRow:self.currentSelectedIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionBottom];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -42,6 +36,7 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
     
     [self.thumbnailsCollectionView reloadData];
 }
+
 #pragma mark - UICollectionViewDatasource
 - (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -57,11 +52,26 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
 {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reusalbleCellIdentifier forIndexPath:indexPath];
     
-    NSDictionary *slide = self.slides[indexPath.row];
-    UIImage *image = slide[[KeyConstants slideThumbnailKey]];
-    cell.layer.contents = (__bridge id)image.CGImage;
-    
+    if ([cell isKindOfClass:[ThumbnailCollectionViewCell class]]) {
+        NSDictionary *slide = self.slides[indexPath.row];
+        ThumbnailCollectionViewCell *thumbnailCell = (ThumbnailCollectionViewCell *) cell;
+        thumbnailCell.indexLabel.text = [NSString stringWithFormat:@"%lu", indexPath.row + 1];
+        UIImage *image = slide[[KeyConstants slideThumbnailKey]];
+        thumbnailCell.thumbnail.image = image;
+      
+    }
     return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.delegate slideThumbnailController:self didSelectSlideAtIndex:indexPath.row];
+}
+
+- (IBAction)addSlide:(id)sender {
+    [self.delegate slideDidAddAtIndex:self.currentSelectedIndex + 1 fromSlidesThumbnailViewController:self];
 }
 
 @end

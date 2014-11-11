@@ -166,6 +166,7 @@ static EditorPanelManager *sharedInstance;
 - (void) dismissAllEditorPanelsFromViewController:(SlidesContainerViewController *) viewController
 {
     EditorPanelContainerViewController *animationVC = nil;
+    if (self.currentEditor == nil) return;
     if ([self.currentEditor isKindOfClass:[ImageEditorPanelContainerViewController class]]) {
         animationVC = [self createImageEditorViewController];
     } else if ([self.currentEditor isKindOfClass:[TextEditorPanelContainerViewController class]]) {

@@ -18,13 +18,10 @@
 
 - (void) setupWithAttributes:(NSDictionary *) attributes
 {
-    self.pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
-    [self addGestureRecognizer:self.pinch];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-    [self addGestureRecognizer:tap];
-    
-    UIImage *background = attributes[[KeyConstants slideBackgroundKey]];
+    for (UIView *subView in self.subviews) {
+        [subView removeFromSuperview];
+    }
+    UIImage *background = [UIImage imageNamed:attributes[[KeyConstants slideBackgroundKey]]];
     self.layer.contents = (__bridge id)background.CGImage;
     
     NSArray *contents = attributes[[KeyConstants slideContentsKey]];
@@ -41,6 +38,10 @@
     CGRect frame = [UIScreen mainScreen].bounds;
     self = [super initWithFrame:frame];
     if (self) {
+        self.pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
+        [self addGestureRecognizer:self.pinch];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        [self addGestureRecognizer:tap];
         [self setupWithAttributes:attributes];
     }
     return self;

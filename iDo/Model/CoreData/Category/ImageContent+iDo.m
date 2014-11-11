@@ -22,7 +22,7 @@
     return imageContent;
 }
 
-+ (NSDictionary *) attributesFromImageContent:(ImageContent *)content
++ (NSMutableDictionary *) attributesFromImageContent:(ImageContent *)content
 {
     NSMutableDictionary *attributes = [[GenericConent attributesFromGenericContent:content] mutableCopy];
     

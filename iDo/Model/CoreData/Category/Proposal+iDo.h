@@ -12,6 +12,6 @@
 + (Proposal *) proposalFromAttributes:(NSDictionary *) attributes
                inManagedObjectContext:(NSManagedObjectContext *) manageObjectContext;
 
-+ (NSDictionary *) attibutesFromProposal:(Proposal *) proposal;
++ (NSMutableDictionary *) attibutesFromProposal:(Proposal *) proposal;
 + (void) applyProposalAttributes:(NSDictionary *)proposalAttributes toProposal:(Proposal *) proposal inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext;
 @end

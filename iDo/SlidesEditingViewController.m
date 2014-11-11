@@ -15,6 +15,7 @@
 #import "SimpleOperation.h"
 #import "KeyConstants.h"
 #import "UIView+Snapshot.h"
+#import "SlideAttributesManager.h"
 
 @interface SlidesEditingViewController ()<CanvasViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, OperationTarget>
 @property (strong, nonatomic) CanvasView *canvas;
@@ -24,12 +25,39 @@
 
 @implementation SlidesEditingViewController
 
+- (void) viewDidLoad
+{
+    [super viewDidLoad];
+    self.canvas = [[CanvasView alloc] initWithAttributes:self.slideAttributes];
+    self.canvas.delegate = self;
+}
+
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.canvas = [[CanvasView alloc] initWithAttributes:self.slideAttributes];
-    self.canvas.delegate = self;
+    
+    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:CGRectInset(self.view.bounds, -10, -10)].CGPath;
+    self.view.layer.shadowOpacity = 0.5;
+    self.view.layer.shadowRadius = 5;
+    self.view.layer.masksToBounds = NO;
     [self.view addSubview:self.canvas];
+}
+
+- (void) setSlideAttributes:(NSMutableDictionary *)slideAttributes
+{
+    _slideAttributes = slideAttributes;
+    [self.canvas setupWithAttributes:slideAttributes];
+}
+
+- (void) updateCanvasWithSlide:(NSMutableDictionary *)slide
+{
+    //Trouble Maker!!!
+    self.slideAttributes = slide;
+}
+
+- (void) saveSlideAttributes
+{
 }
 
 #pragma mark - ContentContainerViewDelegate
@@ -88,7 +116,10 @@
 - (void) handleTapOnImage:(ImageContainerView *)container
 {
     UIPopoverController *popOver = [[UIPopoverController alloc] initWithContentViewController:self.imagePicker];
-    [popOver presentPopoverFromRect:container.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [popOver presentPopoverFromRect:container.frame
+                             inView:self.view
+           permittedArrowDirections:UIPopoverArrowDirectionAny
+                           animated:YES];
 }
 
 - (void) textViewDidStartEditing:(TextContainerView *)textView
@@ -175,6 +206,7 @@
     [self.canvas addSubview:content];
     content.center = [self canvasCenter];
     [content becomeFirstResponder];
+    [[SlideAttributesManager sharedManager] addNewContent:[content attributes] toSlide:self.slideAttributes];
 }
 
 - (void) removeCurrentContentViewFromCanvas

@@ -14,7 +14,7 @@
 + (GenericConent *) genericContentFromAttribute:(NSDictionary *) attributes
                           inManageObjectContext:(NSManagedObjectContext *) managedObjectContext;
 
-+ (NSDictionary *) attributesFromGenericContent:(GenericConent *) content;
++ (NSMutableDictionary *) attributesFromGenericContent:(GenericConent *) content;
 
 + (void) applyAttributes:(NSDictionary *) attributes toGenericContent:(GenericConent *) content inManageObjectContext:(NSManagedObjectContext *) manageObjectContext;
 

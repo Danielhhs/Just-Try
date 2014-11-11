@@ -15,11 +15,14 @@
 + (NSString *) proposalSlidesKey;
 + (NSString *) proposalGamesKey;
 + (NSString *) proposalThumbnailKey;
++ (NSString *) proposalCurrentSelectedSlideKey;
 
 #pragma mark - Slide
 + (NSString *) slideBackgroundKey;
 + (NSString *) slideContentsKey;
 + (NSString *) slideThumbnailKey;
++ (NSString *) slideIndexKey;
++ (NSString *) slideUniqueKey;
 
 #pragma mark - Generic Content
 + (NSString *) rotationKey;

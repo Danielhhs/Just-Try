@@ -7,9 +7,9 @@
 //
 
 #import "SlideThumbnailsManager.h"
-#import "SlidesThumbnailViewController.h"
 #import "DrawingConstants.h"
 #import "SlidesContainerViewController.h"
+#import "KeyConstants.h"
 
 @interface SlideThumbnailsManager ()
 @property (nonatomic, strong) SlidesThumbnailViewController *slidesThumbnailController;
@@ -47,7 +47,7 @@ static SlideThumbnailsManager *sharedInstance;
 
 - (void) setupThumbnailsWithProposalAttributes:(NSDictionary *)proposalAttributes
 {
-    self.slidesThumbnailController.proposalAttributes = proposalAttributes;
+    self.slidesThumbnailController.slides = proposalAttributes[[KeyConstants proposalSlidesKey]];
 }
 
 #pragma mark - Thumbnail Show & Hide
@@ -101,5 +101,15 @@ static SlideThumbnailsManager *sharedInstance;
     } else {
         return 0;
     }
+}
+
+- (void) selectSlideAtIndex:(NSInteger)index
+{
+    self.slidesThumbnailController.currentSelectedIndex = index;
+}
+
+- (void) setSlideThumbnailControllerDelegate:(id<SlidesThumbnailViewControllerDelegate>)delegate
+{
+    self.slidesThumbnailController.delegate = delegate;
 }
 @end

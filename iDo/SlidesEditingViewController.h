@@ -20,6 +20,7 @@
 - (void) contentDidChangeFromEditingController:(SlidesEditingViewController *)editingController;
 - (void) contentViewDidBecomeFirstResponder:(GenericContainerView *) content;
 - (void) allContentViewDidResignFirstResponder;
+- (void) slidesEditingViewController:(SlidesEditingViewController *) editingViewController didFinishEditingSlide:(NSMutableDictionary *) slide;
 
 @end
 
@@ -27,11 +28,13 @@
 
 @property (nonatomic, strong) GenericContainerView *currentSelectedContent;
 @property (nonatomic, weak) id<SlidesEditingViewControllerDelegate> delegate;
-@property (nonatomic, strong) NSDictionary *slideAttributes;
+@property (nonatomic, strong) NSMutableDictionary *slideAttributes;
 
 - (void) resignPreviousFirstResponderExceptForContainer:(GenericContainerView *) container;
 - (void) addContentViewToCanvas:(GenericContainerView *) content;
 - (void) removeCurrentContentViewFromCanvas;
 - (CanvasView *) canvas;
+- (void) updateCanvasWithSlide:(NSMutableDictionary *)slide;
+- (void) saveSlideAttributes;
 @end
 

@@ -2,7 +2,7 @@
 //  Proposal.h
 //  iDo
 //
-//  Created by Huang Hongsen on 11/8/14.
+//  Created by Huang Hongsen on 11/11/14.
 //  Copyright (c) 2014 com.microstrategy. All rights reserved.
 //
 
@@ -14,8 +14,9 @@
 @interface Proposal : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * unique;
 @property (nonatomic, retain) NSData * thumbnail;
+@property (nonatomic, retain) NSNumber * unique;
+@property (nonatomic, retain) NSNumber * currentSelectedSlideIndex;
 @property (nonatomic, retain) NSSet *games;
 @property (nonatomic, retain) NSSet *slides;
 @end

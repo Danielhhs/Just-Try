@@ -13,7 +13,7 @@
 
 - (void) adjustCanvasSizeAndPosition;
 
-@property (nonatomic, strong) NSDictionary *proposalAttributes;
+@property (nonatomic, strong) NSMutableDictionary *proposalAttributes;
 @property (nonatomic, strong) SlidesEditingViewController *editorViewController;
 
 @end

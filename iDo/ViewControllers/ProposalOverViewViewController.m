@@ -68,10 +68,13 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"New Proposal"]) {
-        [[CoreDataManager sharedManager] createNewProposal];
+        NSMutableDictionary *proposalAttributes = [[CoreDataManager sharedManager] createNewProposal];
+        SlidesContainerViewController *slideContainerVC = (SlidesContainerViewController *)segue.destinationViewController;
+        slideContainerVC.proposalAttributes = proposalAttributes;
     } else if ([segue.identifier isEqualToString:@"Edit Proposal"]) {
         SlidesContainerViewController *slideContainerVC = (SlidesContainerViewController *)segue.destinationViewController;
         slideContainerVC.proposalAttributes = self.proposals[self.selectedProposalIndex];
+        [[CoreDataManager sharedManager] setSelectedProposalIndex:self.selectedProposalIndex];
     }
 }
 

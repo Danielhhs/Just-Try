@@ -10,8 +10,8 @@
 
 @interface DefaultValueGenerator : NSObject
 
-+ (NSDictionary *) defaultProposalAttributes;
-+ (NSDictionary *) defaultSlideAttributes;
-+ (NSDictionary *) defaultTextAttributes;
-+ (NSDictionary *) defaultImageAttributes;
++ (NSMutableDictionary *) defaultProposalAttributes;
++ (NSMutableDictionary *) defaultSlideAttributes;
++ (NSMutableDictionary *) defaultTextAttributes;
++ (NSMutableDictionary *) defaultImageAttributes;
 @end

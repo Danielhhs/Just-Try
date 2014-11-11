@@ -23,7 +23,7 @@
     return proposal;
 }
 
-+ (NSDictionary *) attibutesFromProposal:(Proposal *)proposal
++ (NSMutableDictionary *) attibutesFromProposal:(Proposal *)proposal
 {
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
     
@@ -38,7 +38,7 @@
     }
     [attributes setObject:slidesAttributes forKey:[KeyConstants proposalSlidesKey]];
     
-    return [attributes copy];
+    return attributes;
 }
 
 + (void) applyProposalAttributes:(NSDictionary *)proposalAttributes
@@ -48,6 +48,7 @@
     proposal.name = proposalAttributes[[KeyConstants proposalNameKey]];
     UIImage *thumbnail = proposalAttributes[[KeyConstants proposalThumbnailKey]];
     proposal.thumbnail = UIImageJPEGRepresentation(thumbnail, 1.f);
+    proposal.currentSelectedSlideIndex = proposalAttributes[[KeyConstants proposalCurrentSelectedSlideKey]];
     NSArray *slidesAttributes = proposalAttributes[[KeyConstants proposalSlidesKey]];
     NSArray *slides = [proposal.slides sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]]];
     for (NSInteger i = 0; i < [slidesAttributes count];  i++) {

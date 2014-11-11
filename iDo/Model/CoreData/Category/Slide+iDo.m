@@ -27,7 +27,7 @@
     return slide;
 }
 
-+ (NSDictionary *) attributesFromSlide:(Slide *)slide
++ (NSMutableDictionary *) attributesFromSlide:(Slide *)slide
 {
     NSMutableDictionary *attribtues = [NSMutableDictionary dictionary];
     
@@ -40,10 +40,11 @@
     for (GenericConent *content in sortedContents) {
         [contentAttributes addObject:[CoreDataHelper contentAttributesFromGenericContent:content]];
     }
+    [attribtues setObject:slide.unique forKey:[KeyConstants slideUniqueKey]];
     [attribtues setObject:[contentAttributes copy] forKey:[KeyConstants slideContentsKey]];
     [attribtues setObject:[UIImage imageWithData:slide.thumbnail] forKey:[KeyConstants slideThumbnailKey]];
-    
-    return [attribtues copy];
+    [attribtues setObject:slide.index forKey:[KeyConstants slideIndexKey]];
+    return attribtues;
 }
 
 + (void) applySlideAttributes:(NSDictionary *)slideAttributes toSlide:(Slide *)slide inManageObjectContext:(NSManagedObjectContext *)manageObjectContext

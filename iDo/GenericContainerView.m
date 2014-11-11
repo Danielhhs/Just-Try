@@ -105,9 +105,9 @@
     return self;
 }
 
-- (NSDictionary *) attributes
+- (NSMutableDictionary *) attributes
 {
-    return [self.fullAttributes copy];
+    return self.fullAttributes;
 }
 
 #pragma mark - Apply Attributes
@@ -286,6 +286,7 @@
 {
     SimpleOperation *simpleOperation = (SimpleOperation *) operation;
     NSDictionary *attibutes = @{simpleOperation.key : simpleOperation.toValue};
+    [self becomeFirstResponder];
     [GenericContainerViewHelper mergeChangedAttributes:attibutes withFullAttributes:self.fullAttributes];
     [GenericContainerViewHelper applyUndoAttribute:attibutes toContainer:self];
 }

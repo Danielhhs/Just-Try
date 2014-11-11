@@ -14,7 +14,7 @@
                        inManageObjectContext:(NSManagedObjectContext *) managedObjectContext;
 
 
-+ (NSDictionary *) attributesFromImageContent:(ImageContent *) content;
++ (NSMutableDictionary *) attributesFromImageContent:(ImageContent *) content;
 
 + (void) applyImageAttributes:(NSDictionary *) imageAttribtues toImageContent:(ImageContent *) imageContent inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext;
 @end

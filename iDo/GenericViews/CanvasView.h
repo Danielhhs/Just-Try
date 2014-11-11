@@ -21,6 +21,7 @@
 @property (nonatomic, weak) id<CanvasViewDelegate> delegate;
 
 - (instancetype) initWithAttributes:(NSDictionary *) attributes;
+- (void) setupWithAttributes:(NSDictionary *) attribtues;
 - (void) disablePinch;
 - (void) enablePinch;
 @end

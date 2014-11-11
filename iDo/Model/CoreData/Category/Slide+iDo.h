@@ -13,6 +13,6 @@
 + (Slide *) slideFromAttributes:(NSDictionary *) attributes
          inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext;
 
-+ (NSDictionary *) attributesFromSlide:(Slide *) slide;
++ (NSMutableDictionary *) attributesFromSlide:(Slide *) slide;
 + (void) applySlideAttributes:(NSDictionary *) slideAttributes toSlide:(Slide *) slide inManageObjectContext:(NSManagedObjectContext *) manageObjectContext;
 @end

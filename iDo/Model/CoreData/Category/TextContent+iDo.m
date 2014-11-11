@@ -22,7 +22,7 @@
     return textContent;
 }
 
-+ (NSDictionary *) attributesFromTextContent:(TextContent *)content
++ (NSMutableDictionary *) attributesFromTextContent:(TextContent *)content
 {
     NSMutableDictionary *attributes = [[GenericConent attributesFromGenericContent:content] mutableCopy];
     
@@ -37,7 +37,7 @@
     [attributes setValue:content.contentType forKey:[KeyConstants contentTypeKey]];
     [attributes setValue:[attributedString copy] forKey:[KeyConstants attibutedStringKey]];
     
-    return [attributes copy];;
+    return attributes;
 }
 
 + (void) applyTextAttribtues:(NSDictionary *)textAttributes toTextContent:(TextContent *)textContent inManageObjectContext:(NSManagedObjectContext *) manageObjectContext

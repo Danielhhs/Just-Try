@@ -25,18 +25,19 @@
 
 @implementation DefaultValueGenerator
 
-+ (NSDictionary *) defaultProposalAttributes
++ (NSMutableDictionary *) defaultProposalAttributes
 {
     NSMutableDictionary *attribute = [NSMutableDictionary dictionary];
     
     [attribute setValue:DEFAULT_PROPOSAL_NAME forKey:[KeyConstants proposalNameKey]];
     [attribute setValue:[UIImage imageNamed:DEFAULT_BACKGROUND_IMAGE] forKey:[KeyConstants proposalThumbnailKey]];
+    [attribute setValue:@(0) forKey:[KeyConstants proposalCurrentSelectedSlideKey]];
     [attribute setValue:@[[DefaultValueGenerator defaultSlideAttributes]] forKey:[KeyConstants proposalSlidesKey]];
     
     return attribute;
 }
 
-+ (NSDictionary *) defaultSlideAttributes
++ (NSMutableDictionary *) defaultSlideAttributes
 {
     NSMutableDictionary *attribtues = [NSMutableDictionary dictionary];
     
@@ -60,7 +61,7 @@
     return attributes;
 }
 
-+ (NSDictionary *) defaultImageAttributes
++ (NSMutableDictionary *) defaultImageAttributes
 {
     NSMutableDictionary *attributes = [DefaultValueGenerator defaultContentAttributes];
     [attributes setObject:DEFAULT_IMAGE_NAME forKey:[KeyConstants imageNameKey]];
@@ -71,10 +72,10 @@
     CGRect bounds = CGRectMake(0, 0, width, height);
     [attributes setObject:[NSValue valueWithCGRect:bounds] forKey:[KeyConstants boundsKey]];
     [attributes setObject:[NSValue valueWithCGPoint:CGPointMake(200, 300)] forKey:[KeyConstants centerKey]];
-    return [attributes copy];
+    return attributes;
 }
 
-+ (NSDictionary *) defaultTextAttributes
++ (NSMutableDictionary *) defaultTextAttributes
 {
     NSMutableDictionary *attributes = [DefaultValueGenerator defaultContentAttributes];
     [attributes setObject:[TextFontHelper defaultFont] forKey:[KeyConstants fontKey]];
@@ -88,6 +89,6 @@
     NSValue *boundsValue = [NSValue valueWithCGRect:CGRectMake(0, 0, DEFAULT_TEXT_CONTAINER_WIDTH, 2 * CONTROL_POINT_SIZE_HALF + DEFAULT_TEXT_CONTAINER_HEIGHT)];
     [attributes setObject:boundsValue forKey:[KeyConstants boundsKey]];
     [attributes setObject:[NSValue valueWithCGPoint:CGPointMake(200, 300)] forKey:[KeyConstants centerKey]];
-    return [attributes copy];
+    return attributes;
 }
 @end

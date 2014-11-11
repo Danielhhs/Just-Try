@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "SlidesThumbnailViewController.h"
 
 @interface SlideThumbnailsManager : NSObject
 
@@ -20,5 +21,9 @@
 - (CGFloat) thumbnailViewControllerWidth;
 
 - (void) setupThumbnailsWithProposalAttributes:(NSDictionary *) proposalAttributes;
+
+- (void) selectSlideAtIndex:(NSInteger) index;
+
+- (void) setSlideThumbnailControllerDelegate:(id<SlidesThumbnailViewControllerDelegate>) delegate;
 
 @end

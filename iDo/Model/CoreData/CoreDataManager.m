@@ -14,6 +14,8 @@
 #import "Proposal+iDo.h"
 @interface CoreDataManager()
 @property (nonatomic, strong) UIManagedDocument *document;
+@property (nonatomic, strong) NSArray *proposals;
+@property (nonatomic, strong) Proposal *currentProposal;
 @end
 
 static CoreDataManager *sharedInstance;
@@ -46,6 +48,11 @@ static CoreDataManager *sharedInstance;
     return sharedInstance.document.managedObjectContext;
 }
 
+- (void) setSelectedProposalIndex:(NSInteger)index
+{
+    self.currentProposal = self.proposals[index];
+}
+
 #pragma mark - Managed Document
 - (void) openDataModelAndLoadProposals
 {
@@ -71,23 +78,28 @@ static CoreDataManager *sharedInstance;
 
 - (void) loadProposals
 {
-    NSArray *proposals = [CoreDataHelper loadAllProposalsFromManagedObjectContext:self.document.managedObjectContext];
+    self.proposals = [CoreDataHelper loadAllProposalsFromManagedObjectContext:self.document.managedObjectContext];
+    NSMutableArray *proposalAttribtues = [NSMutableArray array];
+    for (Proposal *proposal in self.proposals) {
+        [proposalAttribtues addObject:[Proposal attibutesFromProposal:proposal]];
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.delegate managerFinishLoadingProposals:proposals];
+        [self.delegate managerFinishLoadingProposals:proposalAttribtues];
     });
 }
 
 - (void) saveProposalWithProposalChanges:(NSDictionary *)proposalChanges
 {
-//    [Proposal applyProposalAttributes:proposalAttributes toProposal:self.currentProposal];
-    [self saveDocument];
-    [self loadProposals];
+    [Proposal applyProposalAttributes:proposalChanges toProposal:self.currentProposal inManagedObjectContext:self.document.managedObjectContext];
+//    [self saveDocument];
+//    [self loadProposals];
 }
 
-- (void) createNewProposal
+- (NSMutableDictionary *) createNewProposal
 {
     Proposal *proposal = [Proposal proposalFromAttributes:[DefaultValueGenerator defaultProposalAttributes] inManagedObjectContext:self.document.managedObjectContext];
     self.currentProposal = proposal;
+    return [Proposal attibutesFromProposal:proposal];
 }
 
 - (NSURL *) modelURL

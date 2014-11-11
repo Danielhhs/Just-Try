@@ -23,7 +23,7 @@
     return content;
 }
 
-+ (NSDictionary *) attributesFromGenericContent:(GenericConent *)content
++ (NSMutableDictionary *) attributesFromGenericContent:(GenericConent *)content
 {
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
     [attributes setValue:[CoreDataHelper decodeNSData:content.center] forKey:[KeyConstants centerKey]];

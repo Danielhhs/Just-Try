@@ -128,12 +128,7 @@
     if (error) {
         @throw [NSException exceptionWithName:@"Exception" reason:[error description] userInfo:nil];
     }
-    
-    NSMutableArray *proposalAttribtues = [NSMutableArray array];
-    for (Proposal *proposal in proposals) {
-        [proposalAttribtues addObject:[Proposal attibutesFromProposal:proposal]];
-    }
-    return [proposalAttribtues copy];
+    return proposals;
 }
 
 + (void) applyContentAttributes:(NSDictionary *)contentAttributes

@@ -35,7 +35,7 @@
 @property (nonatomic) BOOL showShadow;
 @property (nonatomic, weak) id<ContentContainerViewDelegate> delegate;
 
-- (NSDictionary *) attributes;
+- (NSMutableDictionary *) attributes;
 
 - (instancetype) initWithAttributes:(NSDictionary *) attributes;
 

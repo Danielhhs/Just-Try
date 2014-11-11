@@ -14,7 +14,7 @@
                      inManageObjectContext:(NSManagedObjectContext *) managedObjectContext;
 
 
-+ (NSDictionary *) attributesFromTextContent:(TextContent *) content;
++ (NSMutableDictionary *) attributesFromTextContent:(TextContent *) content;
 
 + (void) applyTextAttribtues:(NSDictionary *)textAttributes toTextContent:(TextContent *) textContent inManageObjectContext:(NSManagedObjectContext *) manageObjectContext;
 @end

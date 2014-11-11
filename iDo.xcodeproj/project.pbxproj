@@ -67,13 +67,16 @@
 		54E96F6A19F8E53400C5F007 /* ReflectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E96F6919F8E53400C5F007 /* ReflectionView.m */; };
 		54E96F8819F91FA000C5F007 /* TooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E96F8719F91FA000C5F007 /* TooltipView.m */; };
 		54EE541E1A10E7CB00CA1AF7 /* GenericContentConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 54EE541D1A10E7CB00CA1AF7 /* GenericContentConstants.m */; };
+		54EE54741A11B5F000CA1AF7 /* ProposalAttributesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54EE54731A11B5F000CA1AF7 /* ProposalAttributesManager.m */; };
+		54EE54771A11BB5D00CA1AF7 /* Proposal.m in Sources */ = {isa = PBXBuildFile; fileRef = 54EE54761A11BB5D00CA1AF7 /* Proposal.m */; };
+		54EE547A1A11D8F300CA1AF7 /* ThumbnailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54EE54791A11D8F300CA1AF7 /* ThumbnailCollectionViewCell.m */; };
+		54EE547D1A122D8C00CA1AF7 /* SlideAttributesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54EE547C1A122D8C00CA1AF7 /* SlideAttributesManager.m */; };
 		54F0C4431A0C9478009B4B0D /* TextContent+iDo.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C4421A0C9478009B4B0D /* TextContent+iDo.m */; };
 		54F0C4461A0CA8B6009B4B0D /* ImageContent+iDo.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C4451A0CA8B6009B4B0D /* ImageContent+iDo.m */; };
 		54F0C4561A0CAE0C009B4B0D /* Slide+iDo.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C4551A0CAE0C009B4B0D /* Slide+iDo.m */; };
 		54F0C4831A0DC59C009B4B0D /* GenericConent.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C4821A0DC59C009B4B0D /* GenericConent.m */; };
 		54F0C4861A0DC85A009B4B0D /* Proposal+iDo.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C4851A0DC85A009B4B0D /* Proposal+iDo.m */; };
 		54F0C48D1A0DCF64009B4B0D /* ProposalOverViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C48C1A0DCF64009B4B0D /* ProposalOverViewViewController.m */; };
-		54F0C4901A0DD918009B4B0D /* Proposal.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C48F1A0DD918009B4B0D /* Proposal.m */; };
 		54F0C4941A0DE3E5009B4B0D /* ProposalCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C4931A0DE3E5009B4B0D /* ProposalCollectionViewCell.m */; };
 		54F0C4971A0DF7B1009B4B0D /* DefaultValueGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C4961A0DF7B1009B4B0D /* DefaultValueGenerator.m */; };
 		54F0C4DC1A0E3DD6009B4B0D /* Slide.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C4DB1A0E3DD6009B4B0D /* Slide.m */; };
@@ -208,6 +211,14 @@
 		54E96F8719F91FA000C5F007 /* TooltipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TooltipView.m; path = EditorViewControllers/TooltipView.m; sourceTree = "<group>"; };
 		54EE541C1A10E7CB00CA1AF7 /* GenericContentConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GenericContentConstants.h; path = Model/GenericContentConstants.h; sourceTree = "<group>"; };
 		54EE541D1A10E7CB00CA1AF7 /* GenericContentConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GenericContentConstants.m; path = Model/GenericContentConstants.m; sourceTree = "<group>"; };
+		54EE54721A11B5F000CA1AF7 /* ProposalAttributesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProposalAttributesManager.h; path = Model/ProposalAttributesManager.h; sourceTree = "<group>"; };
+		54EE54731A11B5F000CA1AF7 /* ProposalAttributesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProposalAttributesManager.m; path = Model/ProposalAttributesManager.m; sourceTree = "<group>"; };
+		54EE54751A11BB5D00CA1AF7 /* Proposal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Proposal.h; path = "Model/CoreData/Model Objects/Proposal.h"; sourceTree = "<group>"; };
+		54EE54761A11BB5D00CA1AF7 /* Proposal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Proposal.m; path = "Model/CoreData/Model Objects/Proposal.m"; sourceTree = "<group>"; };
+		54EE54781A11D8F300CA1AF7 /* ThumbnailCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThumbnailCollectionViewCell.h; path = ViewControllers/ThumbnailCollectionViewCell.h; sourceTree = "<group>"; };
+		54EE54791A11D8F300CA1AF7 /* ThumbnailCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThumbnailCollectionViewCell.m; path = ViewControllers/ThumbnailCollectionViewCell.m; sourceTree = "<group>"; };
+		54EE547B1A122D8C00CA1AF7 /* SlideAttributesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideAttributesManager.h; sourceTree = "<group>"; };
+		54EE547C1A122D8C00CA1AF7 /* SlideAttributesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideAttributesManager.m; sourceTree = "<group>"; };
 		54F0C4411A0C9478009B4B0D /* TextContent+iDo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TextContent+iDo.h"; path = "Model/CoreData/Category/TextContent+iDo.h"; sourceTree = "<group>"; };
 		54F0C4421A0C9478009B4B0D /* TextContent+iDo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TextContent+iDo.m"; path = "Model/CoreData/Category/TextContent+iDo.m"; sourceTree = "<group>"; };
 		54F0C4441A0CA8B6009B4B0D /* ImageContent+iDo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ImageContent+iDo.h"; path = "Model/CoreData/Category/ImageContent+iDo.h"; sourceTree = "<group>"; };
@@ -220,8 +231,6 @@
 		54F0C4851A0DC85A009B4B0D /* Proposal+iDo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Proposal+iDo.m"; path = "Model/CoreData/Category/Proposal+iDo.m"; sourceTree = "<group>"; };
 		54F0C48B1A0DCF64009B4B0D /* ProposalOverViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProposalOverViewViewController.h; path = ViewControllers/ProposalOverViewViewController.h; sourceTree = "<group>"; };
 		54F0C48C1A0DCF64009B4B0D /* ProposalOverViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProposalOverViewViewController.m; path = ViewControllers/ProposalOverViewViewController.m; sourceTree = "<group>"; };
-		54F0C48E1A0DD918009B4B0D /* Proposal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Proposal.h; path = "Model/CoreData/Model Objects/Proposal.h"; sourceTree = "<group>"; };
-		54F0C48F1A0DD918009B4B0D /* Proposal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Proposal.m; path = "Model/CoreData/Model Objects/Proposal.m"; sourceTree = "<group>"; };
 		54F0C4921A0DE3E5009B4B0D /* ProposalCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProposalCollectionViewCell.h; path = ViewControllers/ProposalCollectionViewCell.h; sourceTree = "<group>"; };
 		54F0C4931A0DE3E5009B4B0D /* ProposalCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProposalCollectionViewCell.m; path = ViewControllers/ProposalCollectionViewCell.m; sourceTree = "<group>"; };
 		54F0C4951A0DF7B1009B4B0D /* DefaultValueGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefaultValueGenerator.h; path = Helper/DefaultValueGenerator.h; sourceTree = "<group>"; };
@@ -287,10 +296,10 @@
 		5421863C1A09FB47006EBDFD /* Model Objects */ = {
 			isa = PBXGroup;
 			children = (
+				54EE54751A11BB5D00CA1AF7 /* Proposal.h */,
+				54EE54761A11BB5D00CA1AF7 /* Proposal.m */,
 				54F0C4DA1A0E3DD6009B4B0D /* Slide.h */,
 				54F0C4DB1A0E3DD6009B4B0D /* Slide.m */,
-				54F0C48E1A0DD918009B4B0D /* Proposal.h */,
-				54F0C48F1A0DD918009B4B0D /* Proposal.m */,
 				54F0C4811A0DC59C009B4B0D /* GenericConent.h */,
 				54F0C4821A0DC59C009B4B0D /* GenericConent.m */,
 				5436A0251A0A269A00A16E2C /* TextContent.h */,
@@ -359,6 +368,10 @@
 				542186101A09F22E006EBDFD /* Core Data */,
 				54EE541C1A10E7CB00CA1AF7 /* GenericContentConstants.h */,
 				54EE541D1A10E7CB00CA1AF7 /* GenericContentConstants.m */,
+				54EE54721A11B5F000CA1AF7 /* ProposalAttributesManager.h */,
+				54EE54731A11B5F000CA1AF7 /* ProposalAttributesManager.m */,
+				54EE547B1A122D8C00CA1AF7 /* SlideAttributesManager.h */,
+				54EE547C1A122D8C00CA1AF7 /* SlideAttributesManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -639,6 +652,8 @@
 				54F0C4E91A0F407D009B4B0D /* SlidesThumbnailViewController.h */,
 				54F0C4EA1A0F407D009B4B0D /* SlidesThumbnailViewController.m */,
 				54F0C4FB1A0F4563009B4B0D /* UtilViewControllers.storyboard */,
+				54EE54781A11D8F300CA1AF7 /* ThumbnailCollectionViewCell.h */,
+				54EE54791A11D8F300CA1AF7 /* ThumbnailCollectionViewCell.m */,
 			);
 			name = Thumbnails;
 			sourceTree = "<group>";
@@ -776,9 +791,9 @@
 				546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */,
 				5421863F1A09FBBB006EBDFD /* GenericConent+iDo.m in Sources */,
 				54EE541E1A10E7CB00CA1AF7 /* GenericContentConstants.m in Sources */,
-				54F0C4901A0DD918009B4B0D /* Proposal.m in Sources */,
 				542185341A07245C006EBDFD /* SimpleOperation.m in Sources */,
 				542185371A072509006EBDFD /* CompoundOperation.m in Sources */,
+				54EE54741A11B5F000CA1AF7 /* ProposalAttributesManager.m in Sources */,
 				54F0C4861A0DC85A009B4B0D /* Proposal+iDo.m in Sources */,
 				542185241A061565006EBDFD /* KeyConstants.m in Sources */,
 				54F0C50C1A105F2C009B4B0D /* SlidesContainerViewController.m in Sources */,
@@ -788,6 +803,7 @@
 				546F5CC919FFAFE600C30CBB /* TextDisplayView.m in Sources */,
 				54D333A91A0604EE00F3D7F9 /* UndoManager.m in Sources */,
 				54F4C7521A036B63006A3F07 /* CanvasView.m in Sources */,
+				54EE547D1A122D8C00CA1AF7 /* SlideAttributesManager.m in Sources */,
 				547DCA0D1A04CDA5004691EC /* BordersContentViewController.m in Sources */,
 				54E62D0119FDFA8A0083E0F0 /* TextFontHelper.m in Sources */,
 				549567711A05EA18006D6BAE /* CustomTapTextView.m in Sources */,
@@ -801,6 +817,7 @@
 				54E96F8819F91FA000C5F007 /* TooltipView.m in Sources */,
 				54F0C51C1A108A1B009B4B0D /* CanvasAdjustmentHelper.m in Sources */,
 				54CB19D819EE37BE0044BBDD /* ImageContainerView.m in Sources */,
+				54EE547A1A11D8F300CA1AF7 /* ThumbnailCollectionViewCell.m in Sources */,
 				54F0C4431A0C9478009B4B0D /* TextContent+iDo.m in Sources */,
 				54D10B5519F7AC9200197694 /* GenericContainerViewHelper.m in Sources */,
 				54F0C4EC1A0F407D009B4B0D /* SlidesThumbnailViewController.m in Sources */,
@@ -811,6 +828,7 @@
 				546457FB19F4B7D200078EAF /* EditorPanelViewController.m in Sources */,
 				54D7294719ECE9B5009A0279 /* AppDelegate.m in Sources */,
 				54FF2BC21A04DDB6002EB326 /* TextStyleEditorContentViewController.m in Sources */,
+				54EE54771A11BB5D00CA1AF7 /* Proposal.m in Sources */,
 				54F0C4E31A0F25F4009B4B0D /* DrawingConstants.m in Sources */,
 				54F4C7391A0359B2006A3F07 /* RotationTooltipView.m in Sources */,
 				547DCA121A04D1A3004691EC /* TextEditorPanelContainerViewController.m in Sources */,

@@ -31,6 +31,10 @@
     return @"PROPOSAL_THUMBNAIL";
 }
 
++ (NSString *) proposalCurrentSelectedSlideKey
+{
+    return @"PROPOSAL_CURRENT_SELECTED_SLIDE";
+}
 #pragma mark - Slide
 
 + (NSString *) slideBackgroundKey
@@ -46,6 +50,16 @@
 + (NSString *) slideThumbnailKey
 {
     return @"SLIDE_THUMBNAIL";
+}
+
++ (NSString *) slideIndexKey
+{
+    return @"SLIDE_INDEX";
+}
+
++ (NSString *) slideUniqueKey
+{
+    return @"SLIDE_UNIQUE";
 }
 
 #pragma mark - Generic Content
