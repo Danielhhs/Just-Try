@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CanvasView.h"
 
 @interface SlideAttributesManager : NSObject
 
 + (SlideAttributesManager *) sharedManager;
 
 - (void) addNewContent:(NSMutableDictionary *) content toSlide:(NSMutableDictionary *) slide;
+
+- (void) saveCanvasContents:(CanvasView *)canvas toSlide:(NSMutableDictionary *) slide;
 
 @end

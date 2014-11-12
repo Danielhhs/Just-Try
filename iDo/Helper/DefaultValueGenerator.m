@@ -12,6 +12,7 @@
 #import "TextFontHelper.h"
 #import "ControlPointManager.h"
 #import "DrawingConstants.h"
+#import "GenericContentConstants.h"
 
 #define DEFAULT_BACKGROUND_IMAGE @"Canvas.png"
 #define DEFAULT_PROPOSAL_NAME @"New"
@@ -72,6 +73,7 @@
     CGRect bounds = CGRectMake(0, 0, width, height);
     [attributes setObject:[NSValue valueWithCGRect:bounds] forKey:[KeyConstants boundsKey]];
     [attributes setObject:[NSValue valueWithCGPoint:CGPointMake(200, 300)] forKey:[KeyConstants centerKey]];
+    [attributes setObject:@(ContentViewTypeImage) forKey:[KeyConstants contentTypeKey]];
     return attributes;
 }
 
@@ -89,6 +91,7 @@
     NSValue *boundsValue = [NSValue valueWithCGRect:CGRectMake(0, 0, DEFAULT_TEXT_CONTAINER_WIDTH, 2 * CONTROL_POINT_SIZE_HALF + DEFAULT_TEXT_CONTAINER_HEIGHT)];
     [attributes setObject:boundsValue forKey:[KeyConstants boundsKey]];
     [attributes setObject:[NSValue valueWithCGPoint:CGPointMake(200, 300)] forKey:[KeyConstants centerKey]];
+    [attributes setObject:@(ContentViewTypeText) forKey:[KeyConstants contentTypeKey]];
     return attributes;
 }
 @end

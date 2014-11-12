@@ -180,11 +180,6 @@
     [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
 }
 
-- (void) slidesEditingViewController:(SlidesEditingViewController *)editingViewController didFinishEditingSlide:(NSMutableDictionary *)slide
-{
-    [[ProposalAttributesManager sharedManager] saveSlide:slide toProposal:self.proposalAttributes];
-}
-
 #pragma mark - SliderThumbnailViewController
 - (IBAction)showSlideThumbnails:(id)sender {
     [self.editorViewController resignPreviousFirstResponderExceptForContainer:nil];
@@ -203,8 +198,10 @@
 
 - (void) slideThumbnailController:(SlidesThumbnailViewController *)thumbnailController didSelectSlideAtIndex:(NSInteger)index
 {
-    self.currentSelectSlideIndex = index;
+    [self.editorViewController saveSlideAttributes];
+    //    [[ProposalAttributesManager sharedManager] saveSlide:slides[self.currentSelectSlideIndex] toProposal:self.proposalAttributes];
     NSArray *slides = [self.proposalAttributes objectForKey:[KeyConstants proposalSlidesKey]];
+    self.currentSelectSlideIndex = index;
     [self.editorViewController updateCanvasWithSlide:slides[index]];
 }
 

@@ -29,6 +29,7 @@
     for (NSDictionary *content in contents) {
         GenericContainerView *contentView = [GenericContainerViewHelper contentViewFromAttributes:content];
         [self addSubview:contentView];
+        [contentView resignFirstResponder];
     }
         
 }
@@ -42,6 +43,12 @@
         [self addGestureRecognizer:self.pinch];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
         [self addGestureRecognizer:tap];
+        
+        self.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.layer.shadowPath = [UIBezierPath bezierPathWithRect:CGRectInset(self.bounds, -10, -10)].CGPath;
+        self.layer.shadowOpacity = 0.5;
+        self.layer.shadowRadius = 5;
+        self.layer.masksToBounds = NO;
         [self setupWithAttributes:attributes];
     }
     return self;

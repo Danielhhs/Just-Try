@@ -20,7 +20,6 @@
 - (void) contentDidChangeFromEditingController:(SlidesEditingViewController *)editingController;
 - (void) contentViewDidBecomeFirstResponder:(GenericContainerView *) content;
 - (void) allContentViewDidResignFirstResponder;
-- (void) slidesEditingViewController:(SlidesEditingViewController *) editingViewController didFinishEditingSlide:(NSMutableDictionary *) slide;
 
 @end
 

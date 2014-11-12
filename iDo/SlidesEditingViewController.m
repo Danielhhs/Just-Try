@@ -35,12 +35,6 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:CGRectInset(self.view.bounds, -10, -10)].CGPath;
-    self.view.layer.shadowOpacity = 0.5;
-    self.view.layer.shadowRadius = 5;
-    self.view.layer.masksToBounds = NO;
     [self.view addSubview:self.canvas];
 }
 
@@ -52,12 +46,12 @@
 
 - (void) updateCanvasWithSlide:(NSMutableDictionary *)slide
 {
-    //Trouble Maker!!!
     self.slideAttributes = slide;
 }
 
 - (void) saveSlideAttributes
 {
+    [[SlideAttributesManager sharedManager] saveCanvasContents:self.canvas toSlide:self.slideAttributes];
 }
 
 #pragma mark - ContentContainerViewDelegate
