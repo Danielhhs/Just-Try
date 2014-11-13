@@ -98,6 +98,7 @@
 {
     [CanvasAdjustmentHelper adjustCanvasSizeAndPosition:self.editorViewController.view];
     [((TextContainerView *)self.editorViewController.currentSelectedContent) finishEditing];
+    self.keyboardOriginY = 0;
 }
 
 - (void) adjustCanvasSizeAndPosition

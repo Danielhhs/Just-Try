@@ -203,7 +203,7 @@
     CGRect bounds;
     bounds.origin.x = 0;
     bounds.origin.y = 0;
-    bounds.size.width = self.bounds.size.width;
+    bounds.size.width = textViewBounds.size.width + 2 * CONTROL_POINT_SIZE_HALF + 2 * CONTROL_POINT_RADIUS;
     bounds.size.height = 2 * CONTROL_POINT_SIZE_HALF + textViewBounds.size.height + 2 * CONTROL_POINT_RADIUS;
     return bounds;
 }
@@ -254,13 +254,13 @@
 }
 
 #pragma mark - Override Super Class Methods
-- (CGSize) minSize
-{
-    CGSize minSize = [super minSize];
-    CGFloat height = [CoreTextHelper heightForAttributedStringInTextView:self.textView] + CONTROL_POINT_SIZE_HALF * 2;
-    minSize.height = height;
-    return minSize;
-}
+//- (CGSize) minSize
+//{
+//    CGSize minSize = [super minSize];
+//    CGFloat height = [CoreTextHelper heightForAttributedStringInTextView:self.textView] + CONTROL_POINT_SIZE_HALF * 2;
+//    minSize.height = height;
+//    return minSize;
+//}
 
 - (UIImage *) contentSnapshot
 {

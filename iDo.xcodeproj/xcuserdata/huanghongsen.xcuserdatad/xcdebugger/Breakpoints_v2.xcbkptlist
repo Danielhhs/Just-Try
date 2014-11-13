@@ -292,11 +292,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDo/ViewControllers/SlidesContainerViewController.m"
-            timestampString = "437452115.571442"
+            timestampString = "437557790.23677"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
             landmarkName = "-slideThumbnailController:didSelectSlideAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -340,12 +340,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDo/ViewControllers/SlidesContainerViewController.m"
-            timestampString = "437549532.602958"
+            timestampString = "437557790.23677"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "-adjustCanvasPositionForContentBottom:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iDo/TextContainerView.m"
+            timestampString = "437558334.544928"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "-setBounds:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
