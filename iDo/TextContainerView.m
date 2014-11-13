@@ -29,23 +29,18 @@
 {
     self = [super initWithAttributes:attributes];
     if (self) {
-        [self setupSubViewsWithAttributes:attributes];
+        [self setupTextViewWithAttributedString:attributes];
         [self addSubViews];
         [GenericContainerViewHelper applyUndoAttribute:attributes toContainer:self];
-        [self adjustTextViewBoundsAndContainerBounds];
+        [self adjustTextViewBoundsForBounds:self.bounds];
     }
     return self;
 }
 
-- (void) setupSubViewsWithAttributes:(NSDictionary *) attributes
-{
-    [self setupTextViewWithAttributedString:attributes];
-    [self adjustTextViewBoundsAndContainerBounds];
-}
-
 - (void) setupTextViewWithAttributedString:(NSDictionary *) attributes
 {
-    self.textView = [[CustomTapTextView alloc] initWithFrame:[self contentViewFrame] attributes:self.attributes];
+    CGRect bounds = [attributes[[KeyConstants boundsKey]] CGRectValue];
+    self.textView = [[CustomTapTextView alloc] initWithFrame:[self contentViewFrameFromBounds:bounds] attributes:self.attributes];
     self.textView.delegate = self;
     self.lastSelectedRange = self.textView.selectedRange;
     self.lastAttrText = self.textView.attributedText;
@@ -57,18 +52,19 @@
     [super addSubViews];
 }
 
-- (void) setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-    [self adjustTextViewBoundsAndContainerBounds];
-    if ([self needToAdjustCanvas]) {
-        [self.delegate frameDidChangeForContentView:self];
-    }
-}
+//- (void) setFrame:(CGRect)frame
+//{
+//    [super setFrame:frame];
+//    [self adjustTextViewBoundsAndContainerBounds];
+//    if ([self needToAdjustCanvas]) {
+//        [self.delegate frameDidChangeForContentView:self];
+//    }
+//}
 
 - (void) setBounds:(CGRect)bounds
 {
-    [super setBounds:bounds];
+    [self adjustTextViewBoundsForBounds:bounds];
+    [super setBounds:[self boundsFromTextViewBounds:self.textView.bounds]];
     if ([self needToAdjustCanvas]) {
         [self.delegate frameDidChangeForContentView:self];
     }
@@ -79,9 +75,9 @@
     return [self.textView isFirstResponder];
 }
 
-- (CGRect) contentViewFrame
+- (CGRect) contentViewFrameFromBounds:(CGRect) bounds
 {
-    CGRect frame = [super contentViewFrame];
+    CGRect frame = [super contentViewFrameFromBounds:bounds];
     return CGRectInset(frame, CONTROL_POINT_RADIUS, CONTROL_POINT_RADIUS);
 }
 
@@ -91,7 +87,7 @@
     BOOL result = [super resignFirstResponder];
     self.selected = NO;
     [self.textView finishEditing];
-    [self adjustTextViewBoundsAndContainerBounds];
+    [self adjustTextViewBoundsForBounds:self.bounds];
     [super updateReflectionView];
     [self createTextOperationAndPushToUndoManager];
     [self.delegate contentViewDidResignFirstResponder:self];
@@ -124,7 +120,7 @@
 #pragma mark - CustomTextViewDelegate
 -(void) textViewDidChange:(UITextView *)textView
 {
-    [self adjustTextViewBoundsAndContainerBounds];
+    [self adjustTextViewBoundsForBounds:self.bounds];
     [self updateReflectionView];
     [self.delegate contentView:self didChangeAttributes:nil];
 }
@@ -136,7 +132,7 @@
 
 - (void) textView:(CustomTapTextView *)textView didSelectFont:(UIFont *)font
 {
-    [self adjustTextViewBoundsAndContainerBounds];
+    [self adjustTextViewBoundsForBounds:self.bounds];
     [self.delegate contentView:self didChangeAttributes:@{[KeyConstants fontKey] : font}];
     [self.delegate textViewDidSelectTextRange:textView.selectedRange];
     self.lastSelectedRange = self.textView.selectedRange;
@@ -191,15 +187,14 @@
 
 - (void) textViewDidChangeAttributedText:(CustomTapTextView *)textView
 {
-    [self adjustTextViewBoundsAndContainerBounds];
+    [self adjustTextViewBoundsForBounds:self.bounds];
 }
 
-- (void) adjustTextViewBoundsAndContainerBounds
+- (void) adjustTextViewBoundsForBounds:(CGRect) bounds
 {
-    self.textView.frame = [self contentViewFrame];
+    self.textView.frame = [self contentViewFrameFromBounds:bounds];
     CGFloat height = [CoreTextHelper heightForAttributedStringInTextView:self.textView];
     self.textView.bounds = CGRectMake(0, 0, self.textView.bounds.size.width, height);
-    self.bounds = [self boundsFromTextViewBounds:[self.textView bounds]];
     self.textView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
 
@@ -246,7 +241,7 @@
         self.textView.attributedText = attributedString;
         [self.textView select:self];
         self.textView.selectedRange = selectedRange;
-        [self adjustTextViewBoundsAndContainerBounds];
+        [self adjustTextViewBoundsForBounds:self.bounds];
     }
     NSNumber *alignment = [attributes objectForKey:[KeyConstants alignmentKey]];
     if (alignment) {

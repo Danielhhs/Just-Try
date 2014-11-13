@@ -7,20 +7,20 @@
 //
 
 #import "ShadowHelper.h"
-
+#import "KeyConstants.h"
 
 #define SHADOW_CURL_FACTOR 0.618
 #define MAX_SHADOW_DEPTH_RATIO 0.1
 
 @implementation ShadowHelper
 
-+ (UIBezierPath *) shadowPathWithShadowDepthRatio:(CGFloat) shadowDepthRatio
-                               originalViewHeight:(CGFloat) height
-                         originalViewContentFrame:(CGRect) originalContentFrame
++ (UIBezierPath *) shadowPathWithShadowAttributes:(NSDictionary *)attributes
 {
+    CGFloat shadowDepthRatio = [attributes[[KeyConstants shadowSizeKey]] doubleValue];
+    CGRect bounds = [attributes[[KeyConstants boundsKey]] CGRectValue];
     CGFloat curlFactor = SHADOW_CURL_FACTOR;
-    CGFloat shadowDepth = MAX_SHADOW_DEPTH_RATIO * shadowDepthRatio * height;
-    CGRect contentFrame = originalContentFrame;
+    CGFloat shadowDepth = MAX_SHADOW_DEPTH_RATIO * shadowDepthRatio * bounds.size.height;
+    CGRect contentFrame = bounds;
     CGFloat minX = CGRectGetMinX(contentFrame);
     CGFloat minY = CGRectGetMaxY(contentFrame);
     UIBezierPath *path = [UIBezierPath bezierPath];

@@ -32,8 +32,8 @@
         [self.delegate controlPointDidStartMoving:self];
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
         CGPoint translation = [gesture translationInView:[self.delegate containerView]];
-        CGPoint position = [gesture locationInView:[self.delegate containerView]];
-        [self.delegate controlPoint:self didMoveByTranslation:translation atPosition:position];
+        CGPoint translationInSuperview = [gesture translationInView:[self.delegate containerView].superview];
+        [self.delegate controlPoint:self didMoveByTranslation:translation translationInSuperView:translationInSuperview];
         [gesture setTranslation:CGPointZero inView:[self.delegate containerView]];
     } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
         [self.delegate controlPointDidFinishMoving:self];

@@ -18,8 +18,6 @@
 
 @interface GenericContainerView()
 @property (nonatomic) BOOL showBorder;;
-@property (nonatomic) CGRect originalContentFrame;  //DELETE when add model support
-@property (nonatomic) CGFloat shadowRatio;          //DELETE when add model support
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) UIPanGestureRecognizer *pan;
 @property (nonatomic, strong) UIRotationGestureRecognizer *rotation;
@@ -40,19 +38,6 @@
         self.fullAttributes = [attributes mutableCopy];
     }
     return self;
-}
-
-- (void) setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-    [self setNeedsDisplay];
-    [[ControlPointManager sharedManager] layoutControlPoints];
-    [self.reflection updateFrame];
-    if (CGAffineTransformIsIdentity(self.transform)) {
-        self.originalContentFrame = [self contentViewFrame];
-        [self.rotationIndicator applyToView:self];
-    }
-    [self updateShadow];
 }
 
 - (void) setBounds:(CGRect)bounds
@@ -78,10 +63,8 @@
 
 - (void) setup
 {
-    self.shadowRatio = DEFAULT_SHADOW_DEPTH;
-    self.originalContentFrame = [self contentViewFrame];
     self.backgroundColor = [UIColor clearColor];
-    self.layer.shadowPath = [ShadowHelper shadowPathWithShadowDepthRatio:self.shadowRatio originalViewHeight:self.bounds.size.height originalViewContentFrame:self.originalContentFrame].CGPath;
+    self.layer.shadowPath = [ShadowHelper shadowPathWithShadowAttributes:self.fullAttributes].CGPath;
     self.layer.shadowOpacity = 0.7;
     self.layer.shadowColor = [UIColor clearColor].CGColor;
     self.layer.masksToBounds = NO;
@@ -207,14 +190,15 @@
 
 - (void) updateShadow
 {
-    self.layer.shadowPath = [ShadowHelper shadowPathWithShadowDepthRatio:self.shadowRatio originalViewHeight:self.bounds.size.height originalViewContentFrame:self.originalContentFrame].CGPath;
+    
+    self.layer.shadowPath = [ShadowHelper shadowPathWithShadowAttributes:self.fullAttributes].CGPath;
 }
 
 #pragma mark - Other APIs
-- (CGRect) contentViewFrame
+- (CGRect) contentViewFrameFromBounds:(CGRect) bounds
 {
     CGRect contentFrame;
-    contentFrame = CGRectInset(self.bounds, CONTROL_POINT_SIZE_HALF, CONTROL_POINT_SIZE_HALF);
+    contentFrame = CGRectInset(bounds, CONTROL_POINT_SIZE_HALF, CONTROL_POINT_SIZE_HALF);
     return contentFrame;
 }
 
@@ -267,7 +251,7 @@
     if (CGAffineTransformIsIdentity(self.transform)) {
         [[ControlPointManager sharedManager] enableControlPoints];
     } else {
-        [[ControlPointManager sharedManager] disableControlPoints];
+//        [[ControlPointManager sharedManager] disableControlPoints];
     }
 }
 

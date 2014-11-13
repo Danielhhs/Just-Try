@@ -38,7 +38,7 @@
 
 - (CGRect) reflectionViewFrameFromOriginalView:(GenericContainerView *) originalView
 {
-    return CGRectOffset([originalView contentViewFrame], 0, [originalView contentViewFrame].size.height - CONTROL_POINT_RADIUS + SPACE_BETWEEN_REFLECTION);
+    return CGRectOffset([originalView contentViewFrameFromBounds:originalView.bounds], 0, [originalView contentViewFrameFromBounds:originalView.bounds].size.height - CONTROL_POINT_RADIUS + SPACE_BETWEEN_REFLECTION);
 }
 
 - (void) setImage:(UIImage *)image
@@ -100,17 +100,17 @@ CGContextRef CreateBitMapContext(NSInteger pixelsWide, NSInteger pixelsHigh) {
 {
     if (height == 0) return nil;
     
-    CGContextRef mainViewContentContext = CreateBitMapContext([fromImage contentViewFrame].size.width, height);
+    CGContextRef mainViewContentContext = CreateBitMapContext([fromImage contentViewFrameFromBounds:fromImage.bounds].size.width, height);
     
     CGImageRef gradientImage = CreateGradientImage(1, height);
     
-    CGContextClipToMask(mainViewContentContext, CGRectMake(0, 0, [fromImage contentViewFrame].size.width, height), gradientImage);
+    CGContextClipToMask(mainViewContentContext, CGRectMake(0, 0, [fromImage contentViewFrameFromBounds:fromImage.bounds].size.width, height), gradientImage);
     CGImageRelease(gradientImage);
     
     CGContextTranslateCTM(mainViewContentContext, 0, height);
     CGContextScaleCTM(mainViewContentContext, 1, -1);
     
-    CGRect drawingBounds = CGRectMake(0, 0, [fromImage contentViewFrame].size.width, [fromImage contentViewFrame].size.height);
+    CGRect drawingBounds = CGRectMake(0, 0, [fromImage contentViewFrameFromBounds:fromImage.bounds].size.width, [fromImage contentViewFrameFromBounds:fromImage.bounds].size.height);
     CGContextDrawImage(mainViewContentContext, drawingBounds, [fromImage contentSnapshot].CGImage);
         
     CGImageRef reflectionImage = CGBitmapContextCreateImage(mainViewContentContext);

@@ -43,7 +43,7 @@
 
 - (BOOL) isContentFirstResponder;
 
-- (CGRect) contentViewFrame;
+- (CGRect) contentViewFrameFromBounds:(CGRect) bounds;
 
 - (UIImage *) contentSnapshot;
 
@@ -58,8 +58,6 @@
 - (void) updateEditingStatus;
 
 - (void) hideRotationIndicator;
-
-- (CGRect) originalContentFrame;
 
 - (void) pushUnsavedOperation;
 @end

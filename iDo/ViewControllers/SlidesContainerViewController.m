@@ -165,8 +165,10 @@
 - (void) adjustCanvasPositionForContentBottom:(CGFloat) contentBottom
 {
     CGPoint bottomPoint = [self.view convertPoint:CGPointMake(0, contentBottom) fromView:self.editorViewController.view];
-    CGFloat offsetForKeyboard = (self.keyboardOriginY -bottomPoint.y - GAP_BETWEEN_VIEWS) / self.editorViewController.view.transform.a;
-    self.editorViewController.view.transform = CGAffineTransformTranslate(self.editorViewController.view.transform, 0, offsetForKeyboard);
+    if (self.keyboardOriginY) {
+        CGFloat offsetForKeyboard = (self.keyboardOriginY -bottomPoint.y - GAP_BETWEEN_VIEWS) / self.editorViewController.view.transform.a;
+        self.editorViewController.view.transform = CGAffineTransformTranslate(self.editorViewController.view.transform, 0, offsetForKeyboard);
+    }
 }
 
 - (void) contentViewDidBecomeFirstResponder:(GenericContainerView *)content

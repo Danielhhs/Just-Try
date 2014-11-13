@@ -33,7 +33,7 @@
 - (void) setUpImageContentWithImage:(UIImage *) image
 {
     self.imageContent = [[UIImageView alloc] initWithImage:image];
-    self.imageContent.frame = [self contentViewFrame];
+    self.imageContent.frame = [self contentViewFrameFromBounds:self.bounds];
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeImage:)];
     [self.imageContent addGestureRecognizer:doubleTap];
 }
@@ -50,10 +50,10 @@
     [super addSubViews];
 }
 
-- (void) setFrame:(CGRect)frame
+- (void) setBounds:(CGRect)bounds
 {
-    [super setFrame:frame];
-    self.imageContent.frame = [self contentViewFrame];
+    [super setBounds:bounds];
+    self.imageContent.frame = [self contentViewFrameFromBounds:self.bounds];
 }
 
 #pragma mark - User Interactions

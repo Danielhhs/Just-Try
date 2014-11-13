@@ -27,5 +27,5 @@
 
 - (void) finishEditing;
 
-- (void) adjustTextViewBoundsAndContainerBounds;
+- (void) adjustTextViewBoundsForBounds:(CGRect) bounds;
 @end

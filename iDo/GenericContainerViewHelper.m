@@ -70,7 +70,7 @@
     }
     NSNumber *shadowSize = attributes[[KeyConstants shadowSizeKey]];
     if (shadowSize) {
-        containerView.layer.shadowPath = [ShadowHelper shadowPathWithShadowDepthRatio:[shadowSize doubleValue] originalViewHeight:containerView.bounds.size.height originalViewContentFrame:containerView.originalContentFrame].CGPath;
+        containerView.layer.shadowPath = [ShadowHelper shadowPathWithShadowAttributes:[containerView attributes]].CGPath;
     }
     NSValue *bounds = attributes[[KeyConstants boundsKey]];
     if (bounds) {
@@ -110,10 +110,10 @@ static CGAffineTransform actualTransform;
         actualRotation = 0;
     } else if (actualRotation > 85 && actualRotation < 95) {
         actualRotation = 90;
-    } else if (actualRotation > 175 && actualRotation < 185) {
+    } else if ((actualRotation > 175 && actualRotation < 185) || (actualRotation > -185 && actualRotation < -175)) {
         actualRotation = 180;
-    } else if (actualRotation > 220 && actualRotation < 230) {
-        actualRotation = 225;
+    } else if (actualRotation > -95 && actualRotation < -85) {
+        actualRotation = -90;
     }
     view.transform = CGAffineTransformRotate(CGAffineTransformIdentity, actualRotation / [DrawingConstants angelsPerPi] * M_PI);
 }

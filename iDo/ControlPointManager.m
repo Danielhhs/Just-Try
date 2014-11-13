@@ -98,35 +98,32 @@ static ControlPointManager *sharedInstance;
 
 - (void) controlPoint:(BorderControlPointView *)controlPoint
  didMoveByTranslation:(CGPoint)translation
-           atPosition:(CGPoint)position
+translationInSuperView:(CGPoint)translationInSuperView
 {
-    if (!CGAffineTransformIsIdentity(self.container.transform)) {
-        return;
-    }
     switch (controlPoint.location) {
         case ControlPointLocationBottomLeft:
-            [self handleBottomLeftControlPointTranslation:translation];
+            [self handleBottomLeftControlPointTranslation:translation translationInSuperView:translationInSuperView];
             break;
         case ControlPointLocationBottomMiddle:
-            [self handleBottomMiddleControlPointTranslation:translation];
+            [self handleBottomMiddleControlPointTranslation:translation translationInSuperView:translationInSuperView];
             break;
         case ControlPointLocationBottomRight:
-            [self handleBottomRightControlPointTranslation:translation];
+            [self handleBottomRightControlPointTranslation:translation translationInSuperView:translationInSuperView];
             break;
         case ControlPointLocationMiddleLeft:
-            [self handleMiddleLeftControlPointTranslation:translation];
+            [self handleMiddleLeftControlPointTranslation:translation translationInSuperView:translationInSuperView];
             break;
         case ControlPointLocationMiddleRight:
-            [self handleMiddleRightControlPointTranslation:translation];
+            [self handleMiddleRightControlPointTranslation:translation translationInSuperView:translationInSuperView];
             break;
         case ControlPointLocationTopLeft:
-            [self handleTopLeftControlPointTranslation:translation];
+            [self handleTopLeftControlPointTranslation:translation translationInSuperView:translationInSuperView];
             break;
         case ControlPointLocationTopMiddle:
-            [self handleTopMiddleControlPointTranslation:translation];
+            [self handleTopMiddleControlPointTranslation:translation translationInSuperView:translationInSuperView];
             break;
         case ControlPointLocationTopRight:
-            [self handleTopRightControlPointTranslation:translation];
+            [self handleTopRightControlPointTranslation:translation translationInSuperView:translationInSuperView];
             break;
             
         default:
@@ -152,81 +149,103 @@ static ControlPointManager *sharedInstance;
 }
 
 #pragma mark - Control points moved handlers
-- (void) handleBottomLeftControlPointTranslation:(CGPoint) translation
+- (void) handleBottomLeftControlPointTranslation:(CGPoint) translation translationInSuperView:(CGPoint) translationInSuperView
 {
-    CGRect frame;
-    frame.origin.x = self.container.frame.origin.x + translation.x;
-    frame.origin.y = self.container.frame.origin.y;
-    frame.size.width = self.container.frame.size.width - translation.x;
-    frame.size.height = self.container.frame.size.height + translation.y;
-    [self updatePreviousFrameAndSuperViewFrameIfNecessary:frame];
+    CGRect bounds = self.containerView.bounds;
+    CGPoint center = self.containerView.center;
+    bounds.size.width = bounds.size.width - translation.x;
+    bounds.size.height = bounds.size.height + translation.y;
+    
+    center.x = center.x + translationInSuperView.x / 2;
+    center.y = center.y + translationInSuperView.y / 2;
+    [self updatePreviousBoundsAndSuperviewBounds:bounds center:center];
 }
 
-- (void) handleBottomMiddleControlPointTranslation:(CGPoint) translation
+- (void) handleBottomMiddleControlPointTranslation:(CGPoint) translation translationInSuperView:(CGPoint) translationInSuperView
+
 {
-    CGRect frame;
-    frame.origin = self.container.frame.origin;
-    frame.size.height = self.container.frame.size.height + translation.y;
-    frame.size.width = self.container.frame.size.width;
-    [self updatePreviousFrameAndSuperViewFrameIfNecessary:frame];
+    CGRect bounds = self.containerView.bounds;
+    CGPoint center = self.containerView.center;
+    bounds.size.height = bounds.size.height + translation.y;
+    CGFloat rotation = [self viewRotateRadians];
+    CGFloat centerMoveX = - translation.y * sin(rotation) / 2;
+    CGFloat centerMoveY = translation.y * cos(rotation) / 2;
+    center.x = center.x + centerMoveX;
+    center.y = center.y + centerMoveY;
+    [self updatePreviousBoundsAndSuperviewBounds:bounds center:center];
 }
 
-- (void) handleBottomRightControlPointTranslation:(CGPoint) translation
+- (void) handleBottomRightControlPointTranslation:(CGPoint) translation translationInSuperView:(CGPoint) translationInSuperView
 {
-    CGRect frame;
-    frame.origin = self.container.frame.origin;
-    frame.size.width = self.container.frame.size.width + translation.x;
-    frame.size.height = self.container.frame.size.height + translation.y;
-    [self updatePreviousFrameAndSuperViewFrameIfNecessary:frame];
+    CGRect bounds = self.containerView.bounds;
+    CGPoint center = self.containerView.center;
+    bounds.size.width = bounds.size.width + translation.x;
+    bounds.size.height = bounds.size.height + translation.y;
+    center.x = center.x + translationInSuperView.x / 2;
+    center.y = center.y + translationInSuperView.y / 2;
+    [self updatePreviousBoundsAndSuperviewBounds:bounds center:center];
 }
 
-- (void) handleMiddleLeftControlPointTranslation:(CGPoint) translation
+- (void) handleMiddleLeftControlPointTranslation:(CGPoint) translation translationInSuperView:(CGPoint) translationInSuperView
 {
-    CGRect frame;
-    frame.origin.x = self.container.frame.origin.x + translation.x;
-    frame.origin.y = self.container.frame.origin.y;
-    frame.size.width = self.container.frame.size.width - translation.x;
-    frame.size.height = self.container.frame.size.height;
-    [self updatePreviousFrameAndSuperViewFrameIfNecessary:frame];
+    CGRect bounds = self.containerView.bounds;
+    CGPoint center = self.containerView.center;
+    bounds.size.width = bounds.size.width - translation.x;
+    CGFloat rotation = [self viewRotateRadians];
+    CGFloat centerMoveX = translation.x * cos(rotation) / 2;
+    CGFloat centerMoveY = translation.x * sin(rotation) / 2;
+    center.x = center.x + centerMoveX;
+    center.y = center.y + centerMoveY;
+    [self updatePreviousBoundsAndSuperviewBounds:bounds center:center];
 }
 
-- (void) handleMiddleRightControlPointTranslation:(CGPoint) translation
+- (void) handleMiddleRightControlPointTranslation:(CGPoint) translation translationInSuperView:(CGPoint) translationInSuperView
 {
-    CGRect frame;
-    frame.origin = self.container.frame.origin;
-    frame.size.width = self.container.frame.size.width + translation.x;
-    frame.size.height = self.container.frame.size.height;
-    [self updatePreviousFrameAndSuperViewFrameIfNecessary:frame];
+    CGRect bounds = self.containerView.bounds;
+    CGPoint center = self.containerView.center;
+    bounds.size.width = bounds.size.width + translation.x;
+    bounds.size.height = bounds.size.height;
+    CGFloat rotation = [self viewRotateRadians];
+    CGFloat centerMoveX = translation.x * cos(rotation) / 2;
+    CGFloat centerMoveY = translation.x * sin(rotation) / 2;
+    center.x = center.x + centerMoveX;
+    center.y = center.y + centerMoveY;
+    [self updatePreviousBoundsAndSuperviewBounds:bounds center:center];
 }
 
-- (void) handleTopLeftControlPointTranslation:(CGPoint) translation
+- (void) handleTopLeftControlPointTranslation:(CGPoint) translation translationInSuperView:(CGPoint) translationInSuperView
 {
-    CGRect frame;
-    frame.origin.x = self.container.frame.origin.x + translation.x;
-    frame.origin.y = self.container.frame.origin.y + translation.y;
-    frame.size.width = self.container.frame.size.width - translation.x;
-    frame.size.height = self.container.frame.size.height - translation.y;
-    [self updatePreviousFrameAndSuperViewFrameIfNecessary:frame];
+    CGRect bounds = self.containerView.bounds;
+    CGPoint center = self.containerView.center;
+    bounds.size.width = bounds.size.width - translation.x;
+    bounds.size.height = bounds.size.height - translation.y;
+    center.x = center.x + translationInSuperView.x / 2;
+    center.y = center.y + translationInSuperView.y / 2;
+    [self updatePreviousBoundsAndSuperviewBounds:bounds center:center];
 }
 
-- (void) handleTopMiddleControlPointTranslation:(CGPoint) translation
+- (void) handleTopMiddleControlPointTranslation:(CGPoint) translation translationInSuperView:(CGPoint) translationInSuperView
 {
-    CGRect frame;
-    frame.origin.x = self.container.frame.origin.x;
-    frame.origin.y = self.container.frame.origin.y + translation.y;
-    frame.size.height = self.container.frame.size.height - translation.y;
-    frame.size.width = self.container.frame.size.width;
-    [self updatePreviousFrameAndSuperViewFrameIfNecessary:frame];
+    CGRect bounds = self.containerView.bounds;
+    CGPoint center = self.containerView.center;
+    bounds.size.height = bounds.size.height - translation.y;
+    CGFloat rotation = [self viewRotateRadians];
+    CGFloat centerMoveX = - translation.y * sin(rotation) / 2;
+    CGFloat centerMoveY = translation.y * cos(rotation) / 2;
+    center.x = center.x + centerMoveX;
+    center.y = center.y + centerMoveY;
+    [self updatePreviousBoundsAndSuperviewBounds:bounds center:center];
 }
 
-- (void) handleTopRightControlPointTranslation:(CGPoint) translation
+- (void) handleTopRightControlPointTranslation:(CGPoint) translation translationInSuperView:(CGPoint) translationInSuperView
 {
-    CGRect frame;
-    frame.origin.x = self.container.frame.origin.x;
-    frame.origin.y = self.container.frame.origin.y + translation.y;
-    frame.size.width = self.container.frame.size.width + translation.x;
-    frame.size.height = self.container.frame.size.height - translation.y;
-    [self updatePreviousFrameAndSuperViewFrameIfNecessary:frame];
+    CGRect bounds = self.containerView.bounds;
+    CGPoint center = self.containerView.center;
+    bounds.size.width = bounds.size.width + translation.x;
+    bounds.size.height = bounds.size.height - translation.y;
+    center.x = center.x + translationInSuperView.x / 2;
+    center.y = center.y + translationInSuperView.y / 2;
+    [self updatePreviousBoundsAndSuperviewBounds:bounds center:center];
 }
 
 #pragma mark - Private Helpers
@@ -279,18 +298,6 @@ static ControlPointManager *sharedInstance;
     [self.container addSubview:self.middleRightControlPoint];
 }
 
-- (void) disableControlPoints
-{
-    self.topLeftControlPoint.userInteractionEnabled = NO;
-    self.topMiddleControlPoint.userInteractionEnabled = NO;
-    self.topRightControlPoint.userInteractionEnabled = NO;
-    self.middleLeftControlPoint.userInteractionEnabled = NO;
-    self.middleRightControlPoint.userInteractionEnabled = NO;
-    self.bottomLeftControlPoint.userInteractionEnabled = NO;
-    self.bottomRightControlPoint.userInteractionEnabled = NO;
-    self.bottomMiddleControlPoint.userInteractionEnabled = NO;
-}
-
 - (void) enableControlPoints
 {
     self.topLeftControlPoint.userInteractionEnabled = YES;
@@ -326,20 +333,21 @@ static ControlPointManager *sharedInstance;
     return result;
 }
 
-- (BOOL) shouldChangeFrame:(CGRect) frame
+- (BOOL) shouldChangeBounds:(CGRect) bounds
 {
     GenericContainerView *container = (GenericContainerView *) self.container;
-    if (frame.size.width < [container minSize].width || frame.size.height < [container minSize].height) {
+    if (bounds.size.width < [container minSize].width || bounds.size.height < [container minSize].height) {
         return  NO;
     }
     return YES;
 }
 
-- (void) updatePreviousFrameAndSuperViewFrameIfNecessary:(CGRect) frame
+- (void) updatePreviousBoundsAndSuperviewBounds:(CGRect) bounds center:(CGPoint) center;
 {
-    self.previousFrame = frame;
-    if ([self shouldChangeFrame:frame]) {
-        self.container.frame = frame;
+    self.previousFrame = bounds;
+    if ([self shouldChangeBounds:bounds]) {
+        self.container.bounds = bounds;
+        self.container.center = center;
     }
 }
 
@@ -358,4 +366,8 @@ static ControlPointManager *sharedInstance;
     return [UIColor blueColor];
 }
 
+- (CGFloat) viewRotateRadians
+{
+    return atan2(self.containerView.transform.b, self.containerView.transform.a);
+}
 @end

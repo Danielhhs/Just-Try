@@ -11,8 +11,6 @@
 #define DEFAULT_SHADOW_DEPTH 0.5
 
 @interface ShadowHelper : NSObject
-+ (UIBezierPath *) shadowPathWithShadowDepthRatio:(CGFloat) shadowDepthRatio
-                               originalViewHeight:(CGFloat) height
-                         originalViewContentFrame:(CGRect) originalContentFrame;
++ (UIBezierPath *) shadowPathWithShadowAttributes:(NSDictionary *) attributes;
 
 @end

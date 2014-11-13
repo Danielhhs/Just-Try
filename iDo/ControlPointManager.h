@@ -20,7 +20,6 @@
 - (void) layoutControlPoints;
 - (void) removeAllControlPointsFromView:(UIView *) view;
 - (CGRect) borderRectFromContainerViewBounds:(CGRect) containerViewBounds;
-- (void) disableControlPoints;
 - (void) enableControlPoints;
 - (UIColor *) borderColor;
 @end

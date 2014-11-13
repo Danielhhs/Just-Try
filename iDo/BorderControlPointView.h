@@ -18,7 +18,7 @@
 
 - (void) controlPoint:(BorderControlPointView *) controlPoint
     didMoveByTranslation:(CGPoint) translation
-           atPosition:(CGPoint) position;
+  translationInSuperView:(CGPoint) translationInSuperView;
 
 - (UIView *) containerView;
 
