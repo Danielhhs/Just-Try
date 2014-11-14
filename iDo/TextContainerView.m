@@ -215,12 +215,12 @@
     NSAttributedString *attrText = [attributes objectForKey:[KeyConstants attibutedStringKey]];
     if (attrText) {
         self.textView.attributedText = attrText;
+        self.bounds = self.bounds;
     }
     NSValue *selectedRange  = [attributes objectForKey:[KeyConstants textSelectionKey]];
     if (selectedRange) {
         self.textView.selectedRange = [selectedRange rangeValue];
     }
-    self.bounds = self.bounds;
 }
 
 - (void) applyFontAttribute:(NSDictionary *) attributes

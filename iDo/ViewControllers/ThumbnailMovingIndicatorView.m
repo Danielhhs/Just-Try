@@ -8,12 +8,18 @@
 
 #import "ThumbnailMovingIndicatorView.h"
 
+@interface ThumbnailMovingIndicatorView ()
+@property (nonatomic, strong) UIImageView *imageView;
+@end
+
 @implementation ThumbnailMovingIndicatorView
 
 - (instancetype) initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectInset(self.bounds, 3, 3)];
+        [self addSubview:self.imageView];
         self.layer.shadowColor = [UIColor whiteColor].CGColor;
         self.layer.shadowOpacity = 0.7;
         self.layer.shadowPath = [UIBezierPath bezierPathWithRect:CGRectInset(self.bounds, -3, -3)].CGPath;
@@ -24,8 +30,9 @@
 - (void) setBounds:(CGRect)bounds
 {
     [super setBounds:bounds];
-    [self setNeedsDisplay];
+    self.imageView.frame = CGRectInset(self.bounds, 3, 3);
     self.layer.shadowPath = [UIBezierPath bezierPathWithRect:CGRectInset(self.bounds, -3, -3)].CGPath;
+    [self setNeedsDisplay];
 }
 
 - (void) setMoving:(BOOL)moving
@@ -43,7 +50,8 @@
 
 - (void) setSnapshot:(UIImage *)snapshot
 {
-    self.layer.contents = (__bridge id)snapshot.CGImage;
+    _snapshot = snapshot;
+    self.imageView.image = snapshot;
 }
 
 - (void)drawRect:(CGRect)rect {

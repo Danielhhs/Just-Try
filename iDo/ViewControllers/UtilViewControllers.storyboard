@@ -13,7 +13,7 @@
                         <viewControllerLayoutGuide type="bottom" id="OtE-no-OJx"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="A90-ew-VEH">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="724"/>
+                        <rect key="frame" x="0.0" y="0.0" width="215" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xGL-q6-OCu">
@@ -93,7 +93,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="200" height="724"/>
+                    <size key="freeformSize" width="215" height="724"/>
                     <connections>
                         <outlet property="thumbnailsCollectionView" destination="lh7-rM-0Ck" id="WH3-7H-JhU"/>
                     </connections>

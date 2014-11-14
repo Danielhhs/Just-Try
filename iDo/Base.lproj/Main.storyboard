@@ -50,7 +50,7 @@
                                             <action selector="redo:" destination="BYZ-38-t0r" id="KyV-XE-3zR"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Item" systemItem="save" id="kMI-f5-yXg">
+                                    <barButtonItem systemItem="save" id="kMI-f5-yXg">
                                         <connections>
                                             <action selector="saveProposal:" destination="BYZ-38-t0r" id="39g-TD-Bjv"/>
                                         </connections>

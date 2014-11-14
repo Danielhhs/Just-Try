@@ -39,6 +39,8 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
     [super viewDidLoad];
     self.cellMovingIndicator = [[ThumbnailMovingIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     self.cellMovingIndicator.hidden = YES;
+    self.originalIndex = -1;
+    self.toIndex = -1;
     [self.view addSubview:self.cellMovingIndicator];
 }
 
@@ -76,6 +78,9 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
         UIImage *image = slide[[KeyConstants slideThumbnailKey]];
         thumbnailCell.thumbnail.image = image;
         thumbnailCell.delegate = self;
+        if (indexPath.row == self.toIndex) {
+            thumbnailCell.moving = YES;
+        }
     }
     return cell;
 }
@@ -96,10 +101,11 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
 {
     NSIndexPath *indexPath = [self.thumbnailsCollectionView indexPathForCell:cell];
     self.originalIndex = indexPath.row;
-    self.cellMovingIndicator.snapshot = cell.thumbnail.image;
+    self.toIndex = indexPath.row;
     self.cellMovingIndicator.bounds = cell.thumbnail.bounds;
     self.cellMovingIndicator.center = [self.thumbnailsCollectionView convertPoint:cell.thumbnail.center fromView:cell];
     self.cellMovingIndicator.hidden = NO;
+    self.cellMovingIndicator.snapshot = cell.thumbnail.image;
     [UIView animateWithDuration:0.3 animations:^{
         self.cellMovingIndicator.center = [gesture locationInView:self.thumbnailsCollectionView];
     } completion:^(BOOL finished) {
@@ -119,13 +125,17 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
     [self.slides removeObject:selectedSlide];
     [self.slides insertObject:selectedSlide atIndex:self.toIndex];
     [UIView animateWithDuration:0.2 animations:^{
-        self.cellMovingIndicator.center = [self.thumbnailsCollectionView convertPoint:cell.thumbnail.center fromView:cell];
+        [self.thumbnailsCollectionView reloadData];
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.372 animations:^{
-            [self.thumbnailsCollectionView reloadData];
+            self.cellMovingIndicator.center = [self.thumbnailsCollectionView convertPoint:cell.thumbnail.center fromView:cell];
         } completion:^(BOOL finished) {
             self.cellMovingIndicator.moving = NO;
             self.cellMovingIndicator.hidden = YES;
+            ThumbnailCollectionViewCell *thumbnailCell = (ThumbnailCollectionViewCell *) [self.thumbnailsCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.toIndex inSection:0]];
+            thumbnailCell.moving = NO;
+            self.originalIndex = -1;
+            self.toIndex = -1;
         }];
     }];
 }
@@ -134,12 +144,12 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
 {
     for (ThumbnailCollectionViewCell *visibleCell in self.thumbnailsCollectionView.visibleCells) {
         if ([self shouldSwitchSelectedCell:cell withCell:visibleCell]) {
+            self.toIndex = [self.thumbnailsCollectionView indexPathForCell:visibleCell].row;
             [UIView animateWithDuration:0.618 animations:^{
                 CGRect tempFrame = visibleCell.frame;
                 visibleCell.frame = cell.frame;
                 cell.frame = tempFrame;
             } completion:^(BOOL finished) {
-                self.toIndex = [self.thumbnailsCollectionView indexPathForCell:visibleCell].row;
             }];
         }
     }
