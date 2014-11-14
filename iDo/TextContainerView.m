@@ -80,9 +80,11 @@
     BOOL result = [super resignFirstResponder];
     self.selected = NO;
     [self.textView finishEditing];
-    [self adjustTextViewBoundsForBounds:self.bounds];
+    self.bounds = self.bounds;
     [super updateReflectionView];
     [self createTextOperationAndPushToUndoManager];
+    [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants attibutedStringKey] : self.textView.attributedText} withFullAttributes:self.attributes];
+    [self.delegate contentView:self didChangeAttributes:nil];
     [self.delegate contentViewDidResignFirstResponder:self];
     return result;
 }
@@ -113,10 +115,8 @@
 #pragma mark - CustomTextViewDelegate
 -(void) textViewDidChange:(UITextView *)textView
 {
-    [self adjustTextViewBoundsForBounds:self.bounds];
-    self.bounds = [self boundsFromTextViewBounds:self.textView.bounds];
+    self.bounds = self.bounds;
     [self updateReflectionView];
-    [self.delegate contentView:self didChangeAttributes:nil];
 }
 
 - (void) textViewWillChangeSelection:(CustomTapTextView *)textView
@@ -126,8 +126,7 @@
 
 - (void) textView:(CustomTapTextView *)textView didSelectFont:(UIFont *)font
 {
-    [self adjustTextViewBoundsForBounds:self.bounds];
-    self.bounds = [self boundsFromTextViewBounds:self.textView.bounds];
+    self.bounds = self.bounds;
     [self.delegate contentView:self didChangeAttributes:@{[KeyConstants fontKey] : font}];
     [self.delegate textViewDidSelectTextRange:textView.selectedRange];
     self.lastSelectedRange = self.textView.selectedRange;
@@ -151,8 +150,7 @@
 
 - (void) textViewDidEndEditing:(UITextView *)textView
 {
-    [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants attibutedStringKey] : textView.attributedText} withFullAttributes:self.attributes];
-    [self createTextOperationAndPushToUndoManager];
+
 }
 
 - (void) createTextOperationAndPushToUndoManager
@@ -183,7 +181,7 @@
 
 - (void) textViewDidChangeAttributedText:(CustomTapTextView *)textView
 {
-    [self adjustTextViewBoundsForBounds:self.bounds];
+    self.bounds = self.bounds;
 }
 
 - (void) adjustTextViewBoundsForBounds:(CGRect) bounds
@@ -222,6 +220,7 @@
     if (selectedRange) {
         self.textView.selectedRange = [selectedRange rangeValue];
     }
+    self.bounds = self.bounds;
 }
 
 - (void) applyFontAttribute:(NSDictionary *) attributes
@@ -237,7 +236,6 @@
         self.textView.attributedText = attributedString;
         [self.textView select:self];
         self.textView.selectedRange = selectedRange;
-        [self adjustTextViewBoundsForBounds:self.bounds];
         self.bounds = self.bounds;
     }
     NSNumber *alignment = [attributes objectForKey:[KeyConstants alignmentKey]];
