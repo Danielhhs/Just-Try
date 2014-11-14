@@ -31,6 +31,7 @@
 		546457FC19F4B7D200078EAF /* EditorPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 546457FA19F4B7D200078EAF /* EditorPanelViewController.xib */; };
 		5464580019F4D89900078EAF /* TextBasicEditorPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457FE19F4D89900078EAF /* TextBasicEditorPanelViewController.m */; };
 		5464580119F4D89900078EAF /* TextBasicEditorPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 546457FF19F4D89900078EAF /* TextBasicEditorPanelViewController.xib */; };
+		546DC4FF1A14E10400E76696 /* ThumbnailMovingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 546DC4FE1A14E10400E76696 /* ThumbnailMovingIndicatorView.m */; };
 		546F5CC919FFAFE600C30CBB /* TextDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 546F5CC819FFAFE600C30CBB /* TextDisplayView.m */; };
 		546F5CCC1A00904D00C30CBB /* CoreTextHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 546F5CCB1A00904D00C30CBB /* CoreTextHelper.m */; };
 		547DC9FA1A036EAF004691EC /* Canvas.png in Resources */ = {isa = PBXBuildFile; fileRef = 547DC9F91A036EAE004691EC /* Canvas.png */; };
@@ -146,6 +147,8 @@
 		546457FD19F4D89900078EAF /* TextBasicEditorPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextBasicEditorPanelViewController.h; sourceTree = "<group>"; };
 		546457FE19F4D89900078EAF /* TextBasicEditorPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextBasicEditorPanelViewController.m; sourceTree = "<group>"; };
 		546457FF19F4D89900078EAF /* TextBasicEditorPanelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextBasicEditorPanelViewController.xib; sourceTree = "<group>"; };
+		546DC4FD1A14E10400E76696 /* ThumbnailMovingIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThumbnailMovingIndicatorView.h; path = ViewControllers/ThumbnailMovingIndicatorView.h; sourceTree = "<group>"; };
+		546DC4FE1A14E10400E76696 /* ThumbnailMovingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThumbnailMovingIndicatorView.m; path = ViewControllers/ThumbnailMovingIndicatorView.m; sourceTree = "<group>"; };
 		546F5CC719FFAFE600C30CBB /* TextDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDisplayView.h; sourceTree = "<group>"; };
 		546F5CC819FFAFE600C30CBB /* TextDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextDisplayView.m; sourceTree = "<group>"; };
 		546F5CCA1A00904D00C30CBB /* CoreTextHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreTextHelper.h; path = ContentViews/CoreTextHelper.h; sourceTree = "<group>"; };
@@ -654,6 +657,8 @@
 				54F0C4FB1A0F4563009B4B0D /* UtilViewControllers.storyboard */,
 				54EE54781A11D8F300CA1AF7 /* ThumbnailCollectionViewCell.h */,
 				54EE54791A11D8F300CA1AF7 /* ThumbnailCollectionViewCell.m */,
+				546DC4FD1A14E10400E76696 /* ThumbnailMovingIndicatorView.h */,
+				546DC4FE1A14E10400E76696 /* ThumbnailMovingIndicatorView.m */,
 			);
 			name = Thumbnails;
 			sourceTree = "<group>";
@@ -830,6 +835,7 @@
 				54FF2BC21A04DDB6002EB326 /* TextStyleEditorContentViewController.m in Sources */,
 				54EE54771A11BB5D00CA1AF7 /* Proposal.m in Sources */,
 				54F0C4E31A0F25F4009B4B0D /* DrawingConstants.m in Sources */,
+				546DC4FF1A14E10400E76696 /* ThumbnailMovingIndicatorView.m in Sources */,
 				54F4C7391A0359B2006A3F07 /* RotationTooltipView.m in Sources */,
 				547DCA121A04D1A3004691EC /* TextEditorPanelContainerViewController.m in Sources */,
 				547DCA021A04CAC5004691EC /* EditorPanelContainerViewController.m in Sources */,

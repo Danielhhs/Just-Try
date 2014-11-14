@@ -138,16 +138,16 @@ static CGAffineTransform actualTransform;
     return frame;
 }
 
-+ (GenericContainerView *) contentViewFromAttributes:(NSDictionary *)attributes
++ (GenericContainerView *) contentViewFromAttributes:(NSMutableDictionary *)attributes delegate:(id<ContentContainerViewDelegate>)delegate
 {
     GenericContainerView *content = nil;
     ContentViewType type = [attributes[[KeyConstants contentTypeKey]] integerValue];
     switch (type) {
         case ContentViewTypeImage:
-            content = [[ImageContainerView alloc] initWithAttributes:attributes];
+            content = [[ImageContainerView alloc] initWithAttributes:attributes delegate:delegate];
             break;
         case ContentViewTypeText:
-            content = [[TextContainerView alloc] initWithAttributes:attributes];
+            content = [[TextContainerView alloc] initWithAttributes:attributes delegate:delegate];
             
         default:
             break;

@@ -85,6 +85,7 @@
     if (attributes) {
         [[EditorPanelManager sharedManager] makeCurrentEditorApplyChanges:attributes];
     }
+    [self.slideAttributes setValue:[self.canvas snapshot] forKey:[KeyConstants slideThumbnailKey]];
     [self.delegate contentDidChangeFromEditingController:self];
     [[UndoManager sharedManager] clearRedoStack];
 }

@@ -71,15 +71,13 @@
 #pragma mark - Add Content Views
 
 - (IBAction)addImage:(id)sender {
-    ImageContainerView *defaultImage = [[ImageContainerView alloc] initWithAttributes:[DefaultValueGenerator defaultImageAttributes]];
-    defaultImage.delegate = self.editorViewController;
+    ImageContainerView *defaultImage = [[ImageContainerView alloc] initWithAttributes:[DefaultValueGenerator defaultImageAttributes] delegate:self.editorViewController];
     [defaultImage becomeFirstResponder];
     [self.editorViewController addContentViewToCanvas:defaultImage];
 }
 
 - (IBAction)addText:(id)sender {
-    TextContainerView *defaultText = [[TextContainerView alloc] initWithAttributes:[DefaultValueGenerator defaultTextAttributes]];
-    defaultText.delegate = self.editorViewController;
+    TextContainerView *defaultText = [[TextContainerView alloc] initWithAttributes:[DefaultValueGenerator defaultTextAttributes] delegate:self.editorViewController];
     [defaultText startEditing];
     [defaultText becomeFirstResponder];
     [self.editorViewController addContentViewToCanvas:defaultText];
@@ -161,6 +159,7 @@
 {
     [self enableUndo];
     [self disableRedo];
+    [[SlideThumbnailsManager sharedManager] updateSlideSnapshotIfNeccessary];
 }
 
 - (void) adjustCanvasPositionForContentBottom:(CGFloat) contentBottom

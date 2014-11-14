@@ -46,10 +46,9 @@ static ProposalAttributesManager *sharedInstance;
 
 - (void) addSlide:(NSMutableDictionary *) slide toProposal:(NSMutableDictionary *)proposal atIndex:(NSInteger)index
 {
-    NSArray *slides = proposal[[KeyConstants proposalSlidesKey]];
-    NSMutableArray *newSlides = [slides mutableCopy];
-    [newSlides insertObject:slide atIndex:index];
-    [proposal setValue:[newSlides copy] forKey:[KeyConstants proposalSlidesKey]];
+    NSMutableArray *slides = proposal[[KeyConstants proposalSlidesKey]];
+    [slides insertObject:slide atIndex:index];
+//    [proposal setValue:[slides copy] forKey:[KeyConstants proposalSlidesKey]];
     [proposal setValue:@(index) forKey:[KeyConstants proposalCurrentSelectedSlideKey]];
 }
 

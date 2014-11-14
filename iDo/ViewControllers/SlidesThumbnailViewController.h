@@ -18,8 +18,9 @@
 
 @interface SlidesThumbnailViewController : UIViewController
 
-@property (nonatomic, strong) NSArray *slides;
+@property (nonatomic, strong) NSMutableArray *slides;
 @property (nonatomic) NSInteger currentSelectedIndex;
 @property (nonatomic, weak) id<SlidesThumbnailViewControllerDelegate> delegate;
 
+- (void) reloadData;
 @end

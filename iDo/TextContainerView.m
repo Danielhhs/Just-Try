@@ -25,9 +25,9 @@
 
 @implementation TextContainerView
 
-- (instancetype) initWithAttributes:(NSDictionary *) attributes
+- (instancetype) initWithAttributes:(NSDictionary *) attributes delegate:(id<ContentContainerViewDelegate>)delegate
 {
-    self = [super initWithAttributes:attributes];
+    self = [super initWithAttributes:attributes delegate:delegate];
     if (self) {
         [self setupTextViewWithAttributedString:attributes];
         [self addSubViews];
@@ -52,19 +52,12 @@
     [super addSubViews];
 }
 
-//- (void) setFrame:(CGRect)frame
-//{
-//    [super setFrame:frame];
-//    [self adjustTextViewBoundsAndContainerBounds];
-//    if ([self needToAdjustCanvas]) {
-//        [self.delegate frameDidChangeForContentView:self];
-//    }
-//}
-
 - (void) setBounds:(CGRect)bounds
 {
     [self adjustTextViewBoundsForBounds:bounds];
-    [super setBounds:[self boundsFromTextViewBounds:self.textView.bounds]];
+    CGRect boundsAfterAdjustments = [self boundsFromTextViewBounds:self.textView.bounds];
+    [super setBounds:boundsAfterAdjustments];
+    [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants boundsKey] : [NSValue valueWithCGRect:boundsAfterAdjustments]} withFullAttributes:self.attributes];
     if ([self needToAdjustCanvas]) {
         [self.delegate frameDidChangeForContentView:self];
     }
@@ -121,6 +114,7 @@
 -(void) textViewDidChange:(UITextView *)textView
 {
     [self adjustTextViewBoundsForBounds:self.bounds];
+    self.bounds = [self boundsFromTextViewBounds:self.textView.bounds];
     [self updateReflectionView];
     [self.delegate contentView:self didChangeAttributes:nil];
 }
@@ -133,6 +127,7 @@
 - (void) textView:(CustomTapTextView *)textView didSelectFont:(UIFont *)font
 {
     [self adjustTextViewBoundsForBounds:self.bounds];
+    self.bounds = [self boundsFromTextViewBounds:self.textView.bounds];
     [self.delegate contentView:self didChangeAttributes:@{[KeyConstants fontKey] : font}];
     [self.delegate textViewDidSelectTextRange:textView.selectedRange];
     self.lastSelectedRange = self.textView.selectedRange;
@@ -156,6 +151,7 @@
 
 - (void) textViewDidEndEditing:(UITextView *)textView
 {
+    [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants attibutedStringKey] : textView.attributedText} withFullAttributes:self.attributes];
     [self createTextOperationAndPushToUndoManager];
 }
 
@@ -242,6 +238,7 @@
         [self.textView select:self];
         self.textView.selectedRange = selectedRange;
         [self adjustTextViewBoundsForBounds:self.bounds];
+        self.bounds = self.bounds;
     }
     NSNumber *alignment = [attributes objectForKey:[KeyConstants alignmentKey]];
     if (alignment) {
@@ -254,13 +251,6 @@
 }
 
 #pragma mark - Override Super Class Methods
-//- (CGSize) minSize
-//{
-//    CGSize minSize = [super minSize];
-//    CGFloat height = [CoreTextHelper heightForAttributedStringInTextView:self.textView] + CONTROL_POINT_SIZE_HALF * 2;
-//    minSize.height = height;
-//    return minSize;
-//}
 
 - (UIImage *) contentSnapshot
 {

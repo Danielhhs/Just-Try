@@ -30,12 +30,13 @@
 @implementation GenericContainerView
 
 #pragma mark - Set Up
-- (instancetype) initWithAttributes:(NSDictionary *)attributes
+- (instancetype) initWithAttributes:(NSMutableDictionary *)attributes delegate:(id<ContentContainerViewDelegate>)delegate
 {
     CGRect frameValue = [GenericContainerViewHelper frameFromAttributes:attributes];
     self = [self initWithFrame:frameValue];
     if (self) {
-        self.fullAttributes = [attributes mutableCopy];
+        self.fullAttributes = attributes;
+        self.delegate = delegate;
     }
     return self;
 }
@@ -48,6 +49,12 @@
     [self.reflection updateFrame];
     [self.rotationIndicator applyToView:self];
     [self updateShadow];
+}
+
+- (void) setCenter:(CGPoint)center
+{
+    [super setCenter:center];
+    [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants centerKey] : [NSValue valueWithCGPoint:center]} withFullAttributes:self.attributes];
 }
 
 - (void) setTransform:(CGAffineTransform)transform
@@ -135,7 +142,6 @@
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
         self.originalCenter = self.center;
-        [self becomeFirstResponder];
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
         CGPoint translation = [gesture translationInView:self.superview];
         self.center = CGPointMake(self.center.x + translation.x, self.center.y + translation.y);
@@ -144,6 +150,8 @@
         SimpleOperation *centerOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants centerKey] fromValue:[NSValue valueWithCGPoint:self.originalCenter]];
         centerOperation.toValue = [NSValue valueWithCGPoint:self.center];
         [[UndoManager sharedManager] pushOperation:centerOperation];
+        [self becomeFirstResponder];
+        [self.delegate contentView:self didChangeAttributes:nil];
     }
 }
 
@@ -153,14 +161,16 @@
         [GenericContainerViewHelper resetActualTransformWithView:self];
         NSValue *fromValue = [NSValue valueWithCGAffineTransform:self.transform];
         self.currentOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants transformKey] fromValue:fromValue];
-        [self becomeFirstResponder];
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
         [self applyAttributes:@{[KeyConstants rotationKey] : @(gesture.rotation)}];
         gesture.rotation = 0;
     } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
         [self.rotationIndicator hide];
+        [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants transformKey] : [NSValue valueWithCGAffineTransform:self.transform]} withFullAttributes:self.attributes];
         ((SimpleOperation *)self.currentOperation).toValue = [NSValue valueWithCGAffineTransform:self.transform];
         [[UndoManager sharedManager] pushOperation:self.currentOperation];
+        [self becomeFirstResponder];
+        [self.delegate contentView:self didChangeAttributes:nil];
     }
 }
 

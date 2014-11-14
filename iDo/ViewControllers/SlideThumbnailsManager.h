@@ -26,4 +26,5 @@
 
 - (void) setSlideThumbnailControllerDelegate:(id<SlidesThumbnailViewControllerDelegate>) delegate;
 
+- (void) updateSlideSnapshotIfNeccessary;
 @end

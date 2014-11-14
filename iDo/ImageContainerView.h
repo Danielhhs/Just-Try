@@ -20,6 +20,6 @@
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, weak) id<ImageContainerViewDelegate> delegate;
 
-- (instancetype) initWithAttributes:(NSDictionary *)attributes;
+- (instancetype) initWithAttributes:(NSMutableDictionary *)attributes delegate:(id<ContentContainerViewDelegate>)delegate;
 
 @end

@@ -25,9 +25,12 @@
     self.layer.contents = (__bridge id)background.CGImage;
     
     NSArray *contents = attributes[[KeyConstants slideContentsKey]];
-    
-    for (NSDictionary *content in contents) {
-        GenericContainerView *contentView = [GenericContainerViewHelper contentViewFromAttributes:content];
+    id<ContentContainerViewDelegate> contentDelegate = nil;
+    if ([self.delegate conformsToProtocol:@protocol(ContentContainerViewDelegate)]) {
+        contentDelegate = (id<ContentContainerViewDelegate>)self.delegate;
+    }
+    for (NSMutableDictionary *content in contents) {
+        GenericContainerView *contentView = [GenericContainerViewHelper contentViewFromAttributes:content delegate:contentDelegate];
         [self addSubview:contentView];
         [contentView resignFirstResponder];
     }

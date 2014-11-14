@@ -27,5 +27,4 @@
     _name = name;
     self.nameView.text = name;
 }
-
 @end

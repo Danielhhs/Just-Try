@@ -25,6 +25,7 @@
  didChangeAttributes: (NSDictionary *) attributes;
 
 - (void) frameDidChangeForContentView:(GenericContainerView *) contentView;
+
 @optional
 - (void) contentViewWillResignFirstResponder:(GenericContainerView *) contentView;
 @end
@@ -37,7 +38,7 @@
 
 - (NSMutableDictionary *) attributes;
 
-- (instancetype) initWithAttributes:(NSDictionary *) attributes;
+- (instancetype) initWithAttributes:(NSDictionary *) attributes delegate:(id<ContentContainerViewDelegate>)delegate;
 
 - (CGSize) minSize;
 

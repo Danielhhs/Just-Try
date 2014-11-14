@@ -84,6 +84,13 @@ static SlideThumbnailsManager *sharedInstance;
     
 }
 
+- (void) updateSlideSnapshotIfNeccessary
+{
+    if (self.thumbnailIsDisplaying) {
+        [self.slidesThumbnailController reloadData];
+    }
+}
+
 - (CGRect) thumbnailControllerFrame
 {
     CGRect frame;

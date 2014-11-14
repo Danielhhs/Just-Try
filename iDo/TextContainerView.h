@@ -21,7 +21,7 @@
 @property (nonatomic, strong) NSAttributedString* text;
 @property (nonatomic, weak) id<TextContainerViewDelegate> delegate;
 
-- (instancetype) initWithAttributes:(NSDictionary *) attributes;
+- (instancetype) initWithAttributes:(NSMutableDictionary *) attributes delegate:(id<ContentContainerViewDelegate>)delegate;
 
 - (void) startEditing;
 

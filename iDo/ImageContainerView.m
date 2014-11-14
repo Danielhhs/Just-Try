@@ -17,9 +17,9 @@
 
 @implementation ImageContainerView
 
-- (instancetype) initWithAttributes:(NSDictionary *)attributes
+- (instancetype) initWithAttributes:(NSDictionary *)attributes delegate:(id<ContentContainerViewDelegate>)delegate
 {
-    self = [super initWithAttributes:attributes];
+    self = [super initWithAttributes:attributes delegate:delegate];
     if (self) {
         _image = [UIImage imageNamed:attributes[[KeyConstants imageNameKey]]];
         [self setUpImageContentWithImage:_image];
@@ -54,6 +54,7 @@
 {
     [super setBounds:bounds];
     self.imageContent.frame = [self contentViewFrameFromBounds:self.bounds];
+    [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants boundsKey] : [NSValue valueWithCGRect:bounds]} withFullAttributes:self.attributes];
 }
 
 #pragma mark - User Interactions
