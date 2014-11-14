@@ -91,8 +91,7 @@ static CoreDataManager *sharedInstance;
 - (void) saveProposalWithProposalChanges:(NSDictionary *)proposalChanges
 {
     [Proposal applyProposalAttributes:proposalChanges toProposal:self.currentProposal inManagedObjectContext:self.document.managedObjectContext];
-//    [self saveDocument];
-//    [self loadProposals];
+    [self saveDocument];
 }
 
 - (NSMutableDictionary *) createNewProposal
@@ -116,6 +115,7 @@ static CoreDataManager *sharedInstance;
 {
     [self.document saveToURL:[self modelURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:^(BOOL success) {
         NSLog(@"Sucess = %d", success);
+        [self loadProposals];
     }];
 }
 

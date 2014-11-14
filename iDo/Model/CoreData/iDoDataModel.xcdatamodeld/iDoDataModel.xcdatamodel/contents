@@ -5,7 +5,7 @@
         <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="triggerTime" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="container" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GenericConent" inverseName="animations" inverseEntity="GenericConent" syncable="YES"/>
+        <relationship name="container" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GenericContent" inverseName="animations" inverseEntity="GenericContent" syncable="YES"/>
     </entity>
     <entity name="Game" representedClassName="Game" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -13,7 +13,7 @@
         <attribute name="unique" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="proposal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Proposal" inverseName="games" inverseEntity="Proposal" syncable="YES"/>
     </entity>
-    <entity name="GenericConent" representedClassName="GenericConent" syncable="YES">
+    <entity name="GenericContent" representedClassName="GenericConent" syncable="YES">
         <attribute name="bounds" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="center" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="contentType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -31,7 +31,7 @@
         <relationship name="animations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Animation" inverseName="container" inverseEntity="Animation" syncable="YES"/>
         <relationship name="slide" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Slide" inverseName="contents" inverseEntity="Slide" syncable="YES"/>
     </entity>
-    <entity name="ImageContent" representedClassName="ImageContent" parentEntity="GenericConent" syncable="YES">
+    <entity name="ImageContent" representedClassName="ImageContent" parentEntity="GenericContent" syncable="YES">
         <attribute name="filter" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -48,11 +48,11 @@
         <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="unique" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="contents" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GenericConent" inverseName="slide" inverseEntity="GenericConent" syncable="YES"/>
+        <relationship name="contents" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GenericContent" inverseName="slide" inverseEntity="GenericContent" syncable="YES"/>
         <relationship name="proposal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Proposal" inverseName="slides" inverseEntity="Proposal" syncable="YES"/>
         <relationship name="transitions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Transition" inverseName="slide" inverseEntity="Transition" syncable="YES"/>
     </entity>
-    <entity name="TextContent" representedClassName="TextContent" parentEntity="GenericConent" syncable="YES">
+    <entity name="TextContent" representedClassName="TextContent" parentEntity="GenericContent" syncable="YES">
         <attribute name="attributes" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -65,7 +65,7 @@
     <elements>
         <element name="Animation" positionX="-2943" positionY="-439" width="128" height="118"/>
         <element name="Game" positionX="-3152" positionY="-826" width="128" height="105"/>
-        <element name="GenericConent" positionX="-3015" positionY="-709" width="128" height="283"/>
+        <element name="GenericContent" positionX="-3015" positionY="-709" width="128" height="285"/>
         <element name="ImageContent" positionX="-2799" positionY="-666" width="128" height="73"/>
         <element name="Proposal" positionX="-3501" positionY="-769" width="128" height="135"/>
         <element name="Slide" positionX="-3222" positionY="-639" width="128" height="148"/>

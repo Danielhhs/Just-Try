@@ -24,6 +24,7 @@
     NSMutableData *data = [[NSMutableData alloc] init];
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
     [archiver encodeObject:object];
+    [archiver finishEncoding];
     return [data copy];
 }
 
@@ -31,6 +32,7 @@
 {
     NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
     NSObject *value = [unarchiver decodeObject];
+    [unarchiver finishDecoding];
     return value;
 }
 
@@ -47,6 +49,7 @@
     }];
     [archiver encodeObject:attributes forKey:ATTRIBUTES_KEY];
     [archiver encodeObject:ranges forKey:RANGES_KEY];
+    [archiver finishEncoding];
     
     return data;
 }
@@ -56,6 +59,7 @@
     NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
     
     NSArray *attributes = [unarchiver decodeObjectForKey:ATTRIBUTES_KEY];
+    [unarchiver finishDecoding];
     
     return attributes;
 }
@@ -64,6 +68,7 @@
 {
     NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
     NSArray *ranges = [unarchiver decodeObjectForKey:RANGES_KEY];
+    [unarchiver finishDecoding];
     return ranges;
 }
 

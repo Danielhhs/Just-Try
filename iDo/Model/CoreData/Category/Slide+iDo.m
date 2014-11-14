@@ -11,6 +11,7 @@
 #import "KeyConstants.h"
 #import "GenericConent+iDo.h"
 #import "CoreDataHelper.h"
+#import "SlideAttributesManager.h"
 #import <UIKit/UIKit.h>
 
 @implementation Slide (iDo)
@@ -53,13 +54,10 @@
     slide.background = slideAttributes[[KeyConstants slideBackgroundKey]];
     slide.thumbnail = UIImageJPEGRepresentation(slideAttributes[[KeyConstants slideThumbnailKey]], 1.f);
     NSArray *contentsAttributes = slideAttributes[[KeyConstants slideContentsKey]];
-    NSArray *contents = [slide.contents sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]]];
-    
     for (NSInteger i = 0; i < [contentsAttributes count]; i++) {
-        GenericConent *content = contents[i];
-        [CoreDataHelper applyContentAttributes:contentsAttributes[i] toContentObject:content inManagedObjectContext:manageObjectContext];
+        GenericConent *content = [[SlideAttributesManager sharedManager] genericContentFromAttributes:contentsAttributes[i] inManagedObjectContext:manageObjectContext];
+        [slide addContentsObject:content];
     }
-    
 }
 
 @end

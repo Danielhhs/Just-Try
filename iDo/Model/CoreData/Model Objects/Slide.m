@@ -2,7 +2,7 @@
 //  Slide.m
 //  iDo
 //
-//  Created by Huang Hongsen on 11/8/14.
+//  Created by Huang Hongsen on 11/14/14.
 //  Copyright (c) 2014 com.microstrategy. All rights reserved.
 //
 
@@ -16,8 +16,8 @@
 
 @dynamic background;
 @dynamic index;
-@dynamic unique;
 @dynamic thumbnail;
+@dynamic unique;
 @dynamic contents;
 @dynamic proposal;
 @dynamic transitions;
