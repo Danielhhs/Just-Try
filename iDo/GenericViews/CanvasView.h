@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "GenericContainerView.h"
 @class CanvasView;
 @protocol CanvasViewDelegate <NSObject>
 
@@ -20,7 +20,9 @@
 @property (nonatomic, strong) UIImage *background;
 @property (nonatomic, weak) id<CanvasViewDelegate> delegate;
 
-- (instancetype) initWithAttributes:(NSDictionary *) attributes;
+- (instancetype) initWithAttributes:(NSDictionary *) attributes
+                           delegate:(id<CanvasViewDelegate>) delegate
+                    contentDelegate:(id<ContentContainerViewDelegate>)contentDelegate;
 - (void) setupWithAttributes:(NSDictionary *) attribtues;
 - (void) disablePinch;
 - (void) enablePinch;

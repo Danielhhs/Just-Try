@@ -28,12 +28,6 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
     [self.thumbnailsCollectionView reloadData];
 }
 
-- (void) setCurrentSelectedIndex:(NSInteger)currentSelectedIndex
-{
-    _currentSelectedIndex = currentSelectedIndex;
-    [self.thumbnailsCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForRow:self.currentSelectedIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionBottom];
-}
-
 - (void) viewDidLoad
 {
     [super viewDidLoad];
@@ -78,6 +72,9 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
         UIImage *image = slide[[KeyConstants slideThumbnailKey]];
         thumbnailCell.thumbnail.image = image;
         thumbnailCell.delegate = self;
+        if (indexPath.row == self.currentSelectedIndex) {
+            cell.selected = YES;
+        }
         if (indexPath.row == self.toIndex) {
             thumbnailCell.moving = YES;
         }
@@ -89,6 +86,7 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.currentSelectedIndex = indexPath.row;
     [self.delegate slideThumbnailController:self didSelectSlideAtIndex:indexPath.row];
 }
 

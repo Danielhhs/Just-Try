@@ -24,6 +24,9 @@
 - (void) contentView:(GenericContainerView *) contentView
  didChangeAttributes: (NSDictionary *) attributes;
 
+- (void) contentView:(GenericContainerView *) contentView
+startChangingAttributes:(NSDictionary *) attribtues;
+
 - (void) frameDidChangeForContentView:(GenericContainerView *) contentView;
 
 @optional

@@ -43,6 +43,12 @@
     [super viewDidLoad];
 }
 
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [[CoreDataManager sharedManager] saveProposalWithProposalChanges:self.proposalAttributes];
+    [super viewWillDisappear:animated];
+}
+
 - (void) setupEditorViewController
 {
     self.editorViewController = [[UIStoryboard storyboardWithName:@"UtilViewControllers" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"SlidesEditingViewController"];
@@ -201,7 +207,6 @@
 - (void) slideThumbnailController:(SlidesThumbnailViewController *)thumbnailController didSelectSlideAtIndex:(NSInteger)index
 {
     [self.editorViewController saveSlideAttributes];
-    //    [[ProposalAttributesManager sharedManager] saveSlide:slides[self.currentSelectSlideIndex] toProposal:self.proposalAttributes];
     NSArray *slides = [self.proposalAttributes objectForKey:[KeyConstants proposalSlidesKey]];
     self.currentSelectSlideIndex = index;
     [self.editorViewController updateCanvasWithSlide:slides[index]];

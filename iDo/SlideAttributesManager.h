@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CanvasView.h"
+#import "GenericConent.h"
 
 @interface SlideAttributesManager : NSObject
 
@@ -17,4 +18,5 @@
 
 - (void) saveCanvasContents:(CanvasView *)canvas toSlide:(NSMutableDictionary *) slide;
 
+- (GenericConent *) genericContentFromAttributes:(NSDictionary *) attribtues inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext;
 @end

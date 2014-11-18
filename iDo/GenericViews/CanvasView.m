@@ -12,36 +12,36 @@
 
 @interface CanvasView ()
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinch;
+@property (nonatomic, weak) id<ContentContainerViewDelegate> contentDelegate;
 @end
 
 @implementation CanvasView
 
 - (void) setupWithAttributes:(NSDictionary *) attributes
 {
-    for (UIView *subView in self.subviews) {
-        [subView removeFromSuperview];
+    for (UIView *subview in self.subviews) {
+        if ([subview isKindOfClass:[GenericContainerView class]]) {
+            [subview removeFromSuperview];
+        }
     }
     UIImage *background = [UIImage imageNamed:attributes[[KeyConstants slideBackgroundKey]]];
     self.layer.contents = (__bridge id)background.CGImage;
     
     NSArray *contents = attributes[[KeyConstants slideContentsKey]];
-    id<ContentContainerViewDelegate> contentDelegate = nil;
-    if ([self.delegate conformsToProtocol:@protocol(ContentContainerViewDelegate)]) {
-        contentDelegate = (id<ContentContainerViewDelegate>)self.delegate;
-    }
     for (NSMutableDictionary *content in contents) {
-        GenericContainerView *contentView = [GenericContainerViewHelper contentViewFromAttributes:content delegate:contentDelegate];
+        GenericContainerView *contentView = [GenericContainerViewHelper contentViewFromAttributes:content delegate:self.contentDelegate];
         [self addSubview:contentView];
-        [contentView resignFirstResponder];
     }
-        
+    
 }
 
-- (instancetype) initWithAttributes:(NSDictionary *)attributes
+- (instancetype) initWithAttributes:(NSDictionary *)attributes delegate:(id<CanvasViewDelegate>)delegate contentDelegate:(id)contentDelegate
 {
     CGRect frame = [UIScreen mainScreen].bounds;
     self = [super initWithFrame:frame];
     if (self) {
+        self.delegate = delegate;
+        self.contentDelegate = contentDelegate;
         self.pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
         [self addGestureRecognizer:self.pinch];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];

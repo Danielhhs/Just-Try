@@ -10,6 +10,9 @@
 #import "KeyConstants.h"
 #import "UIView+Snapshot.h"
 #import "GenericContainerView.h"
+#import "GenericContentConstants.h"
+#import "ImageContent+iDo.h"
+#import "TextContent+iDo.h"
 static SlideAttributesManager *sharedInstance = nil;
 @implementation SlideAttributesManager
 
@@ -49,10 +52,29 @@ static SlideAttributesManager *sharedInstance = nil;
     [slide setValue:[canvas snapshot] forKey:[KeyConstants slideThumbnailKey]];
     
     NSMutableArray *newContents = [NSMutableArray array];
-    for (GenericContainerView *content in canvas.subviews) {
-        [newContents addObject:[content attributes]];
+    for (UIView *view in canvas.subviews) {
+        if ([view isKindOfClass:[GenericContainerView class]]) {
+            GenericContainerView *content = (GenericContainerView *) view;
+            [newContents addObject:[content attributes]];
+        }
     }
     [slide setValue:newContents forKey:[KeyConstants slideContentsKey]];
+}
+
+- (GenericConent *) genericContentFromAttributes:(NSDictionary *)attribtues inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
+{
+    ContentViewType type = [attribtues[[KeyConstants contentTypeKey]] integerValue];
+    GenericConent *content = nil;
+    switch (type) {
+        case ContentViewTypeImage:
+            content = [ImageContent imageContentFromAttribute:attribtues inManageObjectContext:managedObjectContext];
+            break;
+        case ContentViewTypeText:
+            content = [TextContent textContentFromAttribute:attribtues inManageObjectContext:managedObjectContext];
+        default:
+            break;
+    }
+    return content;
 }
 
 @end

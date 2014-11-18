@@ -142,6 +142,7 @@
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
         self.originalCenter = self.center;
+        [self.delegate contentView:self startChangingAttributes:nil];
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
         CGPoint translation = [gesture translationInView:self.superview];
         self.center = CGPointMake(self.center.x + translation.x, self.center.y + translation.y);
@@ -161,6 +162,7 @@
         [GenericContainerViewHelper resetActualTransformWithView:self];
         NSValue *fromValue = [NSValue valueWithCGAffineTransform:self.transform];
         self.currentOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants transformKey] fromValue:fromValue];
+        [self.delegate contentView:self startChangingAttributes:nil];
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
         [self applyAttributes:@{[KeyConstants rotationKey] : @(gesture.rotation)}];
         gesture.rotation = 0;

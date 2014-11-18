@@ -16,11 +16,13 @@
 #import "KeyConstants.h"
 #import "UIView+Snapshot.h"
 #import "SlideAttributesManager.h"
+#import "ContentEditMenuView.h"
 
 @interface SlidesEditingViewController ()<CanvasViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, OperationTarget>
 @property (strong, nonatomic) CanvasView *canvas;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 @property (nonatomic) NSUInteger currentSelectionOriginalIndex;
+@property (nonatomic, strong) ContentEditMenuView *editMenu;
 @end
 
 @implementation SlidesEditingViewController
@@ -28,8 +30,10 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    self.canvas = [[CanvasView alloc] initWithAttributes:self.slideAttributes];
+    self.canvas = [[CanvasView alloc] initWithAttributes:self.slideAttributes delegate:self contentDelegate:self];
     self.canvas.delegate = self;
+    self.editMenu = [[ContentEditMenuView alloc] initWithFrame:CGRectZero];
+    [self.canvas addSubview:self.editMenu];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -63,6 +67,7 @@
 - (void) contentViewDidResignFirstResponder:(GenericContainerView *)contentView
 {
     self.currentSelectedContent = nil;
+    [self.editMenu hide];
     [self switchView:contentView toIndex:self.currentSelectionOriginalIndex inSuperView:self.canvas];
 }
 
@@ -77,6 +82,9 @@
     self.currentSelectedContent = contentView;
     [self.canvas disablePinch];
     [self switchView:contentView toIndex:[[self.canvas subviews] count] - 1 inSuperView:self.canvas];
+    self.editMenu.triggeredContent = contentView;
+    [self.editMenu show];
+    [self.canvas bringSubviewToFront:self.editMenu];
     [self.delegate contentViewDidBecomeFirstResponder:contentView];
 }
 
@@ -88,6 +96,11 @@
     [self.slideAttributes setValue:[self.canvas snapshot] forKey:[KeyConstants slideThumbnailKey]];
     [self.delegate contentDidChangeFromEditingController:self];
     [[UndoManager sharedManager] clearRedoStack];
+}
+
+- (void) contentView:(GenericContainerView *)contentView startChangingAttributes:(NSDictionary *)attribtues
+{
+    [self.editMenu hide];
 }
 
 - (void) frameDidChangeForContentView:(GenericContainerView *)contentView
@@ -202,6 +215,7 @@
     content.center = [self canvasCenter];
     [content becomeFirstResponder];
     [[SlideAttributesManager sharedManager] addNewContent:[content attributes] toSlide:self.slideAttributes];
+    [self.slideAttributes setObject:[self.canvas snapshot] forKey:[KeyConstants slideThumbnailKey]];
 }
 
 - (void) removeCurrentContentViewFromCanvas
@@ -217,6 +231,8 @@
     center.y = CGRectGetMidY(self.canvas.bounds);
     return center;
 }
+
+#pragma mark - Edit Menu
 
 
 @end

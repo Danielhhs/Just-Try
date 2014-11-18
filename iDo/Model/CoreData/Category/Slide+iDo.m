@@ -54,10 +54,12 @@
     slide.background = slideAttributes[[KeyConstants slideBackgroundKey]];
     slide.thumbnail = UIImageJPEGRepresentation(slideAttributes[[KeyConstants slideThumbnailKey]], 1.f);
     NSArray *contentsAttributes = slideAttributes[[KeyConstants slideContentsKey]];
+    NSMutableSet *contents = [NSMutableSet set];
     for (NSInteger i = 0; i < [contentsAttributes count]; i++) {
         GenericConent *content = [[SlideAttributesManager sharedManager] genericContentFromAttributes:contentsAttributes[i] inManagedObjectContext:manageObjectContext];
-        [slide addContentsObject:content];
+        [contents addObject:content];
     }
+    slide.contents = [contents copy];
 }
 
 @end

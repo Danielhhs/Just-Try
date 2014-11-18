@@ -46,6 +46,9 @@
 		547EEEC01A16061100EAD132 /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 547EEEBF1A16061100EAD132 /* Animation.m */; };
 		547EEEC31A16061100EAD132 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 547EEEC21A16061100EAD132 /* Game.m */; };
 		547EEEC61A16061100EAD132 /* TextContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 547EEEC51A16061100EAD132 /* TextContent.m */; };
+		547EEEC91A18800900EAD132 /* ContentEditMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 547EEEC81A18800900EAD132 /* ContentEditMenuView.m */; };
+		547EEECD1A1881F200EAD132 /* EditMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 547EEECC1A1881F200EAD132 /* EditMenuItem.m */; };
+		547EEED01A18878200EAD132 /* TextConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 547EEECF1A18878200EAD132 /* TextConstants.m */; };
 		549567711A05EA18006D6BAE /* CustomTapTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 549567701A05EA18006D6BAE /* CustomTapTextView.m */; };
 		54965B061A00E50F005AF774 /* ShadowHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B051A00E50F005AF774 /* ShadowHelper.m */; };
 		54965B391A020362005AF774 /* RotationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B381A020362005AF774 /* RotationHelper.m */; };
@@ -172,6 +175,12 @@
 		547EEEC21A16061100EAD132 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Game.m; path = "Model/CoreData/Model Objects/Game.m"; sourceTree = "<group>"; };
 		547EEEC41A16061100EAD132 /* TextContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextContent.h; path = "Model/CoreData/Model Objects/TextContent.h"; sourceTree = "<group>"; };
 		547EEEC51A16061100EAD132 /* TextContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextContent.m; path = "Model/CoreData/Model Objects/TextContent.m"; sourceTree = "<group>"; };
+		547EEEC71A18800900EAD132 /* ContentEditMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContentEditMenuView.h; path = ContentViews/EditMenu/ContentEditMenuView.h; sourceTree = "<group>"; };
+		547EEEC81A18800900EAD132 /* ContentEditMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContentEditMenuView.m; path = ContentViews/EditMenu/ContentEditMenuView.m; sourceTree = "<group>"; };
+		547EEECB1A1881F200EAD132 /* EditMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditMenuItem.h; path = ContentViews/EditMenu/EditMenuItem.h; sourceTree = "<group>"; };
+		547EEECC1A1881F200EAD132 /* EditMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditMenuItem.m; path = ContentViews/EditMenu/EditMenuItem.m; sourceTree = "<group>"; };
+		547EEECE1A18878200EAD132 /* TextConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextConstants.h; path = Helper/TextConstants.h; sourceTree = "<group>"; };
+		547EEECF1A18878200EAD132 /* TextConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextConstants.m; path = Helper/TextConstants.m; sourceTree = "<group>"; };
 		5495676F1A05EA18006D6BAE /* CustomTapTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomTapTextView.h; path = ContentViews/CustomTapTextView.h; sourceTree = "<group>"; };
 		549567701A05EA18006D6BAE /* CustomTapTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomTapTextView.m; path = ContentViews/CustomTapTextView.m; sourceTree = "<group>"; };
 		54965B041A00E50F005AF774 /* ShadowHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowHelper.h; sourceTree = "<group>"; };
@@ -352,7 +361,6 @@
 		546457C119F10BF500078EAF /* Content Views */ = {
 			isa = PBXGroup;
 			children = (
-				546457D919F368E100078EAF /* Control Points */,
 				54D7296B19ECEAB9009A0279 /* GenericContainerView.h */,
 				54D7296C19ECEAB9009A0279 /* GenericContainerView.m */,
 				54CB19D619EE37BE0044BBDD /* ImageContainerView.h */,
@@ -390,6 +398,8 @@
 				542185231A061565006EBDFD /* KeyConstants.m */,
 				54F0C4E11A0F25F4009B4B0D /* DrawingConstants.h */,
 				54F0C4E21A0F25F4009B4B0D /* DrawingConstants.m */,
+				547EEECE1A18878200EAD132 /* TextConstants.h */,
+				547EEECF1A18878200EAD132 /* TextConstants.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -445,6 +455,17 @@
 				54FF2BC11A04DDB6002EB326 /* TextStyleEditorContentViewController.xib */,
 			);
 			name = "Text Editor Content ViewControllers";
+			sourceTree = "<group>";
+		};
+		547EEECA1A18800C00EAD132 /* Edit Menu */ = {
+			isa = PBXGroup;
+			children = (
+				547EEEC71A18800900EAD132 /* ContentEditMenuView.h */,
+				547EEEC81A18800900EAD132 /* ContentEditMenuView.m */,
+				547EEECB1A1881F200EAD132 /* EditMenuItem.h */,
+				547EEECC1A1881F200EAD132 /* EditMenuItem.m */,
+			);
+			name = "Edit Menu";
 			sourceTree = "<group>";
 		};
 		54965B3D1A020BF0005AF774 /* Rotation */ = {
@@ -593,12 +614,10 @@
 		54E96F6B19F8E53900C5F007 /* Supplementary Views */ = {
 			isa = PBXGroup;
 			children = (
-				54E96F6819F8E53400C5F007 /* ReflectionView.h */,
-				54E96F6919F8E53400C5F007 /* ReflectionView.m */,
-				54965B041A00E50F005AF774 /* ShadowHelper.h */,
-				54965B051A00E50F005AF774 /* ShadowHelper.m */,
+				546457D919F368E100078EAF /* Control Points */,
 				54965B3E1A020BF9005AF774 /* Text */,
 				54965B3D1A020BF0005AF774 /* Rotation */,
+				547EEECA1A18800C00EAD132 /* Edit Menu */,
 			);
 			name = "Supplementary Views";
 			sourceTree = "<group>";
@@ -627,6 +646,10 @@
 		54F0C4981A0DF84F009B4B0D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				54E96F6819F8E53400C5F007 /* ReflectionView.h */,
+				54E96F6919F8E53400C5F007 /* ReflectionView.m */,
+				54965B041A00E50F005AF774 /* ShadowHelper.h */,
+				54965B051A00E50F005AF774 /* ShadowHelper.m */,
 				54D10B5319F7AC9200197694 /* GenericContainerViewHelper.h */,
 				54D10B5419F7AC9200197694 /* GenericContainerViewHelper.m */,
 			);
@@ -809,6 +832,7 @@
 				547EEEBA1A16061100EAD132 /* Transition.m in Sources */,
 				546457D119F116B700078EAF /* ImageHelper.m in Sources */,
 				546F5CC919FFAFE600C30CBB /* TextDisplayView.m in Sources */,
+				547EEECD1A1881F200EAD132 /* EditMenuItem.m in Sources */,
 				54D333A91A0604EE00F3D7F9 /* UndoManager.m in Sources */,
 				54F4C7521A036B63006A3F07 /* CanvasView.m in Sources */,
 				54EE547D1A122D8C00CA1AF7 /* SlideAttributesManager.m in Sources */,
@@ -829,6 +853,7 @@
 				54D10B5519F7AC9200197694 /* GenericContainerViewHelper.m in Sources */,
 				54F0C4EC1A0F407D009B4B0D /* SlidesThumbnailViewController.m in Sources */,
 				54D7296D19ECEAB9009A0279 /* GenericContainerView.m in Sources */,
+				547EEED01A18878200EAD132 /* TextConstants.m in Sources */,
 				54F0C4971A0DF7B1009B4B0D /* DefaultValueGenerator.m in Sources */,
 				547EEEC61A16061100EAD132 /* TextContent.m in Sources */,
 				5464580019F4D89900078EAF /* TextBasicEditorPanelViewController.m in Sources */,
@@ -841,6 +866,7 @@
 				54F4C7391A0359B2006A3F07 /* RotationTooltipView.m in Sources */,
 				547DCA121A04D1A3004691EC /* TextEditorPanelContainerViewController.m in Sources */,
 				547DCA021A04CAC5004691EC /* EditorPanelContainerViewController.m in Sources */,
+				547EEEC91A18800900EAD132 /* ContentEditMenuView.m in Sources */,
 				54F0C4461A0CA8B6009B4B0D /* ImageContent+iDo.m in Sources */,
 				54D7294419ECE9B5009A0279 /* main.m in Sources */,
 				54965B3C1A020424005AF774 /* RotationIndicatorView.m in Sources */,

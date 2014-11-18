@@ -84,6 +84,7 @@ static SlideThumbnailsManager *sharedInstance;
     
 }
 
+//TO-DO   Do NOT reload data every time. Just update as necessary...
 - (void) updateSlideSnapshotIfNeccessary
 {
     if (self.thumbnailIsDisplaying) {
