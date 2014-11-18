@@ -45,7 +45,9 @@
 
 - (void) viewWillDisappear:(BOOL)animated
 {
-    [[CoreDataManager sharedManager] saveProposalWithProposalChanges:self.proposalAttributes];
+    [self saveProposal];
+    [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
+    [[SlideThumbnailsManager sharedManager] hideThumnailsFromViewController:self];
     [super viewWillDisappear:animated];
 }
 
@@ -71,6 +73,7 @@
     [[SlideThumbnailsManager sharedManager] setupThumbnailsWithProposalAttributes:proposalAttributes];
     [[SlideThumbnailsManager sharedManager] setSlideThumbnailControllerDelegate:self];
     NSArray *slides = self.proposalAttributes[[KeyConstants proposalSlidesKey]];
+    self.currentSelectSlideIndex = [self.proposalAttributes[[KeyConstants proposalCurrentSelectedSlideKey]] integerValue];
     self.editorViewController.slideAttributes = [slides lastObject];
 }
 
@@ -156,6 +159,14 @@
     [[CoreDataManager sharedManager] saveProposalWithProposalChanges:self.proposalAttributes];
 }
 
+- (void) saveProposal
+{
+    [self.editorViewController saveSlideAttributes];
+    [self.proposalAttributes setValue:[self.editorViewController.view snapshot] forKey:[KeyConstants proposalThumbnailKey]];
+    [self.proposalAttributes setValue:@(self.currentSelectSlideIndex) forKey:[KeyConstants proposalCurrentSelectedSlideKey]];
+    [[CoreDataManager sharedManager] saveProposalWithProposalChanges:self.proposalAttributes];
+}
+
 - (IBAction)backToProposals:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -192,8 +203,8 @@
 - (IBAction)showSlideThumbnails:(id)sender {
     [self.editorViewController resignPreviousFirstResponderExceptForContainer:nil];
     [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
-    [[SlideThumbnailsManager sharedManager] showThumbnailsInViewController:self];
     [[SlideThumbnailsManager sharedManager] selectSlideAtIndex:self.currentSelectSlideIndex];
+    [[SlideThumbnailsManager sharedManager] showThumbnailsInViewController:self];
 }
 
 #pragma mark - SlidesThumbnailViewControllerDelegate
@@ -202,6 +213,9 @@
     [[ProposalAttributesManager sharedManager] addNewSlideToProposal:self.proposalAttributes atIndex:index];
     [[SlideThumbnailsManager sharedManager] setupThumbnailsWithProposalAttributes:self.proposalAttributes];
     [[SlideThumbnailsManager sharedManager] selectSlideAtIndex:index];
+    self.currentSelectSlideIndex = index;
+    NSArray *slides = self.proposalAttributes[[KeyConstants proposalSlidesKey]];
+    [self.editorViewController updateCanvasWithSlide:slides[index]];
 }
 
 - (void) slideThumbnailController:(SlidesThumbnailViewController *)thumbnailController didSelectSlideAtIndex:(NSInteger)index

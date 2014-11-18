@@ -37,6 +37,7 @@
         [slidesAttributes addObject:[Slide attributesFromSlide:slide]];
     }
     [attributes setObject:slidesAttributes forKey:[KeyConstants proposalSlidesKey]];
+    [attributes setObject:proposal.currentSelectedSlideIndex forKey:[KeyConstants proposalCurrentSelectedSlideKey]];
     
     return attributes;
 }

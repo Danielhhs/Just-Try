@@ -103,7 +103,7 @@ static CoreDataManager *sharedInstance;
 
 - (NSURL *) modelURL
 {
-    return [[self documentsURL] URLByAppendingPathComponent:@"iDoDataModel1"];
+    return [[self documentsURL] URLByAppendingPathComponent:@"iDoDataModel"];
 }
 
 - (NSURL *) documentsURL

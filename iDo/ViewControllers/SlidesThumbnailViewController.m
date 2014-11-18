@@ -86,6 +86,7 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.thumbnailsCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentSelectedIndex inSection:0]].selected = NO;
     self.currentSelectedIndex = indexPath.row;
     [self.delegate slideThumbnailController:self didSelectSlideAtIndex:indexPath.row];
 }
