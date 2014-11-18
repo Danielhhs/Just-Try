@@ -55,6 +55,7 @@
 
 - (void) saveSlideAttributes
 {
+    [self resignPreviousFirstResponderExceptForContainer:nil];
     [[SlideAttributesManager sharedManager] saveCanvasContents:self.canvas toSlide:self.slideAttributes];
 }
 

@@ -201,7 +201,7 @@
 
 #pragma mark - SliderThumbnailViewController
 - (IBAction)showSlideThumbnails:(id)sender {
-    [self.editorViewController resignPreviousFirstResponderExceptForContainer:nil];
+    [self.editorViewController saveSlideAttributes];
     [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
     [[SlideThumbnailsManager sharedManager] selectSlideAtIndex:self.currentSelectSlideIndex];
     [[SlideThumbnailsManager sharedManager] showThumbnailsInViewController:self];
