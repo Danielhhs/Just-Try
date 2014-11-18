@@ -29,6 +29,7 @@
 		546DC4FF1A14E10400E76696 /* ThumbnailMovingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 546DC4FE1A14E10400E76696 /* ThumbnailMovingIndicatorView.m */; };
 		546F5CC919FFAFE600C30CBB /* TextDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 546F5CC819FFAFE600C30CBB /* TextDisplayView.m */; };
 		546F5CCC1A00904D00C30CBB /* CoreTextHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 546F5CCB1A00904D00C30CBB /* CoreTextHelper.m */; };
+		547BFD4A1A1B4B8F0014FBD9 /* EditMenuHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 547BFD491A1B4B8F0014FBD9 /* EditMenuHelper.m */; };
 		547DC9FA1A036EAF004691EC /* Canvas.png in Resources */ = {isa = PBXBuildFile; fileRef = 547DC9F91A036EAE004691EC /* Canvas.png */; };
 		547DCA021A04CAC5004691EC /* EditorPanelContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 547DCA001A04CAC5004691EC /* EditorPanelContainerViewController.m */; };
 		547DCA031A04CAC5004691EC /* EditorPanelContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 547DCA011A04CAC5004691EC /* EditorPanelContainerViewController.xib */; };
@@ -146,6 +147,8 @@
 		546F5CC819FFAFE600C30CBB /* TextDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextDisplayView.m; sourceTree = "<group>"; };
 		546F5CCA1A00904D00C30CBB /* CoreTextHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreTextHelper.h; path = ContentViews/CoreTextHelper.h; sourceTree = "<group>"; };
 		546F5CCB1A00904D00C30CBB /* CoreTextHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreTextHelper.m; path = ContentViews/CoreTextHelper.m; sourceTree = "<group>"; };
+		547BFD481A1B4B8F0014FBD9 /* EditMenuHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditMenuHelper.h; path = ContentViews/EditMenu/EditMenuHelper.h; sourceTree = "<group>"; };
+		547BFD491A1B4B8F0014FBD9 /* EditMenuHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditMenuHelper.m; path = ContentViews/EditMenu/EditMenuHelper.m; sourceTree = "<group>"; };
 		547DC9F91A036EAE004691EC /* Canvas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Canvas.png; sourceTree = "<group>"; };
 		547DC9FF1A04CAC5004691EC /* EditorPanelContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditorPanelContainerViewController.h; path = EditorViewControllers/Containers/EditorPanelContainerViewController.h; sourceTree = "<group>"; };
 		547DCA001A04CAC5004691EC /* EditorPanelContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditorPanelContainerViewController.m; path = EditorViewControllers/Containers/EditorPanelContainerViewController.m; sourceTree = "<group>"; };
@@ -464,6 +467,8 @@
 				547EEEC81A18800900EAD132 /* ContentEditMenuView.m */,
 				547EEECB1A1881F200EAD132 /* EditMenuItem.h */,
 				547EEECC1A1881F200EAD132 /* EditMenuItem.m */,
+				547BFD481A1B4B8F0014FBD9 /* EditMenuHelper.h */,
+				547BFD491A1B4B8F0014FBD9 /* EditMenuHelper.m */,
 			);
 			name = "Edit Menu";
 			sourceTree = "<group>";
@@ -847,6 +852,7 @@
 				54D333AD1A0606A900F3D7F9 /* Operation.m in Sources */,
 				54E96F8819F91FA000C5F007 /* TooltipView.m in Sources */,
 				54F0C51C1A108A1B009B4B0D /* CanvasAdjustmentHelper.m in Sources */,
+				547BFD4A1A1B4B8F0014FBD9 /* EditMenuHelper.m in Sources */,
 				54CB19D819EE37BE0044BBDD /* ImageContainerView.m in Sources */,
 				54EE547A1A11D8F300CA1AF7 /* ThumbnailCollectionViewCell.m in Sources */,
 				54F0C4431A0C9478009B4B0D /* TextContent+iDo.m in Sources */,

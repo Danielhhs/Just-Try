@@ -11,6 +11,7 @@
 #import "TextConstants.h"
 #import "GenericContainerView.h"
 #import "DrawingConstants.h"
+#import "EditMenuHelper.h"
 
 #define SEPARATOR_WIDTH 3
 #define EDIT_MENU_ARROW_HEIGHT 10
@@ -19,6 +20,8 @@
 #define EDIT_ITEM_HEIGTH 61.8
 #define SEPARATOR_TOP_BOTTOM_MARGIN 5
 #define PASTE_ITEM_INDEX 2
+
+#define PAST_BOARD_TYPE_UTI @"cn.hshuang.iDO"
 
 @interface ContentEditMenuView ()
 @property (nonatomic, strong) NSMutableArray *availableOperations;
@@ -69,12 +72,16 @@
 
 - (void) handleCopy
 {
-    NSLog(@"%@ copied", [self.triggeredContent description]);
+    NSLog(@"%@ copied", [self.triggeredContent attributes]);
+    
+    [[UIPasteboard generalPasteboard] setData:[EditMenuHelper encodeGenericContent:self.triggeredContent] forPasteboardType:PAST_BOARD_TYPE_UTI];
 }
 
 - (void) handlePaste
 {
-    NSLog(@"%@ pasted", [self.triggeredContent description]);
+    NSData *data = [[UIPasteboard generalPasteboard] dataForPasteboardType:PAST_BOARD_TYPE_UTI];
+    NSMutableDictionary *attributes = [EditMenuHelper decodeGenericContentFromData:data];
+    NSLog(@"%@ pasted", attributes);
 }
 
 - (void) handleCut
@@ -94,8 +101,8 @@
 
 - (void) show
 {
-    NSData *existingData = [[UIPasteboard generalPasteboard] dataForPasteboardType:@"cn.hshuang.iDO"];
-    if (existingData) {
+    NSData *existingData = [[UIPasteboard generalPasteboard] dataForPasteboardType:PAST_BOARD_TYPE_UTI];
+    if (existingData && ![self.availableOperations containsObject:self.pasteButton]) {
         [self addSubview:self.pasteButton];
         [self.availableOperations insertObject:self.pasteButton atIndex:PASTE_ITEM_INDEX];
     }

@@ -162,9 +162,20 @@
 
 - (SimpleOperation *) selectionOperation
 {
-    SimpleOperation *selectionOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants textSelectionKey] fromValue:[NSValue valueWithRange:self.lastSelectedRange]];
-    NSRange toRange = NSMakeRange(self.lastSelectedRange.location, self.textView.selectedRange.location - self.lastSelectedRange.location);
-    selectionOperation.toValue = [NSValue valueWithRange:toRange];
+    SimpleOperation *selectionOperation;
+    NSInteger toRangeLocation = MIN(self.lastSelectedRange.location, self.textView.selectedRange.location);
+    NSUInteger toRangeLength;
+    if (self.textView.selectedRange.location > self.lastSelectedRange.location) {
+        selectionOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants textSelectionKey] fromValue:[NSValue valueWithRange:self.lastSelectedRange]];
+        toRangeLength = self.textView.selectedRange.location - self.lastSelectedRange.location;
+        NSRange toRange = NSMakeRange(toRangeLocation, toRangeLength);
+        selectionOperation.toValue = [NSValue valueWithRange:toRange];
+    } else {
+        toRangeLength = self.lastSelectedRange.location - self.textView.selectedRange.location;
+        NSRange toRange = NSMakeRange(toRangeLocation, toRangeLength);
+        selectionOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants textSelectionKey] fromValue:[NSValue valueWithRange:toRange]];
+        selectionOperation.toValue = [NSValue valueWithRange:self.lastSelectedRange];
+    }
     return selectionOperation;
 }
 

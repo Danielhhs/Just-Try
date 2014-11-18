@@ -221,8 +221,9 @@
 
 - (void) removeCurrentContentViewFromCanvas
 {
+    GenericContainerView *content = self.currentSelectedContent;
     [self.currentSelectedContent resignFirstResponder];
-    [self.currentSelectedContent removeFromSuperview];
+    [content removeFromSuperview];
 }
 
 - (CGPoint) canvasCenter

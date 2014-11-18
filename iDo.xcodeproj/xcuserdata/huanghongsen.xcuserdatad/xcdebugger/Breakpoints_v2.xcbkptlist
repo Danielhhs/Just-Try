@@ -268,11 +268,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDo/ViewControllers/SlidesContainerViewController.m"
-            timestampString = "437994076.360294"
+            timestampString = "437996112.305654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231">
+            startingLineNumber = "230"
+            endingLineNumber = "230">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -358,15 +358,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDo/TextContainerView.m"
-            timestampString = "437647607.533606"
+            timestampString = "438003698.979665"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
             landmarkName = "-applyTextAttributes:"
             landmarkType = "5">
          </BreakpointContent>
@@ -496,6 +496,54 @@
             startingLineNumber = "58"
             endingLineNumber = "58"
             landmarkName = "-saveSlideAttributes"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iDo/ContentViews/EditMenu/ContentEditMenuView.m"
+            timestampString = "437997292.49161"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "-show"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iDo/SlidesEditingViewController.m"
+            timestampString = "438001708.472738"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "-removeCurrentContentViewFromCanvas"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iDo/TextContainerView.m"
+            timestampString = "438003698.979665"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
+            landmarkName = "-performOperation:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
