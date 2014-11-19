@@ -213,6 +213,10 @@
 - (void) addContentViewToCanvas:(GenericContainerView *)content
 {
     [self.canvas addSubview:content];
+    SimpleOperation *addOperation = [[SimpleOperation alloc] initWithTargets:@[content] key:[KeyConstants addKey] fromValue:nil];
+#warning There is a problem here. What if user has changed a slide?
+    addOperation.toValue = self.canvas;
+    [[UndoManager sharedManager] pushOperation:addOperation];
     content.center = [self canvasCenter];
     [content becomeFirstResponder];
     [[SlideAttributesManager sharedManager] addNewContent:[content attributes] toSlide:self.slideAttributes];
@@ -223,6 +227,9 @@
 {
     GenericContainerView *content = self.currentSelectedContent;
     [self.currentSelectedContent resignFirstResponder];
+#warning There is a problem here. What if user has changed a slide?
+    SimpleOperation *deleteOperation = [[SimpleOperation alloc] initWithTargets:@[content] key:[KeyConstants addKey] fromValue:self.canvas];
+    [[UndoManager sharedManager] pushOperation:deleteOperation];
     [content removeFromSuperview];
 }
 

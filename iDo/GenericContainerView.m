@@ -202,7 +202,6 @@
 
 - (void) updateShadow
 {
-    
     self.layer.shadowPath = [ShadowHelper shadowPathWithShadowAttributes:self.fullAttributes].CGPath;
 }
 
@@ -262,8 +261,6 @@
 {
     if (CGAffineTransformIsIdentity(self.transform)) {
         [[ControlPointManager sharedManager] enableControlPoints];
-    } else {
-//        [[ControlPointManager sharedManager] disableControlPoints];
     }
 }
 
@@ -281,10 +278,17 @@
 - (void) performOperation:(Operation *)operation
 {
     SimpleOperation *simpleOperation = (SimpleOperation *) operation;
-    NSDictionary *attibutes = @{simpleOperation.key : simpleOperation.toValue};
-    [self becomeFirstResponder];
-    [GenericContainerViewHelper mergeChangedAttributes:attibutes withFullAttributes:self.fullAttributes];
-    [GenericContainerViewHelper applyUndoAttribute:attibutes toContainer:self];
+    if ([simpleOperation.key isEqualToString:[KeyConstants addKey]]) {
+        UIView *canvas = (UIView *)simpleOperation.toValue;
+        [canvas addSubview:[simpleOperation.targets lastObject]];
+    } else if ([simpleOperation.key isEqualToString:[KeyConstants deleteKey]]) {
+        [[simpleOperation.targets lastObject] removeFromSuperview];
+    } else {
+        NSDictionary *attibutes = @{simpleOperation.key : simpleOperation.toValue};
+        [self becomeFirstResponder];
+        [GenericContainerViewHelper mergeChangedAttributes:attibutes withFullAttributes:self.fullAttributes];
+        [GenericContainerViewHelper applyUndoAttribute:attibutes toContainer:self];
+    }
 }
 
 @end
