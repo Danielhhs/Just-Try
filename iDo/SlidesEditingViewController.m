@@ -18,8 +18,7 @@
 #import "SlideAttributesManager.h"
 #import "ContentEditMenuView.h"
 
-@interface SlidesEditingViewController ()<CanvasViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, OperationTarget>
-@property (strong, nonatomic) CanvasView *canvas;
+@interface SlidesEditingViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, OperationTarget>
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 @property (nonatomic) NSUInteger currentSelectionOriginalIndex;
 @property (nonatomic, strong) ContentEditMenuView *editMenu;
@@ -30,33 +29,21 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    self.canvas = [[CanvasView alloc] initWithAttributes:self.slideAttributes delegate:self contentDelegate:self];
-    self.canvas.delegate = self;
     self.editMenu = [[ContentEditMenuView alloc] initWithFrame:CGRectZero];
-    [self.canvas addSubview:self.editMenu];
-}
-
-- (void) viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.view addSubview:self.canvas];
-}
-
-- (void) setSlideAttributes:(NSMutableDictionary *)slideAttributes
-{
-    _slideAttributes = slideAttributes;
-    [self.canvas setupWithAttributes:slideAttributes];
-}
-
-- (void) updateCanvasWithSlide:(NSMutableDictionary *)slide
-{
-    self.slideAttributes = slide;
+    [self.view addSubview:self.editMenu];
 }
 
 - (void) saveSlideAttributes
 {
     [self resignPreviousFirstResponderExceptForContainer:nil];
     [[SlideAttributesManager sharedManager] saveCanvasContents:self.canvas toSlide:self.slideAttributes];
+}
+
+- (void) setCanvas:(CanvasView *)canvas
+{
+    [_canvas removeFromSuperview];
+    _canvas = canvas;
+    [self.view addSubview:canvas];
 }
 
 #pragma mark - ContentContainerViewDelegate
@@ -85,7 +72,7 @@
     [self switchView:contentView toIndex:[[self.canvas subviews] count] - 1 inSuperView:self.canvas];
     self.editMenu.triggeredContent = contentView;
     [self.editMenu show];
-    [self.canvas bringSubviewToFront:self.editMenu];
+    [self.view bringSubviewToFront:self.editMenu];
     [self.delegate contentViewDidBecomeFirstResponder:contentView];
 }
 

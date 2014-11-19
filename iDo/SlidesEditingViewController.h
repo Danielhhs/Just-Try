@@ -23,8 +23,9 @@
 
 @end
 
-@interface SlidesEditingViewController : UIViewController<ImageContainerViewDelegate, TextContainerViewDelegate, TextEditorPanelContainerViewControllerDelegate, EditorPanelContainerViewControllerDelegate>
+@interface SlidesEditingViewController : UIViewController<CanvasViewDelegate, ImageContainerViewDelegate, TextContainerViewDelegate, TextEditorPanelContainerViewControllerDelegate, EditorPanelContainerViewControllerDelegate>
 
+@property (strong, nonatomic) CanvasView *canvas;
 @property (nonatomic, strong) GenericContainerView *currentSelectedContent;
 @property (nonatomic, weak) id<SlidesEditingViewControllerDelegate> delegate;
 @property (nonatomic, strong) NSMutableDictionary *slideAttributes;
@@ -32,8 +33,6 @@
 - (void) resignPreviousFirstResponderExceptForContainer:(GenericContainerView *) container;
 - (void) addContentViewToCanvas:(GenericContainerView *) content;
 - (void) removeCurrentContentViewFromCanvas;
-- (CanvasView *) canvas;
-- (void) updateCanvasWithSlide:(NSMutableDictionary *)slide;
 - (void) saveSlideAttributes;
 @end
 

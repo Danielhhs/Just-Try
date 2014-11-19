@@ -14,6 +14,9 @@
 - (void) slideDidAddAtIndex:(NSInteger)index fromSlidesThumbnailViewController:(SlidesThumbnailViewController *)thumbnailController;
 - (void) slideThumbnailController:(SlidesThumbnailViewController *) thumbnailController
             didSelectSlideAtIndex:(NSInteger) index;
+- (void) slideThumbnailController:(SlidesThumbnailViewController *) controller
+             didSwtichCellAtIndex:(NSInteger) fromIndex
+                          toIndex:(NSInteger) toIndex;
 @end
 
 @interface SlidesThumbnailViewController : UIViewController

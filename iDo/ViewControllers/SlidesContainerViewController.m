@@ -26,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *redoButton;
 @property (nonatomic) NSInteger currentSelectSlideIndex;
 @property (nonatomic) CGFloat keyboardOriginY;
+@property (nonatomic, strong) NSMutableArray *slideViews;
+@property (nonatomic, strong) NSMutableArray *slideAttributes;
 @end
 
 @implementation SlidesContainerViewController
@@ -39,8 +41,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardHideNotification:) name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void) loadAllSlideViews
+{
+    self.slideViews = [NSMutableArray array];
+    NSArray *slides = self.proposalAttributes[[KeyConstants proposalSlidesKey]];
+    for (NSDictionary *slide in slides) {
+        CanvasView *slideContent = [[CanvasView alloc] initWithAttributes:slide delegate:self.editorViewController contentDelegate:self.editorViewController];
+        [self.slideViews addObject:slideContent];
+    }
 }
 
 - (void) viewWillDisappear:(BOOL)animated
@@ -70,11 +78,19 @@
 - (void) setProposalAttributes:(NSMutableDictionary *)proposalAttributes
 {
     _proposalAttributes = proposalAttributes;
+    [self loadAllSlideViews];
     [[SlideThumbnailsManager sharedManager] setupThumbnailsWithProposalAttributes:proposalAttributes];
     [[SlideThumbnailsManager sharedManager] setSlideThumbnailControllerDelegate:self];
-    NSArray *slides = self.proposalAttributes[[KeyConstants proposalSlidesKey]];
+    self.slideAttributes = self.proposalAttributes[[KeyConstants proposalSlidesKey]];
     self.currentSelectSlideIndex = [self.proposalAttributes[[KeyConstants proposalCurrentSelectedSlideKey]] integerValue];
-    self.editorViewController.slideAttributes = [slides lastObject];
+}
+
+- (void) setCurrentSelectSlideIndex:(NSInteger)currentSelectSlideIndex
+{
+    _currentSelectSlideIndex = currentSelectSlideIndex;
+    [[SlideThumbnailsManager sharedManager] selectSlideAtIndex:self.currentSelectSlideIndex];
+    self.editorViewController.slideAttributes = [self.slideAttributes objectAtIndex:self.currentSelectSlideIndex];
+    self.editorViewController.canvas = [self.slideViews objectAtIndex:self.currentSelectSlideIndex];
 }
 
 #pragma mark - Add Content Views
@@ -211,19 +227,27 @@
 - (void) slideDidAddAtIndex:(NSInteger)index fromSlidesThumbnailViewController:(SlidesThumbnailViewController *)thumbnailController
 {
     [[ProposalAttributesManager sharedManager] addNewSlideToProposal:self.proposalAttributes atIndex:index];
+    [self.slideViews insertObject:[[CanvasView alloc] initWithAttributes:[DefaultValueGenerator defaultSlideAttributes] delegate:self.editorViewController contentDelegate:self.editorViewController] atIndex:index];
     [[SlideThumbnailsManager sharedManager] setupThumbnailsWithProposalAttributes:self.proposalAttributes];
-    [[SlideThumbnailsManager sharedManager] selectSlideAtIndex:index];
     self.currentSelectSlideIndex = index;
-    NSArray *slides = self.proposalAttributes[[KeyConstants proposalSlidesKey]];
-    [self.editorViewController updateCanvasWithSlide:slides[index]];
 }
 
 - (void) slideThumbnailController:(SlidesThumbnailViewController *)thumbnailController didSelectSlideAtIndex:(NSInteger)index
 {
     [self.editorViewController saveSlideAttributes];
-    NSArray *slides = [self.proposalAttributes objectForKey:[KeyConstants proposalSlidesKey]];
     self.currentSelectSlideIndex = index;
-    [self.editorViewController updateCanvasWithSlide:slides[index]];
+}
+
+- (void) slideThumbnailController:(SlidesThumbnailViewController *)controller didSwtichCellAtIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex
+{
+    CanvasView *selectedSlide = self.slideViews[fromIndex];
+    [self.slideViews removeObject:selectedSlide];
+    [self.slideViews insertObject:selectedSlide atIndex:toIndex];
+    NSMutableDictionary *selectedSlideAttributes = self.slideAttributes[fromIndex];
+    [self.slideAttributes removeObject:selectedSlideAttributes];
+    [self.slideAttributes insertObject:selectedSlideAttributes atIndex:toIndex];
+    self.currentSelectSlideIndex = toIndex;
+    [[SlideThumbnailsManager sharedManager] setupThumbnailsWithProposalAttributes:self.proposalAttributes];
 }
 
 @end

@@ -120,9 +120,9 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
 
 - (void) thumbnailCellDidFinishMoving:(ThumbnailCollectionViewCell *)cell
 {
-    NSMutableDictionary *selectedSlide = self.slides[self.originalIndex];
-    [self.slides removeObject:selectedSlide];
-    [self.slides insertObject:selectedSlide atIndex:self.toIndex];
+    if (self.originalIndex != self.toIndex) {
+        [self.delegate slideThumbnailController:self didSwtichCellAtIndex:self.originalIndex toIndex:self.toIndex];
+    }
     [UIView animateWithDuration:0.2 animations:^{
         [self.thumbnailsCollectionView reloadData];
     } completion:^(BOOL finished) {
