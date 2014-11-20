@@ -19,6 +19,7 @@
 
 @property (nonatomic, strong) UIImage *background;
 @property (nonatomic, weak) id<CanvasViewDelegate> delegate;
+@property (nonatomic) NSInteger index;
 
 - (instancetype) initWithAttributes:(NSDictionary *) attributes
                            delegate:(id<CanvasViewDelegate>) delegate

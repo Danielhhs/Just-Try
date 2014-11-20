@@ -51,8 +51,11 @@
 {
     self.slideViews = [NSMutableArray array];
     NSArray *slides = self.proposalAttributes[[KeyConstants proposalSlidesKey]];
+    NSInteger i = 0;
     for (NSDictionary *slide in slides) {
         CanvasView *slideContent = [[CanvasView alloc] initWithAttributes:slide delegate:self.editorViewController contentDelegate:self.editorViewController];
+        slideContent.index = i;
+        i++;
         [self.slideViews addObject:slideContent];
     }
 }
@@ -181,8 +184,7 @@
 - (void) deleteCurrentSelectedContent
 {
     if (self.editorViewController.currentSelectedContent) {
-        SimpleOperation *deleteOperation = [[SimpleOperation alloc] initWithTargets:@[self.editorViewController.currentSelectedContent] key:[KeyConstants deleteKey] fromValue:self.editorViewController.currentSelectedContent];
-        deleteOperation.toValue = self.editorViewController.canvas;
+        SimpleOperation *deleteOperation = [[SimpleOperation alloc] initWithTargets:@[self.editorViewController.currentSelectedContent] key:[KeyConstants deleteKey] fromValue:self.editorViewController.canvas];
         [[UndoManager sharedManager] pushOperation:deleteOperation];
         [self.editorViewController removeCurrentContentViewFromCanvas];
     }
@@ -209,7 +211,7 @@
 {
     [self enableUndo];
     [self disableRedo];
-    [[SlideThumbnailsManager sharedManager] updateSlideSnapshotIfNeccessary];
+    [[SlideThumbnailsManager sharedManager] updateSlideSnapshotForItemAtIndex:self.currentSelectSlideIndex];
 }
 
 - (void) adjustCanvasPositionForContentBottom:(CGFloat) contentBottom
@@ -223,6 +225,15 @@
 
 - (void) contentViewDidBecomeFirstResponder:(GenericContainerView *)content
 {
+}
+
+- (void) contentView:(GenericContainerView *)content willBeAddedToView:(UIView *)canvas
+{
+    if ([canvas isKindOfClass:[CanvasView class]]) {
+        CanvasView *canvasView = (CanvasView *) canvas;
+        NSInteger index = [self.slideViews indexOfObject:canvasView];
+        self.currentSelectSlideIndex = index;
+    }
 }
 
 - (void) allContentViewDidResignFirstResponder

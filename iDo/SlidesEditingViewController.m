@@ -82,6 +82,11 @@
     [[UndoManager sharedManager] clearRedoStack];
 }
 
+- (void) contentView:(GenericContainerView *)content willBeAddedToView:(UIView *)canvas
+{
+    [self.delegate contentView:content willBeAddedToView:canvas];
+}
+
 - (void) contentView:(GenericContainerView *)contentView startChangingAttributes:(NSDictionary *)attribtues
 {
     [self.editMenu hide];

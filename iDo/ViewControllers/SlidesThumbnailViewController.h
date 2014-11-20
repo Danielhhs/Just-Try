@@ -25,5 +25,5 @@
 @property (nonatomic) NSInteger currentSelectedIndex;
 @property (nonatomic, weak) id<SlidesThumbnailViewControllerDelegate> delegate;
 
-- (void) reloadData;
+- (void) reloadThumbnailForItemAtIndex:(NSInteger)index;
 @end

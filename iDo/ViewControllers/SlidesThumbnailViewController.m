@@ -45,9 +45,13 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
     [self.thumbnailsCollectionView reloadData];
 }
 
-- (void) reloadData
+- (void) setCurrentSelectedIndex:(NSInteger)currentSelectedIndex
 {
-    [self.thumbnailsCollectionView reloadData];
+    UICollectionViewCell * cell = [self.thumbnailsCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:_currentSelectedIndex inSection:0]];
+    cell.selected = NO;
+    _currentSelectedIndex = currentSelectedIndex;
+    cell = [self.thumbnailsCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:currentSelectedIndex inSection:0]];
+    cell.selected = YES;
 }
 
 #pragma mark - UICollectionViewDatasource
@@ -98,6 +102,8 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
 #pragma mark - ThumbnailCollectionViewCellDelegate
 - (void) thumbnailCell:(ThumbnailCollectionViewCell *)cell didRecognizeLongPressGesture:(UILongPressGestureRecognizer *)gesture
 {
+    UICollectionViewCell *previousSelectedCell = [self.thumbnailsCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentSelectedIndex inSection:0]];
+    previousSelectedCell.selected = NO;
     NSIndexPath *indexPath = [self.thumbnailsCollectionView indexPathForCell:cell];
     self.originalIndex = indexPath.row;
     self.toIndex = indexPath.row;
@@ -133,6 +139,7 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
             self.cellMovingIndicator.hidden = YES;
             ThumbnailCollectionViewCell *thumbnailCell = (ThumbnailCollectionViewCell *) [self.thumbnailsCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.toIndex inSection:0]];
             thumbnailCell.moving = NO;
+            thumbnailCell.selected = YES;
             self.originalIndex = -1;
             self.toIndex = -1;
         }];
@@ -157,6 +164,13 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
 - (BOOL) shouldSwitchSelectedCell:(ThumbnailCollectionViewCell *) selectedCell withCell:(ThumbnailCollectionViewCell *)cell
 {
     return (cell != selectedCell) && (self.cellMovingIndicator.center.y < CGRectGetMaxY(cell.frame) && self.cellMovingIndicator.center.y > CGRectGetMinY(cell.frame));
+}
+
+- (void) reloadThumbnailForItemAtIndex:(NSInteger)index
+{
+    ThumbnailCollectionViewCell *cell = (ThumbnailCollectionViewCell *)[self.thumbnailsCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
+    NSDictionary *slide = self.slides[index];
+    cell.thumbnail.image = slide[[KeyConstants slideThumbnailKey]];
 }
 
 @end

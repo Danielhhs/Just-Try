@@ -87,10 +87,10 @@ static SlideThumbnailsManager *sharedInstance;
 }
 
 //TO-DO   Do NOT reload data every time. Just update as necessary...
-- (void) updateSlideSnapshotIfNeccessary
+- (void) updateSlideSnapshotForItemAtIndex:(NSInteger)index
 {
     if (self.thumbnailIsDisplaying) {
-        [self.slidesThumbnailController reloadData];
+        [self.slidesThumbnailController reloadThumbnailForItemAtIndex:index];
     }
 }
 

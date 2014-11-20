@@ -279,8 +279,11 @@
 {
     SimpleOperation *simpleOperation = (SimpleOperation *) operation;
     if ([simpleOperation.key isEqualToString:[KeyConstants addKey]]) {
+        GenericContainerView *content = [simpleOperation.targets lastObject];
         UIView *canvas = (UIView *)simpleOperation.toValue;
-        [canvas addSubview:[simpleOperation.targets lastObject]];
+        [self.delegate contentView:content willBeAddedToView:canvas];
+        [canvas addSubview:content];
+        [content becomeFirstResponder];
     } else if ([simpleOperation.key isEqualToString:[KeyConstants deleteKey]]) {
         [[simpleOperation.targets lastObject] removeFromSuperview];
     } else {

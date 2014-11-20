@@ -29,6 +29,8 @@ startChangingAttributes:(NSDictionary *) attribtues;
 
 - (void) frameDidChangeForContentView:(GenericContainerView *) contentView;
 
+- (void) contentView:(GenericContainerView *) content willBeAddedToView:(UIView *) canvas;
+
 @optional
 - (void) contentViewWillResignFirstResponder:(GenericContainerView *) contentView;
 @end
