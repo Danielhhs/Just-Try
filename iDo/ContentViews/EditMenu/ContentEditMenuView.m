@@ -82,21 +82,27 @@
     NSData *data = [[UIPasteboard generalPasteboard] dataForPasteboardType:PAST_BOARD_TYPE_UTI];
     NSMutableDictionary *attributes = [EditMenuHelper decodeGenericContentFromData:data];
     NSLog(@"%@ pasted", attributes);
+    GenericContainerView *pasteContent = [[GenericContainerView alloc] initWithAttributes:attributes delegate:self.triggeredContent.delegate];
+    [self.delegate editMenu:self didPasteContent:pasteContent];
 }
 
 - (void) handleCut
 {
     NSLog(@"%@ cut", [self.triggeredContent description]);
+    [self handleCopy];
+    [self.delegate editMenu:self didCutContent:self.triggeredContent];
 }
 
 - (void) handleEdit
 {
     NSLog(@"%@ editting", [self.triggeredContent description]);
+    [self.delegate editMenu:self didEditContent:self.triggeredContent];
 }
 
 - (void) handleDelete
 {
     NSLog(@"%@ deleted", [self.triggeredContent description]);
+    [self.delegate editMenu:self didDeleteContent:self.triggeredContent];
 }
 
 - (void) show

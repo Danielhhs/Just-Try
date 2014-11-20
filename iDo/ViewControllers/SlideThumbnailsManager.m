@@ -53,18 +53,20 @@ static SlideThumbnailsManager *sharedInstance;
 #pragma mark - Thumbnail Show & Hide
 - (void) showThumbnailsInViewController:(UIViewController *)controller
 {
-    [controller addChildViewController:self.slidesThumbnailController];
-    self.slidesThumbnailController.view.frame = [self thumbnailControllerFrame];
-    self.slidesThumbnailController.view.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -1 * [DrawingConstants slidesThumbnailWidth], 0);
-    [controller.view addSubview:self.slidesThumbnailController.view];
-    [self.slidesThumbnailController didMoveToParentViewController:controller];
-    self.thumbnailIsDisplaying = YES;
-    [UIView animateWithDuration:[DrawingConstants counterGoldenRatio] animations:^{
-        self.slidesThumbnailController.view.transform = CGAffineTransformIdentity;
-        if ([controller isKindOfClass:[SlidesContainerViewController class]]) {
-            [((SlidesContainerViewController *) controller) adjustCanvasSizeAndPosition];
-        }
-    }];
+    if (!self.thumbnailIsDisplaying) {
+        [controller addChildViewController:self.slidesThumbnailController];
+        self.slidesThumbnailController.view.frame = [self thumbnailControllerFrame];
+        self.slidesThumbnailController.view.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -1 * [DrawingConstants slidesThumbnailWidth], 0);
+        [controller.view addSubview:self.slidesThumbnailController.view];
+        [self.slidesThumbnailController didMoveToParentViewController:controller];
+        self.thumbnailIsDisplaying = YES;
+        [UIView animateWithDuration:[DrawingConstants counterGoldenRatio] animations:^{
+            self.slidesThumbnailController.view.transform = CGAffineTransformIdentity;
+            if ([controller isKindOfClass:[SlidesContainerViewController class]]) {
+                [((SlidesContainerViewController *) controller) adjustCanvasSizeAndPosition];
+            }
+        }];
+    }
 }
 
 - (void) hideThumnailsFromViewController:(UIViewController *)controller

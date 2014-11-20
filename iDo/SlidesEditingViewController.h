@@ -12,6 +12,7 @@
 #import "ImageContainerView.h"
 #import "TextContainerView.h"
 #import "CanvasView.h"
+#import "ContentEditMenuView.h"
 
 @class SlidesEditingViewController;
 @protocol SlidesEditingViewControllerDelegate <NSObject>
@@ -26,6 +27,7 @@
 @interface SlidesEditingViewController : UIViewController<CanvasViewDelegate, ImageContainerViewDelegate, TextContainerViewDelegate, TextEditorPanelContainerViewControllerDelegate, EditorPanelContainerViewControllerDelegate>
 
 @property (strong, nonatomic) CanvasView *canvas;
+@property (nonatomic, weak) ContentEditMenuView *editMenu;
 @property (nonatomic, strong) GenericContainerView *currentSelectedContent;
 @property (nonatomic, weak) id<SlidesEditingViewControllerDelegate> delegate;
 @property (nonatomic, strong) NSMutableDictionary *slideAttributes;
