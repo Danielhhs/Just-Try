@@ -45,7 +45,6 @@
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
         [self.delegate thumbnailCell:self didMoveWithLongPressGesture:gesture];
     } else if (gesture.state == UIGestureRecognizerStateCancelled || gesture.state == UIGestureRecognizerStateEnded) {
-        self.moving = NO;
         [self.delegate thumbnailCellDidFinishMoving:self];
     }
 }

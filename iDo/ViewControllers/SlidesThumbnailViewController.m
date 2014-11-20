@@ -25,7 +25,7 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
 - (void) setSlides:(NSMutableArray *)slides
 {
     _slides = slides;
-    [self.thumbnailsCollectionView reloadData];
+//    [self.thumbnailsCollectionView reloadData];
 }
 
 - (void) viewDidLoad
@@ -76,11 +76,9 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
         UIImage *image = slide[[KeyConstants slideThumbnailKey]];
         thumbnailCell.thumbnail.image = image;
         thumbnailCell.delegate = self;
+        thumbnailCell.index = indexPath.row;
         if (indexPath.row == self.currentSelectedIndex) {
             cell.selected = YES;
-        }
-        if (indexPath.row == self.toIndex) {
-            thumbnailCell.moving = YES;
         }
     }
     return cell;
@@ -126,20 +124,16 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
 
 - (void) thumbnailCellDidFinishMoving:(ThumbnailCollectionViewCell *)cell
 {
-    if (self.originalIndex != self.toIndex) {
-        [self.delegate slideThumbnailController:self didSwtichCellAtIndex:self.originalIndex toIndex:self.toIndex];
-    }
-    [UIView animateWithDuration:0.2 animations:^{
-        [self.thumbnailsCollectionView reloadData];
+    [UIView animateWithDuration:0.372 animations:^{
+        self.cellMovingIndicator.center = [self.thumbnailsCollectionView convertPoint:cell.thumbnail.center fromView:cell];
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.372 animations:^{
-            self.cellMovingIndicator.center = [self.thumbnailsCollectionView convertPoint:cell.thumbnail.center fromView:cell];
+        [UIView animateWithDuration:0.1 animations:^{
+            [self.delegate slideThumbnailController:self didSwtichCellAtIndex:self.originalIndex toIndex:self.toIndex];
+            [self.thumbnailsCollectionView reloadData];
         } completion:^(BOOL finished) {
             self.cellMovingIndicator.moving = NO;
             self.cellMovingIndicator.hidden = YES;
-            ThumbnailCollectionViewCell *thumbnailCell = (ThumbnailCollectionViewCell *) [self.thumbnailsCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.toIndex inSection:0]];
-            thumbnailCell.moving = NO;
-            thumbnailCell.selected = YES;
+            cell.moving = NO;
             self.originalIndex = -1;
             self.toIndex = -1;
         }];
@@ -150,7 +144,9 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
 {
     for (ThumbnailCollectionViewCell *visibleCell in self.thumbnailsCollectionView.visibleCells) {
         if ([self shouldSwitchSelectedCell:cell withCell:visibleCell]) {
-            self.toIndex = [self.thumbnailsCollectionView indexPathForCell:visibleCell].row;
+            self.toIndex = visibleCell.index;
+            visibleCell.index = cell.index;
+            cell.index = self.toIndex;
             [UIView animateWithDuration:0.618 animations:^{
                 CGRect tempFrame = visibleCell.frame;
                 visibleCell.frame = cell.frame;

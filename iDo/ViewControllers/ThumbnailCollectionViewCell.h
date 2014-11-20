@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnail;
 @property (weak, nonatomic) IBOutlet UIView *selectedIndicator;
 @property (weak, nonatomic) IBOutlet UILabel *indexLabel;
+@property (nonatomic) NSInteger index;
 @property (nonatomic) BOOL moving;
 @property (nonatomic, weak) id<ThumbnailCollectionViewCellDelegate> delegate;
 @end
