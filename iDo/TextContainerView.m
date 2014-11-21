@@ -267,7 +267,7 @@
         [self applyTextAttributes:@{operation.key : operation.toValue}];
         [self applyFontAttribute:@{operation.key : operation.toValue}];
     }
-    [self.delegate contentView:self didChangeAttributes:nil];
+    [self.delegate contentViewDidPerformUndoRedoOperation:self];
 }
 
 - (void) pushUnsavedOperation

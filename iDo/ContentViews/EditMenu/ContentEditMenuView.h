@@ -24,4 +24,5 @@
 @property (nonatomic, weak) id<ContentEditMenuViewDelegate> delegate;
 - (void) show;
 - (void) hide;
+- (void) update;
 @end

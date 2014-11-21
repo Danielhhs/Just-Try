@@ -235,7 +235,7 @@
 - (void) contentViewDidPerformUndoRedoOperation:(GenericContainerView *)content
 {
     self.editMenu.triggeredContent = content;
-    [self.editMenu show];
+    [self.editMenu update];
 }
 
 - (void) contentView:(GenericContainerView *)content willBeAddedToView:(UIView *)canvas

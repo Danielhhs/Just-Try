@@ -89,7 +89,7 @@
 - (void) performOperation:(SimpleOperation *)operation
 {
     [super performOperation:operation];
-    [self.delegate contentView:self didChangeAttributes:nil];
+    [self.delegate contentViewDidPerformUndoRedoOperation:self];
 }
 /*
 // Only override drawRect: if you perform custom drawing.

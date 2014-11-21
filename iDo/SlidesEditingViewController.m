@@ -93,6 +93,7 @@
 
 - (void) contentViewDidPerformUndoRedoOperation:(GenericContainerView *)content
 {
+    [self.slideAttributes setValue:[self.canvas snapshot] forKey:[KeyConstants slideThumbnailKey]];
     [self.delegate contentViewDidPerformUndoRedoOperation:content];
 }
 
