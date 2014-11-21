@@ -31,6 +31,10 @@ startChangingAttributes:(NSDictionary *) attribtues;
 
 - (void) contentView:(GenericContainerView *) content willBeAddedToView:(UIView *) canvas;
 
+- (void) contentView:(GenericContainerView *) content didRemoveFromView:(UIView *) canvas;
+
+- (void) contentViewDidPerformUndoRedoOperation:(GenericContainerView *) content;
+
 @optional
 - (void) contentViewWillResignFirstResponder:(GenericContainerView *) contentView;
 @end

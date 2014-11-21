@@ -79,12 +79,21 @@
     }
     [self.slideAttributes setValue:[self.canvas snapshot] forKey:[KeyConstants slideThumbnailKey]];
     [self.delegate contentDidChangeFromEditingController:self];
-    [[UndoManager sharedManager] clearRedoStack];
 }
 
 - (void) contentView:(GenericContainerView *)content willBeAddedToView:(UIView *)canvas
 {
     [self.delegate contentView:content willBeAddedToView:canvas];
+}
+
+- (void) contentView:(GenericContainerView *)content didRemoveFromView:(UIView *)canvas
+{
+    [self.delegate contentView:content didRemoveFromView:canvas];
+}
+
+- (void) contentViewDidPerformUndoRedoOperation:(GenericContainerView *)content
+{
+    [self.delegate contentViewDidPerformUndoRedoOperation:content];
 }
 
 - (void) contentView:(GenericContainerView *)contentView startChangingAttributes:(NSDictionary *)attribtues

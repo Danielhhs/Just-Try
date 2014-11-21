@@ -22,12 +22,6 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
 
 @implementation SlidesThumbnailViewController
 
-- (void) setSlides:(NSMutableArray *)slides
-{
-    _slides = slides;
-//    [self.thumbnailsCollectionView reloadData];
-}
-
 - (void) viewDidLoad
 {
     [super viewDidLoad];

@@ -122,6 +122,7 @@
     SimpleOperation *addOperation = [[SimpleOperation alloc] initWithTargets:@[content] key:[KeyConstants addKey] fromValue:nil];
     addOperation.toValue = self.editorViewController.canvas;
     [[UndoManager sharedManager] pushOperation:addOperation];
+    [[SlideThumbnailsManager sharedManager] updateSlideSnapshotForItemAtIndex:self.currentSelectSlideIndex];
 }
 
 #pragma mark - Handle Keyboard Event
@@ -223,8 +224,18 @@
     }
 }
 
-- (void) contentViewDidBecomeFirstResponder:(GenericContainerView *)content
+- (void) contentView:(GenericContainerView *)content didRemoveFromView:(UIView *)canvas
 {
+    [self.editMenu hide];
+}
+
+- (void) contentViewDidBecomeFirstResponder:(GenericContainerView *)content
+{}
+
+- (void) contentViewDidPerformUndoRedoOperation:(GenericContainerView *)content
+{
+    self.editMenu.triggeredContent = content;
+    [self.editMenu show];
 }
 
 - (void) contentView:(GenericContainerView *)content willBeAddedToView:(UIView *)canvas

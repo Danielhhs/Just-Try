@@ -148,11 +148,6 @@
     return YES;
 }
 
-- (void) textViewDidEndEditing:(UITextView *)textView
-{
-
-}
-
 - (void) createTextOperationAndPushToUndoManager
 {
     if (![self.textView.attributedText isEqualToAttributedString:self.lastAttrText]) {
@@ -206,8 +201,7 @@
 - (CGRect) boundsFromTextViewBounds:(CGRect) textViewBounds
 {
     CGRect bounds;
-    bounds.origin.x = 0;
-    bounds.origin.y = 0;
+    bounds.origin = CGPointMake(0, 0);
     bounds.size.width = textViewBounds.size.width + 2 * CONTROL_POINT_SIZE_HALF + 2 * CONTROL_POINT_RADIUS;
     bounds.size.height = 2 * CONTROL_POINT_SIZE_HALF + textViewBounds.size.height + 2 * CONTROL_POINT_RADIUS;
     return bounds;
@@ -269,12 +263,16 @@
 - (void) performOperation:(SimpleOperation *)operation
 {
     [super performOperation:operation];
-    [self applyTextAttributes:@{operation.key : operation.toValue}];
-    [self applyFontAttribute:@{operation.key : operation.toValue}];
+    if (operation.toValue) {
+        [self applyTextAttributes:@{operation.key : operation.toValue}];
+        [self applyFontAttribute:@{operation.key : operation.toValue}];
+    }
+    [self.delegate contentView:self didChangeAttributes:nil];
 }
 
 - (void) pushUnsavedOperation
 {
+    [self.textView resignFirstResponder];
     [self createTextOperationAndPushToUndoManager];
 }
 @end

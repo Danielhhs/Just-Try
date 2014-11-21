@@ -270,9 +270,7 @@
 }
 
 - (void) pushUnsavedOperation
-{
-    
-}
+{}
 
 #pragma mark - OperationTarget
 - (void) performOperation:(Operation *)operation
@@ -285,13 +283,17 @@
         [canvas addSubview:content];
         [content becomeFirstResponder];
     } else if ([simpleOperation.key isEqualToString:[KeyConstants deleteKey]]) {
-        [[simpleOperation.targets lastObject] removeFromSuperview];
+        GenericContainerView *content = [simpleOperation.targets lastObject];
+        UIView *canvas = (UIView *)simpleOperation.toValue;
+        [content removeFromSuperview];
+        [self.delegate contentView:content didRemoveFromView:canvas];
     } else {
         NSDictionary *attibutes = @{simpleOperation.key : simpleOperation.toValue};
         [self becomeFirstResponder];
         [GenericContainerViewHelper mergeChangedAttributes:attibutes withFullAttributes:self.fullAttributes];
         [GenericContainerViewHelper applyUndoAttribute:attibutes toContainer:self];
     }
+    [self.delegate contentViewDidPerformUndoRedoOperation:self];
 }
 
 @end
