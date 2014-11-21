@@ -69,7 +69,6 @@
     self.editMenu.triggeredContent = contentView;
     [self.editMenu show];
     [self.view bringSubviewToFront:self.editMenu];
-    [self.delegate contentViewDidBecomeFirstResponder:contentView];
 }
 
 - (void) contentView:(GenericContainerView *)contentView didChangeAttributes:(NSDictionary *)attributes
@@ -210,6 +209,7 @@
 #pragma mark - Add & Remove Contents
 - (void) addContentViewToCanvas:(GenericContainerView *)content
 {
+    content.delegate = self;
     [self.canvas addSubview:content];
     content.center = [self canvasCenter];
     [content becomeFirstResponder];

@@ -8,7 +8,6 @@
 
 #import "SlidesContainerViewController.h"
 #import "SlideThumbnailsManager.h"
-#import "UndoManager.h"
 #import "SimpleOperation.h"
 #import "DefaultValueGenerator.h"
 #import "EditorPanelManager.h"
@@ -19,17 +18,17 @@
 #import "CanvasAdjustmentHelper.h"
 #import "ProposalAttributesManager.h"
 #import "ContentEditMenuView.h"
+#import "SlideEditingToolbarViewController.h"
 
 #define GAP_BETWEEN_VIEWS 20.f
 
-@interface SlidesContainerViewController ()<UndoManagerDelegate, SlidesEditingViewControllerDelegate, SlidesThumbnailViewControllerDelegate, ContentEditMenuViewDelegate>
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *undoButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *redoButton;
+@interface SlidesContainerViewController ()<SlidesEditingViewControllerDelegate, SlidesThumbnailViewControllerDelegate, ContentEditMenuViewDelegate, SlideEditingToolbarDelegate>
 @property (nonatomic) NSInteger currentSelectSlideIndex;
 @property (nonatomic) CGFloat keyboardOriginY;
 @property (nonatomic, strong) NSMutableArray *slideViews;
 @property (nonatomic, strong) NSMutableArray *slideAttributes;
 @property (nonatomic, strong) ContentEditMenuView *editMenu;
+@property (nonatomic, strong) SlideEditingToolbarViewController *toolbar;
 @end
 
 @implementation SlidesContainerViewController
@@ -37,8 +36,9 @@
 #pragma mark - Memory Management
 - (void) awakeFromNib
 {
-    [[UndoManager sharedManager] setDelegate:self];
+    [self setupToolbarViewController];
     [self setupEditorViewController];
+    [self.view bringSubviewToFront:self.toolbar.view];
     self.editMenu = [[ContentEditMenuView alloc] initWithFrame:CGRectZero];
     self.editMenu.delegate = self;
     [self.editorViewController.view addSubview:self.editMenu];
@@ -51,11 +51,8 @@
 {
     self.slideViews = [NSMutableArray array];
     NSArray *slides = self.proposalAttributes[[KeyConstants proposalSlidesKey]];
-    NSInteger i = 0;
     for (NSDictionary *slide in slides) {
         CanvasView *slideContent = [[CanvasView alloc] initWithAttributes:slide delegate:self.editorViewController contentDelegate:self.editorViewController];
-        slideContent.index = i;
-        i++;
         [self.slideViews addObject:slideContent];
     }
 }
@@ -77,6 +74,16 @@
     [self.view addSubview:self.editorViewController.view];
     [self.editorViewController didMoveToParentViewController:self];
     [self adjustCanvasSizeAndPosition];
+}
+
+- (void) setupToolbarViewController
+{
+    self.toolbar = [[UIStoryboard storyboardWithName:@"UtilViewControllers" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"SlideEditingToolbarViewController"];
+    self.toolbar.delegate = self;
+    [self addChildViewController:self.toolbar];
+    self.toolbar.view.frame = CGRectMake(0, 0, 1024, 44);
+    [self.view addSubview:self.toolbar.view];
+    [self.toolbar didMoveToParentViewController:self];
 }
 
 - (void) dealloc
@@ -102,29 +109,6 @@
     self.editorViewController.canvas = [self.slideViews objectAtIndex:self.currentSelectSlideIndex];
 }
 
-#pragma mark - Add Content Views
-
-- (IBAction)addImage:(id)sender {
-    ImageContainerView *defaultImage = [[ImageContainerView alloc] initWithAttributes:[DefaultValueGenerator defaultImageAttributes] delegate:self.editorViewController];
-    [self addGenericContentView:defaultImage];
-}
-
-- (IBAction)addText:(id)sender {
-    TextContainerView *defaultText = [[TextContainerView alloc] initWithAttributes:[DefaultValueGenerator defaultTextAttributes] delegate:self.editorViewController];
-    [defaultText startEditing];
-    [self addGenericContentView:defaultText];
-}
-
-- (void) addGenericContentView:(GenericContainerView *) content
-{
-    [content becomeFirstResponder];
-    [self.editorViewController addContentViewToCanvas:content];
-    SimpleOperation *addOperation = [[SimpleOperation alloc] initWithTargets:@[content] key:[KeyConstants addKey] fromValue:nil];
-    addOperation.toValue = self.editorViewController.canvas;
-    [[UndoManager sharedManager] pushOperation:addOperation];
-    [[SlideThumbnailsManager sharedManager] updateSlideSnapshotForItemAtIndex:self.currentSelectSlideIndex];
-}
-
 #pragma mark - Handle Keyboard Event
 - (void) handleKeyboardShowNotification:(NSNotification *)notification
 {
@@ -146,72 +130,11 @@
     [CanvasAdjustmentHelper adjustCanvasSizeAndPosition:self.editorViewController.view];
 }
 
-#pragma mark - Undo & Redo
-- (IBAction)undo:(UIBarButtonItem *)sender {
-    [self.editorViewController.currentSelectedContent pushUnsavedOperation];
-    [[UndoManager sharedManager] undo];
-}
-
-- (IBAction)redo:(UIBarButtonItem *)sender {
-    [[UndoManager sharedManager] redo];
-}
-
-- (void) enableRedo
-{
-    self.redoButton.enabled = YES;
-}
-
-- (void) enableUndo
-{
-    self.undoButton.enabled = YES;
-}
-
-- (void) disableUndo
-{
-    self.undoButton.enabled = NO;
-}
-
-- (void) disableRedo
-{
-    self.redoButton.enabled = NO;
-}
-
-#pragma mark - Tool Bar Actions
-
-- (IBAction)trash:(id)sender {
-    [self deleteCurrentSelectedContent];
-}
-
-- (void) deleteCurrentSelectedContent
-{
-    if (self.editorViewController.currentSelectedContent) {
-        SimpleOperation *deleteOperation = [[SimpleOperation alloc] initWithTargets:@[self.editorViewController.currentSelectedContent] key:[KeyConstants deleteKey] fromValue:self.editorViewController.canvas];
-        [[UndoManager sharedManager] pushOperation:deleteOperation];
-        [self.editorViewController removeCurrentContentViewFromCanvas];
-    }
-}
-
-- (IBAction)saveProposal:(id)sender {
-    [self saveProposal];
-}
-
-- (void) saveProposal
-{
-    [self.editorViewController saveSlideAttributes];
-    [self.proposalAttributes setValue:[self.editorViewController.view snapshot] forKey:[KeyConstants proposalThumbnailKey]];
-    [self.proposalAttributes setValue:@(self.currentSelectSlideIndex) forKey:[KeyConstants proposalCurrentSelectedSlideKey]];
-    [[CoreDataManager sharedManager] saveProposalWithProposalChanges:self.proposalAttributes];
-}
-
-- (IBAction)backToProposals:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 #pragma mark - SlidesEditingViewControllerDelegate
 - (void) contentDidChangeFromEditingController:(SlidesEditingViewController *)editingController
 {
-    [self enableUndo];
-    [self disableRedo];
+    [self.toolbar enableUndo];
+    [self.toolbar disableRedo];
     [[SlideThumbnailsManager sharedManager] updateSlideSnapshotForItemAtIndex:self.currentSelectSlideIndex];
 }
 
@@ -229,13 +152,11 @@
     [self.editMenu hide];
 }
 
-- (void) contentViewDidBecomeFirstResponder:(GenericContainerView *)content
-{}
-
 - (void) contentViewDidPerformUndoRedoOperation:(GenericContainerView *)content
 {
     self.editMenu.triggeredContent = content;
     [self.editMenu update];
+    [[SlideThumbnailsManager sharedManager] updateSlideSnapshotForItemAtIndex:self.currentSelectSlideIndex];
 }
 
 - (void) contentView:(GenericContainerView *)content willBeAddedToView:(UIView *)canvas
@@ -250,14 +171,6 @@
 - (void) allContentViewDidResignFirstResponder
 {
     [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
-    [[SlideThumbnailsManager sharedManager] showThumbnailsInViewController:self];
-}
-
-#pragma mark - SliderThumbnailViewController
-- (IBAction)showSlideThumbnails:(id)sender {
-    [self.editorViewController saveSlideAttributes];
-    [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
-    [[SlideThumbnailsManager sharedManager] selectSlideAtIndex:self.currentSelectSlideIndex];
     [[SlideThumbnailsManager sharedManager] showThumbnailsInViewController:self];
 }
 
@@ -310,4 +223,49 @@
     [self addGenericContentView:content];
 }
 
+#pragma mark - SlideEditingToolbarDelegate
+- (void) toolBarViewControllerWillPerformUndoAction:(SlideEditingToolbarViewController *)controller
+{
+    [self.editorViewController.currentSelectedContent pushUnsavedOperation];
+}
+
+- (void) backToProposals
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) saveProposal
+{
+    [self.editorViewController saveSlideAttributes];
+    [self.proposalAttributes setValue:[self.editorViewController.view snapshot] forKey:[KeyConstants proposalThumbnailKey]];
+    [self.proposalAttributes setValue:@(self.currentSelectSlideIndex) forKey:[KeyConstants proposalCurrentSelectedSlideKey]];
+    [[CoreDataManager sharedManager] saveProposalWithProposalChanges:self.proposalAttributes];
+}
+
+- (void) addGenericContentView:(GenericContainerView *) content
+{
+    [content becomeFirstResponder];
+    [self.editorViewController addContentViewToCanvas:content];
+    SimpleOperation *addOperation = [[SimpleOperation alloc] initWithTargets:@[content] key:[KeyConstants addKey] fromValue:nil];
+    addOperation.toValue = self.editorViewController.canvas;
+    [[UndoManager sharedManager] pushOperation:addOperation];
+    [[SlideThumbnailsManager sharedManager] updateSlideSnapshotForItemAtIndex:self.currentSelectSlideIndex];
+}
+
+- (void) deleteCurrentSelectedContent
+{
+    if (self.editorViewController.currentSelectedContent) {
+        SimpleOperation *deleteOperation = [[SimpleOperation alloc] initWithTargets:@[self.editorViewController.currentSelectedContent] key:[KeyConstants deleteKey] fromValue:self.editorViewController.canvas];
+        [[UndoManager sharedManager] pushOperation:deleteOperation];
+        [self.editorViewController removeCurrentContentViewFromCanvas];
+    }
+}
+
+- (void) showSlideThumbnails
+{
+    [self.editorViewController saveSlideAttributes];
+    [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
+    [[SlideThumbnailsManager sharedManager] selectSlideAtIndex:self.currentSelectSlideIndex];
+    [[SlideThumbnailsManager sharedManager] showThumbnailsInViewController:self];
+}
 @end

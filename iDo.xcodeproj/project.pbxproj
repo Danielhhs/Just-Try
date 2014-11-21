@@ -94,6 +94,7 @@
 		54F4C7361A033E37006A3F07 /* RotationBenchMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4C7351A033E37006A3F07 /* RotationBenchMarkView.m */; };
 		54F4C7391A0359B2006A3F07 /* RotationTooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4C7381A0359B2006A3F07 /* RotationTooltipView.m */; };
 		54F4C7521A036B63006A3F07 /* CanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4C7511A036B63006A3F07 /* CanvasView.m */; };
+		54FC6F5A1A1EEFFB00833506 /* SlideEditingToolbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FC6F591A1EEFFB00833506 /* SlideEditingToolbarViewController.m */; };
 		54FF2BC21A04DDB6002EB326 /* TextStyleEditorContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FF2BC01A04DDB6002EB326 /* TextStyleEditorContentViewController.m */; };
 		54FF2BC31A04DDB6002EB326 /* TextStyleEditorContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54FF2BC11A04DDB6002EB326 /* TextStyleEditorContentViewController.xib */; };
 /* End PBXBuildFile section */
@@ -269,6 +270,8 @@
 		54F4C7381A0359B2006A3F07 /* RotationTooltipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationTooltipView.m; path = ContentViews/Rotation/RotationTooltipView.m; sourceTree = "<group>"; };
 		54F4C7501A036B63006A3F07 /* CanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CanvasView.h; path = GenericViews/CanvasView.h; sourceTree = "<group>"; };
 		54F4C7511A036B63006A3F07 /* CanvasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CanvasView.m; path = GenericViews/CanvasView.m; sourceTree = "<group>"; };
+		54FC6F581A1EEFFB00833506 /* SlideEditingToolbarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlideEditingToolbarViewController.h; path = ViewControllers/SlideEditingToolbarViewController.h; sourceTree = "<group>"; };
+		54FC6F591A1EEFFB00833506 /* SlideEditingToolbarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlideEditingToolbarViewController.m; path = ViewControllers/SlideEditingToolbarViewController.m; sourceTree = "<group>"; };
 		54FF2BBF1A04DDB6002EB326 /* TextStyleEditorContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextStyleEditorContentViewController.h; path = EditorViewControllers/TextStyleEditorContentViewController.h; sourceTree = "<group>"; };
 		54FF2BC01A04DDB6002EB326 /* TextStyleEditorContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextStyleEditorContentViewController.m; path = EditorViewControllers/TextStyleEditorContentViewController.m; sourceTree = "<group>"; };
 		54FF2BC11A04DDB6002EB326 /* TextStyleEditorContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextStyleEditorContentViewController.xib; path = EditorViewControllers/TextStyleEditorContentViewController.xib; sourceTree = "<group>"; };
@@ -668,6 +671,8 @@
 				54F0C50B1A105F2C009B4B0D /* SlidesContainerViewController.m */,
 				54D7294819ECE9B5009A0279 /* SlidesEditingViewController.h */,
 				54D7294919ECE9B5009A0279 /* SlidesEditingViewController.m */,
+				54FC6F581A1EEFFB00833506 /* SlideEditingToolbarViewController.h */,
+				54FC6F591A1EEFFB00833506 /* SlideEditingToolbarViewController.m */,
 				54F0C51A1A108A1B009B4B0D /* CanvasAdjustmentHelper.h */,
 				54F0C51B1A108A1B009B4B0D /* CanvasAdjustmentHelper.m */,
 				54F0C4DD1A0F231D009B4B0D /* Thumbnails */,
@@ -841,6 +846,7 @@
 				54D333A91A0604EE00F3D7F9 /* UndoManager.m in Sources */,
 				54F4C7521A036B63006A3F07 /* CanvasView.m in Sources */,
 				54EE547D1A122D8C00CA1AF7 /* SlideAttributesManager.m in Sources */,
+				54FC6F5A1A1EEFFB00833506 /* SlideEditingToolbarViewController.m in Sources */,
 				547DCA0D1A04CDA5004691EC /* BordersContentViewController.m in Sources */,
 				54E62D0119FDFA8A0083E0F0 /* TextFontHelper.m in Sources */,
 				549567711A05EA18006D6BAE /* CustomTapTextView.m in Sources */,
