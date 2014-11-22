@@ -275,4 +275,9 @@
     [self.textView resignFirstResponder];
     [self createTextOperationAndPushToUndoManager];
 }
+
+- (UIView *) contentView
+{
+    return self.textView;
+}
 @end

@@ -52,6 +52,10 @@
             [containerView.reflection updateReflectionWithWithReflectionHeight:reflectionHeight];
         }
     }
+    NSNumber *reflectionType = attributes[[KeyConstants reflectionTypeKey]];
+    if (reflectionType) {
+        
+    }
     NSNumber *reflectionAlpha = attributes[[KeyConstants reflectionAlphaKey]];
     if (reflectionAlpha) {
         containerView.reflection.alpha = [reflectionAlpha floatValue];
@@ -62,7 +66,11 @@
     }
     NSNumber *shadow = attributes[[KeyConstants shadowKey]];
     if (shadow) {
-        containerView.showShadow = [shadow boolValue];
+        [ShadowHelper hideShadowForGenericContainerView:containerView];
+    }
+    NSNumber *shadowType = attributes[[KeyConstants shadowTypeKey]];
+    if (shadowType) {
+        [ShadowHelper applyShadowToGenericContainerView:containerView];
     }
     NSNumber *shadowAlpha = attributes[[KeyConstants shadowAlphaKey]];
     if (shadowAlpha) {
@@ -70,7 +78,7 @@
     }
     NSNumber *shadowSize = attributes[[KeyConstants shadowSizeKey]];
     if (shadowSize) {
-        containerView.layer.shadowPath = [ShadowHelper shadowPathWithShadowAttributes:[containerView attributes]].CGPath;
+        [ShadowHelper applyShadowToGenericContainerView:containerView];
     }
     NSValue *bounds = attributes[[KeyConstants boundsKey]];
     if (bounds) {

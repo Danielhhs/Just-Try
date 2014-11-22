@@ -9,8 +9,22 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #define DEFAULT_SHADOW_DEPTH 0.5
+@class GenericContainerView;
+typedef NS_ENUM(NSInteger, ContentViewShadowType) {
+    ContentViewShadowTypeOffset = 0,
+    ContentViewShadowTypeSurrounding = 1,
+    ContentViewShadowTypeProjection = 2,
+    ContentViewShadowTypeStereo = 3
+};
 
 @interface ShadowHelper : NSObject
-+ (UIBezierPath *) shadowPathWithShadowAttributes:(NSDictionary *) attributes;
+
++ (void) applyShadowToGenericContainerView:(GenericContainerView *)container;
+
++ (void) updateShadowOpacity:(CGFloat) shadowOpacity toGenericContainerView:(GenericContainerView *) container;
+
++ (void) hideShadowForGenericContainerView:(GenericContainerView *) container;
+
++ (NSArray *) shadowTypes;
 
 @end

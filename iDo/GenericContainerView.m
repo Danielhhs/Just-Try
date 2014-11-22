@@ -48,7 +48,7 @@
     [[ControlPointManager sharedManager] layoutControlPoints];
     [self.reflection updateFrame];
     [self.rotationIndicator applyToView:self];
-    [self updateShadow];
+    [ShadowHelper applyShadowToGenericContainerView:self];
 }
 
 - (void) setCenter:(CGPoint)center
@@ -71,10 +71,6 @@
 - (void) setup
 {
     self.backgroundColor = [UIColor clearColor];
-    self.layer.shadowPath = [ShadowHelper shadowPathWithShadowAttributes:self.fullAttributes].CGPath;
-    self.layer.shadowOpacity = 0.7;
-    self.layer.shadowColor = [UIColor clearColor].CGColor;
-    self.layer.masksToBounds = NO;
     [self setupGestures];
     _rotationIndicator = [[RotationIndicatorView alloc] initWithFrame:self.frame];
     [_rotationIndicator applyToView:self];
@@ -190,21 +186,6 @@
     return self.showBorder ? [[ControlPointManager sharedManager] borderColor] : [UIColor clearColor];
 }
 
-- (void) setShowShadow:(BOOL)showShadow
-{
-    _showShadow = showShadow;
-    if (showShadow) {
-        self.layer.shadowColor = [UIColor blackColor].CGColor;
-    } else {
-        self.layer.shadowColor = [UIColor clearColor].CGColor;
-    }
-}
-
-- (void) updateShadow
-{
-    self.layer.shadowPath = [ShadowHelper shadowPathWithShadowAttributes:self.fullAttributes].CGPath;
-}
-
 #pragma mark - Other APIs
 - (CGRect) contentViewFrameFromBounds:(CGRect) bounds
 {
@@ -271,6 +252,11 @@
 
 - (void) pushUnsavedOperation
 {}
+
+- (UIView *) contentView
+{
+    return nil;
+}
 
 #pragma mark - OperationTarget
 - (void) performOperation:(Operation *)operation

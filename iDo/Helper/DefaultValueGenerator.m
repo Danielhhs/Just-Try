@@ -13,6 +13,8 @@
 #import "ControlPointManager.h"
 #import "DrawingConstants.h"
 #import "GenericContentConstants.h"
+#import "ShadowHelper.h"
+#import "ReflectionHelper.h"
 
 #define DEFAULT_BACKGROUND_IMAGE @"Canvas.png"
 #define DEFAULT_PROPOSAL_NAME @"New"
@@ -57,6 +59,8 @@
     [attributes setValue:@([DrawingConstants counterGoldenRatio]) forKey:[KeyConstants reflectionSizeKey]];
     [attributes setValue:@(NO) forKey:[KeyConstants reflectionKey]];
     [attributes setValue:@(NO) forKey:[KeyConstants shadowKey]];
+    [attributes setValue:@(ContentViewShadowTypeStereo) forKey:[KeyConstants shadowTypeKey]];
+    [attributes setValue:@(ContentViewReflectionTypeHorizontalMirror) forKey:[KeyConstants reflectionTypeKey]];
     [attributes setValue:@(1) forKey:[KeyConstants viewOpacityKey]];
     [attributes setObject:[NSValue valueWithCGAffineTransform:CGAffineTransformIdentity] forKey:[KeyConstants transformKey]];
     return attributes;

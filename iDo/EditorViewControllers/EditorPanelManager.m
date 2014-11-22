@@ -81,12 +81,12 @@ static EditorPanelManager *sharedInstance;
 
 - (ImageEditorPanelContainerViewController *) createImageEditorViewController
 {
-    return [[ImageEditorPanelContainerViewController alloc] initWithNibName:@"ImageEditorPanelContainerViewController" bundle:[NSBundle mainBundle]];
+    return [[UIStoryboard storyboardWithName:@"EditorViewControllers" bundle:nil] instantiateViewControllerWithIdentifier:@"ImageEditorPanelContainerViewController"];
 }
 
 - (TextEditorPanelContainerViewController *) createTextEditorViewController
 {
-    return [[TextEditorPanelContainerViewController alloc] initWithNibName:@"TextEditorPanelContainerViewController" bundle:[NSBundle mainBundle]];
+    return [[UIStoryboard storyboardWithName:@"EditorViewControllers" bundle:nil] instantiateViewControllerWithIdentifier:@"TextEditorPanelContainerViewController"];
 }
 
 - (void) makeCurrentEditorApplyChanges:(NSDictionary *)attributes

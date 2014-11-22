@@ -30,14 +30,15 @@
     [attributes setValue:[CoreDataHelper decodeNSData:content.bounds] forKey:[KeyConstants boundsKey]];
     [attributes setValue:content.opacity forKey:[KeyConstants viewOpacityKey]];
     [attributes setValue:content.reflection forKey:[KeyConstants reflectionKey]];
+    [attributes setValue:content.reflectionType forKey:[KeyConstants reflectionTypeKey]];
     [attributes setValue:content.reflectionAlpha forKey:[KeyConstants reflectionAlphaKey]];
     [attributes setValue:content.reflectionSize forKey:[KeyConstants reflectionSizeKey]];
     [attributes setValue:content.shadow forKey:[KeyConstants shadowKey]];
+    [attributes setValue:content.shadowType forKey:[KeyConstants shadowTypeKey]];
     [attributes setValue:content.shadowAlpha forKey:[KeyConstants shadowAlphaKey]];
     [attributes setValue:content.shadowSize forKey:[KeyConstants shadowSizeKey]];
     [attributes setValue:content.rotation forKey:[KeyConstants rotationKey]];
     [attributes setValue:[CoreDataHelper decodeNSData:content.transform] forKey:[KeyConstants transformKey]];
-    
     return attributes;
 }
 
@@ -48,9 +49,11 @@
     content.bounds = [CoreDataHelper encodeObject:attributes[[KeyConstants boundsKey]]];
     content.opacity = attributes[[KeyConstants viewOpacityKey]];
     content.reflection = attributes[[KeyConstants reflectionKey]];
+    content.reflectionType = attributes[[KeyConstants reflectionTypeKey]];
     content.reflectionAlpha = attributes[[KeyConstants reflectionAlphaKey]];
     content.reflectionSize = attributes[[KeyConstants reflectionSizeKey]];
     content.shadow = attributes[[KeyConstants shadowKey]];
+    content.shadowType = attributes[[KeyConstants shadowTypeKey]];
     content.shadowAlpha = attributes[[KeyConstants shadowAlphaKey]];
     content.shadowSize = attributes[[KeyConstants shadowSizeKey]];
     content.rotation = attributes[[KeyConstants rotationKey]];

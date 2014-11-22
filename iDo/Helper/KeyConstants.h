@@ -27,7 +27,9 @@
 #pragma mark - Generic Content
 + (NSString *) rotationKey;
 + (NSString *) reflectionKey;
++ (NSString *) reflectionTypeKey;
 + (NSString *) shadowKey;
++ (NSString *) shadowTypeKey;
 + (NSString *) reflectionAlphaKey;
 + (NSString *) reflectionSizeKey;
 + (NSString *) shadowAlphaKey;

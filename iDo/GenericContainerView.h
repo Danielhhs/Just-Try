@@ -42,7 +42,6 @@ startChangingAttributes:(NSDictionary *) attribtues;
 @interface GenericContainerView : UIView<OperationTarget>
 
 @property (nonatomic, strong) ReflectionView *reflection;
-@property (nonatomic) BOOL showShadow;
 @property (nonatomic, weak) id<ContentContainerViewDelegate> delegate;
 
 - (NSMutableDictionary *) attributes;
@@ -70,4 +69,6 @@ startChangingAttributes:(NSDictionary *) attribtues;
 - (void) hideRotationIndicator;
 
 - (void) pushUnsavedOperation;
+
+- (UIView *) contentView;
 @end

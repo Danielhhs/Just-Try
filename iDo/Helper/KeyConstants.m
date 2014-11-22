@@ -73,9 +73,19 @@
     return @"REFLECTION";
 }
 
++ (NSString *) reflectionTypeKey
+{
+    return @"REFLECITON_TYPE";
+}
+
 + (NSString *) shadowKey
 {
     return @"SHADOW";
+}
+
++ (NSString *) shadowTypeKey
+{
+    return @"SHADOW_TYPE";
 }
 
 + (NSString *) reflectionAlphaKey
@@ -120,7 +130,6 @@
 {
     return @"CONTENT_TYPE";
 }
-
 
 #pragma mark - Text Content
 + (NSString *) fontKey

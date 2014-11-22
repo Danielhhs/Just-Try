@@ -40,13 +40,13 @@
 
 - (void) setupImageBasicEditor
 {
-    self.basicEditor = [[BasicImageEditorContentViewController alloc] initWithNibName:@"BasicImageEditorContentViewController" bundle:[NSBundle mainBundle]];
+    self.basicEditor = [[UIStoryboard storyboardWithName:@"EditorViewControllers" bundle:nil] instantiateViewControllerWithIdentifier:@"BasicImageEditorContentViewController"];
     self.basicEditor.delegate = self;
 }
 
 - (void) setupImageBorderEditor
 {
-    self.bordersEditor = [[BordersContentViewController alloc] initWithNibName:@"BordersContentViewController" bundle:[NSBundle mainBundle]];
+    self.bordersEditor = [[UIStoryboard storyboardWithName:@"EditorViewControllers" bundle:nil] instantiateViewControllerWithIdentifier:@"BordersContentViewController"];
     self.bordersEditor.delegate = self;
 }
 

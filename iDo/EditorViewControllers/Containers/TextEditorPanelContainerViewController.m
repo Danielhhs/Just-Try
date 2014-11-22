@@ -30,11 +30,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.basicEditor = [[TextBasicEditorPanelViewController alloc] initWithNibName:@"TextBasicEditorPanelViewController" bundle:[NSBundle mainBundle]];
+    self.basicEditor = [[UIStoryboard storyboardWithName:@"EditorViewControllers" bundle:nil] instantiateViewControllerWithIdentifier:@"TextBasicEditorPanelViewController"];
     self.basicEditor.delegate = self;
-    self.styleEditor = [[TextStyleEditorContentViewController alloc] initWithNibName:@"TextStyleEditorContentViewController" bundle:[NSBundle mainBundle]];
+    self.styleEditor = [[UIStoryboard storyboardWithName:@"EditorViewControllers" bundle:nil] instantiateViewControllerWithIdentifier:@"TextStyleEditorContentViewController"];
     self.styleEditor.delegate = self;
-    self.borderEditor = [[BordersContentViewController alloc] initWithNibName:@"TextStyleEditorContentViewController" bundle:[NSBundle mainBundle]];
+    self.borderEditor = [[UIStoryboard storyboardWithName:@"EditorViewControllers" bundle:nil] instantiateViewControllerWithIdentifier:@"TextStyleEditorContentViewController"];
     self.borderEditor.delegate = self;
     [self selectBasicEditor];
 }

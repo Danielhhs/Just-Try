@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6244" systemVersion="13E28" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Animation" representedClassName="Animation" syncable="YES">
         <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -22,10 +22,12 @@
         <attribute name="reflection" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="reflectionAlpha" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="reflectionSize" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="reflectionType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="rotation" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="shadow" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="shadowAlpha" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="shadowSize" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="shadowType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="transform" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="unique" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="animations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Animation" inverseName="container" inverseEntity="Animation" syncable="YES"/>
@@ -65,7 +67,7 @@
     <elements>
         <element name="Animation" positionX="-2943" positionY="-439" width="128" height="118"/>
         <element name="Game" positionX="-3152" positionY="-826" width="128" height="105"/>
-        <element name="GenericContent" positionX="-3015" positionY="-709" width="128" height="285"/>
+        <element name="GenericContent" positionX="-3015" positionY="-709" width="128" height="313"/>
         <element name="ImageContent" positionX="-2799" positionY="-666" width="128" height="73"/>
         <element name="Proposal" positionX="-3501" positionY="-769" width="128" height="135"/>
         <element name="Slide" positionX="-3222" positionY="-639" width="128" height="148"/>

@@ -91,6 +91,11 @@
     [super performOperation:operation];
     [self.delegate contentViewDidPerformUndoRedoOperation:self];
 }
+
+- (UIView *)contentView
+{
+    return self.imageContent;
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
