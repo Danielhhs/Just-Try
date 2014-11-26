@@ -102,4 +102,10 @@ static UndoManager *sharedInstance = nil;
     }
 }
 
+- (void) clearUndoStack
+{
+    self.undoStack = [NSMutableArray array];
+    self.cursor = 0;
+}
+
 @end

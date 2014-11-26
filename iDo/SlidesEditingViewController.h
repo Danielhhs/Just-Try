@@ -19,7 +19,7 @@
 
 - (void) adjustCanvasPositionForContentBottom:(CGFloat) contentBottom;
 - (void) contentDidChangeFromEditingController:(SlidesEditingViewController *)editingController;
-- (void) contentView:(GenericContainerView *)content willBeAddedToView:(UIView *)canvas;
+- (void) contentView:(GenericContainerView *)content willBeModifiedInCanvas:(CanvasView *)canvas;
 - (void) contentViewDidPerformUndoRedoOperation:(GenericContainerView *) content;
 - (void) contentView:(GenericContainerView *)content didRemoveFromView:(UIView *)canvas;
 - (void) allContentViewDidResignFirstResponder;

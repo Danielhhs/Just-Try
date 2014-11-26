@@ -30,6 +30,7 @@
     NSArray *contents = attributes[[KeyConstants slideContentsKey]];
     for (NSMutableDictionary *content in contents) {
         GenericContainerView *contentView = [GenericContainerViewHelper contentViewFromAttributes:content delegate:self.contentDelegate];
+        contentView.canvas = self;
         [self addSubview:contentView];
     }
     

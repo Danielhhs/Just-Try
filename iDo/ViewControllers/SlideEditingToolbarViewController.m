@@ -23,6 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[UndoManager sharedManager] setDelegate:self];
+    [self disableRedo];
+    [self disableUndo];
     // Do any additional setup after loading the view.
 }
 

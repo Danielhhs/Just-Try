@@ -45,6 +45,7 @@
     self.editorViewController.editMenu = self.editMenu;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardShowNotification:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardHideNotification:) name:UIKeyboardWillHideNotification object:nil];
+    [[UndoManager sharedManager] clearUndoStack];
 }
 
 - (void) loadAllSlideViews
@@ -159,11 +160,10 @@
     [[SlideThumbnailsManager sharedManager] updateSlideSnapshotForItemAtIndex:self.currentSelectSlideIndex];
 }
 
-- (void) contentView:(GenericContainerView *)content willBeAddedToView:(UIView *)canvas
+- (void) contentView:(GenericContainerView *)content willBeModifiedInCanvas:(CanvasView *)canvas
 {
     if ([canvas isKindOfClass:[CanvasView class]]) {
-        CanvasView *canvasView = (CanvasView *) canvas;
-        NSInteger index = [self.slideViews indexOfObject:canvasView];
+        NSInteger index = [self.slideViews indexOfObject:canvas];
         self.currentSelectSlideIndex = index;
     }
 }

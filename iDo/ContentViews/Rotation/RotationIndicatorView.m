@@ -68,19 +68,18 @@
 - (void) applyToView:(UIView *) view
 {
     self.frame = CGRectInset(view.bounds, -ROTATION_INDICATOR_OUTAGE, -ROTATION_INDICATOR_OUTAGE);
-    self.hidden = YES;
 }
 
 - (void) update
 {
-    self.hidden = NO;
     self.benchMark.transform = CGAffineTransformInvert(self.superview.transform);
+    self.tooltip.frame = [self tooltipFrame];
     self.tooltip.toolTipText = [NSString stringWithFormat:@"%3.3g∘", [self rotationDegree]];
 }
 
 - (void) hide
 {
-    self.hidden = YES;
+    [self removeFromSuperview];
 }
 
 #pragma mark - Public APIs

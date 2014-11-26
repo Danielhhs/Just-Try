@@ -105,6 +105,8 @@
     [ShadowHelper hideShadowForGenericContainerView:container];
     BOOL showShadow = [attributes[[KeyConstants shadowKey]] boolValue];
     if (!showShadow) {
+        [container.shadow removeFromSuperview];
+        container.shadow = nil;
         return;
     }
     UIView *content = [container contentView];

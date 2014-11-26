@@ -9,7 +9,6 @@
 #import "GenericContainerView.h"
 #import "ReflectionView.h"
 #import "ShadowHelper.h"
-#import "RotationHelper.h"
 #import "GenericContainerViewHelper.h"
 #import "KeyConstants.h"
 #import "UndoManager.h"
@@ -17,13 +16,14 @@
 #import "CompoundOperation.h"
 #import "DrawingConstants.h"
 #import "ReflectionHelper.h"
+#import "RotationHelper.h"
+#import "CanvasView.h"
 @interface GenericContainerView()
-@property (nonatomic) BOOL showBorder;;
+@property (nonatomic) BOOL currentlySelected;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) UIPanGestureRecognizer *pan;
 @property (nonatomic, strong) UIRotationGestureRecognizer *rotation;
 @property (nonatomic, strong) NSMutableDictionary *fullAttributes;
-@property (nonatomic, strong) RotationIndicatorView *rotationIndicator;
 @property (nonatomic, strong) Operation *currentOperation;
 @property (nonatomic) CGPoint originalCenter;
 @end
@@ -48,7 +48,6 @@
     [self setNeedsDisplay];
     [[ControlPointManager sharedManager] layoutControlPoints];
     [self.reflection updateFrame];
-    [self.rotationIndicator applyToView:self];
     [ShadowHelper applyShadowToGenericContainerView:self];
 }
 
@@ -66,15 +65,12 @@
     if (oldTransformStatus != newTransformStatus) {
         [self updateEditingStatus];
     }
-    [self.rotationIndicator update];
 }
 
 - (void) setup
 {
     self.backgroundColor = [UIColor clearColor];
     [self setupGestures];
-    _rotationIndicator = [[RotationIndicatorView alloc] initWithFrame:self.frame];
-    [_rotationIndicator applyToView:self];
 }
 
 - (void) awakeFromNib
@@ -119,8 +115,8 @@
 
 - (BOOL) resignFirstResponder
 {
-    self.showBorder = NO;
     self.tap.enabled = YES;
+    self.currentlySelected = NO;
     [[ControlPointManager sharedManager] removeAllControlPointsFromView:self];
     return [super resignFirstResponder];
 }
@@ -129,7 +125,7 @@
 {
     [self.delegate contentViewWillBecomFirstResponder:self];
     self.tap.enabled = NO;
-    self.showBorder = YES;
+    self.currentlySelected = YES;
     [[ControlPointManager sharedManager] addAndLayoutControlPointsInView:self];
     [self updateEditingStatus];
     return [super becomeFirstResponder];
@@ -139,7 +135,8 @@
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
         self.originalCenter = self.center;
-        [self.delegate contentView:self startChangingAttributes:nil];
+        [self.delegate contentView:self startChangingAttribute:[KeyConstants centerKey]];
+        [ShadowHelper hideShadowForGenericContainerView:self];
         [ReflectionHelper hideReflectionViewFromGenericContainerView:self];
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
         CGPoint translation = [gesture translationInView:self.superview];
@@ -161,38 +158,26 @@
         [GenericContainerViewHelper resetActualTransformWithView:self];
         NSValue *fromValue = [NSValue valueWithCGAffineTransform:self.transform];
         self.currentOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants transformKey] fromValue:fromValue];
-        [self.delegate contentView:self startChangingAttributes:nil];
+        [self.delegate contentView:self startChangingAttribute:[KeyConstants transformKey]];
+        [RotationHelper applyRotationIndicatorToView:self];
         [ShadowHelper hideShadowForGenericContainerView:self];
         [ReflectionHelper hideReflectionViewFromGenericContainerView:self];
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
         [GenericContainerViewHelper applyRotation:gesture.rotation toView:self];
+        [RotationHelper updateRotationIndicator];
         gesture.rotation = 0;
     } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
-        [self.rotationIndicator hide];
+        [self.delegate contentView:self didChangeAttributes:nil];
+        [RotationHelper hideRotationIndicator];
+        [ShadowHelper applyShadowToGenericContainerView:self];
+        [ReflectionHelper applyReflectionViewToGenericContainerView:self];
         [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants transformKey] : [NSValue valueWithCGAffineTransform:self.transform]} withFullAttributes:self.attributes];
         ((SimpleOperation *)self.currentOperation).toValue = [NSValue valueWithCGAffineTransform:self.transform];
         [[UndoManager sharedManager] pushOperation:self.currentOperation];
         if (![self isFirstResponder]) {
             [self becomeFirstResponder];
         }
-        [self.delegate contentView:self didChangeAttributes:nil];
-        [ShadowHelper applyShadowToGenericContainerView:self];
-        [ReflectionHelper applyReflectionViewToGenericContainerView:self];
     }
-}
-
-#pragma mark - Drawing
-- (void)drawRect:(CGRect)rect {
-    UIBezierPath *borderPath = [UIBezierPath bezierPathWithRect:[[ControlPointManager sharedManager] borderRectFromContainerViewBounds:rect]];
-    
-    borderPath.lineWidth = 3.f;
-    [[self borderStrokeColor] setStroke];
-    [borderPath stroke];
-}
-
-- (UIColor *) borderStrokeColor
-{
-    return self.showBorder ? [[ControlPointManager sharedManager] borderColor] : [UIColor clearColor];
 }
 
 #pragma mark - Other APIs
@@ -205,21 +190,12 @@
 
 - (void) addSubViews
 {
-    [ReflectionHelper applyReflectionViewToGenericContainerView:self];
-    [self addSubview:self.rotationIndicator];
 }
 
-- (void) setShowBorder:(BOOL)showBorder
-{
-    if (_showBorder != showBorder) {
-        _showBorder = showBorder;
-        [self setNeedsDisplay];
-    }
-}
 
 - (BOOL) isContentFirstResponder
 {
-    return self.showBorder;
+    return self.currentlySelected;
 }
 
 - (void) updateReflectionView
@@ -247,11 +223,6 @@
     }
 }
 
-- (void) hideRotationIndicator
-{
-    [self.rotationIndicator hide];
-}
-
 - (void) pushUnsavedOperation
 {}
 
@@ -264,17 +235,13 @@
 - (void) performOperation:(Operation *)operation
 {
     SimpleOperation *simpleOperation = (SimpleOperation *) operation;
+    [self.delegate contentView:self willBeModifiedInCanvas:self.canvas];
     if ([simpleOperation.key isEqualToString:[KeyConstants addKey]]) {
-        GenericContainerView *content = [simpleOperation.targets lastObject];
-        UIView *canvas = (UIView *)simpleOperation.toValue;
-        [self.delegate contentView:content willBeAddedToView:canvas];
-        [canvas addSubview:content];
-        [content becomeFirstResponder];
+        [self.canvas addSubview:self];
+        [self becomeFirstResponder];
     } else if ([simpleOperation.key isEqualToString:[KeyConstants deleteKey]]) {
-        GenericContainerView *content = [simpleOperation.targets lastObject];
-        UIView *canvas = (UIView *)simpleOperation.toValue;
-        [content removeFromSuperview];
-        [self.delegate contentView:content didRemoveFromView:canvas];
+        [self removeFromSuperview];
+        [self.delegate contentView:self didRemoveFromView:self.canvas];
     } else {
         NSDictionary *attibutes = @{simpleOperation.key : simpleOperation.toValue};
         [self becomeFirstResponder];

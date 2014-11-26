@@ -16,7 +16,7 @@
 #import "KeyConstants.h"
 #import "UIView+Snapshot.h"
 #import "SlideAttributesManager.h"
-
+#import "RotationHelper.h"
 @interface SlidesEditingViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, OperationTarget>
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 @property (nonatomic) NSUInteger currentSelectionOriginalIndex;
@@ -81,9 +81,9 @@
     [self.delegate contentDidChangeFromEditingController:self];
 }
 
-- (void) contentView:(GenericContainerView *)content willBeAddedToView:(UIView *)canvas
+- (void) contentView:(GenericContainerView *)content willBeModifiedInCanvas:(CanvasView *)canvas
 {
-    [self.delegate contentView:content willBeAddedToView:canvas];
+    [self.delegate contentView:content willBeModifiedInCanvas:canvas];
 }
 
 - (void) contentView:(GenericContainerView *)content didRemoveFromView:(UIView *)canvas
@@ -97,7 +97,7 @@
     [self.delegate contentViewDidPerformUndoRedoOperation:content];
 }
 
-- (void) contentView:(GenericContainerView *)contentView startChangingAttributes:(NSDictionary *)attribtues
+- (void) contentView:(GenericContainerView *)contentView startChangingAttribute:(NSString *) attribute
 {
     [self.editMenu hide];
 }
@@ -119,6 +119,7 @@
         }
     }
 }
+
 
 - (void) handleTapOnImage:(ImageContainerView *)container
 {

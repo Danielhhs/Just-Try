@@ -12,7 +12,7 @@
 
 @class GenericContainerView;
 @class ReflectionView;
-
+@class CanvasView;
 @protocol ContentContainerViewDelegate <NSObject>
 
 - (void) contentViewWillBecomFirstResponder:(GenericContainerView *) contentView;
@@ -25,11 +25,11 @@
  didChangeAttributes: (NSDictionary *) attributes;
 
 - (void) contentView:(GenericContainerView *) contentView
-startChangingAttributes:(NSDictionary *) attribtues;
+startChangingAttribute:(NSString *)attribute;
 
 - (void) frameDidChangeForContentView:(GenericContainerView *) contentView;
 
-- (void) contentView:(GenericContainerView *) content willBeAddedToView:(UIView *) canvas;
+- (void) contentView:(GenericContainerView *) content willBeModifiedInCanvas:(CanvasView *) canvas;
 
 - (void) contentView:(GenericContainerView *) content didRemoveFromView:(UIView *) canvas;
 
@@ -40,10 +40,10 @@ startChangingAttributes:(NSDictionary *) attribtues;
 @end
 
 @interface GenericContainerView : UIView<OperationTarget>
-
 @property (nonatomic, strong) ReflectionView *reflection;
 @property (nonatomic, strong) UIView *shadow;
 @property (nonatomic, weak) id<ContentContainerViewDelegate> delegate;
+@property (nonatomic, weak) CanvasView *canvas;
 
 - (NSMutableDictionary *) attributes;
 
@@ -64,8 +64,6 @@ startChangingAttributes:(NSDictionary *) attribtues;
 - (void) updateReflectionView;
 
 - (void) updateEditingStatus;
-
-- (void) hideRotationIndicator;
 
 - (void) pushUnsavedOperation;
 

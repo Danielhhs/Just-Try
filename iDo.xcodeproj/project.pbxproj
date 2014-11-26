@@ -50,8 +50,9 @@
 		547EEED01A18878200EAD132 /* TextConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 547EEECF1A18878200EAD132 /* TextConstants.m */; };
 		549567711A05EA18006D6BAE /* CustomTapTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 549567701A05EA18006D6BAE /* CustomTapTextView.m */; };
 		54965B061A00E50F005AF774 /* ShadowHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B051A00E50F005AF774 /* ShadowHelper.m */; };
-		54965B391A020362005AF774 /* RotationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B381A020362005AF774 /* RotationHelper.m */; };
 		54965B3C1A020424005AF774 /* RotationIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B3B1A020424005AF774 /* RotationIndicatorView.m */; };
+		549E21631A25A43C0013E051 /* RotationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 549E21621A25A43C0013E051 /* RotationHelper.m */; };
+		549E21661A25A4D00013E051 /* RotationBenchMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 549E21651A25A4D00013E051 /* RotationBenchMarkView.m */; };
 		54CB19D819EE37BE0044BBDD /* ImageContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CB19D719EE37BE0044BBDD /* ImageContainerView.m */; };
 		54CB19DA19EE3BD40044BBDD /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 54CB19D919EE3BD40044BBDD /* background.jpg */; };
 		54CB19DD19EE3D0A0044BBDD /* TextContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CB19DC19EE3D0A0044BBDD /* TextContainerView.m */; };
@@ -89,7 +90,6 @@
 		54F0C4FC1A0F4563009B4B0D /* UtilViewControllers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54F0C4FB1A0F4563009B4B0D /* UtilViewControllers.storyboard */; };
 		54F0C50C1A105F2C009B4B0D /* SlidesContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C50B1A105F2C009B4B0D /* SlidesContainerViewController.m */; };
 		54F0C51C1A108A1B009B4B0D /* CanvasAdjustmentHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0C51B1A108A1B009B4B0D /* CanvasAdjustmentHelper.m */; };
-		54F4C7361A033E37006A3F07 /* RotationBenchMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4C7351A033E37006A3F07 /* RotationBenchMarkView.m */; };
 		54F4C7391A0359B2006A3F07 /* RotationTooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4C7381A0359B2006A3F07 /* RotationTooltipView.m */; };
 		54F4C7521A036B63006A3F07 /* CanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4C7511A036B63006A3F07 /* CanvasView.m */; };
 		54FC6F5A1A1EEFFB00833506 /* SlideEditingToolbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FC6F591A1EEFFB00833506 /* SlideEditingToolbarViewController.m */; };
@@ -188,10 +188,12 @@
 		549567701A05EA18006D6BAE /* CustomTapTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomTapTextView.m; path = ContentViews/CustomTapTextView.m; sourceTree = "<group>"; };
 		54965B041A00E50F005AF774 /* ShadowHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowHelper.h; sourceTree = "<group>"; };
 		54965B051A00E50F005AF774 /* ShadowHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowHelper.m; sourceTree = "<group>"; };
-		54965B371A020362005AF774 /* RotationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationHelper.h; sourceTree = "<group>"; };
-		54965B381A020362005AF774 /* RotationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationHelper.m; sourceTree = "<group>"; };
 		54965B3A1A020424005AF774 /* RotationIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationIndicatorView.h; path = ContentViews/Rotation/RotationIndicatorView.h; sourceTree = "<group>"; };
 		54965B3B1A020424005AF774 /* RotationIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationIndicatorView.m; path = ContentViews/Rotation/RotationIndicatorView.m; sourceTree = "<group>"; };
+		549E21611A25A43C0013E051 /* RotationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationHelper.h; path = ContentViews/Rotation/RotationHelper.h; sourceTree = "<group>"; };
+		549E21621A25A43C0013E051 /* RotationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationHelper.m; path = ContentViews/Rotation/RotationHelper.m; sourceTree = "<group>"; };
+		549E21641A25A4D00013E051 /* RotationBenchMarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationBenchMarkView.h; path = ContentViews/Rotation/RotationBenchMarkView.h; sourceTree = "<group>"; };
+		549E21651A25A4D00013E051 /* RotationBenchMarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationBenchMarkView.m; path = ContentViews/Rotation/RotationBenchMarkView.m; sourceTree = "<group>"; };
 		54CB19D619EE37BE0044BBDD /* ImageContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageContainerView.h; sourceTree = "<group>"; };
 		54CB19D719EE37BE0044BBDD /* ImageContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageContainerView.m; sourceTree = "<group>"; };
 		54CB19D919EE3BD40044BBDD /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
@@ -263,8 +265,6 @@
 		54F0C50B1A105F2C009B4B0D /* SlidesContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlidesContainerViewController.m; path = ViewControllers/SlidesContainerViewController.m; sourceTree = "<group>"; };
 		54F0C51A1A108A1B009B4B0D /* CanvasAdjustmentHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CanvasAdjustmentHelper.h; path = ViewControllers/CanvasAdjustmentHelper.h; sourceTree = "<group>"; };
 		54F0C51B1A108A1B009B4B0D /* CanvasAdjustmentHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CanvasAdjustmentHelper.m; path = ViewControllers/CanvasAdjustmentHelper.m; sourceTree = "<group>"; };
-		54F4C7341A033E37006A3F07 /* RotationBenchMarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationBenchMarkView.h; path = ContentViews/Rotation/RotationBenchMarkView.h; sourceTree = "<group>"; };
-		54F4C7351A033E37006A3F07 /* RotationBenchMarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationBenchMarkView.m; path = ContentViews/Rotation/RotationBenchMarkView.m; sourceTree = "<group>"; };
 		54F4C7371A0359B2006A3F07 /* RotationTooltipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationTooltipView.h; path = ContentViews/Rotation/RotationTooltipView.h; sourceTree = "<group>"; };
 		54F4C7381A0359B2006A3F07 /* RotationTooltipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationTooltipView.m; path = ContentViews/Rotation/RotationTooltipView.m; sourceTree = "<group>"; };
 		54F4C7501A036B63006A3F07 /* CanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CanvasView.h; path = GenericViews/CanvasView.h; sourceTree = "<group>"; };
@@ -495,12 +495,12 @@
 		54965B3D1A020BF0005AF774 /* Rotation */ = {
 			isa = PBXGroup;
 			children = (
-				54965B371A020362005AF774 /* RotationHelper.h */,
-				54965B381A020362005AF774 /* RotationHelper.m */,
+				549E21641A25A4D00013E051 /* RotationBenchMarkView.h */,
+				549E21651A25A4D00013E051 /* RotationBenchMarkView.m */,
+				549E21611A25A43C0013E051 /* RotationHelper.h */,
+				549E21621A25A43C0013E051 /* RotationHelper.m */,
 				54965B3A1A020424005AF774 /* RotationIndicatorView.h */,
 				54965B3B1A020424005AF774 /* RotationIndicatorView.m */,
-				54F4C7341A033E37006A3F07 /* RotationBenchMarkView.h */,
-				54F4C7351A033E37006A3F07 /* RotationBenchMarkView.m */,
 				54F4C7371A0359B2006A3F07 /* RotationTooltipView.h */,
 				54F4C7381A0359B2006A3F07 /* RotationTooltipView.m */,
 			);
@@ -833,7 +833,6 @@
 				547EEEC31A16061100EAD132 /* Game.m in Sources */,
 				540A0A141A20508D0087C6AC /* GenericConent.m in Sources */,
 				54E96F6719F8CB6A00C5F007 /* EditorButtonView.m in Sources */,
-				54F4C7361A033E37006A3F07 /* RotationBenchMarkView.m in Sources */,
 				546457D519F3614100078EAF /* ControlPointManager.m in Sources */,
 				546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */,
 				540A0A1F1A2085C10087C6AC /* ShadowView.m in Sources */,
@@ -844,6 +843,7 @@
 				547EEEBD1A16061100EAD132 /* Slide.m in Sources */,
 				54EE54741A11B5F000CA1AF7 /* ProposalAttributesManager.m in Sources */,
 				547EEEB41A16061100EAD132 /* ImageContent.m in Sources */,
+				549E21661A25A4D00013E051 /* RotationBenchMarkView.m in Sources */,
 				54F0C4861A0DC85A009B4B0D /* Proposal+iDo.m in Sources */,
 				542185241A061565006EBDFD /* KeyConstants.m in Sources */,
 				54F0C50C1A105F2C009B4B0D /* SlidesContainerViewController.m in Sources */,
@@ -863,6 +863,7 @@
 				549567711A05EA18006D6BAE /* CustomTapTextView.m in Sources */,
 				5421860D1A09F14C006EBDFD /* CoreDataManager.m in Sources */,
 				540A0A171A2065C50087C6AC /* ReflectionShadowTypeCell.m in Sources */,
+				549E21631A25A43C0013E051 /* RotationHelper.m in Sources */,
 				546457C719F10D8100078EAF /* EditorPanelManager.m in Sources */,
 				54E96F6A19F8E53400C5F007 /* ReflectionView.m in Sources */,
 				54F0C4941A0DE3E5009B4B0D /* ProposalCollectionViewCell.m in Sources */,
@@ -894,7 +895,6 @@
 				54F0C4461A0CA8B6009B4B0D /* ImageContent+iDo.m in Sources */,
 				54D7294419ECE9B5009A0279 /* main.m in Sources */,
 				54965B3C1A020424005AF774 /* RotationIndicatorView.m in Sources */,
-				54965B391A020362005AF774 /* RotationHelper.m in Sources */,
 				5436A0041A0A256600A16E2C /* CoreDataHelper.m in Sources */,
 				547EEEB71A16061100EAD132 /* Proposal.m in Sources */,
 				546F5CCC1A00904D00C30CBB /* CoreTextHelper.m in Sources */,

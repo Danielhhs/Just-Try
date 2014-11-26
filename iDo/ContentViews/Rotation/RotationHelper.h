@@ -12,7 +12,8 @@
 
 @interface RotationHelper : NSObject
 
-+ (void) applyRotationIndicator:(RotationIndicatorView *)rotationIndicator toView:(UIView *)view;
-+ (void) hideRotationIndicator:(RotationIndicatorView *) rotationIndicator;
++ (void) applyRotationIndicatorToView:(UIView *)view;
++ (void) hideRotationIndicator;
++ (void) updateRotationIndicator;
 
 @end

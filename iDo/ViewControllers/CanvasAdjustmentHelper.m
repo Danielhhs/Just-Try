@@ -20,6 +20,7 @@
     CGFloat translateX = [CanvasAdjustmentHelper horizontalTranslationFromScale:scale];
     CGFloat translateY = [CanvasAdjustmentHelper verticalTranslationFromScale:scale];
     canvas.transform = CGAffineTransformTranslate(canvas.transform, translateX, translateY);
+    
 }
 
 + (CGFloat) canvasVerticalScale

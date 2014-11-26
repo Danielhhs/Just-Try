@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSString *key;
 @property (nonatomic, strong) NSObject *fromValue;
 @property (nonatomic, strong) NSObject *toValue;
+@property (nonatomic, strong) NSObject *container;
 
 - (instancetype) initWithTargets:(NSArray *) targets
                              key:(NSString *) key

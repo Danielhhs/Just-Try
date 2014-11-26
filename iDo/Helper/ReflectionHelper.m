@@ -19,7 +19,8 @@
 {
     BOOL showReflection = [[[container attributes] objectForKey:[KeyConstants reflectionKey]] boolValue];
     if (!showReflection) {
-        [ReflectionHelper hideReflectionViewFromGenericContainerView:container];
+        [container.reflection removeFromSuperview];
+        container.reflection = nil;
         return;
     }
     if (container.reflection == nil) {

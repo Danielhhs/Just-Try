@@ -64,6 +64,16 @@
     }
 }
 
+- (void) setSelected:(BOOL)selected
+{
+    if (selected != _selected) {
+        _selected = selected;
+        [self setNeedsDisplay];
+    } else {
+        _selected = selected;
+    }
+}
+
 - (BOOL) needToAdjustCanvas
 {
     return [self.textView isFirstResponder];
@@ -280,5 +290,18 @@
 - (UIView *) contentView
 {
     return self.textView;
+}
+
+- (void)drawRect:(CGRect)rect {
+    UIBezierPath *borderPath = [UIBezierPath bezierPathWithRect:[[ControlPointManager sharedManager] borderRectFromContainerViewBounds:rect]];
+    
+    borderPath.lineWidth = 3.f;
+    [[self borderStrokeColor] setStroke];
+    [borderPath stroke];
+}
+
+- (UIColor *) borderStrokeColor
+{
+    return self.selected ? [[ControlPointManager sharedManager] borderColor] : [UIColor clearColor];
 }
 @end

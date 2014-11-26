@@ -92,7 +92,6 @@
     NSValue *transform = attributes[[KeyConstants transformKey]];
     if (transform) {
         containerView.transform = [transform CGAffineTransformValue];
-        [containerView hideRotationIndicator];
     }
 }
 
