@@ -22,4 +22,6 @@
 + (CGFloat) anglesFromTransform:(CGAffineTransform) transform;
 
 + (CGRect) frameFromAttributes:(NSDictionary *) attributes;
++ (void) applyRotation:(CGFloat) rotation
+                toView:(UIView *) view;
 @end

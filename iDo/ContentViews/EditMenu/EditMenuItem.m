@@ -8,6 +8,10 @@
 
 #import "EditMenuItem.h"
 #import "ContentEditMenuView.h"
+@interface EditMenuItem()
+@property (nonatomic, weak) ContentEditMenuView *editMenu;
+@end
+
 @implementation EditMenuItem
 
 - (instancetype) initWithFrame:(CGRect)frame
@@ -19,15 +23,23 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         [self setTitle:title forState:UIControlStateNormal];
-        [self setTitleColor:[UIColor darkTextColor] forState:UIControlStateHighlighted];
+        [self setTitleColor:[UIColor colorWithWhite:1 alpha:0.5] forState:UIControlStateHighlighted];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-        [self setTitleShadowColor:[UIColor darkTextColor] forState:UIControlStateNormal];
         [self addTarget:editMenu action:action forControlEvents:UIControlEventTouchUpInside];
+        [self addTarget:self action:@selector(touchBegins) forControlEvents:(UIControlEventTouchDown | UIControlEventTouchDragEnter)];
+        [self addTarget:self action:@selector(touchEnds) forControlEvents:(UIControlEventTouchDragExit | UIControlEventTouchCancel)];
     }
     return self;
 }
 
+- (void) touchBegins
+{
+    self.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.3];
+}
 
+- (void) touchEnds
+{
+    self.backgroundColor = [UIColor clearColor];
+}
 
 @end

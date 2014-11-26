@@ -165,14 +165,16 @@
         [ShadowHelper hideShadowForGenericContainerView:self];
         [ReflectionHelper hideReflectionViewFromGenericContainerView:self];
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
-        [self applyAttributes:@{[KeyConstants rotationKey] : @(gesture.rotation)}];
+        [GenericContainerViewHelper applyRotation:gesture.rotation toView:self];
         gesture.rotation = 0;
     } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
         [self.rotationIndicator hide];
         [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants transformKey] : [NSValue valueWithCGAffineTransform:self.transform]} withFullAttributes:self.attributes];
         ((SimpleOperation *)self.currentOperation).toValue = [NSValue valueWithCGAffineTransform:self.transform];
         [[UndoManager sharedManager] pushOperation:self.currentOperation];
-        [self becomeFirstResponder];
+        if (![self isFirstResponder]) {
+            [self becomeFirstResponder];
+        }
         [self.delegate contentView:self didChangeAttributes:nil];
         [ShadowHelper applyShadowToGenericContainerView:self];
         [ReflectionHelper applyReflectionViewToGenericContainerView:self];

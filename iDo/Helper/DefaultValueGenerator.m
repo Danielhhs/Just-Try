@@ -60,7 +60,7 @@
     [attributes setValue:@(NO) forKey:[KeyConstants reflectionKey]];
     [attributes setValue:@(NO) forKey:[KeyConstants shadowKey]];
     [attributes setValue:@(ContentViewShadowTypeNone) forKey:[KeyConstants shadowTypeKey]];
-    [attributes setValue:@(ContentViewReflectionTypeNone) forKey:[KeyConstants reflectionTypeKey]];
+    [attributes setValue:@(ContentViewReflectionTypeVerticalMirror) forKey:[KeyConstants reflectionTypeKey]];
     [attributes setValue:@(1) forKey:[KeyConstants viewOpacityKey]];
     [attributes setObject:[NSValue valueWithCGAffineTransform:CGAffineTransformIdentity] forKey:[KeyConstants transformKey]];
     return attributes;

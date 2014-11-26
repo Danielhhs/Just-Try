@@ -75,6 +75,7 @@
     NSLog(@"%@ copied", [self.triggeredContent attributes]);
     
     [[UIPasteboard generalPasteboard] setData:[EditMenuHelper encodeGenericContent:self.triggeredContent] forPasteboardType:PAST_BOARD_TYPE_UTI];
+    self.duplicateButton.backgroundColor = [UIColor clearColor];
 }
 
 - (void) handlePaste
@@ -83,22 +84,26 @@
     NSMutableDictionary *attributes = [EditMenuHelper decodeGenericContentFromData:data];
     GenericContainerView *pasteContent = [[GenericContainerView alloc] initWithAttributes:attributes delegate:self.triggeredContent.delegate];
     [self.delegate editMenu:self didPasteContent:pasteContent];
+    self.pasteButton.backgroundColor = [UIColor clearColor];
 }
 
 - (void) handleCut
 {
     [self handleCopy];
     [self.delegate editMenu:self didCutContent:self.triggeredContent];
+    self.cutButton.backgroundColor = [UIColor clearColor];
 }
 
 - (void) handleEdit
 {
     [self.delegate editMenu:self didEditContent:self.triggeredContent];
+    self.editButton.backgroundColor = [UIColor clearColor];
 }
 
 - (void) handleDelete
 {
     [self.delegate editMenu:self didDeleteContent:self.triggeredContent];
+    self.deleteButton.backgroundColor = [UIColor clearColor];
 }
 
 - (void) show

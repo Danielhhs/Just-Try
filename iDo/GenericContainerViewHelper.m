@@ -49,13 +49,8 @@
     if (reflection) {
         containerView.reflection.hidden = ![reflection boolValue];
         if (containerView.reflection.hidden == NO) {
-            CGFloat reflectionHeight = [containerView.attributes[[KeyConstants reflectionSizeKey]] floatValue];
-            [containerView.reflection updateReflectionWithWithReflectionHeight:reflectionHeight];
+            [ReflectionHelper applyReflectionViewToGenericContainerView:containerView];
         }
-    }
-    NSNumber *reflectionType = attributes[[KeyConstants reflectionTypeKey]];
-    if (reflectionType) {
-        [ReflectionHelper applyReflectionViewToGenericContainerView:containerView];
     }
     NSNumber *reflectionAlpha = attributes[[KeyConstants reflectionAlphaKey]];
     if (reflectionAlpha) {
