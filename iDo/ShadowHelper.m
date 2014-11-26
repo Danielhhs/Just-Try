@@ -9,14 +9,15 @@
 #import "ShadowHelper.h"
 #import "KeyConstants.h"
 #import "GenericContainerView.h"
-#import "ReflectionShadowType.h"
+#import "ShadowType.h"
 
 #define SHADOW_CURL_FACTOR 0.618
 #define MAX_SHADOW_DEPTH_RATIO 0.1
 #define PROJECTION_MIN_WIDTH_RATIO 0.5
 #define PROJECTION_MAX_WIDTH_RATION 1
-#define PROJECTION_HEIGHT_WIDHT_RATIO 0.372
-#define SPACE_BETWEEN_PROJECTION_RATIO 0.1
+#define PROJECTION_HEIGHT_WIDHT_RATIO 0.138
+#define SPACE_BETWEEN_PROJECTION_RATIO 0.05
+#define SPACE_BETWEEN_PROJECTION 30
 
 @implementation ShadowHelper
 
@@ -38,27 +39,56 @@
 
 + (UIBezierPath *) surroundingShadowPathWithBounds:(CGRect) bounds shadowDepath:(CGFloat) shadowDepth
 {
+    shadowDepth *= 0.5;
     UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectInset(bounds, -1 * shadowDepth, -1 * shadowDepth)];
     return path;
 }
 
-+ (UIBezierPath *) projectionShadowPathWithContainer:(GenericContainerView *)container shadowDepthRatio:(CGFloat) shadowDepthRatio
++ (UIBezierPath *) projectionShadowPathWithBounds:(CGRect)bounds shadowDepthRatio:(CGFloat) shadowDepthRatio
 {
-    CGFloat width = container.frame.size.width * (PROJECTION_MIN_WIDTH_RATIO + (PROJECTION_MAX_WIDTH_RATION - PROJECTION_MIN_WIDTH_RATIO) *shadowDepthRatio);
-    CGFloat height = width * PROJECTION_HEIGHT_WIDHT_RATIO;
-    CGFloat x = (container.frame.size.width - width) / 2;
-    CGFloat containerFrameHeight = CGRectGetMaxY(container.frame) - container.frame.origin.y;
-    CGFloat y = (1 + SPACE_BETWEEN_PROJECTION_RATIO) * containerFrameHeight;
-    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(x, y, width, height)];
+    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:bounds];
+    return path;
+}
+
++ (UIBezierPath *) offsetShadowPathWithBoudns:(CGRect) bounds shadowDepth: (CGFloat) shadowDepth
+{
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectOffset(bounds, shadowDepth, shadow)];
     return path;
 }
 
 + (UIView *) shadowAppliedToViewFromContainer:(GenericContainerView *) container shadowType:(ContentViewShadowType) shadowType
 {
     if (shadowType == ContentViewShadowTypeProjection) {
-        return container;
+        if (container.shadow == nil) {
+            [ShadowHelper createShadowForContainer:container];
+        }
+        return container.shadow;
     }
     return [container contentView];
+}
+
++ (void) createShadowForContainer:(GenericContainerView *) container
+{
+    CGFloat width = container.frame.size.width;
+    CGFloat height = width * PROJECTION_HEIGHT_WIDHT_RATIO;
+    CGFloat x = (container.frame.size.width - width) / 2;
+    CGFloat containerFrameHeight = CGRectGetMaxY(container.frame) - container.frame.origin.y;
+    CGFloat y = (1 + SPACE_BETWEEN_PROJECTION_RATIO) * containerFrameHeight;
+    container.shadow = [[UIView alloc] initWithFrame:CGRectMake(x, y, width, height)];
+    [container addSubview:container.shadow];
+}
+
++ (void) applyProjectionShadowToGenericContainer:(GenericContainerView *)container shadowDepthRatio:(CGFloat) shadowDepthRatio
+{
+    CGFloat width = container.frame.size.width * shadowDepthRatio;
+    CGFloat height = width * PROJECTION_HEIGHT_WIDHT_RATIO;
+    container.shadow.bounds = CGRectMake(0, 0, width, height);
+    container.shadow.transform = CGAffineTransformInvert(container.transform);
+    CGFloat centerY = CGRectGetMaxY(container.frame) + container.shadow.bounds.size.height / 2 + SPACE_BETWEEN_PROJECTION;
+    CGPoint center = [container convertPoint:CGPointMake(container.center.x, centerY) fromView:[container superview]];
+    container.shadow.center = center;
+    container.shadow.hidden = NO;
+    container.shadow.layer.shadowPath = [ShadowHelper projectionShadowPathWithBounds:container.shadow.bounds shadowDepthRatio:shadowDepthRatio].CGPath;
 }
 
 + (void) applyShadowToGenericContainerView:(GenericContainerView *)container
@@ -72,6 +102,11 @@
                         shadowType:(ContentViewShadowType) shadowType
                   toGenericContent:(GenericContainerView *)container
 {
+    [ShadowHelper hideShadowForGenericContainerView:container];
+    BOOL showShadow = [attributes[[KeyConstants shadowKey]] boolValue];
+    if (!showShadow) {
+        return;
+    }
     UIView *content = [container contentView];
     CGFloat shadowDepthRatio = [attributes[[KeyConstants shadowSizeKey]] doubleValue];
     CGRect bounds = [attributes[[KeyConstants boundsKey]] CGRectValue];
@@ -82,13 +117,16 @@
             shadowAppliedTo.layer.shadowPath = [ShadowHelper stereoShadowPathWithBounds:content.bounds shadowDepth:shadowDepth].CGPath;
             break;
         case ContentViewShadowTypeOffset:
-            shadowAppliedTo.layer.shadowOffset = CGSizeMake(MAX_SHADOW_DEPTH_RATIO * shadowDepthRatio * content.bounds.size.height, MAX_SHADOW_DEPTH_RATIO * shadowDepthRatio * content.bounds.size.height);
+            shadowAppliedTo.layer.shadowPath = [ShadowHelper offsetShadowPathWithBoudns:content.bounds shadowDepth:shadowDepth].CGPath;
             break;
         case ContentViewShadowTypeSurrounding:
             shadowAppliedTo.layer.shadowPath = [ShadowHelper surroundingShadowPathWithBounds:content.bounds shadowDepath:shadowDepth].CGPath;
             break;
         case ContentViewShadowTypeProjection:
-            shadowAppliedTo.layer.shadowPath = [ShadowHelper projectionShadowPathWithContainer:container shadowDepthRatio:shadowDepthRatio].CGPath;
+            [ShadowHelper applyProjectionShadowToGenericContainer:container shadowDepthRatio:shadowDepthRatio];
+            break;
+        case ContentViewShadowTypeNone:
+            [ShadowHelper hideShadowForGenericContainerView:container];
         default:
             break;
     }
@@ -107,32 +145,32 @@
 
 + (void) hideShadowForGenericContainerView:(GenericContainerView *)container
 {
-    NSDictionary *attributes = [container attributes];
-    ContentViewShadowType shadowType = [attributes[[KeyConstants shadowTypeKey]] integerValue];
-    UIView *shadowAppliedTo = [ShadowHelper shadowAppliedToViewFromContainer:container shadowType:shadowType];
-    shadowAppliedTo.layer.shadowColor = [UIColor clearColor].CGColor;
+    [container contentView].layer.shadowColor = [UIColor clearColor].CGColor;
+    [container contentView].layer.shadowPath = NULL;
+    container.shadow.layer.shadowColor = [UIColor clearColor].CGColor;
+    container.shadow.layer.shadowPath = NULL;
 }
 
 + (NSArray *) shadowTypes
 {
     NSMutableArray *types = [NSMutableArray array];
     
-    ReflectionShadowType *stereoType = [[ReflectionShadowType alloc] init];
+    ShadowType *stereoType = [[ShadowType alloc] init];
     stereoType.type = ContentViewShadowTypeStereo;
     stereoType.desc = @"StereoType";
     stereoType.thumbnailName = @"stereoShadow.jpg";
     [types addObject:stereoType];
-    ReflectionShadowType *offsetType = [[ReflectionShadowType alloc] init];
+    ShadowType *offsetType = [[ShadowType alloc] init];
     offsetType.type = ContentViewShadowTypeOffset;
     offsetType.desc = @"OffsetType";
     offsetType.thumbnailName = @"offsetShadow.jpg";
     [types addObject:offsetType];
-    ReflectionShadowType *surroudingType = [[ReflectionShadowType alloc] init];
+    ShadowType *surroudingType = [[ShadowType alloc] init];
     surroudingType.type = ContentViewShadowTypeSurrounding;
     surroudingType.desc = @"SurroundingType";
     surroudingType.thumbnailName = @"surroundingShadow.jpg";
     [types addObject:surroudingType];
-    ReflectionShadowType *projectionType = [[ReflectionShadowType alloc] init];
+    ShadowType *projectionType = [[ShadowType alloc] init];
     projectionType.type = ContentViewShadowTypeProjection;
     projectionType.desc = @"ProjectionType";
     projectionType.thumbnailName = @"projectionShadow.jpg";

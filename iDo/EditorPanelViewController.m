@@ -17,12 +17,12 @@
 #import "CompoundOperation.h"
 #import "UndoManager.h"
 #import "ReflectionShadowTypeCell.h"
-#import "ReflectionHelper.h"
 #import "ShadowHelper.h"
+#import "ShadowType.h"
 
 #define THUMB_WIDTH_HALF 15
 
-@interface EditorPanelViewController ()<SliderWithToolTipDelegate, OperationTarget, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface EditorPanelViewController ()<SliderWithToolTipDelegate, OperationTarget, UICollectionViewDataSource, UICollectionViewDelegate, ReflectionShadowCellDelegate>
 @property (weak, nonatomic) IBOutlet EditorButtonView *addReflectionView;
 @property (weak, nonatomic) IBOutlet EditorButtonView *addShadowView;
 @property (weak, nonatomic) IBOutlet TooltipView *tooltipView;
@@ -54,6 +54,8 @@
     self.typeSelector.dataSource = self;
     self.typeSelector.delegate = self;
     self.attributes = [NSMutableDictionary dictionary];
+    self.reflectionShadowTypes = [ShadowHelper shadowTypes];
+    [self.typeSelector reloadData];
 }
 
 - (void) setTarget:(id<OperationTarget>)target
@@ -117,16 +119,18 @@
     [self switchFromView:self.addShadowView toView:self.addReflectionView];
     [self.delegate editorPanelViewController:self didChangeAttributes:@{
                                                                         [KeyConstants reflectionKey] : @(self.addReflectionView.selected),
-                                                                        [KeyConstants shadowKey] : @(NO)
+                                                                        [KeyConstants shadowKey] : @(NO),
                                                                         }];
 }
 
 - (void) shadowStatusChanged:(UITapGestureRecognizer *) gesture
 {
     [self switchFromView:self.addReflectionView toView:self.addShadowView];
+    ContentViewShadowType type = self.addShadowView.selected ? ContentViewShadowTypeStereo : ContentViewShadowTypeNone;
     [self.delegate editorPanelViewController:self didChangeAttributes:@{
                                                                         [KeyConstants shadowKey] : @(self.addShadowView.selected),
-                                                                        [KeyConstants reflectionKey] : @(NO)
+                                                                        [KeyConstants reflectionKey] : @(NO),
+                                                                        [KeyConstants shadowTypeKey] : @(type)
                                                                         }];
 }
 
@@ -157,10 +161,10 @@
 {
     self.sizeSlider.enabled = YES;
     self.alphaSlider.enabled = YES;
-    SimpleOperation *alphaOperation, *sizeOperation, *typeOperation;
+    self.typeSelector.userInteractionEnabled = YES;
+    SimpleOperation *alphaOperation, *sizeOperation;
     if (self.addReflectionView.selected) {
-        self.reflectionShadowTypes = [ReflectionHelper reflectionTypes];
-        [self.typeSelector reloadData];
+        self.typeSelector.hidden = YES;
         NSNumber *reflectionAlpha = self.attributes[[KeyConstants reflectionAlphaKey]];
         if (reflectionAlpha) {
             alphaOperation = [self.alphaSlider setValue:[reflectionAlpha floatValue] generateOperations:generateOperations];
@@ -172,8 +176,7 @@
         self.alphaSlider.key = [KeyConstants reflectionAlphaKey];
         self.sizeSlider.key = [KeyConstants reflectionSizeKey];
     } else if (self.addShadowView.selected) {
-        self.reflectionShadowTypes = [ShadowHelper shadowTypes];
-        [self.typeSelector reloadData];
+        self.typeSelector.hidden = NO;
         NSNumber *shadowAlpha = self.attributes[[KeyConstants shadowAlphaKey]];
         if (shadowAlpha) {
             alphaOperation = [self.alphaSlider setValue:[shadowAlpha floatValue] generateOperations:generateOperations];
@@ -187,7 +190,7 @@
     } else {
         self.sizeSlider.enabled = NO;
         self.alphaSlider.enabled = NO;
-        self.typeSelector.userInteractionEnabled = NO;
+        self.typeSelector.hidden = YES;
         return nil;
     }
     if (generateOperations == YES) {
@@ -249,18 +252,18 @@
     
     if ([cell isKindOfClass:[ReflectionShadowTypeCell class]]) {
         ReflectionShadowTypeCell *typeCell = (ReflectionShadowTypeCell *) cell;
-        ReflectionShadowType *type = self.reflectionShadowTypes[indexPath.row];
+        ShadowType *type = self.reflectionShadowTypes[indexPath.row];
         typeCell.text = type.desc;
         typeCell.type = type.type;
-        typeCell.hidden = NO;
+        typeCell.delegate = self;
     }
     
     return cell;
 }
 
-- (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - ReflectionShadowTypeCellDelegate
+- (void) cellDidTapped:(ReflectionShadowTypeCell *)cell
 {
-    ReflectionShadowTypeCell *cell = (ReflectionShadowTypeCell *)[collectionView cellForItemAtIndexPath:indexPath];
     NSString *key = self.addReflectionView.selected ? [KeyConstants reflectionTypeKey] : [KeyConstants shadowTypeKey];
     [self.delegate editorPanelViewController:self didChangeAttributes:@{key : @(cell.type)}];
 }

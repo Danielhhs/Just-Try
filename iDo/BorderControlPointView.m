@@ -8,6 +8,7 @@
 
 #import "BorderControlPointView.h"
 #import "ControlPointManager.h"
+#import "DrawingConstants.h"
 #define CONTROL_POINT_SMALL_CIRCLE_RADIUS 5.f
 
 @implementation BorderControlPointView
@@ -15,7 +16,7 @@
 - (instancetype) initWithControlPointLocation:(ControlPointLocation)location
                                      delegate:(id<BorderControlPointViewDelegate>)delegate
 {
-    self = [super initWithFrame:CGRectMake(0, 0, CONTROL_POINT_SIZE_HALF * 2, CONTROL_POINT_SIZE_HALF * 2)];
+    self = [super initWithFrame:CGRectMake(0, 0, [DrawingConstants controlPointSizeHalf] * 2, [DrawingConstants controlPointSizeHalf] * 2)];
     if (self) {
         _location = location;
         _delegate = delegate;
@@ -46,7 +47,7 @@
 - (void)drawRect:(CGRect)rect {
     // Drawing code
     CGPoint center = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
-    UIBezierPath *bigCircle = [UIBezierPath bezierPathWithArcCenter:center radius:CONTROL_POINT_RADIUS startAngle:0 endAngle:M_PI * 2 clockwise:YES];
+    UIBezierPath *bigCircle = [UIBezierPath bezierPathWithArcCenter:center radius:[DrawingConstants controlPointRadius] startAngle:0 endAngle:M_PI * 2 clockwise:YES];
     [[UIColor whiteColor] setFill];
     [bigCircle fill];
     

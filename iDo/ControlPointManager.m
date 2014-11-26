@@ -13,6 +13,7 @@
 #import "CompoundOperation.h"
 #import "KeyConstants.h"
 #import "TextContainerView.h"
+#import "DrawingConstants.h"
 
 @interface ControlPointManager ()<BorderControlPointViewDelegate>
 @property (nonatomic, strong) UIView *container;
@@ -277,10 +278,10 @@ translationInSuperView:(CGPoint)translationInSuperView
 - (CGRect) borderRectFromContainerViewBounds:(CGRect) containerViewBounds
 {
     CGRect result;
-    result.origin.x = CONTROL_POINT_SIZE_HALF;
-    result.origin.y = CONTROL_POINT_SIZE_HALF;
-    result.size.width = containerViewBounds.size.width - 2 * CONTROL_POINT_SIZE_HALF;
-    result.size.height = containerViewBounds.size.height - 2 * CONTROL_POINT_SIZE_HALF;
+    result.origin.x = [DrawingConstants controlPointSizeHalf];
+    result.origin.y = [DrawingConstants controlPointSizeHalf];
+    result.size.width = containerViewBounds.size.width - 2 * [DrawingConstants controlPointSizeHalf];
+    result.size.height = containerViewBounds.size.height - 2 * [DrawingConstants controlPointSizeHalf];
     return result;
 }
 
@@ -313,14 +314,14 @@ translationInSuperView:(CGPoint)translationInSuperView
 - (void) layoutControlPoints
 {
     if (![self.container isKindOfClass:[TextContainerView class]]) {
-        self.topLeftControlPoint.center = CGPointMake(CONTROL_POINT_SIZE_HALF, [self centerYForTopControlPoints]);
+        self.topLeftControlPoint.center = CGPointMake([DrawingConstants controlPointSizeHalf], [self centerYForTopControlPoints]);
         self.topMiddleControlPoint.center = CGPointMake([self centerXForMiddleControlPoints], [self centerYForTopControlPoints]);
         self.topRightControlPoint.center = CGPointMake([self centerXForRightControlPoints], [self centerYForTopControlPoints]);
-        self.bottomLeftControlPoint.center = CGPointMake(CONTROL_POINT_SIZE_HALF, [self centerYForBottomControlPoints]);
+        self.bottomLeftControlPoint.center = CGPointMake([DrawingConstants controlPointSizeHalf], [self centerYForBottomControlPoints]);
         self.bottomMiddleControlPoint.center = CGPointMake([self centerXForMiddleControlPoints], [self centerYForBottomControlPoints]);
         self.bottomRightControlPoint.center = CGPointMake([self centerXForRightControlPoints], [self centerYForBottomControlPoints]);
     }
-    self.middleLeftControlPoint.center = CGPointMake(CONTROL_POINT_SIZE_HALF, [self centerYForMiddleControlPoints]);
+    self.middleLeftControlPoint.center = CGPointMake([DrawingConstants controlPointSizeHalf], [self centerYForMiddleControlPoints]);
     self.middleRightControlPoint.center = CGPointMake([self centerXForRightControlPoints], [self centerYForMiddleControlPoints]);
 }
 

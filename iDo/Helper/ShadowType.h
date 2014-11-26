@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ReflectionShadowType : NSObject
+@interface ShadowType : NSObject
 
 @property (nonatomic) NSInteger type;
 @property (nonatomic) NSString *desc;

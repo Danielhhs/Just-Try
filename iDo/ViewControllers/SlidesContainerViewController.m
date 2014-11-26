@@ -168,6 +168,11 @@
     }
 }
 
+- (void) contentViewDidBecomeFirstResponder:(GenericContainerView *)content
+{
+    [[EditorPanelManager sharedManager] switchCurrentEditoToEditorForView:content inViewController:self];
+}
+
 - (void) allContentViewDidResignFirstResponder
 {
     [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
@@ -244,8 +249,8 @@
 
 - (void) addGenericContentView:(GenericContainerView *) content
 {
-    [content becomeFirstResponder];
     [self.editorViewController addContentViewToCanvas:content];
+    [content becomeFirstResponder];
     SimpleOperation *addOperation = [[SimpleOperation alloc] initWithTargets:@[content] key:[KeyConstants addKey] fromValue:nil];
     addOperation.toValue = self.editorViewController.canvas;
     [[UndoManager sharedManager] pushOperation:addOperation];

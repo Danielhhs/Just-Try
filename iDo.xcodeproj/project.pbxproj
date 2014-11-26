@@ -10,8 +10,9 @@
 		540A0A0E1A204F3A0087C6AC /* ReflectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 540A0A0D1A204F3A0087C6AC /* ReflectionHelper.m */; };
 		540A0A141A20508D0087C6AC /* GenericConent.m in Sources */ = {isa = PBXBuildFile; fileRef = 540A0A131A20508D0087C6AC /* GenericConent.m */; };
 		540A0A171A2065C50087C6AC /* ReflectionShadowTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 540A0A161A2065C50087C6AC /* ReflectionShadowTypeCell.m */; };
-		540A0A1A1A20679E0087C6AC /* ReflectionShadowType.m in Sources */ = {isa = PBXBuildFile; fileRef = 540A0A191A20679E0087C6AC /* ReflectionShadowType.m */; };
+		540A0A1A1A20679E0087C6AC /* ShadowType.m in Sources */ = {isa = PBXBuildFile; fileRef = 540A0A191A20679E0087C6AC /* ShadowType.m */; };
 		540A0A1C1A2070910087C6AC /* EditorViewControllers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 540A0A1B1A2070910087C6AC /* EditorViewControllers.storyboard */; };
+		540A0A1F1A2085C10087C6AC /* ShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 540A0A1E1A2085C10087C6AC /* ShadowView.m */; };
 		542185241A061565006EBDFD /* KeyConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 542185231A061565006EBDFD /* KeyConstants.m */; };
 		542185341A07245C006EBDFD /* SimpleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 542185331A07245C006EBDFD /* SimpleOperation.m */; };
 		542185371A072509006EBDFD /* CompoundOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 542185361A072509006EBDFD /* CompoundOperation.m */; };
@@ -112,9 +113,11 @@
 		540A0A131A20508D0087C6AC /* GenericConent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GenericConent.m; path = "Model/CoreData/Model Objects/GenericConent.m"; sourceTree = "<group>"; };
 		540A0A151A2065C50087C6AC /* ReflectionShadowTypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReflectionShadowTypeCell.h; path = EditorViewControllers/ReflectionShadowTypeCell.h; sourceTree = "<group>"; };
 		540A0A161A2065C50087C6AC /* ReflectionShadowTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReflectionShadowTypeCell.m; path = EditorViewControllers/ReflectionShadowTypeCell.m; sourceTree = "<group>"; };
-		540A0A181A20679E0087C6AC /* ReflectionShadowType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReflectionShadowType.h; path = Helper/ReflectionShadowType.h; sourceTree = "<group>"; };
-		540A0A191A20679E0087C6AC /* ReflectionShadowType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReflectionShadowType.m; path = Helper/ReflectionShadowType.m; sourceTree = "<group>"; };
+		540A0A181A20679E0087C6AC /* ShadowType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShadowType.h; path = Helper/ShadowType.h; sourceTree = "<group>"; };
+		540A0A191A20679E0087C6AC /* ShadowType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShadowType.m; path = Helper/ShadowType.m; sourceTree = "<group>"; };
 		540A0A1B1A2070910087C6AC /* EditorViewControllers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = EditorViewControllers.storyboard; path = EditorViewControllers/EditorViewControllers.storyboard; sourceTree = "<group>"; };
+		540A0A1D1A2085C10087C6AC /* ShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShadowView.h; path = ContentViews/ShadowView.h; sourceTree = "<group>"; };
+		540A0A1E1A2085C10087C6AC /* ShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShadowView.m; path = ContentViews/ShadowView.m; sourceTree = "<group>"; };
 		542185221A061565006EBDFD /* KeyConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyConstants.h; path = Helper/KeyConstants.h; sourceTree = "<group>"; };
 		542185231A061565006EBDFD /* KeyConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyConstants.m; path = Helper/KeyConstants.m; sourceTree = "<group>"; };
 		542185321A07245C006EBDFD /* SimpleOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleOperation.h; path = "Undo Manager/SimpleOperation.h"; sourceTree = "<group>"; };
@@ -292,6 +295,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		540A0A651A246AE50087C6AC /* Reflection */ = {
+			isa = PBXGroup;
+			children = (
+				54E96F6819F8E53400C5F007 /* ReflectionView.h */,
+				54E96F6919F8E53400C5F007 /* ReflectionView.m */,
+				540A0A0C1A204F3A0087C6AC /* ReflectionHelper.h */,
+				540A0A0D1A204F3A0087C6AC /* ReflectionHelper.m */,
+			);
+			name = Reflection;
+			sourceTree = "<group>";
+		};
+		540A0A731A246C150087C6AC /* Shadow */ = {
+			isa = PBXGroup;
+			children = (
+				54965B041A00E50F005AF774 /* ShadowHelper.h */,
+				54965B051A00E50F005AF774 /* ShadowHelper.m */,
+				540A0A1D1A2085C10087C6AC /* ShadowView.h */,
+				540A0A1E1A2085C10087C6AC /* ShadowView.m */,
+				540A0A181A20679E0087C6AC /* ShadowType.h */,
+				540A0A191A20679E0087C6AC /* ShadowType.m */,
+			);
+			name = Shadow;
+			sourceTree = "<group>";
+		};
 		542186101A09F22E006EBDFD /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -577,6 +604,8 @@
 		54D7296A19ECEA25009A0279 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				540A0A731A246C150087C6AC /* Shadow */,
+				540A0A651A246AE50087C6AC /* Reflection */,
 				546457C119F10BF500078EAF /* Content Views */,
 				546457C219F10C1700078EAF /* UIView+Snapshot.h */,
 				546457C319F10C1700078EAF /* UIView+Snapshot.m */,
@@ -643,16 +672,8 @@
 		54F0C4981A0DF84F009B4B0D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				54E96F6819F8E53400C5F007 /* ReflectionView.h */,
-				54E96F6919F8E53400C5F007 /* ReflectionView.m */,
-				54965B041A00E50F005AF774 /* ShadowHelper.h */,
-				54965B051A00E50F005AF774 /* ShadowHelper.m */,
 				54D10B5319F7AC9200197694 /* GenericContainerViewHelper.h */,
 				54D10B5419F7AC9200197694 /* GenericContainerViewHelper.m */,
-				540A0A0C1A204F3A0087C6AC /* ReflectionHelper.h */,
-				540A0A0D1A204F3A0087C6AC /* ReflectionHelper.m */,
-				540A0A181A20679E0087C6AC /* ReflectionShadowType.h */,
-				540A0A191A20679E0087C6AC /* ReflectionShadowType.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -815,6 +836,7 @@
 				54F4C7361A033E37006A3F07 /* RotationBenchMarkView.m in Sources */,
 				546457D519F3614100078EAF /* ControlPointManager.m in Sources */,
 				546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */,
+				540A0A1F1A2085C10087C6AC /* ShadowView.m in Sources */,
 				5421863F1A09FBBB006EBDFD /* GenericConent+iDo.m in Sources */,
 				54EE541E1A10E7CB00CA1AF7 /* GenericContentConstants.m in Sources */,
 				542185341A07245C006EBDFD /* SimpleOperation.m in Sources */,
@@ -826,7 +848,7 @@
 				542185241A061565006EBDFD /* KeyConstants.m in Sources */,
 				54F0C50C1A105F2C009B4B0D /* SlidesContainerViewController.m in Sources */,
 				54F0C4E01A0F233E009B4B0D /* SlideThumbnailsManager.m in Sources */,
-				540A0A1A1A20679E0087C6AC /* ReflectionShadowType.m in Sources */,
+				540A0A1A1A20679E0087C6AC /* ShadowType.m in Sources */,
 				547EEEBA1A16061100EAD132 /* Transition.m in Sources */,
 				546457D119F116B700078EAF /* ImageHelper.m in Sources */,
 				546F5CC919FFAFE600C30CBB /* TextDisplayView.m in Sources */,

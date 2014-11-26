@@ -69,6 +69,7 @@
     self.editMenu.triggeredContent = contentView;
     [self.editMenu show];
     [self.view bringSubviewToFront:self.editMenu];
+    [self.delegate contentViewDidBecomeFirstResponder:contentView];
 }
 
 - (void) contentView:(GenericContainerView *)contentView didChangeAttributes:(NSDictionary *)attributes
@@ -92,7 +93,7 @@
 
 - (void) contentViewDidPerformUndoRedoOperation:(GenericContainerView *)content
 {
-    [self.slideAttributes setValue:[self.canvas snapshot] forKey:[KeyConstants slideThumbnailKey]];
+//    [self.slideAttributes setValue:[self.canvas snapshot] forKey:[KeyConstants slideThumbnailKey]];
     [self.delegate contentViewDidPerformUndoRedoOperation:content];
 }
 

@@ -26,6 +26,8 @@
                                  target:(id<OperationTarget>)target
                                animated:(BOOL) animated;
 
+- (void) switchCurrentEditoToEditorForView:(GenericContainerView *) content inViewController:(SlidesContainerViewController *) viewController;
+
 - (void) dismissAllEditorPanelsFromViewController:(SlidesContainerViewController *) viewController;
 
 - (void) makeCurrentEditorApplyChanges:(NSDictionary *) attributes;

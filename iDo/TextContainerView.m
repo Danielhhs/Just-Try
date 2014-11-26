@@ -15,6 +15,7 @@
 #import "SimpleOperation.h"
 #import "UndoManager.h"
 #import "CompoundOperation.h"
+#import "DrawingConstants.h"
 
 @interface TextContainerView ()<CustomTapTextViewDelegate>
 @property (nonatomic, strong) CustomTapTextView *textView;
@@ -71,7 +72,7 @@
 - (CGRect) contentViewFrameFromBounds:(CGRect) bounds
 {
     CGRect frame = [super contentViewFrameFromBounds:bounds];
-    return CGRectInset(frame, CONTROL_POINT_RADIUS, CONTROL_POINT_RADIUS);
+    return CGRectInset(frame, [DrawingConstants controlPointRadius], [DrawingConstants controlPointRadius]);
 }
 
 #pragma mark - User Interactions
@@ -202,8 +203,8 @@
 {
     CGRect bounds;
     bounds.origin = CGPointMake(0, 0);
-    bounds.size.width = textViewBounds.size.width + 2 * CONTROL_POINT_SIZE_HALF + 2 * CONTROL_POINT_RADIUS;
-    bounds.size.height = 2 * CONTROL_POINT_SIZE_HALF + textViewBounds.size.height + 2 * CONTROL_POINT_RADIUS;
+    bounds.size.width = textViewBounds.size.width + 2 * [DrawingConstants controlPointSizeHalf] + 2 * [DrawingConstants controlPointRadius];
+    bounds.size.height = 2 * [DrawingConstants controlPointSizeHalf] + textViewBounds.size.height + 2 * [DrawingConstants controlPointRadius];
     return bounds;
 }
 

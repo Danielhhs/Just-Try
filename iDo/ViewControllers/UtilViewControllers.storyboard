@@ -187,7 +187,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Yh-be-tTI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="171" y="78"/>
+            <point key="canvasLocation" x="29" y="66"/>
         </scene>
         <!--Slides Editing View Controller-->
         <scene sceneID="fSe-rA-bii">
@@ -208,7 +208,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J3z-H4-GnT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="543" y="263"/>
+            <point key="canvasLocation" x="664" y="249"/>
         </scene>
     </scenes>
 </document>

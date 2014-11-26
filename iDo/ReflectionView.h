@@ -20,5 +20,5 @@
 @property (nonatomic, weak) GenericContainerView *originalView;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic) CGFloat height;
-
+CGContextRef CreateBitMapContext(NSInteger pixelsWide, NSInteger pixelsHigh);
 @end

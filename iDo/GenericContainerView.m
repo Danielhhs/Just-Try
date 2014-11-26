@@ -15,7 +15,8 @@
 #import "UndoManager.h"
 #import "SimpleOperation.h"
 #import "CompoundOperation.h"
-
+#import "DrawingConstants.h"
+#import "ReflectionHelper.h"
 @interface GenericContainerView()
 @property (nonatomic) BOOL showBorder;;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
@@ -139,6 +140,7 @@
     if (gesture.state == UIGestureRecognizerStateBegan) {
         self.originalCenter = self.center;
         [self.delegate contentView:self startChangingAttributes:nil];
+        [ReflectionHelper hideReflectionViewFromGenericContainerView:self];
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
         CGPoint translation = [gesture translationInView:self.superview];
         self.center = CGPointMake(self.center.x + translation.x, self.center.y + translation.y);
@@ -149,6 +151,7 @@
         [[UndoManager sharedManager] pushOperation:centerOperation];
         [self becomeFirstResponder];
         [self.delegate contentView:self didChangeAttributes:nil];
+        [ReflectionHelper applyReflectionViewToGenericContainerView:self];
     }
 }
 
@@ -159,6 +162,8 @@
         NSValue *fromValue = [NSValue valueWithCGAffineTransform:self.transform];
         self.currentOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants transformKey] fromValue:fromValue];
         [self.delegate contentView:self startChangingAttributes:nil];
+        [ShadowHelper hideShadowForGenericContainerView:self];
+        [ReflectionHelper hideReflectionViewFromGenericContainerView:self];
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
         [self applyAttributes:@{[KeyConstants rotationKey] : @(gesture.rotation)}];
         gesture.rotation = 0;
@@ -169,6 +174,8 @@
         [[UndoManager sharedManager] pushOperation:self.currentOperation];
         [self becomeFirstResponder];
         [self.delegate contentView:self didChangeAttributes:nil];
+        [ShadowHelper applyShadowToGenericContainerView:self];
+        [ReflectionHelper applyReflectionViewToGenericContainerView:self];
     }
 }
 
@@ -190,13 +197,13 @@
 - (CGRect) contentViewFrameFromBounds:(CGRect) bounds
 {
     CGRect contentFrame;
-    contentFrame = CGRectInset(bounds, CONTROL_POINT_SIZE_HALF, CONTROL_POINT_SIZE_HALF);
+    contentFrame = CGRectInset(bounds, [DrawingConstants controlPointSizeHalf], [DrawingConstants controlPointSizeHalf]);
     return contentFrame;
 }
 
 - (void) addSubViews
 {
-    [self addReflectionView];
+    [ReflectionHelper applyReflectionViewToGenericContainerView:self];
     [self addSubview:self.rotationIndicator];
 }
 
@@ -213,13 +220,6 @@
     return self.showBorder;
 }
 
-- (void) addReflectionView
-{
-    self.reflection = [[ReflectionView alloc] initWithOriginalView:self];
-    self.reflection.hidden = YES;
-    [self addSubview:self.reflection];
-}
-
 - (void) updateReflectionView
 {
     [self.reflection updateFrame];
@@ -233,8 +233,8 @@
 - (CGSize) minSize
 {
     CGSize minSize;
-    minSize.height = 2 * CONTROL_POINT_SIZE_HALF + MIN_CONTENT_HEIGHT;
-    minSize.width = CONTROL_POINT_SIZE_HALF * 2 + MIN_CONTENT_WIDTH;
+    minSize.height = 2 * [DrawingConstants controlPointSizeHalf] + MIN_CONTENT_HEIGHT;
+    minSize.width = [DrawingConstants controlPointSizeHalf] * 2 + MIN_CONTENT_WIDTH;
     return minSize;
 }
 
@@ -279,6 +279,8 @@
         [GenericContainerViewHelper mergeChangedAttributes:attibutes withFullAttributes:self.fullAttributes];
         [GenericContainerViewHelper applyUndoAttribute:attibutes toContainer:self];
     }
+    [ShadowHelper applyShadowToGenericContainerView:self];
+    [ReflectionHelper applyReflectionViewToGenericContainerView:self];
     [self.delegate contentViewDidPerformUndoRedoOperation:self];
 }
 

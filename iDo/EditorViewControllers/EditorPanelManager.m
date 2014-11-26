@@ -194,11 +194,13 @@ static EditorPanelManager *sharedInstance;
 
 - (void) switchCurrentEditoToEditorForView:(GenericContainerView *) content inViewController:(SlidesContainerViewController *) viewController
 {
-    [self.currentEditor willMoveToParentViewController:nil];
-    [self.currentEditor.view removeFromSuperview];
-    [self.currentEditor removeFromParentViewController];
-    
-    [self showEditorPanelInViewController:viewController forContentView:content animated:NO];
+    if (self.currentEditor) {
+        [self.currentEditor willMoveToParentViewController:nil];
+        [self.currentEditor.view removeFromSuperview];
+        [self.currentEditor removeFromParentViewController];
+        
+        [self showEditorPanelInViewController:viewController forContentView:content animated:NO];
+    }
 }
 
 - (void) handleContentViewDidFinishChanging

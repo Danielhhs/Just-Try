@@ -113,10 +113,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="300" height="675"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PHs-ld-Gbz" customClass="TooltipView">
-                                <rect key="frame" x="0.0" y="0.0" width="60" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shadow Types" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agp-wQ-fcW">
                                 <rect key="frame" x="94" y="279" width="112" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -174,6 +170,10 @@
                                     <action selector="viewOpacityChanged:" destination="GCL-ek-gBq" eventType="valueChanged" id="mnn-0M-Bv0"/>
                                 </connections>
                             </slider>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PHs-ld-Gbz" customClass="TooltipView">
+                                <rect key="frame" x="0.0" y="0.0" width="60" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -189,6 +189,7 @@
                         <outlet property="addShadowView" destination="ARB-vP-NtJ" id="czr-NP-aE9"/>
                         <outlet property="alphaSlider" destination="pBV-cG-KKZ" id="Ga2-ZX-ErX"/>
                         <outlet property="sizeSlider" destination="XHb-Jd-320" id="rui-eU-Xef"/>
+                        <outlet property="tooltipView" destination="PHs-ld-Gbz" id="ykW-RL-spt"/>
                         <outlet property="typeSelector" destination="mcB-Te-wng" id="MNS-rW-qgA"/>
                         <outlet property="viewOpacitySlider" destination="9z6-oJ-gSu" id="7lW-Wd-eDl"/>
                     </connections>
@@ -214,9 +215,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="300" height="675"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tXu-xR-5Zn" customClass="TooltipView">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shadow Types" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bp2-jc-ywj">
                                 <rect key="frame" x="94" y="279" width="112" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -274,6 +272,10 @@
                                     <action selector="viewOpacityChanged:" destination="JXv-WQ-mog" eventType="valueChanged" id="mEZ-DV-hh7"/>
                                 </connections>
                             </slider>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tXu-xR-5Zn" customClass="TooltipView">
+                                <rect key="frame" x="0.0" y="0.0" width="60" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -289,6 +291,7 @@
                         <outlet property="addShadowView" destination="lqq-uT-JGO" id="wW1-fS-FXr"/>
                         <outlet property="alphaSlider" destination="PZ7-55-xpP" id="yqu-cC-QbT"/>
                         <outlet property="sizeSlider" destination="p7M-a2-GQw" id="m7g-wE-hBk"/>
+                        <outlet property="tooltipView" destination="tXu-xR-5Zn" id="HEO-F1-eO4"/>
                         <outlet property="typeSelector" destination="jPL-0h-lqz" id="Bug-L8-9CK"/>
                         <outlet property="viewOpacitySlider" destination="1wj-Ne-2vw" id="0DP-7y-lmC"/>
                     </connections>

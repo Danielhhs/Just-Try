@@ -16,6 +16,7 @@
 #import "GenericContentConstants.h"
 #import "ImageContainerView.h"
 #import "TextContainerView.h"
+#import "ReflectionHelper.h"
 
 @implementation GenericContainerViewHelper
 
@@ -54,7 +55,7 @@
     }
     NSNumber *reflectionType = attributes[[KeyConstants reflectionTypeKey]];
     if (reflectionType) {
-        
+        [ReflectionHelper applyReflectionViewToGenericContainerView:containerView];
     }
     NSNumber *reflectionAlpha = attributes[[KeyConstants reflectionAlphaKey]];
     if (reflectionAlpha) {

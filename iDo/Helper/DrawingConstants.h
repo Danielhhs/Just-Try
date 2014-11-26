@@ -25,4 +25,8 @@
 
 + (CGFloat) gapBetweenViews;
 
++ (CGFloat) controlPointSizeHalf;
+
++ (CGFloat) controlPointRadius;
+
 @end

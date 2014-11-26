@@ -59,8 +59,8 @@
     [attributes setValue:@([DrawingConstants counterGoldenRatio]) forKey:[KeyConstants reflectionSizeKey]];
     [attributes setValue:@(NO) forKey:[KeyConstants reflectionKey]];
     [attributes setValue:@(NO) forKey:[KeyConstants shadowKey]];
-    [attributes setValue:@(ContentViewShadowTypeStereo) forKey:[KeyConstants shadowTypeKey]];
-    [attributes setValue:@(ContentViewReflectionTypeHorizontalMirror) forKey:[KeyConstants reflectionTypeKey]];
+    [attributes setValue:@(ContentViewShadowTypeNone) forKey:[KeyConstants shadowTypeKey]];
+    [attributes setValue:@(ContentViewReflectionTypeNone) forKey:[KeyConstants reflectionTypeKey]];
     [attributes setValue:@(1) forKey:[KeyConstants viewOpacityKey]];
     [attributes setObject:[NSValue valueWithCGAffineTransform:CGAffineTransformIdentity] forKey:[KeyConstants transformKey]];
     return attributes;
@@ -92,7 +92,7 @@
                                                                            attributes:@{NSFontAttributeName : [TextFontHelper defaultFont],
                                                                                         NSParagraphStyleAttributeName : paragraphStyle}];
     [attributes setObject:attributedString forKey:[KeyConstants attibutedStringKey]];
-    NSValue *boundsValue = [NSValue valueWithCGRect:CGRectMake(0, 0, DEFAULT_TEXT_CONTAINER_WIDTH, 2 * CONTROL_POINT_SIZE_HALF + DEFAULT_TEXT_CONTAINER_HEIGHT)];
+    NSValue *boundsValue = [NSValue valueWithCGRect:CGRectMake(0, 0, DEFAULT_TEXT_CONTAINER_WIDTH, 2 * [DrawingConstants controlPointSizeHalf] + DEFAULT_TEXT_CONTAINER_HEIGHT)];
     [attributes setObject:boundsValue forKey:[KeyConstants boundsKey]];
     [attributes setObject:[NSValue valueWithCGPoint:CGPointMake(200, 300)] forKey:[KeyConstants centerKey]];
     [attributes setObject:@(ContentViewTypeText) forKey:[KeyConstants contentTypeKey]];

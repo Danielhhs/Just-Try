@@ -14,7 +14,8 @@ typedef NS_ENUM(NSInteger, ContentViewShadowType) {
     ContentViewShadowTypeOffset = 0,
     ContentViewShadowTypeSurrounding = 1,
     ContentViewShadowTypeProjection = 2,
-    ContentViewShadowTypeStereo = 3
+    ContentViewShadowTypeStereo = 3,
+    ContentViewShadowTypeNone = 4,
 };
 
 @interface ShadowHelper : NSObject

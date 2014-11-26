@@ -8,8 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class ReflectionShadowTypeCell;
+@protocol ReflectionShadowCellDelegate <NSObject>
+
+- (void) cellDidTapped:(ReflectionShadowTypeCell *) cell;
+
+@end
+
 @interface ReflectionShadowTypeCell : UICollectionViewCell
 
+@property (nonatomic, weak) id<ReflectionShadowCellDelegate> delegate;
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic) NSInteger type;
 

@@ -10,16 +10,15 @@
 #import "UIView+Snapshot.h"
 #import "GenericContainerViewHelper.h"
 #import "DrawingConstants.h"
+#import "ReflectionHelper.h"
 
 #define REFLECTION_HEIGHT_WIDTH_RATIO 0.2
-#define SPACE_BETWEEN_REFLECTION 7
-
+#define SPACE_BETWEEN_REFLECTION 30
 @implementation ReflectionView
 
 - (instancetype) initWithOriginalView:(GenericContainerView *) originalView
 {
-    CGRect frame = [self reflectionViewFrameFromOriginalView:originalView];
-    self = [super initWithFrame:frame];
+    self = [super initWithFrame:CGRectZero];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         _originalView = originalView;
@@ -36,11 +35,6 @@
     }
 }
 
-- (CGRect) reflectionViewFrameFromOriginalView:(GenericContainerView *) originalView
-{
-    return CGRectOffset([originalView contentViewFrameFromBounds:originalView.bounds], 0, [originalView contentViewFrameFromBounds:originalView.bounds].size.height - CONTROL_POINT_RADIUS + SPACE_BETWEEN_REFLECTION);
-}
-
 - (void) setImage:(UIImage *)image
 {
     _image = image;
@@ -55,7 +49,13 @@
 
 - (void) updateFrame
 {
-    self.frame = [self reflectionViewFrameFromOriginalView:self.originalView];
+    self.transform = CGAffineTransformInvert(self.originalView.transform);
+    CGFloat angel = atan2(self.originalView.transform.b, self.originalView.transform.a);
+    CGFloat correctness = MAX(ABS(cos(angel)), ABS(sin(angel)));
+    CGFloat inset = [DrawingConstants controlPointSizeHalf] / correctness;
+    self.bounds = CGRectMake(0, 0, self.originalView.frame.size.width - 2 * inset, self.originalView.frame.size.height - 2 * inset);
+    CGFloat centerY = self.originalView.center.y + self.originalView.frame.size.height;
+    self.center = [self.originalView convertPoint:CGPointMake(self.originalView.center.x, centerY) fromView:self.originalView.superview];
     [self updateReflectionWithWithReflectionHeight:self.height];
 }
 
@@ -100,18 +100,18 @@ CGContextRef CreateBitMapContext(NSInteger pixelsWide, NSInteger pixelsHigh) {
 {
     if (height == 0) return nil;
     
-    CGContextRef mainViewContentContext = CreateBitMapContext([fromImage contentViewFrameFromBounds:fromImage.bounds].size.width, height);
+    CGContextRef mainViewContentContext = CreateBitMapContext(self.bounds.size.width, height);
     
     CGImageRef gradientImage = CreateGradientImage(1, height);
     
-    CGContextClipToMask(mainViewContentContext, CGRectMake(0, 0, [fromImage contentViewFrameFromBounds:fromImage.bounds].size.width, height), gradientImage);
+    CGContextClipToMask(mainViewContentContext, CGRectMake(0, 0, self.bounds.size.width, height), gradientImage);
     CGImageRelease(gradientImage);
     
     CGContextTranslateCTM(mainViewContentContext, 0, height);
     CGContextScaleCTM(mainViewContentContext, 1, -1);
     
-    CGRect drawingBounds = CGRectMake(0, 0, [fromImage contentViewFrameFromBounds:fromImage.bounds].size.width, [fromImage contentViewFrameFromBounds:fromImage.bounds].size.height);
-    CGContextDrawImage(mainViewContentContext, drawingBounds, [fromImage contentSnapshot].CGImage);
+    CGRect drawingBounds = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+    CGContextDrawImage(mainViewContentContext, drawingBounds, [ReflectionHelper reflectionImageForGenericContainerView:self.originalView].CGImage);
         
     CGImageRef reflectionImage = CGBitmapContextCreateImage(mainViewContentContext);
     CGContextRelease(mainViewContentContext);

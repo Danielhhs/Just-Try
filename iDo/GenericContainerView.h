@@ -42,6 +42,7 @@ startChangingAttributes:(NSDictionary *) attribtues;
 @interface GenericContainerView : UIView<OperationTarget>
 
 @property (nonatomic, strong) ReflectionView *reflection;
+@property (nonatomic, strong) UIView *shadow;
 @property (nonatomic, weak) id<ContentContainerViewDelegate> delegate;
 
 - (NSMutableDictionary *) attributes;
@@ -59,8 +60,6 @@ startChangingAttributes:(NSDictionary *) attribtues;
 - (void) addSubViews;
 
 - (void) applyAttributes:(NSDictionary *) attributes;
-
-- (void) addReflectionView;
 
 - (void) updateReflectionView;
 

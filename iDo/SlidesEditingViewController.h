@@ -23,7 +23,6 @@
 - (void) contentViewDidPerformUndoRedoOperation:(GenericContainerView *) content;
 - (void) contentView:(GenericContainerView *)content didRemoveFromView:(UIView *)canvas;
 - (void) allContentViewDidResignFirstResponder;
-@optional
 - (void) contentViewDidBecomeFirstResponder:(GenericContainerView *) content;
 @end
 

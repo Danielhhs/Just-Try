@@ -7,13 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ReflectionShadowType.h"
+#import "ShadowType.h"
+#import <UIKit/UIKit.h>
+@class GenericContainerView;
 typedef NS_ENUM(NSInteger, ContentViewReflectionType) {
-    ContentViewReflectionTypeUnderOriginal = 0,
-    ContentViewReflectionTypeHorizontalMirror = 1,
-    ContentViewReflectionTypeVerticalMirror = 2
+    ContentViewReflectionTypeNone = 0,
+    ContentViewReflectionTypeVerticalMirror = 1
 };
 
 @interface ReflectionHelper : NSObject
-+ (NSArray *) reflectionTypes;
++ (void) applyReflectionViewToGenericContainerView:(GenericContainerView *) container;
++ (void) hideReflectionViewFromGenericContainerView:(GenericContainerView *) container;
++ (UIImage *) reflectionImageForGenericContainerView:(GenericContainerView *) container;
 @end

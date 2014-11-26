@@ -46,4 +46,14 @@
     return 12.f;
 }
 
++ (CGFloat) controlPointSizeHalf
+{
+    return 20.f;
+}
+
++ (CGFloat) controlPointRadius
+{
+    return 7.F;
+}
+
 @end

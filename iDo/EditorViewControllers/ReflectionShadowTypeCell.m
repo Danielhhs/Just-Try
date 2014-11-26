@@ -16,6 +16,9 @@
 - (void) setup
 {
     self.label = [[UILabel alloc] initWithFrame:self.bounds];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [self addGestureRecognizer:tap];
+    self.hidden = NO;
     [self addSubview:self.label];
 }
 
@@ -37,6 +40,11 @@
 {
     _text = text;
     self.label.text = text;
+}
+
+- (void) handleTap:(UITapGestureRecognizer *) tap
+{
+    [self.delegate cellDidTapped:self];
 }
 
 @end

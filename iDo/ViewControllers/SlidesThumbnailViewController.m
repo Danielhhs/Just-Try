@@ -48,6 +48,12 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
     cell.selected = YES;
 }
 
+- (void) setSlides:(NSMutableArray *)slides
+{
+    _slides = slides;
+    [self.thumbnailsCollectionView reloadData];
+}
+
 #pragma mark - UICollectionViewDatasource
 - (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {

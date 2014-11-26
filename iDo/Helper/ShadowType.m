@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 com.microstrategy. All rights reserved.
 //
 
-#import "ReflectionShadowType.h"
+#import "ShadowType.h"
 
-@implementation ReflectionShadowType
+@implementation ShadowType
 
 @end
