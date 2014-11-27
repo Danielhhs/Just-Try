@@ -29,6 +29,7 @@
 @property (nonatomic, strong) NSMutableArray *slideAttributes;
 @property (nonatomic, strong) ContentEditMenuView *editMenu;
 @property (nonatomic, strong) SlideEditingToolbarViewController *toolbar;
+@property (nonatomic, strong) dispatch_queue_t snapshotQueue;
 @end
 
 @implementation SlidesContainerViewController
@@ -110,6 +111,15 @@
     self.editorViewController.canvas = [self.slideViews objectAtIndex:self.currentSelectSlideIndex];
 }
 
+- (dispatch_queue_t) snapshotQueue
+{
+    if (!_snapshotQueue) {
+        _snapshotQueue = dispatch_queue_create("snapshot queue", NULL);
+    }
+    return _snapshotQueue;
+}
+
+
 #pragma mark - Handle Keyboard Event
 - (void) handleKeyboardShowNotification:(NSNotification *)notification
 {
@@ -136,7 +146,7 @@
 {
     [self.toolbar enableUndo];
     [self.toolbar disableRedo];
-    [[SlideThumbnailsManager sharedManager] updateSlideSnapshotForItemAtIndex:self.currentSelectSlideIndex];
+    [self updateSlideSnapshotAndThumbnail];
 }
 
 - (void) adjustCanvasPositionForContentBottom:(CGFloat) contentBottom
@@ -157,7 +167,18 @@
 {
     self.editMenu.triggeredContent = content;
     [self.editMenu update];
-    [[SlideThumbnailsManager sharedManager] updateSlideSnapshotForItemAtIndex:self.currentSelectSlideIndex];
+    [self updateSlideSnapshotAndThumbnail];
+}
+
+- (void) updateSlideSnapshotAndThumbnail
+{
+    CanvasView *canvas = self.slideViews[self.currentSelectSlideIndex];
+    dispatch_async(self.snapshotQueue, ^{
+        [self.slideAttributes[self.currentSelectSlideIndex] setValue:[canvas snapshot] forKey:[KeyConstants slideThumbnailKey]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[SlideThumbnailsManager sharedManager] updateSlideSnapshotForItemAtIndex:self.currentSelectSlideIndex];
+        });
+    });
 }
 
 - (void) contentView:(GenericContainerView *)content willBeModifiedInCanvas:(CanvasView *)canvas

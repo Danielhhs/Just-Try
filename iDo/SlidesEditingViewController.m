@@ -28,7 +28,6 @@
 {
     [super viewDidLoad];
 }
-
 - (void) saveSlideAttributes
 {
     [self resignPreviousFirstResponderExceptForContainer:nil];
@@ -77,7 +76,6 @@
     if (attributes) {
         [[EditorPanelManager sharedManager] makeCurrentEditorApplyChanges:attributes];
     }
-    [self.slideAttributes setValue:[self.canvas snapshot] forKey:[KeyConstants slideThumbnailKey]];
     [self.delegate contentDidChangeFromEditingController:self];
 }
 
@@ -93,7 +91,6 @@
 
 - (void) contentViewDidPerformUndoRedoOperation:(GenericContainerView *)content
 {
-//    [self.slideAttributes setValue:[self.canvas snapshot] forKey:[KeyConstants slideThumbnailKey]];
     [self.delegate contentViewDidPerformUndoRedoOperation:content];
 }
 

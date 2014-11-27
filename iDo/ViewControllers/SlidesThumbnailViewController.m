@@ -169,4 +169,10 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
     cell.thumbnail.image = slide[[KeyConstants slideThumbnailKey]];
 }
 
+- (CGPoint) centerInCurrentVisibleAreaFromCenterInCollectionView:(CGPoint) center
+{
+    center.y -= [self.thumbnailsCollectionView contentOffset].y;
+    return center;
+}
+
 @end
