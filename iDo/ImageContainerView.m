@@ -50,7 +50,6 @@
 {
     [super setBounds:bounds];
     self.imageContent.frame = [self contentViewFrameFromBounds:self.bounds];
-//    [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants boundsKey] : [NSValue valueWithCGRect:bounds]} withFullAttributes:self.attributes];
 }
 
 #pragma mark - User Interactions

@@ -61,19 +61,10 @@
         containerView.reflection.height = [reflectionSize floatValue];
     }
     NSNumber *shadow = attributes[[KeyConstants shadowKey]];
-    if (shadow) {
-        [ShadowHelper hideShadowForGenericContainerView:containerView];
-    }
     NSNumber *shadowType = attributes[[KeyConstants shadowTypeKey]];
-    if (shadowType) {
-        [ShadowHelper applyShadowToGenericContainerView:containerView];
-    }
     NSNumber *shadowAlpha = attributes[[KeyConstants shadowAlphaKey]];
-    if (shadowAlpha) {
-        containerView.layer.shadowOpacity = [shadowAlpha floatValue];
-    }
     NSNumber *shadowSize = attributes[[KeyConstants shadowSizeKey]];
-    if (shadowSize) {
+    if (shadowSize || shadow || shadowType || shadowAlpha) {
         [ShadowHelper applyShadowToGenericContainerView:containerView];
     }
     NSValue *bounds = attributes[[KeyConstants boundsKey]];
@@ -111,10 +102,18 @@ static CGAffineTransform actualTransform;
     actualRotation = actualRotation / M_PI * [DrawingConstants angelsPerPi];
     if ((actualRotation > -5 && actualRotation < 5) || (actualRotation > 355 && actualRotation < 360)) {
         actualRotation = 0;
+    } else if (actualRotation > 43 && actualRotation < 47) {
+        actualRotation = 45;
     } else if (actualRotation > 85 && actualRotation < 95) {
         actualRotation = 90;
+    } else if (actualRotation > 133 && actualRotation < 137) {
+        actualRotation = 135;
     } else if ((actualRotation > 175 && actualRotation < 185) || (actualRotation > -185 && actualRotation < -175)) {
         actualRotation = 180;
+    } else if (actualRotation > -47 && actualRotation < -43) {
+        actualRotation = -45;
+    } else if (actualRotation > -137 && actualRotation < -133) {
+        actualRotation = -135;
     } else if (actualRotation > -95 && actualRotation < -85) {
         actualRotation = -90;
     }

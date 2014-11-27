@@ -57,8 +57,6 @@ startChangingAttribute:(NSString *)attribute;
 
 - (UIImage *) contentSnapshot;
 
-- (void) addSubViews;
-
 - (void) applyAttributes:(NSDictionary *) attributes;
 
 - (void) updateReflectionView;

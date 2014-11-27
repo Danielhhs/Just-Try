@@ -16,6 +16,7 @@
 
 @interface RotationIndicatorView ()
 @property (nonatomic, strong) RotationTooltipView *tooltip;
+@property (nonatomic) BOOL corrected;
 @end
 
 @implementation RotationIndicatorView
@@ -49,13 +50,39 @@
 - (void) applyToView:(UIView *) view
 {
     self.frame = view.bounds;
+    self.tooltip.frame = [self tooltipFrame];
+    [self updateCorrected];
     [self setNeedsDisplay];
 }
 
 - (void) update
 {
-    self.tooltip.frame = [self tooltipFrame];
+    [self updateCorrected];
+    self.tooltip.transform = CGAffineTransformInvert(self.superview.transform);
     self.tooltip.toolTipText = [NSString stringWithFormat:@"%3.3g∘", [self rotationDegree]];
+}
+
+- (void) updateCorrected
+{
+    NSInteger angle = (NSInteger)[self rotationDegree];
+    if (angle % 45 == 0) {
+        self.corrected = YES;
+    } else {
+        self.corrected = NO;
+    }
+}
+
+- (void) setCorrected:(BOOL)corrected
+{
+    if (_corrected != corrected) {
+        _corrected = corrected;
+        [self setNeedsDisplay];
+    }
+}
+
+- (UIColor *) strokeColor
+{
+    return self.corrected ? [UIColor yellowColor] : [UIColor colorWithRed:1 green:1 blue:0 alpha:0.7];
 }
 
 - (void) hide
@@ -71,12 +98,14 @@
 
     UIBezierPath *verticalLane = [UIBezierPath bezierPath];
     [verticalLane moveToPoint:CGPointMake(midX, midY)];
-    [verticalLane addLineToPoint:CGPointMake(midX, midY - 50)];
+    [verticalLane addLineToPoint:CGPointMake(midX, 0)];
     
     UIBezierPath *centerCircle = [UIBezierPath bezierPathWithArcCenter:CGPointMake(midX, midY) radius:CENTER_CIRCLE_RADIUS startAngle:0 endAngle:M_PI * 2 clockwise:YES];
-    [[UIColor yellowColor] setStroke];
-    verticalLane.lineWidth = 2.f;
-    centerCircle.lineWidth = 2.f;
+    [[self strokeColor] setStroke];
+    verticalLane.lineWidth = 1.5f;
+    centerCircle.lineWidth = 1.5f;
+    CGFloat lineDash[2] = {5.0, 3.0};
+    [verticalLane setLineDash:lineDash count:2 phase:1];
     [verticalLane stroke];
     [centerCircle stroke];
 }

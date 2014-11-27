@@ -50,7 +50,6 @@
 - (void) addSubViews
 {
     [self addSubview:self.textView];
-    [super addSubViews];
 }
 
 - (void) setBounds:(CGRect)bounds
@@ -58,7 +57,6 @@
     [self adjustTextViewBoundsForBounds:bounds];
     CGRect boundsAfterAdjustments = [self boundsFromTextViewBounds:self.textView.bounds];
     [super setBounds:boundsAfterAdjustments];
-//    [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants boundsKey] : [NSValue valueWithCGRect:boundsAfterAdjustments]} withFullAttributes:self.attributes];
     if ([self needToAdjustCanvas]) {
         [self.delegate frameDidChangeForContentView:self];
     }

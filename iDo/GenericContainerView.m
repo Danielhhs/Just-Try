@@ -38,6 +38,7 @@
     if (self) {
         self.fullAttributes = attributes;
         self.delegate = delegate;
+        self.layer.shadowOpacity = 0;
     }
     return self;
 }
@@ -47,8 +48,6 @@
     [super setBounds:bounds];
     [self setNeedsDisplay];
     [[ControlPointManager sharedManager] layoutControlPoints];
-    [self.reflection updateFrame];
-    [ShadowHelper applyShadowToGenericContainerView:self];
 }
 
 - (void) setCenter:(CGPoint)center
@@ -166,9 +165,6 @@
     return contentFrame;
 }
 
-- (void) addSubViews
-{}
-
 - (BOOL) isContentFirstResponder
 {
     return self.currentlySelected;
@@ -227,6 +223,7 @@
 {
     [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants boundsKey] : [NSValue valueWithCGRect:self.bounds],
                                                          [KeyConstants centerKey] : [NSValue valueWithCGPoint:self.center]} withFullAttributes:self.fullAttributes];
+    [self applySupplimentaryViewsWhenFinishChangingAttributes];
 }
 
 - (void) controlPointDidStartMoving

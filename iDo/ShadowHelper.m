@@ -134,7 +134,7 @@
     }
     shadowAppliedTo.layer.shadowColor = [UIColor blackColor].CGColor;
     shadowAppliedTo.layer.masksToBounds = NO;
-    shadowAppliedTo.layer.shadowOpacity = 0.618;
+    shadowAppliedTo.layer.shadowOpacity = [attributes[[KeyConstants shadowAlphaKey]] doubleValue];
 }
 
 + (void) updateShadowOpacity:(CGFloat)shadowOpacity toGenericContainerView:(GenericContainerView *)container
@@ -149,8 +149,10 @@
 {
     [container contentView].layer.shadowColor = [UIColor clearColor].CGColor;
     [container contentView].layer.shadowPath = NULL;
+    [container contentView].layer.shadowOpacity = 0;
     container.shadow.layer.shadowColor = [UIColor clearColor].CGColor;
     container.shadow.layer.shadowPath = NULL;
+    container.shadow.layer.shadowOpacity = 0;
 }
 
 + (NSArray *) shadowTypes
