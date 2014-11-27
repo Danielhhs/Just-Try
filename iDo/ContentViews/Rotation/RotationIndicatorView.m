@@ -25,8 +25,8 @@
 - (void) setup
 {
     self.backgroundColor = [UIColor clearColor];
-    CGRect tooltipFrame = [self tooltipFrame];
-    self.tooltip = [[RotationTooltipView alloc] initWithFrame:tooltipFrame];
+    self.tooltip = [[RotationTooltipView alloc] initWithFrame:CGRectZero];
+    [self updateTooltip];
     [self addSubview:self.tooltip];
 }
 
@@ -50,9 +50,15 @@
 - (void) applyToView:(UIView *) view
 {
     self.frame = view.bounds;
-    self.tooltip.frame = [self tooltipFrame];
+    [self updateTooltip];
     [self updateCorrected];
     [self setNeedsDisplay];
+}
+
+- (void) updateTooltip
+{
+    self.tooltip.bounds = CGRectMake(0, 0, TOOLTIP_WIDTH_HALF * 2, ROTATION_INDICATOR_OUTAGE);
+    self.tooltip.center = CGPointMake(CGRectGetMidX(self.bounds), -1 * ROTATION_INDICATOR_OUTAGE);
 }
 
 - (void) update
@@ -111,16 +117,6 @@
 }
 
 #pragma mark - Private Helper
-- (CGRect) tooltipFrame
-{
-    CGRect frame;
-    frame.origin.x = CGRectGetMidX(self.bounds) - TOOLTIP_WIDTH_HALF;
-    frame.origin.y = -1 * ROTATION_INDICATOR_OUTAGE;
-    frame.size.width = TOOLTIP_WIDTH_HALF * 2;
-    frame.size.height = ROTATION_INDICATOR_OUTAGE;
-    return frame;
-}
-
 - (CGFloat) rotationDegree
 {
     CGAffineTransform transform = [self.superview transform];

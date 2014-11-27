@@ -92,11 +92,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDo/ContentViews/EditMenu/ContentEditMenuView.m"
-            timestampString = "438757959.192887"
+            timestampString = "438775485.830961"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "-handlePaste"
             landmarkType = "5">
          </BreakpointContent>
@@ -162,6 +162,22 @@
             startingLineNumber = "246"
             endingLineNumber = "246"
             landmarkName = "-applySupplimentaryViewsWhenFinishChangingAttributes"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iDo/ContentViews/EditMenu/EditMenuItem.m"
+            timestampString = "438774094.957528"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "-touchBegins"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

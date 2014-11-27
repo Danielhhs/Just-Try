@@ -51,6 +51,12 @@
     self.label.text = toolTipText;
 }
 
+- (void) setBounds:(CGRect)bounds
+{
+    [super setBounds:bounds];
+    self.label.frame = [self frameForLabel];
+}
+
 - (CGFloat) arrowHeight
 {
     return ARROW_HEIGHT;
