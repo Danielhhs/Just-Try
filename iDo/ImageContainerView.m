@@ -33,9 +33,6 @@
 {
     self.imageContent = [[UIImageView alloc] initWithImage:image];
     self.imageContent.frame = [self contentViewFrameFromBounds:self.bounds];
-    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeImage:)];
-    doubleTap.numberOfTapsRequired = 2;
-    [self.imageContent addGestureRecognizer:doubleTap];
 }
 
 - (void) setImage:(UIImage *)image
@@ -47,14 +44,13 @@
 - (void) addSubViews
 {
     [self addSubview:self.imageContent];
-    [super addSubViews];
 }
 
 - (void) setBounds:(CGRect)bounds
 {
     [super setBounds:bounds];
     self.imageContent.frame = [self contentViewFrameFromBounds:self.bounds];
-    [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants boundsKey] : [NSValue valueWithCGRect:bounds]} withFullAttributes:self.attributes];
+//    [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants boundsKey] : [NSValue valueWithCGRect:bounds]} withFullAttributes:self.attributes];
 }
 
 #pragma mark - User Interactions
@@ -72,13 +68,7 @@
     BOOL result = [super becomeFirstResponder];
     [self.imageContent setUserInteractionEnabled:YES];
     [self.delegate contentViewDidBecomFirstResponder:self];
-    [self updateEditingStatus];
     return result;
-}
-
-- (void) changeImage:(UITapGestureRecognizer *) tap
-{
-    [self.delegate handleTapOnImage:self];
 }
 
 - (UIImage *) contentSnapshot

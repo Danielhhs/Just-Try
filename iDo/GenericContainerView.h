@@ -39,7 +39,7 @@ startChangingAttribute:(NSString *)attribute;
 - (void) contentViewWillResignFirstResponder:(GenericContainerView *) contentView;
 @end
 
-@interface GenericContainerView : UIView<OperationTarget>
+@interface GenericContainerView : UIView<OperationTarget, ControlPointManagerDelegate>
 @property (nonatomic, strong) ReflectionView *reflection;
 @property (nonatomic, strong) UIView *shadow;
 @property (nonatomic, weak) id<ContentContainerViewDelegate> delegate;
@@ -62,8 +62,6 @@ startChangingAttribute:(NSString *)attribute;
 - (void) applyAttributes:(NSDictionary *) attributes;
 
 - (void) updateReflectionView;
-
-- (void) updateEditingStatus;
 
 - (void) pushUnsavedOperation;
 

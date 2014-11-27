@@ -57,16 +57,6 @@
     [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants centerKey] : [NSValue valueWithCGPoint:center]} withFullAttributes:self.attributes];
 }
 
-- (void) setTransform:(CGAffineTransform)transform
-{
-    BOOL oldTransformStatus = CGAffineTransformIsIdentity(self.transform);
-    BOOL newTransformStatus = CGAffineTransformIsIdentity(transform);
-    [super setTransform:transform];
-    if (oldTransformStatus != newTransformStatus) {
-        [self updateEditingStatus];
-    }
-}
-
 - (void) setup
 {
     self.backgroundColor = [UIColor clearColor];
@@ -127,7 +117,6 @@
     self.tap.enabled = NO;
     self.currentlySelected = YES;
     [[ControlPointManager sharedManager] addAndLayoutControlPointsInView:self];
-    [self updateEditingStatus];
     return [super becomeFirstResponder];
 }
 
@@ -135,9 +124,7 @@
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
         self.originalCenter = self.center;
-        [self.delegate contentView:self startChangingAttribute:[KeyConstants centerKey]];
-        [ShadowHelper hideShadowForGenericContainerView:self];
-        [ReflectionHelper hideReflectionViewFromGenericContainerView:self];
+        [self hideSupplementaryViewsWhenStartChangingAttributes];
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
         CGPoint translation = [gesture translationInView:self.superview];
         self.center = CGPointMake(self.center.x + translation.x, self.center.y + translation.y);
@@ -146,9 +133,7 @@
         SimpleOperation *centerOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants centerKey] fromValue:[NSValue valueWithCGPoint:self.originalCenter]];
         centerOperation.toValue = [NSValue valueWithCGPoint:self.center];
         [[UndoManager sharedManager] pushOperation:centerOperation];
-        [self becomeFirstResponder];
-        [self.delegate contentView:self didChangeAttributes:nil];
-        [ReflectionHelper applyReflectionViewToGenericContainerView:self];
+        [self applySupplimentaryViewsWhenFinishChangingAttributes];
     }
 }
 
@@ -156,27 +141,20 @@
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
         [GenericContainerViewHelper resetActualTransformWithView:self];
+        [self hideSupplementaryViewsWhenStartChangingAttributes];
         NSValue *fromValue = [NSValue valueWithCGAffineTransform:self.transform];
         self.currentOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:[KeyConstants transformKey] fromValue:fromValue];
-        [self.delegate contentView:self startChangingAttribute:[KeyConstants transformKey]];
         [RotationHelper applyRotationIndicatorToView:self];
-        [ShadowHelper hideShadowForGenericContainerView:self];
-        [ReflectionHelper hideReflectionViewFromGenericContainerView:self];
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
         [GenericContainerViewHelper applyRotation:gesture.rotation toView:self];
         [RotationHelper updateRotationIndicator];
         gesture.rotation = 0;
     } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
-        [self.delegate contentView:self didChangeAttributes:nil];
         [RotationHelper hideRotationIndicator];
-        [ShadowHelper applyShadowToGenericContainerView:self];
-        [ReflectionHelper applyReflectionViewToGenericContainerView:self];
         [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants transformKey] : [NSValue valueWithCGAffineTransform:self.transform]} withFullAttributes:self.attributes];
         ((SimpleOperation *)self.currentOperation).toValue = [NSValue valueWithCGAffineTransform:self.transform];
         [[UndoManager sharedManager] pushOperation:self.currentOperation];
-        if (![self isFirstResponder]) {
-            [self becomeFirstResponder];
-        }
+        [self applySupplimentaryViewsWhenFinishChangingAttributes];
     }
 }
 
@@ -189,9 +167,7 @@
 }
 
 - (void) addSubViews
-{
-}
-
+{}
 
 - (BOOL) isContentFirstResponder
 {
@@ -214,13 +190,6 @@
     minSize.height = 2 * [DrawingConstants controlPointSizeHalf] + MIN_CONTENT_HEIGHT;
     minSize.width = [DrawingConstants controlPointSizeHalf] * 2 + MIN_CONTENT_WIDTH;
     return minSize;
-}
-
-- (void) updateEditingStatus
-{
-    if (CGAffineTransformIsIdentity(self.transform)) {
-        [[ControlPointManager sharedManager] enableControlPoints];
-    }
 }
 
 - (void) pushUnsavedOperation
@@ -251,6 +220,35 @@
     [ShadowHelper applyShadowToGenericContainerView:self];
     [ReflectionHelper applyReflectionViewToGenericContainerView:self];
     [self.delegate contentViewDidPerformUndoRedoOperation:self];
+}
+
+#pragma mark - ControlPointManagerDelegate
+- (void) controlPointDidFinishMoving
+{
+    [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants boundsKey] : [NSValue valueWithCGRect:self.bounds],
+                                                         [KeyConstants centerKey] : [NSValue valueWithCGPoint:self.center]} withFullAttributes:self.fullAttributes];
+}
+
+- (void) controlPointDidStartMoving
+{
+    [self hideSupplementaryViewsWhenStartChangingAttributes];
+}
+
+- (void) hideSupplementaryViewsWhenStartChangingAttributes
+{
+    [self.delegate contentView:self startChangingAttribute:[KeyConstants transformKey]];
+    [ShadowHelper hideShadowForGenericContainerView:self];
+    [ReflectionHelper hideReflectionViewFromGenericContainerView:self];
+}
+
+- (void) applySupplimentaryViewsWhenFinishChangingAttributes
+{
+    if (![self isFirstResponder]) {
+        [self becomeFirstResponder];
+    }
+    [ShadowHelper applyShadowToGenericContainerView:self];
+    [ReflectionHelper applyReflectionViewToGenericContainerView:self];
+    [self.delegate contentView:self didChangeAttributes:nil];
 }
 
 @end

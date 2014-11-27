@@ -12,13 +12,25 @@
 #define MIN_CONTENT_HEIGHT 50
 #define MIN_CONTENT_WIDTH 50
 
+@protocol ControlPointManagerDelegate <NSObject>
+@property (nonatomic) CGRect bounds;
+@property (nonatomic) CGPoint center;
+- (void) addSubview:(UIView *) view;
+- (CGPoint) convertPoint:(CGPoint)point toView:(UIView *) view;
+- (UIView *) superview;
+- (void) controlPointDidStartMoving;
+- (void) controlPointDidFinishMoving;
+@end
+
 @interface ControlPointManager : NSObject
 
 + (ControlPointManager *) sharedManager;
 
-- (void) addAndLayoutControlPointsInView:(UIView *)view;
+@property (nonatomic, weak) id<ControlPointManagerDelegate> delegate;
+
+- (void) addAndLayoutControlPointsInView:(id<ControlPointManagerDelegate>)view;
 - (void) layoutControlPoints;
-- (void) removeAllControlPointsFromView:(UIView *) view;
+- (void) removeAllControlPointsFromView:(id<ControlPointManagerDelegate>) view;
 - (CGRect) borderRectFromContainerViewBounds:(CGRect) containerViewBounds;
 - (void) enableControlPoints;
 - (UIColor *) borderColor;

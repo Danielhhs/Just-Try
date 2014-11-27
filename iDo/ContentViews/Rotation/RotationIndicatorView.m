@@ -49,6 +49,7 @@
 - (void) applyToView:(UIView *) view
 {
     self.frame = view.bounds;
+    [self setNeedsDisplay];
 }
 
 - (void) update

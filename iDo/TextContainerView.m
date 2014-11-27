@@ -58,7 +58,7 @@
     [self adjustTextViewBoundsForBounds:bounds];
     CGRect boundsAfterAdjustments = [self boundsFromTextViewBounds:self.textView.bounds];
     [super setBounds:boundsAfterAdjustments];
-    [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants boundsKey] : [NSValue valueWithCGRect:boundsAfterAdjustments]} withFullAttributes:self.attributes];
+//    [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants boundsKey] : [NSValue valueWithCGRect:boundsAfterAdjustments]} withFullAttributes:self.attributes];
     if ([self needToAdjustCanvas]) {
         [self.delegate frameDidChangeForContentView:self];
     }
@@ -106,7 +106,6 @@
     [self.textView readyToEdit];
     self.selected = YES;
     [self.delegate contentViewDidBecomFirstResponder:self];
-    [self updateEditingStatus];
     return result;
 }
 

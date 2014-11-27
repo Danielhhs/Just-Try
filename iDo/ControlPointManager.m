@@ -16,7 +16,6 @@
 #import "DrawingConstants.h"
 
 @interface ControlPointManager ()<BorderControlPointViewDelegate>
-@property (nonatomic, strong) UIView *container;
 @property (nonatomic, strong) BorderControlPointView *topLeftControlPoint;
 @property (nonatomic, strong) BorderControlPointView *topMiddleControlPoint;
 @property (nonatomic, strong) BorderControlPointView *topRightControlPoint;
@@ -66,18 +65,18 @@ static ControlPointManager *sharedInstance;
 }
 
 #pragma mark - Public APIs
-- (void) addAndLayoutControlPointsInView:(UIView *)view
+- (void) addAndLayoutControlPointsInView:(id<ControlPointManagerDelegate>)view
 {
-    if (self.container != view) {
-        self.container = view;
+    if (self.delegate != view) {
+        self.delegate = view;
         [self addControlPoints];
     }
     [self layoutControlPoints];
 }
 
-- (void) removeAllControlPointsFromView:(UIView *)view
+- (void) removeAllControlPointsFromView:(id<ControlPointManagerDelegate>)view
 {
-    if (self.container == view) {
+    if (self.delegate == view) {
         [self.topLeftControlPoint removeFromSuperview];
         [self.topMiddleControlPoint removeFromSuperview];
         [self.topRightControlPoint removeFromSuperview];
@@ -86,17 +85,15 @@ static ControlPointManager *sharedInstance;
         [self.bottomLeftControlPoint removeFromSuperview];
         [self.bottomMiddleControlPoint removeFromSuperview];
         [self.bottomRightControlPoint removeFromSuperview];
-        self.container = nil;
+        self.delegate = nil;
     }
 }
 
 #pragma mark - BorderControlPointViewDelegate
 - (UIView *) containerView
 {
-    return self.container;
+    return (UIView *)self.delegate;
 }
-
-
 - (void) controlPoint:(BorderControlPointView *)controlPoint
  didMoveByTranslation:(CGPoint)translation
 translationInSuperView:(CGPoint)translationInSuperView
@@ -136,17 +133,19 @@ translationInSuperView:(CGPoint)translationInSuperView
 {
     self.originalBounds = self.containerView.bounds;
     self.originalCenter = self.containerView.center;
+    [self.delegate controlPointDidStartMoving];
 }
 
 - (void) controlPointDidFinishMoving:(BorderControlPointView *)controlPoint
 {
-    SimpleOperation *boundsOperation = [[SimpleOperation alloc] initWithTargets:@[self.container] key:[KeyConstants boundsKey] fromValue:[NSValue valueWithCGRect:self.originalBounds]];
-    boundsOperation.toValue = [NSValue valueWithCGRect:self.container.bounds];
-    SimpleOperation *centerOperation = [[SimpleOperation alloc] initWithTargets:@[self.container] key:[KeyConstants centerKey] fromValue:[NSValue valueWithCGPoint:self.originalCenter]];
-    centerOperation.toValue = [NSValue valueWithCGPoint:self.container.center];
+    SimpleOperation *boundsOperation = [[SimpleOperation alloc] initWithTargets:@[self.delegate] key:[KeyConstants boundsKey] fromValue:[NSValue valueWithCGRect:self.originalBounds]];
+    boundsOperation.toValue = [NSValue valueWithCGRect:self.delegate.bounds];
+    SimpleOperation *centerOperation = [[SimpleOperation alloc] initWithTargets:@[self.delegate] key:[KeyConstants centerKey] fromValue:[NSValue valueWithCGPoint:self.originalCenter]];
+    centerOperation.toValue = [NSValue valueWithCGPoint:self.delegate.center];
     
     CompoundOperation *frameOperation = [[CompoundOperation alloc] initWithOperations:@[boundsOperation, centerOperation]];
     [[UndoManager sharedManager] pushOperation:frameOperation];
+    [self.delegate controlPointDidFinishMoving];
 }
 
 #pragma mark - Control points moved handlers
@@ -252,27 +251,27 @@ translationInSuperView:(CGPoint)translationInSuperView
 #pragma mark - Private Helpers
 - (CGFloat) centerXForMiddleControlPoints
 {
-    return CGRectGetMidX(self.container.bounds);
+    return CGRectGetMidX(self.delegate.bounds);
 }
 
 - (CGFloat) centerXForRightControlPoints
 {
-    return CGRectGetMaxX([self borderRectFromContainerViewBounds:self.container.bounds]);
+    return CGRectGetMaxX([self borderRectFromContainerViewBounds:self.delegate.bounds]);
 }
 
 - (CGFloat) centerYForTopControlPoints
 {
-    return CGRectGetMinY([self borderRectFromContainerViewBounds:self.container.bounds]);
+    return CGRectGetMinY([self borderRectFromContainerViewBounds:self.delegate.bounds]);
 }
 
 - (CGFloat) centerYForMiddleControlPoints
 {
-    return CGRectGetMidY([self borderRectFromContainerViewBounds:self.container.bounds]);
+    return CGRectGetMidY([self borderRectFromContainerViewBounds:self.delegate.bounds]);
 }
 
 - (CGFloat) centerYForBottomControlPoints
 {
-    return CGRectGetMaxY([self borderRectFromContainerViewBounds:self.container.bounds]);
+    return CGRectGetMaxY([self borderRectFromContainerViewBounds:self.delegate.bounds]);
 }
 
 - (CGRect) borderRectFromContainerViewBounds:(CGRect) containerViewBounds
@@ -287,16 +286,16 @@ translationInSuperView:(CGPoint)translationInSuperView
 
 - (void) addControlPoints
 {
-    if (![self.container isKindOfClass:[TextContainerView class]]) {
-        [self.container addSubview:self.topLeftControlPoint];
-        [self.container addSubview:self.topMiddleControlPoint];
-        [self.container addSubview:self.topRightControlPoint];
-        [self.container addSubview:self.bottomLeftControlPoint];
-        [self.container addSubview:self.bottomMiddleControlPoint];
-        [self.container addSubview:self.bottomRightControlPoint];
+    if (![self.delegate isKindOfClass:[TextContainerView class]]) {
+        [self.delegate addSubview:self.topLeftControlPoint];
+        [self.delegate addSubview:self.topMiddleControlPoint];
+        [self.delegate addSubview:self.topRightControlPoint];
+        [self.delegate addSubview:self.bottomLeftControlPoint];
+        [self.delegate addSubview:self.bottomMiddleControlPoint];
+        [self.delegate addSubview:self.bottomRightControlPoint];
     }
-    [self.container addSubview:self.middleLeftControlPoint];
-    [self.container addSubview:self.middleRightControlPoint];
+    [self.delegate addSubview:self.middleLeftControlPoint];
+    [self.delegate addSubview:self.middleRightControlPoint];
 }
 
 - (void) enableControlPoints
@@ -313,7 +312,7 @@ translationInSuperView:(CGPoint)translationInSuperView
 
 - (void) layoutControlPoints
 {
-    if (![self.container isKindOfClass:[TextContainerView class]]) {
+    if (![self.delegate isKindOfClass:[TextContainerView class]]) {
         self.topLeftControlPoint.center = CGPointMake([DrawingConstants controlPointSizeHalf], [self centerYForTopControlPoints]);
         self.topMiddleControlPoint.center = CGPointMake([self centerXForMiddleControlPoints], [self centerYForTopControlPoints]);
         self.topRightControlPoint.center = CGPointMake([self centerXForRightControlPoints], [self centerYForTopControlPoints]);
@@ -336,7 +335,7 @@ translationInSuperView:(CGPoint)translationInSuperView
 
 - (BOOL) shouldChangeBounds:(CGRect) bounds
 {
-    GenericContainerView *container = (GenericContainerView *) self.container;
+    GenericContainerView *container = (GenericContainerView *) self.delegate;
     if (bounds.size.width < [container minSize].width || bounds.size.height < [container minSize].height) {
         return  NO;
     }
@@ -347,18 +346,18 @@ translationInSuperView:(CGPoint)translationInSuperView
 {
     self.previousFrame = bounds;
     if ([self shouldChangeBounds:bounds]) {
-        self.container.bounds = bounds;
-        self.container.center = center;
+        self.delegate.bounds = bounds;
+        self.delegate.center = center;
     }
 }
 
 - (CGPoint) contentViewCenterInSuperView
 {
     CGPoint center;
-    CGRect contentViewFrame = [self borderRectFromContainerViewBounds:self.container.bounds];
+    CGRect contentViewFrame = [self borderRectFromContainerViewBounds:self.delegate.bounds];
     center.x = CGRectGetMidX(contentViewFrame);
     center.y = CGRectGetMidY(contentViewFrame);
-    CGPoint result = [self.container convertPoint:center toView:self.container.superview];
+    CGPoint result = [self.delegate convertPoint:center toView:self.delegate.superview];
     return result;
 }
 
