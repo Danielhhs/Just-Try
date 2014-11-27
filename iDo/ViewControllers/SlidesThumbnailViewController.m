@@ -106,11 +106,11 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
     self.originalIndex = indexPath.row;
     self.toIndex = indexPath.row;
     self.cellMovingIndicator.bounds = cell.thumbnail.bounds;
-    self.cellMovingIndicator.center = [self.thumbnailsCollectionView convertPoint:cell.thumbnail.center fromView:cell];
+    self.cellMovingIndicator.center = [self centerInCurrentVisibleAreaFromCenterInCollectionView:[self.thumbnailsCollectionView convertPoint:cell.thumbnail.center fromView:cell]];
     self.cellMovingIndicator.hidden = NO;
     self.cellMovingIndicator.snapshot = cell.thumbnail.image;
     [UIView animateWithDuration:0.3 animations:^{
-        self.cellMovingIndicator.center = [gesture locationInView:self.thumbnailsCollectionView];
+        self.cellMovingIndicator.center = [self centerInCurrentVisibleAreaFromCenterInCollectionView:[gesture locationInView:self.thumbnailsCollectionView]];
     } completion:^(BOOL finished) {
         self.cellMovingIndicator.moving = YES;
     }];
@@ -118,14 +118,14 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
 
 - (void) thumbnailCell:(ThumbnailCollectionViewCell *)cell didMoveWithLongPressGesture:(UILongPressGestureRecognizer *)gesture
 {
-    self.cellMovingIndicator.center = [gesture locationInView:self.thumbnailsCollectionView];
+    self.cellMovingIndicator.center = [self centerInCurrentVisibleAreaFromCenterInCollectionView:[gesture locationInView:self.thumbnailsCollectionView]];
     [self switchCellWithAnotherCell:cell];
 }
 
 - (void) thumbnailCellDidFinishMoving:(ThumbnailCollectionViewCell *)cell
 {
     [UIView animateWithDuration:0.372 animations:^{
-        self.cellMovingIndicator.center = [self.thumbnailsCollectionView convertPoint:cell.thumbnail.center fromView:cell];
+        self.cellMovingIndicator.center = [self centerInCurrentVisibleAreaFromCenterInCollectionView:[self.thumbnailsCollectionView convertPoint:cell.thumbnail.center fromView:cell]];
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.1 animations:^{
             [self.delegate slideThumbnailController:self didSwtichCellAtIndex:self.originalIndex toIndex:self.toIndex];
@@ -159,7 +159,8 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
 
 - (BOOL) shouldSwitchSelectedCell:(ThumbnailCollectionViewCell *) selectedCell withCell:(ThumbnailCollectionViewCell *)cell
 {
-    return (cell != selectedCell) && (self.cellMovingIndicator.center.y < CGRectGetMaxY(cell.frame) && self.cellMovingIndicator.center.y > CGRectGetMinY(cell.frame));
+    CGPoint center = [self centerInCollectionViewFromCurrentVisibleArea:self.cellMovingIndicator.center];
+    return (cell != selectedCell) && (center.y < CGRectGetMaxY(cell.frame) && center.y > CGRectGetMinY(cell.frame));
 }
 
 - (void) reloadThumbnailForItemAtIndex:(NSInteger)index
@@ -171,8 +172,16 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
 
 - (CGPoint) centerInCurrentVisibleAreaFromCenterInCollectionView:(CGPoint) center
 {
-    center.y -= [self.thumbnailsCollectionView contentOffset].y;
-    return center;
+    CGPoint newCenter = center;
+    newCenter.y -= [self.thumbnailsCollectionView contentOffset].y;
+    return newCenter;
+}
+
+- (CGPoint) centerInCollectionViewFromCurrentVisibleArea:(CGPoint) center
+{
+    CGPoint newCenter = center;
+    newCenter.y += [self.thumbnailsCollectionView contentOffset].y;
+    return newCenter;
 }
 
 @end
