@@ -9,9 +9,10 @@
 #import "ContentEditMenuView.h"
 #import "EditMenuItem.h"
 #import "TextConstants.h"
-#import "GenericContainerView.h"
+#import "GenericContainerViewHelper.h"
 #import "DrawingConstants.h"
 #import "EditMenuHelper.h"
+#import "PasteboardHelper.h"
 
 #define SEPARATOR_WIDTH 3
 #define EDIT_MENU_ARROW_HEIGHT 10
@@ -20,8 +21,6 @@
 #define EDIT_ITEM_HEIGTH 61.8
 #define SEPARATOR_TOP_BOTTOM_MARGIN 5
 #define PASTE_ITEM_INDEX 2
-
-#define PAST_BOARD_TYPE_UTI @"cn.hshuang.iDO"
 
 @interface ContentEditMenuView ()
 @property (nonatomic, strong) NSMutableArray *availableOperations;
@@ -73,16 +72,15 @@
 - (void) handleCopy
 {
     NSLog(@"%@ copied", [self.triggeredContent attributes]);
-    
-    [[UIPasteboard generalPasteboard] setData:[EditMenuHelper encodeGenericContent:self.triggeredContent] forPasteboardType:PAST_BOARD_TYPE_UTI];
+    [PasteboardHelper copyData:[EditMenuHelper encodeGenericContent:self.triggeredContent]];
     self.duplicateButton.backgroundColor = [UIColor clearColor];
 }
 
 - (void) handlePaste
 {
-    NSData *data = [[UIPasteboard generalPasteboard] dataForPasteboardType:PAST_BOARD_TYPE_UTI];
+    NSData *data = [PasteboardHelper dataFromPasteboard];
     NSMutableDictionary *attributes = [EditMenuHelper decodeGenericContentFromData:data];
-    GenericContainerView *pasteContent = [[GenericContainerView alloc] initWithAttributes:attributes delegate:self.triggeredContent.delegate];
+    GenericContainerView *pasteContent = [GenericContainerViewHelper contentViewFromAttributes:attributes delegate:self.triggeredContent.delegate];
     [self.delegate editMenu:self didPasteContent:pasteContent];
     self.pasteButton.backgroundColor = [UIColor clearColor];
 }
@@ -108,7 +106,7 @@
 
 - (void) show
 {
-    NSData *existingData = [[UIPasteboard generalPasteboard] dataForPasteboardType:PAST_BOARD_TYPE_UTI];
+    NSData *existingData = [PasteboardHelper dataFromPasteboard];
     if (existingData && ![self.availableOperations containsObject:self.pasteButton]) {
         [self addSubview:self.pasteButton];
         [self.availableOperations insertObject:self.pasteButton atIndex:PASTE_ITEM_INDEX];

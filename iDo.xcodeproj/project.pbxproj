@@ -48,6 +48,7 @@
 		547EEEC91A18800900EAD132 /* ContentEditMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 547EEEC81A18800900EAD132 /* ContentEditMenuView.m */; };
 		547EEECD1A1881F200EAD132 /* EditMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 547EEECC1A1881F200EAD132 /* EditMenuItem.m */; };
 		547EEED01A18878200EAD132 /* TextConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 547EEECF1A18878200EAD132 /* TextConstants.m */; };
+		549148F01A26E7AB00DE859F /* PasteboardHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 549148EF1A26E7AB00DE859F /* PasteboardHelper.m */; };
 		549567711A05EA18006D6BAE /* CustomTapTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 549567701A05EA18006D6BAE /* CustomTapTextView.m */; };
 		54965B061A00E50F005AF774 /* ShadowHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B051A00E50F005AF774 /* ShadowHelper.m */; };
 		54965B3C1A020424005AF774 /* RotationIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B3B1A020424005AF774 /* RotationIndicatorView.m */; };
@@ -184,6 +185,8 @@
 		547EEECC1A1881F200EAD132 /* EditMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditMenuItem.m; path = ContentViews/EditMenu/EditMenuItem.m; sourceTree = "<group>"; };
 		547EEECE1A18878200EAD132 /* TextConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextConstants.h; path = Helper/TextConstants.h; sourceTree = "<group>"; };
 		547EEECF1A18878200EAD132 /* TextConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextConstants.m; path = Helper/TextConstants.m; sourceTree = "<group>"; };
+		549148EE1A26E7AB00DE859F /* PasteboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PasteboardHelper.h; path = Pasteboard/PasteboardHelper.h; sourceTree = "<group>"; };
+		549148EF1A26E7AB00DE859F /* PasteboardHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PasteboardHelper.m; path = Pasteboard/PasteboardHelper.m; sourceTree = "<group>"; };
 		5495676F1A05EA18006D6BAE /* CustomTapTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomTapTextView.h; path = ContentViews/CustomTapTextView.h; sourceTree = "<group>"; };
 		549567701A05EA18006D6BAE /* CustomTapTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomTapTextView.m; path = ContentViews/CustomTapTextView.m; sourceTree = "<group>"; };
 		54965B041A00E50F005AF774 /* ShadowHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowHelper.h; sourceTree = "<group>"; };
@@ -428,6 +431,8 @@
 				54F0C4E21A0F25F4009B4B0D /* DrawingConstants.m */,
 				547EEECE1A18878200EAD132 /* TextConstants.h */,
 				547EEECF1A18878200EAD132 /* TextConstants.m */,
+				549148EE1A26E7AB00DE859F /* PasteboardHelper.h */,
+				549148EF1A26E7AB00DE859F /* PasteboardHelper.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -853,6 +858,7 @@
 				546457D119F116B700078EAF /* ImageHelper.m in Sources */,
 				546F5CC919FFAFE600C30CBB /* TextDisplayView.m in Sources */,
 				547EEECD1A1881F200EAD132 /* EditMenuItem.m in Sources */,
+				549148F01A26E7AB00DE859F /* PasteboardHelper.m in Sources */,
 				54D333A91A0604EE00F3D7F9 /* UndoManager.m in Sources */,
 				54F4C7521A036B63006A3F07 /* CanvasView.m in Sources */,
 				540A0A0E1A204F3A0087C6AC /* ReflectionHelper.m in Sources */,

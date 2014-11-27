@@ -19,8 +19,7 @@
 #import "ProposalAttributesManager.h"
 #import "ContentEditMenuView.h"
 #import "SlideEditingToolbarViewController.h"
-
-#define GAP_BETWEEN_VIEWS 20.f
+#import "PasteboardHelper.h"
 
 @interface SlidesContainerViewController ()<SlidesEditingViewControllerDelegate, SlidesThumbnailViewControllerDelegate, ContentEditMenuViewDelegate, SlideEditingToolbarDelegate>
 @property (nonatomic) NSInteger currentSelectSlideIndex;
@@ -47,6 +46,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardShowNotification:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardHideNotification:) name:UIKeyboardWillHideNotification object:nil];
     [[UndoManager sharedManager] clearUndoStack];
+    [PasteboardHelper clearPasteboard];
 }
 
 - (void) loadAllSlideViews
@@ -153,7 +153,7 @@
 {
     CGPoint bottomPoint = [self.view convertPoint:CGPointMake(0, contentBottom) fromView:self.editorViewController.view];
     if (self.keyboardOriginY) {
-        CGFloat offsetForKeyboard = (self.keyboardOriginY -bottomPoint.y - GAP_BETWEEN_VIEWS) / self.editorViewController.view.transform.a;
+        CGFloat offsetForKeyboard = (self.keyboardOriginY -bottomPoint.y - [DrawingConstants gapBetweenViews]) / self.editorViewController.view.transform.a;
         self.editorViewController.view.transform = CGAffineTransformTranslate(self.editorViewController.view.transform, 0, offsetForKeyboard);
     }
 }
