@@ -325,6 +325,16 @@
                                     <action selector="textAlignmentChanged:" destination="s7p-ek-EEl" eventType="valueChanged" id="Vhj-vD-gMW"/>
                                 </connections>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HRn-vR-Imd">
+                                <rect key="frame" x="27" y="236" width="247" height="30"/>
+                                <state key="normal" title="Text Color">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showTextColorPicker:" destination="s7p-ek-EEl" eventType="touchUpInside" id="5y9-PP-pvI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
@@ -359,7 +369,38 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZSA-wH-ds7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1919" y="100"/>
+            <point key="canvasLocation" x="1649" y="110.5"/>
+        </scene>
+        <!--Color Picker View Controller-->
+        <scene sceneID="UKE-iN-XNm">
+            <objects>
+                <viewController storyboardIdentifier="ColorPickerViewController" id="88q-jA-nKs" customClass="ColorPickerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Coi-u2-15g"/>
+                        <viewControllerLayoutGuide type="bottom" id="JUP-kR-JMQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HzX-bq-HWg">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="500"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q0H-Oo-RDu" customClass="RSColorPickerView">
+                                <rect key="frame" x="60" y="80" width="280" height="280"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="400" height="500"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="400" height="500"/>
+                    <connections>
+                        <outlet property="colorPickerView" destination="q0H-Oo-RDu" id="bu9-HC-XVd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qxa-FH-y6N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1952" y="-44"/>
         </scene>
     </scenes>
 </document>

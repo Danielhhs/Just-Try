@@ -17,6 +17,8 @@
 @interface RotationIndicatorView ()
 @property (nonatomic, strong) RotationTooltipView *tooltip;
 @property (nonatomic) BOOL corrected;
+@property (nonatomic, strong) UIBezierPath *correctedVerticalLane;
+@property (nonatomic, strong) UIBezierPath *nonCorrectedVerticalLane;
 @end
 
 @implementation RotationIndicatorView
@@ -96,22 +98,45 @@
     [self removeFromSuperview];
 }
 
+- (UIBezierPath *) correctedVerticalLane
+{
+    if (!_correctedVerticalLane) {
+        _correctedVerticalLane = [UIBezierPath bezierPath];
+        [_correctedVerticalLane moveToPoint:CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds))];
+        [_correctedVerticalLane addLineToPoint:CGPointMake(CGRectGetMidX(self.bounds), 0)];
+    }
+    return _correctedVerticalLane;
+}
+
+- (UIBezierPath *) nonCorrectedVerticalLane
+{
+    if (!_nonCorrectedVerticalLane) {
+        _nonCorrectedVerticalLane = [UIBezierPath bezierPath];
+        [_nonCorrectedVerticalLane moveToPoint:CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds))];
+        [_nonCorrectedVerticalLane addLineToPoint:CGPointMake(CGRectGetMidX(self.bounds), 0)];
+        CGFloat lineDash[2] = {5.0, 3.0};
+        [_nonCorrectedVerticalLane setLineDash:lineDash count:2 phase:1];
+    }
+    return _nonCorrectedVerticalLane;
+}
+
+- (UIBezierPath *) verticalLane
+{
+    return self.corrected ? self.correctedVerticalLane : self.nonCorrectedVerticalLane;
+}
+
 #pragma mark - Public APIs
 - (void) drawRect:(CGRect)rect
 {
     CGFloat midX = CGRectGetMidX(rect);
     CGFloat midY = CGRectGetMidY(rect);
 
-    UIBezierPath *verticalLane = [UIBezierPath bezierPath];
-    [verticalLane moveToPoint:CGPointMake(midX, midY)];
-    [verticalLane addLineToPoint:CGPointMake(midX, 0)];
+    UIBezierPath *verticalLane = [self verticalLane];
     
     UIBezierPath *centerCircle = [UIBezierPath bezierPathWithArcCenter:CGPointMake(midX, midY) radius:CENTER_CIRCLE_RADIUS startAngle:0 endAngle:M_PI * 2 clockwise:YES];
     [[self strokeColor] setStroke];
     verticalLane.lineWidth = 1.5f;
     centerCircle.lineWidth = 1.5f;
-    CGFloat lineDash[2] = {5.0, 3.0};
-    [verticalLane setLineDash:lineDash count:2 phase:1];
     [verticalLane stroke];
     [centerCircle stroke];
 }

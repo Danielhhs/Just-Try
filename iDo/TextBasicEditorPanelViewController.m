@@ -13,6 +13,7 @@
 #import "UndoManager.h"
 #import "SimpleOperation.h"
 #import "CompoundOperation.h"
+#import "ColorSelectionManager.h"
 
 #define PICK_VIEW_FONT_FAMILY_NAME_COMPONENT_INDEX 0
 #define PICK_VIEW_FONT_NAME_COMPONENT_INDEX 1
@@ -230,6 +231,10 @@
     } else {
         self.fontPicker.userInteractionEnabled= YES;
     }
+}
+
+- (IBAction)showTextColorPicker:(UIButton *)sender {
+    [[ColorSelectionManager sharedManager] showColorPickerFromRect:sender.frame inView:self.view forType:ColorUsageTypeGradient];
 }
 
 #pragma mark - Operation Target
