@@ -31,8 +31,6 @@ startChangingAttribute:(NSString *)attribute;
 
 - (void) contentView:(GenericContainerView *) content willBeModifiedInCanvas:(CanvasView *) canvas;
 
-- (void) contentView:(GenericContainerView *) content didRemoveFromView:(UIView *) canvas;
-
 - (void) contentViewDidPerformUndoRedoOperation:(GenericContainerView *) content;
 
 @optional

@@ -291,7 +291,6 @@
 
 - (void)drawRect:(CGRect)rect {
     UIBezierPath *borderPath = [UIBezierPath bezierPathWithRect:[[ControlPointManager sharedManager] borderRectFromContainerViewBounds:rect]];
-    
     borderPath.lineWidth = 3.f;
     [[self borderStrokeColor] setStroke];
     [borderPath stroke];

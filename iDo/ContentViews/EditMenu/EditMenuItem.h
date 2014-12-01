@@ -21,8 +21,8 @@ typedef NS_ENUM(NSInteger, EditMenuItemType) {
 - (instancetype) initWithFrame:(CGRect)frame
                          title:(NSString *) title
                       editMenu:(ContentEditMenuView *) editMenu
-                        action:(SEL) action
-                          type:(EditMenuItemType) type;
+                        action:(SEL) action;
 
 + (UIColor *) normalStateColor;
+@property (nonatomic) EditMenuItemType type;
 @end

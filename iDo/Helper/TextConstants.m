@@ -35,4 +35,14 @@
     return @"Delete";
 }
 
++ (NSString *) replaceText
+{
+    return @"Replace";
+}
+
++ (NSString *) animateText
+{
+    return @"Animate";
+}
+
 @end

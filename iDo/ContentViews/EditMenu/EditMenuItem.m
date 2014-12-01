@@ -11,7 +11,6 @@
 #import "DrawingConstants.h"
 @interface EditMenuItem()
 @property (nonatomic, weak) ContentEditMenuView *editMenu;
-@property (nonatomic) EditMenuItemType type;
 @property (nonatomic, strong) UIColor *fillColor;
 @end
 
@@ -23,20 +22,27 @@
                          title:(NSString *) title
                       editMenu:(ContentEditMenuView *) editMenu
                         action:(SEL) action
-                          type:(EditMenuItemType) type
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-        _type = type;
         [self setTitle:title forState:UIControlStateNormal];
         [self setTitleColor:[UIColor colorWithWhite:1 alpha:[DrawingConstants goldenRatio]] forState:UIControlStateHighlighted];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self addTarget:editMenu action:action forControlEvents:UIControlEventTouchUpInside];
         [self addTarget:self action:@selector(touchBegins) forControlEvents:(UIControlEventTouchDown | UIControlEventTouchDragEnter)];
         [self addTarget:self action:@selector(touchEnds) forControlEvents:(UIControlEventTouchDragExit | UIControlEventTouchCancel)];
+        [self adjustButtonWidth];
     }
     return self;
+}
+
+- (void) adjustButtonWidth
+{
+    CGSize sizeThatFits = [self sizeThatFits:self.bounds.size];
+    CGRect bounds = self.bounds;
+    bounds.size.width = sizeThatFits.width + 40;
+    self.bounds = bounds;
 }
 
 - (void) touchBegins
@@ -52,6 +58,14 @@
 + (UIColor *) normalStateColor
 {
     return [UIColor colorWithWhite:0 alpha:0.9];
+}
+
+- (void) setType:(EditMenuItemType)type
+{
+    if (_type != type) {
+        _type = type;
+        [self setNeedsDisplay];
+    }
 }
 
 - (void) setFillColor:(UIColor *)fillColor

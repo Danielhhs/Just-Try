@@ -21,7 +21,6 @@
 - (void) contentDidChangeFromEditingController:(SlidesEditingViewController *)editingController;
 - (void) contentView:(GenericContainerView *)content willBeModifiedInCanvas:(CanvasView *)canvas;
 - (void) contentViewDidPerformUndoRedoOperation:(GenericContainerView *) content;
-- (void) contentView:(GenericContainerView *)content didRemoveFromView:(UIView *)canvas;
 - (void) allContentViewDidResignFirstResponder;
 - (void) contentViewDidBecomeFirstResponder:(GenericContainerView *) content;
 @end
@@ -29,7 +28,6 @@
 @interface SlidesEditingViewController : UIViewController<CanvasViewDelegate, ImageContainerViewDelegate, TextContainerViewDelegate, TextEditorPanelContainerViewControllerDelegate, EditorPanelContainerViewControllerDelegate>
 
 @property (strong, nonatomic) CanvasView *canvas;
-@property (nonatomic, weak) ContentEditMenuView *editMenu;
 @property (nonatomic, strong) GenericContainerView *currentSelectedContent;
 @property (nonatomic, weak) id<SlidesEditingViewControllerDelegate> delegate;
 @property (nonatomic, strong) NSMutableDictionary *slideAttributes;

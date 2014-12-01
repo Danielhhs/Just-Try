@@ -363,7 +363,7 @@ translationInSuperView:(CGPoint)translationInSuperView
 
 - (UIColor *) borderColor
 {
-    return [UIColor blueColor];
+    return [UIColor colorWithRed:0 green:0.478431 blue:1 alpha:1];
 }
 
 - (CGFloat) viewRotateRadians

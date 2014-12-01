@@ -9,6 +9,18 @@
 #import <UIKit/UIKit.h>
 @class GenericContainerView;
 @class ContentEditMenuView;
+@class CanvasView;
+typedef NS_ENUM(NSInteger, EditMenuAvailableOperation) {
+    EditMenuAvailableOperationCopy = 0,
+    EditMenuAvailableOperationCut = 1,
+    EditMenuAvailableOperationPaste = 2,
+    EditMenuAvailableOperationEdit = 3,
+    EditMenuAvailableOperationDelete = 4,
+    EditMenuAvailableOperationAnimate = 5,
+    EditMenuAvailableOperationReplace = 6,
+    EditMenuAvailableOperationTransition = 7
+};
+
 @protocol ContentEditMenuViewDelegate <NSObject>
 
 - (void) editMenu:(ContentEditMenuView *) editMenu didEditContent:(GenericContainerView *)content;
@@ -22,7 +34,8 @@
 
 @property (nonatomic, strong) GenericContainerView *triggeredContent;
 @property (nonatomic, weak) id<ContentEditMenuViewDelegate> delegate;
-- (void) show;
+- (void) showWithAvailableOperations:(NSArray *) availableOperations toContent:(GenericContainerView *) content;
+- (void) showWithAvailableOperations:(NSArray *) availableOperations toCanvas:(CanvasView *) canvas;
 - (void) hide;
 - (void) update;
 @end

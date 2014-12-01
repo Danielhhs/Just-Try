@@ -17,9 +17,9 @@
 #import "UIView+Snapshot.h"
 #import "SlideAttributesManager.h"
 #import "RotationHelper.h"
+#import "EditMenuManager.h"
 @interface SlidesEditingViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, OperationTarget>
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
-@property (nonatomic) NSUInteger currentSelectionOriginalIndex;
 @end
 
 @implementation SlidesEditingViewController
@@ -50,24 +50,19 @@
 - (void) contentViewDidResignFirstResponder:(GenericContainerView *)contentView
 {
     self.currentSelectedContent = nil;
-    [self.editMenu hide];
-    [self switchView:contentView toIndex:self.currentSelectionOriginalIndex inSuperView:self.canvas];
+    [[EditMenuManager sharedManager] hideEditMenu];
 }
 
 - (void) contentViewWillBecomFirstResponder:(GenericContainerView *)contentView
 {
     [self resignPreviousFirstResponderExceptForContainer:contentView];
-    self.currentSelectionOriginalIndex = [[self.canvas subviews] indexOfObject:contentView];
 }
 
 - (void) contentViewDidBecomFirstResponder:(GenericContainerView *)contentView
 {
     self.currentSelectedContent = contentView;
     [self.canvas disablePinch];
-    [self switchView:contentView toIndex:[[self.canvas subviews] count] - 1 inSuperView:self.canvas];
-    self.editMenu.triggeredContent = contentView;
-    [self.editMenu show];
-    [self.view bringSubviewToFront:self.editMenu];
+    [self.view bringSubviewToFront:[EditMenuManager sharedManager].editMenu];
     [self.delegate contentViewDidBecomeFirstResponder:contentView];
 }
 
@@ -84,11 +79,6 @@
     [self.delegate contentView:content willBeModifiedInCanvas:canvas];
 }
 
-- (void) contentView:(GenericContainerView *)content didRemoveFromView:(UIView *)canvas
-{
-    [self.delegate contentView:content didRemoveFromView:canvas];
-}
-
 - (void) contentViewDidPerformUndoRedoOperation:(GenericContainerView *)content
 {
     [self.delegate contentViewDidPerformUndoRedoOperation:content];
@@ -96,7 +86,7 @@
 
 - (void) contentView:(GenericContainerView *)contentView startChangingAttribute:(NSString *) attribute
 {
-    [self.editMenu hide];
+    [[EditMenuManager sharedManager] hideEditMenu];
 }
 
 - (void) frameDidChangeForContentView:(GenericContainerView *)contentView
@@ -200,11 +190,6 @@
     }
 }
 
-- (void) switchView:(UIView *) view toIndex:(NSUInteger) index inSuperView:(UIView *) superView
-{
-    [superView insertSubview:view atIndex:index];
-}
-
 #pragma mark - Add & Remove Contents
 - (void) addContentViewToCanvas:(GenericContainerView *)content
 {
@@ -221,7 +206,7 @@
     GenericContainerView *content = self.currentSelectedContent;
     [self.currentSelectedContent resignFirstResponder];
     [content removeFromSuperview];
-    [self.editMenu hide];
+    [[EditMenuManager sharedManager] hideEditMenu];
 }
 
 - (CGPoint) canvasCenter

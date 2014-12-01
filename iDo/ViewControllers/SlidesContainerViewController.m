@@ -17,7 +17,7 @@
 #import "UIView+Snapshot.h"
 #import "CanvasAdjustmentHelper.h"
 #import "ProposalAttributesManager.h"
-#import "ContentEditMenuView.h"
+#import "EditMenuManager.h"
 #import "SlideEditingToolbarViewController.h"
 #import "PasteboardHelper.h"
 
@@ -26,7 +26,6 @@
 @property (nonatomic) CGFloat keyboardOriginY;
 @property (nonatomic, strong) NSMutableArray *slideViews;
 @property (nonatomic, strong) NSMutableArray *slideAttributes;
-@property (nonatomic, strong) ContentEditMenuView *editMenu;
 @property (nonatomic, strong) SlideEditingToolbarViewController *toolbar;
 @property (nonatomic, strong) dispatch_queue_t snapshotQueue;
 @end
@@ -39,14 +38,12 @@
     [self setupToolbarViewController];
     [self setupEditorViewController];
     [self.view bringSubviewToFront:self.toolbar.view];
-    self.editMenu = [[ContentEditMenuView alloc] initWithFrame:CGRectZero];
-    self.editMenu.delegate = self;
-    [self.editorViewController.view addSubview:self.editMenu];
-    self.editorViewController.editMenu = self.editMenu;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardShowNotification:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardHideNotification:) name:UIKeyboardWillHideNotification object:nil];
     [[UndoManager sharedManager] clearUndoStack];
     [PasteboardHelper clearPasteboard];
+    [EditMenuManager sharedManager].editMenu.delegate = self;
+    [self.editorViewController.view addSubview:[EditMenuManager sharedManager].editMenu];
 }
 
 - (void) loadAllSlideViews
@@ -158,15 +155,10 @@
     }
 }
 
-- (void) contentView:(GenericContainerView *)content didRemoveFromView:(UIView *)canvas
-{
-    [self.editMenu hide];
-}
-
 - (void) contentViewDidPerformUndoRedoOperation:(GenericContainerView *)content
 {
-    self.editMenu.triggeredContent = content;
-    [self.editMenu update];
+    [EditMenuManager sharedManager].editMenu.triggeredContent = content;
+    [[EditMenuManager sharedManager] updateEditMenu];
     [self updateSlideSnapshotAndThumbnail];
 }
 

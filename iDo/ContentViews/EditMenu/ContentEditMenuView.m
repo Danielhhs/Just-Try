@@ -13,14 +13,14 @@
 #import "DrawingConstants.h"
 #import "EditMenuHelper.h"
 #import "PasteboardHelper.h"
+#import "CanvasView.h"
 
-#define SEPARATOR_WIDTH 3
+#define SEPARATOR_WIDTH 2
 #define EDIT_MENU_ARROW_HEIGHT 10
 #define EDIT_MENU_ARROW_WIDTH_HALF 10
 #define EDIT_MENU_CORNER_RADIUS 10
 #define EDIT_ITEM_HEIGTH 50
 #define SEPARATOR_TOP_BOTTOM_MARGIN 5
-#define PASTE_ITEM_INDEX 2
 
 @interface ContentEditMenuView ()
 @property (nonatomic, strong) NSMutableArray *availableOperations;
@@ -29,6 +29,9 @@
 @property (nonatomic, strong) EditMenuItem *pasteButton;
 @property (nonatomic, strong) EditMenuItem *editButton;
 @property (nonatomic, strong) EditMenuItem *deleteButton;
+@property (nonatomic, strong) EditMenuItem *replaceButton;
+@property (nonatomic, strong) EditMenuItem *animateButton;
+@property (nonatomic, strong) EditMenuItem *transitionButton;
 @property (nonatomic, strong) NSMutableArray *separatorLocations;
 @end
 
@@ -38,35 +41,20 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _duplicateButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants duplicateText] editMenu:self action:@selector(handleCopy) type:EditMenuItemTypeLeftMost];
-        _cutButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants cutText] editMenu:self action:@selector(handleCut) type:EditMenuItemTypeCommon];
-        _pasteButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants pasteText] editMenu:self action:@selector(handlePaste) type:EditMenuItemTypeCommon];
-        _editButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants editText] editMenu:self action:@selector(handleEdit) type:EditMenuItemTypeCommon];
-        _deleteButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants deleteText] editMenu:self action:@selector(handleDelete) type:EditMenuItemTypeRightMost];
-        [self adjustButtonWidth:_duplicateButton];
-        [self adjustButtonWidth:_cutButton];
-        [self adjustButtonWidth:_pasteButton];
-        [self adjustButtonWidth:_editButton];
-        [self adjustButtonWidth:_deleteButton];
-        [self addSubview:_duplicateButton];
-        [self addSubview:_cutButton];
-        [self addSubview:_editButton];
-        [self addSubview:_deleteButton];
-        
-        self.availableOperations = [@[_duplicateButton, _cutButton, _editButton, _deleteButton] mutableCopy];
+        _duplicateButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants duplicateText] editMenu:self action:@selector(handleCopy)];
+        _cutButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants cutText] editMenu:self action:@selector(handleCut)];
+        _pasteButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants pasteText] editMenu:self action:@selector(handlePaste)];
+        _editButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants editText] editMenu:self action:@selector(handleEdit)];
+        _deleteButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants deleteText] editMenu:self action:@selector(handleDelete)];
+        _replaceButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants replaceText] editMenu:self action:@selector(handleReplace)];
+        _animateButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants animateText] editMenu:self action:@selector(handleAnimate)];
+        _transitionButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants animateText] editMenu:self action:@selector(handleTransition)];
+        self.availableOperations = [NSMutableArray array];
         self.separatorLocations = [NSMutableArray array];
         self.backgroundColor = [UIColor clearColor];
         self.hidden = YES;
     }
     return self;
-}
-
-- (void) adjustButtonWidth:(EditMenuItem *) button
-{
-    CGSize sizeThatFits = [button sizeThatFits:button.bounds.size];
-    CGRect bounds = button.bounds;
-    bounds.size.width = sizeThatFits.width + 40;
-    button.bounds = bounds;
 }
 
 - (void) handleCopy
@@ -98,19 +86,82 @@
     [self.delegate editMenu:self didDeleteContent:self.triggeredContent];
 }
 
-- (void) show
+- (void) handleReplace
 {
-    NSData *existingData = [PasteboardHelper dataFromPasteboard];
-    if (existingData && ![self.availableOperations containsObject:self.pasteButton]) {
-        [self addSubview:self.pasteButton];
-        [self.availableOperations insertObject:self.pasteButton atIndex:PASTE_ITEM_INDEX];
-    }
+    
+}
+
+- (void) handleAnimate
+{
+    
+}
+
+- (void) handleTransition
+{
+    
+}
+
+- (void) showWithAvailableOperations:(NSArray *)availableOperations toContent:(GenericContainerView *)content
+{
+    self.triggeredContent = content;
+    [self updateOperationButtonsFromAvailableOperations:availableOperations];
     self.frame = [self frameFromCurrentButtons];
     [self layoutButtons];
     self.hidden = NO;
     [self setNeedsDisplay];
 }
 
+- (void) showWithAvailableOperations:(NSArray *)availableOperations toCanvas:(CanvasView *)canvas
+{
+    
+}
+
+- (void) updateOperationButtonsFromAvailableOperations:(NSArray *) availableOperations
+{
+    [self.availableOperations removeAllObjects];
+    for (NSInteger i = 0; i < [availableOperations count]; i++) {
+        EditMenuItem *item = [self availableOperationForType:[availableOperations[i] integerValue]];
+        item.type = [self itemTypeForItemAtIndex:i totalItems:[availableOperations count]];
+        [self.availableOperations addObject:item];
+        [self addSubview:item];
+    }
+}
+
+- (EditMenuItemType) itemTypeForItemAtIndex:(NSInteger) index totalItems:(NSInteger) totalItems {
+    if (totalItems == 1) {
+        return EditMenuItemTypeOnly;
+    } else if (index == 0) {
+        return EditMenuItemTypeLeftMost;
+    } else if (index == totalItems - 1) {
+        return EditMenuItemTypeRightMost;
+    } else {
+        return EditMenuItemTypeCommon;
+    }
+}
+
+- (EditMenuItem *) availableOperationForType:(EditMenuAvailableOperation) type
+{
+    switch (type) {
+        case EditMenuAvailableOperationAnimate:
+            return self.animateButton;
+        case EditMenuAvailableOperationCopy:
+            return self.duplicateButton;
+        case EditMenuAvailableOperationCut:
+            return self.cutButton;
+        case EditMenuAvailableOperationPaste:
+            return self.pasteButton;
+        case EditMenuAvailableOperationDelete:
+            return self.deleteButton;
+        case EditMenuAvailableOperationEdit:
+            return self.editButton;
+        case EditMenuAvailableOperationReplace:
+            return self.replaceButton;
+        case EditMenuAvailableOperationTransition:
+            return self.transitionButton;
+        default:
+            return nil;
+    }
+}
 - (CGRect) frameFromCurrentButtons
 {
     CGRect frame;

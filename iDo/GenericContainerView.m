@@ -18,6 +18,7 @@
 #import "ReflectionHelper.h"
 #import "RotationHelper.h"
 #import "CanvasView.h"
+#import "EditMenuManager.h"
 @interface GenericContainerView()
 @property (nonatomic) BOOL currentlySelected;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
@@ -92,7 +93,7 @@
 #pragma mark - User Interations
 - (void) setupGestures
 {
-    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(becomeFirstResponder)];
+    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap)];
     [self addGestureRecognizer:self.tap];
     
     self.pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
@@ -104,7 +105,6 @@
 
 - (BOOL) resignFirstResponder
 {
-    self.tap.enabled = YES;
     self.currentlySelected = NO;
     [[ControlPointManager sharedManager] removeAllControlPointsFromView:self];
     return [super resignFirstResponder];
@@ -113,10 +113,17 @@
 - (BOOL) becomeFirstResponder
 {
     [self.delegate contentViewWillBecomFirstResponder:self];
-    self.tap.enabled = NO;
     self.currentlySelected = YES;
     [[ControlPointManager sharedManager] addAndLayoutControlPointsInView:self];
     return [super becomeFirstResponder];
+}
+
+- (void) handleTap
+{
+    if (self.currentlySelected == NO) {
+        [self becomeFirstResponder];
+    }
+    [[EditMenuManager sharedManager] showEditMenuToView:self];
 }
 
 - (void) handlePan:(UIPanGestureRecognizer *) gesture
@@ -206,7 +213,7 @@
         [self becomeFirstResponder];
     } else if ([simpleOperation.key isEqualToString:[KeyConstants deleteKey]]) {
         [self removeFromSuperview];
-        [self.delegate contentView:self didRemoveFromView:self.canvas];
+        [[EditMenuManager sharedManager] hideEditMenu];
     } else {
         NSDictionary *attibutes = @{simpleOperation.key : simpleOperation.toValue};
         [self becomeFirstResponder];

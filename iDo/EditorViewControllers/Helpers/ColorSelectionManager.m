@@ -30,7 +30,6 @@ static ColorSelectionManager *sharedInstance;
     if (self) {
         self.colorPickerController = [[UIStoryboard storyboardWithName:@"EditorViewControllers" bundle:nil] instantiateViewControllerWithIdentifier:@"ColorPickerViewController"];
         self.colorPickerPopover = [[UIPopoverController alloc] initWithContentViewController:self.colorPickerController];
-//        self.colorPickerPopover.popoverContentSize = self.colorPickerController.view.bounds.size;
     }
     return self;
 }

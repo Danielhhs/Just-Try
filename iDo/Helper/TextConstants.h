@@ -19,4 +19,8 @@
 
 + (NSString *) deleteText;
 
++ (NSString *) replaceText;
+
++ (NSString *) animateText;
+
 @end
