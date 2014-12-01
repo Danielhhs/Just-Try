@@ -19,6 +19,7 @@
 #import "ReflectionShadowTypeCell.h"
 #import "ShadowHelper.h"
 #import "ShadowType.h"
+#import "OperationHelper.h"
 
 #define THUMB_WIDTH_HALF 15
 
@@ -136,19 +137,16 @@
 
 - (void) switchFromView:(EditorButtonView *)fromView toView:(EditorButtonView *) toView
 {
-    SimpleOperation *toViewOperation = [[SimpleOperation alloc] initWithTargets:@[self.target, self] key:toView.key fromValue:@(toView.selected)];
+    SimpleOperation *toViewOperation = [OperationHelper simpleOperatioWithTargets:@[self.target, self] key:toView.key fromValue:@(toView.selected) toValue:@(!toView.selected)];
     toView.selected = !toView.selected;
-    toViewOperation.toValue = @(toView.selected);
-    SimpleOperation *fromViewOperation = [[SimpleOperation alloc] initWithTargets:@[self.target, self] key:fromView.key fromValue:@(fromView.selected)];
+    SimpleOperation *fromViewOperation = [OperationHelper simpleOperatioWithTargets:@[self.target, self] key:fromView.key fromValue:@(fromView.selected) toValue:@(NO)];
     fromView.selected = NO;
-    fromViewOperation.toValue = @(NO);
     [self updateReflectionShadowStatus];
     NSArray * sliderOperations = [self updateSlidersGeneratingOperations:YES];
     NSMutableArray *operations = [NSMutableArray arrayWithArray:sliderOperations];
     [operations addObject:toViewOperation];
     [operations addObject:fromViewOperation];
-    CompoundOperation *compoundOperation = [[CompoundOperation alloc] initWithOperations:operations];
-    [[UndoManager sharedManager] pushOperation:compoundOperation];
+    [OperationHelper pushCompoundOperationWithSimpleOperations:operations];
 }
 
 - (void) updateReflectionShadowStatus
@@ -265,6 +263,8 @@
 - (void) cellDidTapped:(ReflectionShadowTypeCell *)cell
 {
     NSString *key = self.addReflectionView.selected ? [KeyConstants reflectionTypeKey] : [KeyConstants shadowTypeKey];
+    [OperationHelper pushSimpleOperationWithTargets:@[self, self.target] key:key fromValue:self.attributes[key] toValue:@(cell.type)];
+    [self.attributes setValue:@(cell.type) forKey:key];
     [self.delegate editorPanelViewController:self didChangeAttributes:@{key : @(cell.type)}];
 }
 

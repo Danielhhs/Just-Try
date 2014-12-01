@@ -42,6 +42,7 @@
 		543FE0F01A28156F002276D7 /* ColorPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 543FE0EF1A28156F002276D7 /* ColorPickerViewController.m */; };
 		543FE1001A281842002276D7 /* ColorSelectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 543FE0FF1A281842002276D7 /* ColorSelectionManager.m */; };
 		543FE1031A287A18002276D7 /* EditMenuManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 543FE1021A287A18002276D7 /* EditMenuManager.m */; };
+		543FE1141A2C5037002276D7 /* OperationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 543FE1131A2C5037002276D7 /* OperationHelper.m */; };
 		546457BD19F1074900078EAF /* BasicImageEditorContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */; };
 		546457C019F1096200078EAF /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546457BF19F1096200078EAF /* CoreImage.framework */; };
 		546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457C319F10C1700078EAF /* UIView+Snapshot.m */; };
@@ -196,6 +197,8 @@
 		543FE0FF1A281842002276D7 /* ColorSelectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ColorSelectionManager.m; path = EditorViewControllers/Helpers/ColorSelectionManager.m; sourceTree = "<group>"; };
 		543FE1011A287A18002276D7 /* EditMenuManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditMenuManager.h; path = Helper/EditMenuManager.h; sourceTree = "<group>"; };
 		543FE1021A287A18002276D7 /* EditMenuManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditMenuManager.m; path = Helper/EditMenuManager.m; sourceTree = "<group>"; };
+		543FE1121A2C5037002276D7 /* OperationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OperationHelper.h; path = "Undo Manager/OperationHelper.h"; sourceTree = "<group>"; };
+		543FE1131A2C5037002276D7 /* OperationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OperationHelper.m; path = "Undo Manager/OperationHelper.m"; sourceTree = "<group>"; };
 		546457BA19F1074900078EAF /* BasicImageEditorContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicImageEditorContentViewController.h; path = EditorViewControllers/BasicImageEditorContentViewController.h; sourceTree = "<group>"; };
 		546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicImageEditorContentViewController.m; path = EditorViewControllers/BasicImageEditorContentViewController.m; sourceTree = "<group>"; };
 		546457BF19F1096200078EAF /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -669,6 +672,8 @@
 			children = (
 				54D333A71A0604EE00F3D7F9 /* UndoManager.h */,
 				54D333A81A0604EE00F3D7F9 /* UndoManager.m */,
+				543FE1121A2C5037002276D7 /* OperationHelper.h */,
+				543FE1131A2C5037002276D7 /* OperationHelper.m */,
 				54D333AB1A0606A900F3D7F9 /* Operation.h */,
 				54D333AC1A0606A900F3D7F9 /* Operation.m */,
 				542185321A07245C006EBDFD /* SimpleOperation.h */,
@@ -1018,6 +1023,7 @@
 				54EE547D1A122D8C00CA1AF7 /* SlideAttributesManager.m in Sources */,
 				54FC6F5A1A1EEFFB00833506 /* SlideEditingToolbarViewController.m in Sources */,
 				543FE0E31A2813DD002276D7 /* BitmapContextManipulator.m in Sources */,
+				543FE1141A2C5037002276D7 /* OperationHelper.m in Sources */,
 				547DCA0D1A04CDA5004691EC /* BordersContentViewController.m in Sources */,
 				54E62D0119FDFA8A0083E0F0 /* TextFontHelper.m in Sources */,
 				543FE0E61A2813DD002276D7 /* BitmapRotationManipulator.m in Sources */,

@@ -53,6 +53,8 @@ startChangingAttribute:(NSString *)attribute;
 
 - (CGRect) contentViewFrameFromBounds:(CGRect) bounds;
 
+- (void) contentHasBeenAddedToSuperView;
+
 - (UIImage *) contentSnapshot;
 
 - (void) applyAttributes:(NSDictionary *) attributes;

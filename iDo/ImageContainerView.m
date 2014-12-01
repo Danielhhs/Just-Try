@@ -24,7 +24,8 @@
         _image = [UIImage imageNamed:attributes[[KeyConstants imageNameKey]]];
         [self setUpImageContentWithImage:_image];
         [self addSubViews];
-        [GenericContainerViewHelper applyUndoAttribute:attributes toContainer:self];
+//        [GenericContainerViewHelper applyUndoAttribute:attributes toContainer:self];
+        [GenericContainerViewHelper applyAttribute:attributes toContainer:self];
     }
     return self;
 }

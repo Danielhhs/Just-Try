@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "Operation.h"
-
 @protocol UndoManagerDelegate <NSObject>
 
 - (void) disableUndo;

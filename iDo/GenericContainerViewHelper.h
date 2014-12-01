@@ -14,7 +14,7 @@
 + (void) mergeChangedAttributes:(NSDictionary *) changedAttributes
              withFullAttributes:(NSMutableDictionary *) fullAttributes;
 + (void) applyAttribute:(NSDictionary *) attributes toContainer:(GenericContainerView *) containerView;
-+ (void) applyUndoAttribute:(NSDictionary *)attributes toContainer:(GenericContainerView *)containerView;
+//+ (void) applyUndoAttribute:(NSDictionary *)attributes toContainer:(GenericContainerView *)containerView;
 + (void) resetActualTransformWithView:(GenericContainerView*) container;
 
 + (GenericContainerView *) contentViewFromAttributes:(NSMutableDictionary *)attributes delegate:(id<ContentContainerViewDelegate>) delegate;

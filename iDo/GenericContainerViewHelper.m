@@ -33,10 +33,6 @@
             toContainer:(GenericContainerView *)containerView
 {
     [GenericContainerViewHelper applyNoAnimationAttribute:attributes toContainer:containerView];
-    NSNumber *rotation = attributes[[KeyConstants rotationKey]];
-    if (rotation) {
-        [GenericContainerViewHelper applyRotation:[rotation doubleValue] toView:containerView];
-    }
 }
 
 + (void) applyNoAnimationAttribute:(NSDictionary *)attributes toContainer:(GenericContainerView *)containerView
@@ -44,6 +40,18 @@
     NSNumber *viewOpacity = attributes[[KeyConstants viewOpacityKey]];
     if (viewOpacity) {
         containerView.alpha = [viewOpacity doubleValue];
+    }
+    NSValue *bounds = attributes[[KeyConstants boundsKey]];
+    if (bounds) {
+        containerView.bounds = [bounds CGRectValue];
+    }
+    NSValue *center = attributes[[KeyConstants centerKey]];
+    if (center) {
+        containerView.center = [center CGPointValue];
+    }
+    NSValue *transform = attributes[[KeyConstants transformKey]];
+    if (transform) {
+        containerView.transform = [transform CGAffineTransformValue];
     }
     NSNumber *reflection = attributes[[KeyConstants reflectionKey]];
     if (reflection) {
@@ -67,23 +75,6 @@
     if (shadowSize || shadow || shadowType || shadowAlpha) {
         [ShadowHelper applyShadowToGenericContainerView:containerView];
     }
-    NSValue *bounds = attributes[[KeyConstants boundsKey]];
-    if (bounds) {
-        containerView.bounds = [bounds CGRectValue];
-    }
-    NSValue *center = attributes[[KeyConstants centerKey]];
-    if (center) {
-        containerView.center = [center CGPointValue];
-    }
-}
-
-+ (void) applyUndoAttribute:(NSDictionary *)attributes toContainer:(GenericContainerView *)containerView
-{
-    [GenericContainerViewHelper applyNoAnimationAttribute:attributes toContainer:containerView];
-    NSValue *transform = attributes[[KeyConstants transformKey]];
-    if (transform) {
-        containerView.transform = [transform CGAffineTransformValue];
-    }
 }
 
 + (CGFloat) anglesFromTransform:(CGAffineTransform)transform
@@ -100,21 +91,21 @@ static CGAffineTransform actualTransform;
     actualTransform = CGAffineTransformRotate(actualTransform, rotation);
     CGFloat actualRotation = atan2f(actualTransform.b, actualTransform.a);
     actualRotation = actualRotation / M_PI * [DrawingConstants angelsPerPi];
-    if ((actualRotation > -5 && actualRotation < 5) || (actualRotation > 355 && actualRotation < 360)) {
+    if ((actualRotation > -3 && actualRotation < 3) || (actualRotation > 357 && actualRotation < 360)) {
         actualRotation = 0;
     } else if (actualRotation > 43 && actualRotation < 47) {
         actualRotation = 45;
-    } else if (actualRotation > 85 && actualRotation < 95) {
+    } else if (actualRotation > 87 && actualRotation < 93) {
         actualRotation = 90;
     } else if (actualRotation > 133 && actualRotation < 137) {
         actualRotation = 135;
-    } else if ((actualRotation > 175 && actualRotation < 185) || (actualRotation > -185 && actualRotation < -175)) {
+    } else if ((actualRotation > 177 && actualRotation < 183) || (actualRotation > -183 && actualRotation < -177)) {
         actualRotation = 180;
     } else if (actualRotation > -47 && actualRotation < -43) {
         actualRotation = -45;
     } else if (actualRotation > -137 && actualRotation < -133) {
         actualRotation = -135;
-    } else if (actualRotation > -95 && actualRotation < -85) {
+    } else if (actualRotation > -93 && actualRotation < -87) {
         actualRotation = -90;
     }
     view.transform = CGAffineTransformRotate(CGAffineTransformIdentity, actualRotation / [DrawingConstants angelsPerPi] * M_PI);

@@ -95,10 +95,8 @@
 {
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap)];
     [self addGestureRecognizer:self.tap];
-    
     self.pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
     [self addGestureRecognizer:self.pan];
-    
     self.rotation = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotation:)];
     [self addGestureRecognizer:self.rotation];
 }
@@ -218,7 +216,7 @@
         NSDictionary *attibutes = @{simpleOperation.key : simpleOperation.toValue};
         [self becomeFirstResponder];
         [GenericContainerViewHelper mergeChangedAttributes:attibutes withFullAttributes:self.fullAttributes];
-        [GenericContainerViewHelper applyUndoAttribute:attibutes toContainer:self];
+        [GenericContainerViewHelper applyAttribute:attibutes toContainer:self];
     }
     [ShadowHelper applyShadowToGenericContainerView:self];
     [ReflectionHelper applyReflectionViewToGenericContainerView:self];
@@ -253,6 +251,12 @@
     [ShadowHelper applyShadowToGenericContainerView:self];
     [ReflectionHelper applyReflectionViewToGenericContainerView:self];
     [self.delegate contentView:self didChangeAttributes:nil];
+}
+
+- (void) contentHasBeenAddedToSuperView
+{
+    [ShadowHelper applyShadowToGenericContainerView:self];
+    [ReflectionHelper applyReflectionViewToGenericContainerView:self];
 }
 
 @end

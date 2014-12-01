@@ -32,7 +32,8 @@
     if (self) {
         [self setupTextViewWithAttributedString:attributes];
         [self addSubViews];
-        [GenericContainerViewHelper applyUndoAttribute:attributes toContainer:self];
+//        [GenericContainerViewHelper applyUndoAttribute:attributes toContainer:self];
+        [GenericContainerViewHelper applyAttribute:attributes toContainer:self];
         [self adjustTextViewBoundsForBounds:self.bounds];
     }
     return self;

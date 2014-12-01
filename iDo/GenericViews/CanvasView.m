@@ -32,6 +32,7 @@
         GenericContainerView *contentView = [GenericContainerViewHelper contentViewFromAttributes:content delegate:self.contentDelegate];
         contentView.canvas = self;
         [self addSubview:contentView];
+        [contentView contentHasBeenAddedToSuperView];
     }
     
 }
