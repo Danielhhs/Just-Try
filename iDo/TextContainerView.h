@@ -23,8 +23,6 @@
 
 - (instancetype) initWithAttributes:(NSMutableDictionary *) attributes delegate:(id<ContentContainerViewDelegate>)delegate;
 
-- (void) startEditing;
-
 - (void) finishEditing;
 
 - (void) adjustTextViewBoundsForBounds:(CGRect) bounds;

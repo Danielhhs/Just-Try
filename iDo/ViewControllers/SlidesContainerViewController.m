@@ -35,6 +35,7 @@
 #pragma mark - Memory Management
 - (void) awakeFromNib
 {
+    [[SlideThumbnailsManager sharedManager] showThumbnailsInViewController:self animated:NO];
     [self setupToolbarViewController];
     [self setupEditorViewController];
     [self.view bringSubviewToFront:self.toolbar.view];
@@ -43,7 +44,8 @@
     [[UndoManager sharedManager] clearUndoStack];
     [PasteboardHelper clearPasteboard];
     [EditMenuManager sharedManager].editMenu.delegate = self;
-    [self.editorViewController.view addSubview:[EditMenuManager sharedManager].editMenu];
+    [self.view addSubview:[EditMenuManager sharedManager].editMenu];
+    [EditMenuManager sharedManager].containerView = self.view;
 }
 
 - (void) loadAllSlideViews
@@ -60,7 +62,7 @@
 {
     [self saveProposal];
     [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
-    [[SlideThumbnailsManager sharedManager] hideThumnailsFromViewController:self];
+    [[SlideThumbnailsManager sharedManager] hideThumnailsFromViewController:self animated:NO];
     [super viewWillDisappear:animated];
 }
 
@@ -106,6 +108,7 @@
     [[SlideThumbnailsManager sharedManager] selectSlideAtIndex:self.currentSelectSlideIndex];
     self.editorViewController.slideAttributes = [self.slideAttributes objectAtIndex:self.currentSelectSlideIndex];
     self.editorViewController.canvas = [self.slideViews objectAtIndex:self.currentSelectSlideIndex];
+    [[EditMenuManager sharedManager] hideEditMenu];
 }
 
 - (dispatch_queue_t) snapshotQueue
@@ -115,7 +118,6 @@
     }
     return _snapshotQueue;
 }
-
 
 #pragma mark - Handle Keyboard Event
 - (void) handleKeyboardShowNotification:(NSNotification *)notification
@@ -141,8 +143,6 @@
 #pragma mark - SlidesEditingViewControllerDelegate
 - (void) contentDidChangeFromEditingController:(SlidesEditingViewController *)editingController
 {
-    [self.toolbar enableUndo];
-    [self.toolbar disableRedo];
     [self updateSlideSnapshotAndThumbnail];
 }
 
@@ -189,7 +189,7 @@
 - (void) allContentViewDidResignFirstResponder
 {
     [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
-    [[SlideThumbnailsManager sharedManager] showThumbnailsInViewController:self];
+    [[SlideThumbnailsManager sharedManager] showThumbnailsInViewController:self animated:YES];
 }
 
 #pragma mark - SlidesThumbnailViewControllerDelegate
@@ -227,8 +227,9 @@
 
 - (void) editMenu:(ContentEditMenuView *)editMenu didEditContent:(GenericContainerView *)content
 {
-    [[SlideThumbnailsManager sharedManager] hideThumnailsFromViewController:self];
+    [[SlideThumbnailsManager sharedManager] hideThumnailsFromViewController:self animated:YES];
     [[EditorPanelManager sharedManager] showEditorPanelInViewController:self forContentView:content];
+    [[EditMenuManager sharedManager] hideEditMenu];
 }
 
 - (void) editMenu:(ContentEditMenuView *)editMenu didCutContent:(GenericContainerView *)content
@@ -277,13 +278,5 @@
         [[UndoManager sharedManager] pushOperation:deleteOperation];
         [self.editorViewController removeCurrentContentViewFromCanvas];
     }
-}
-
-- (void) showSlideThumbnails
-{
-    [self.editorViewController saveSlideAttributes];
-    [[EditorPanelManager sharedManager] dismissAllEditorPanelsFromViewController:self];
-    [[SlideThumbnailsManager sharedManager] selectSlideAtIndex:self.currentSelectSlideIndex];
-    [[SlideThumbnailsManager sharedManager] showThumbnailsInViewController:self];
 }
 @end

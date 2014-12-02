@@ -14,9 +14,9 @@
 
 + (SlideThumbnailsManager *) sharedManager;
 
-- (void) showThumbnailsInViewController:(UIViewController *)controller;
+- (void) showThumbnailsInViewController:(UIViewController *)controller animated:(BOOL) animated;
 
-- (void) hideThumnailsFromViewController:(UIViewController *)controller;
+- (void) hideThumnailsFromViewController:(UIViewController *)controller animated:(BOOL) animated;
 
 - (CGFloat) thumbnailViewControllerWidth;
 

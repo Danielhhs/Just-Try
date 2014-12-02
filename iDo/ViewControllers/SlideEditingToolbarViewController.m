@@ -68,7 +68,6 @@
 
 - (IBAction)addText:(id)sender {
     TextContainerView *defaultText = [[TextContainerView alloc] initWithAttributes:[DefaultValueGenerator defaultTextAttributes] delegate:nil];
-    [defaultText startEditing];
     [self.delegate addGenericContentView:defaultText];
 }
 
@@ -87,7 +86,6 @@
 }
 
 - (IBAction)showSlideThumbnails:(id)sender {
-    [self.delegate showSlideThumbnails];
 }
 
 @end

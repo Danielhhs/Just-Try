@@ -18,7 +18,6 @@
 @end
 
 @interface TextEditorPanelContainerViewController : EditorPanelContainerViewController
-
 @property (nonatomic, weak) id<TextEditorPanelContainerViewControllerDelegate> delegate;
 
 - (void) updateFontPickerByRange:(NSRange) range;

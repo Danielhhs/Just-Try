@@ -32,7 +32,6 @@
     if (self) {
         [self setupTextViewWithAttributedString:attributes];
         [self addSubViews];
-//        [GenericContainerViewHelper applyUndoAttribute:attributes toContainer:self];
         [GenericContainerViewHelper applyAttribute:attributes toContainer:self];
         [self adjustTextViewBoundsForBounds:self.bounds];
     }
@@ -106,11 +105,6 @@
     self.selected = YES;
     [self.delegate contentViewDidBecomFirstResponder:self];
     return result;
-}
-
-- (void) startEditing
-{
-    [self.textView becomeFirstResponder];
 }
 
 - (void) finishEditing
@@ -259,6 +253,13 @@
         [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [attributedString length])];
         self.textView.attributedText = attributedString;
     }
+    UIColor *textColor = [attributes objectForKey:[KeyConstants textColorKey]];
+    if (textColor) {
+        [attributedString enumerateAttribute:NSForegroundColorAttributeName inRange:selectedRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
+            [attributedString addAttribute:NSForegroundColorAttributeName value:textColor range:selectedRange];
+        }];
+    }
+    self.textView.attributedText = attributedString;
     self.lastAttrText = self.textView.attributedText;
 }
 

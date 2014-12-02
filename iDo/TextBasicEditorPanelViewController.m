@@ -14,6 +14,7 @@
 #import "SimpleOperation.h"
 #import "CompoundOperation.h"
 #import "ColorSelectionManager.h"
+#import "ColorPickerViewController.h"
 
 #define PICK_VIEW_FONT_FAMILY_NAME_COMPONENT_INDEX 0
 #define PICK_VIEW_FONT_NAME_COMPONENT_INDEX 1
@@ -28,7 +29,7 @@
 #define KEYBOARD_OFFSET 200
 
 
-@interface TextBasicEditorPanelViewController ()<UIPickerViewDataSource, UIPickerViewDelegate, OperationTarget>
+@interface TextBasicEditorPanelViewController ()<UIPickerViewDataSource, UIPickerViewDelegate, OperationTarget, ColorPickerViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIPickerView *fontPicker;
 @property (nonatomic, strong) NSArray *fontFamilies;
@@ -42,9 +43,11 @@
 @end
 
 @implementation TextBasicEditorPanelViewController
-
+- (void) awakeFromNib
+{
+    [[ColorSelectionManager sharedManager] setColorPickerDelegate:self];
+}
 #pragma mark - Event Handling
-
 - (IBAction)handleTap:(id)sender {
 }
 
@@ -241,6 +244,17 @@
 - (void) performOperation:(SimpleOperation *)operation
 {
     [self applyAttributes:@{operation.key : operation.toValue}];
+}
+
+#pragma mark - ColorPickerViewControllerDelegate
+- (void) colorPickerDidSelectColor:(UIColor *)color
+{
+    [self.delegate textAttributes:@{[KeyConstants textColorKey] : color} didChangeFromTextEditor:self];
+}
+
+- (void) colorPickerDidChangeToColor:(UIColor *)color
+{
+    
 }
 
 @end

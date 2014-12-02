@@ -19,7 +19,7 @@
 #define EDIT_MENU_ARROW_HEIGHT 10
 #define EDIT_MENU_ARROW_WIDTH_HALF 10
 #define EDIT_MENU_CORNER_RADIUS 10
-#define EDIT_ITEM_HEIGTH 50
+#define EDIT_ITEM_HEIGTH 40
 #define SEPARATOR_TOP_BOTTOM_MARGIN 5
 
 @interface ContentEditMenuView ()
@@ -33,6 +33,7 @@
 @property (nonatomic, strong) EditMenuItem *animateButton;
 @property (nonatomic, strong) EditMenuItem *transitionButton;
 @property (nonatomic, strong) NSMutableArray *separatorLocations;
+@property (nonatomic, weak) UIView *trigger;
 @end
 
 @implementation ContentEditMenuView
@@ -48,7 +49,7 @@
         _deleteButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants deleteText] editMenu:self action:@selector(handleDelete)];
         _replaceButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants replaceText] editMenu:self action:@selector(handleReplace)];
         _animateButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants animateText] editMenu:self action:@selector(handleAnimate)];
-        _transitionButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants animateText] editMenu:self action:@selector(handleTransition)];
+        _transitionButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants transitionText] editMenu:self action:@selector(handleTransition)];
         self.availableOperations = [NSMutableArray array];
         self.separatorLocations = [NSMutableArray array];
         self.backgroundColor = [UIColor clearColor];
@@ -60,6 +61,7 @@
 - (void) handleCopy
 {
     [PasteboardHelper copyData:[EditMenuHelper encodeGenericContent:self.triggeredContent]];
+    [self.duplicateButton restoreNormalState];
 }
 
 - (void) handlePaste
@@ -68,42 +70,47 @@
     NSMutableDictionary *attributes = [EditMenuHelper decodeGenericContentFromData:data];
     GenericContainerView *pasteContent = [GenericContainerViewHelper contentViewFromAttributes:attributes delegate:self.triggeredContent.delegate];
     [self.delegate editMenu:self didPasteContent:pasteContent];
+    [self.pasteButton restoreNormalState];
 }
 
 - (void) handleCut
 {
     [self handleCopy];
     [self.delegate editMenu:self didCutContent:self.triggeredContent];
+    [self.cutButton restoreNormalState];
 }
 
 - (void) handleEdit
 {
     [self.delegate editMenu:self didEditContent:self.triggeredContent];
+    [self.editButton restoreNormalState];
 }
 
 - (void) handleDelete
 {
     [self.delegate editMenu:self didDeleteContent:self.triggeredContent];
+    [self.deleteButton restoreNormalState];
 }
 
 - (void) handleReplace
 {
-    
+    [self.replaceButton restoreNormalState];
 }
 
 - (void) handleAnimate
 {
-    
+    [self.animateButton restoreNormalState];
 }
 
 - (void) handleTransition
 {
-    
+    [self.transitionButton restoreNormalState];
 }
 
 - (void) showWithAvailableOperations:(NSArray *)availableOperations toContent:(GenericContainerView *)content
 {
     self.triggeredContent = content;
+    self.trigger = content;
     [self updateOperationButtonsFromAvailableOperations:availableOperations];
     self.frame = [self frameFromCurrentButtons];
     [self layoutButtons];
@@ -113,12 +120,19 @@
 
 - (void) showWithAvailableOperations:(NSArray *)availableOperations toCanvas:(CanvasView *)canvas
 {
-    
+    self.triggeredCanvas = canvas;
+    self.trigger = canvas;
+    [self updateOperationButtonsFromAvailableOperations:availableOperations];
+    self.frame = [self frameFromCurrentButtons];
+    [self layoutButtons];
+    self.hidden = NO;
+    [self setNeedsDisplay];
 }
 
 - (void) updateOperationButtonsFromAvailableOperations:(NSArray *) availableOperations
 {
     [self.availableOperations removeAllObjects];
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     for (NSInteger i = 0; i < [availableOperations count]; i++) {
         EditMenuItem *item = [self availableOperationForType:[availableOperations[i] integerValue]];
         item.type = [self itemTypeForItemAtIndex:i totalItems:[availableOperations count]];
@@ -171,8 +185,8 @@
         frame.size.width += increment;
     }
     frame.size.height = self.editButton.bounds.size.height + EDIT_MENU_ARROW_HEIGHT;
-    frame.origin.y = self.triggeredContent.frame.origin.y - frame.size.height;
-    frame.origin.x = self.triggeredContent.center.x - frame.size.width * [DrawingConstants counterGoldenRatio];
+    frame.origin.y = self.trigger.frame.origin.y - frame.size.height;
+    frame.origin.x = self.trigger.center.x - frame.size.width * [DrawingConstants counterGoldenRatio];
     return frame;
 }
 
@@ -209,9 +223,9 @@
     CGFloat maxX = CGRectGetMaxX(rect);
     CGFloat maxY = CGRectGetMaxY(rect);
     
-    [bezierPath moveToPoint:CGPointMake(maxX * [DrawingConstants counterGoldenRatio] + EDIT_MENU_ARROW_WIDTH_HALF, maxY - EDIT_MENU_ARROW_HEIGHT)];
+    [bezierPath moveToPoint:CGPointMake(maxX * [DrawingConstants counterGoldenRatio] + EDIT_MENU_ARROW_WIDTH_HALF, maxY - EDIT_MENU_ARROW_HEIGHT - 1)];
     [bezierPath addLineToPoint:CGPointMake(maxX * [DrawingConstants counterGoldenRatio], maxY)];
-    [bezierPath addLineToPoint:CGPointMake(maxX * [DrawingConstants counterGoldenRatio] - EDIT_MENU_ARROW_WIDTH_HALF, maxY - EDIT_MENU_ARROW_HEIGHT)];
+    [bezierPath addLineToPoint:CGPointMake(maxX * [DrawingConstants counterGoldenRatio] - EDIT_MENU_ARROW_WIDTH_HALF, maxY - EDIT_MENU_ARROW_HEIGHT - 1)];
     [bezierPath closePath];
     [[EditMenuItem normalStateColor] setFill];
     [bezierPath fill];

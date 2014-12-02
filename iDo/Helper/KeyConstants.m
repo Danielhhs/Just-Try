@@ -152,6 +152,16 @@
     return @"TEXT_SELECTION";
 }
 
++ (NSString *) textColorKey
+{
+    return @"TEXT_COLOR";
+}
+
++ (NSString *) textBackgroundColorKey
+{
+    return @"TEXT_BACKGROUND_COLOR";
+}
+
 #pragma mark - Image Content
 + (NSString *) imageNameKey
 {

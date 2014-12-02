@@ -51,42 +51,49 @@ static SlideThumbnailsManager *sharedInstance;
 }
 
 #pragma mark - Thumbnail Show & Hide
-- (void) showThumbnailsInViewController:(UIViewController *)controller
+- (void) showThumbnailsInViewController:(UIViewController *)controller animated:(BOOL)animated
 {
     if (!self.thumbnailIsDisplaying) {
         [controller addChildViewController:self.slidesThumbnailController];
         self.slidesThumbnailController.view.frame = [self thumbnailControllerFrame];
-        self.slidesThumbnailController.view.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -1 * [DrawingConstants slidesThumbnailWidth], 0);
         [controller.view addSubview:self.slidesThumbnailController.view];
         [self.slidesThumbnailController didMoveToParentViewController:controller];
         self.thumbnailIsDisplaying = YES;
-        [UIView animateWithDuration:[DrawingConstants counterGoldenRatio] animations:^{
-            self.slidesThumbnailController.view.transform = CGAffineTransformIdentity;
-            if ([controller isKindOfClass:[SlidesContainerViewController class]]) {
-                [((SlidesContainerViewController *) controller) adjustCanvasSizeAndPosition];
-            }
-        }];
+        if (animated) {
+            self.slidesThumbnailController.view.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -1 * [DrawingConstants slidesThumbnailWidth], 0);
+            [UIView animateWithDuration:[DrawingConstants counterGoldenRatio] animations:^{
+                self.slidesThumbnailController.view.transform = CGAffineTransformIdentity;
+                if ([controller isKindOfClass:[SlidesContainerViewController class]]) {
+                    [((SlidesContainerViewController *) controller) adjustCanvasSizeAndPosition];
+                }
+            }];
+        }
     }
 }
 
-- (void) hideThumnailsFromViewController:(UIViewController *)controller
+- (void) hideThumnailsFromViewController:(UIViewController *)controller animated:(BOOL)animated
 {
     self.thumbnailIsDisplaying = NO;
-    [UIView animateWithDuration:[DrawingConstants counterGoldenRatio] animations:^{
-        self.slidesThumbnailController.view.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -1 * [DrawingConstants slidesThumbnailWidth], 0);
-        if ([controller isKindOfClass:[SlidesContainerViewController class]]) {
-            [((SlidesContainerViewController *) controller) adjustCanvasSizeAndPosition];
-        }
-    } completion:^(BOOL finished) {
-        self.slidesThumbnailController.view.transform = CGAffineTransformIdentity;
+    if (animated) {
+        [UIView animateWithDuration:[DrawingConstants counterGoldenRatio] animations:^{
+            self.slidesThumbnailController.view.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -1 * [DrawingConstants slidesThumbnailWidth], 0);
+            if ([controller isKindOfClass:[SlidesContainerViewController class]]) {
+                [((SlidesContainerViewController *) controller) adjustCanvasSizeAndPosition];
+            }
+        } completion:^(BOOL finished) {
+            self.slidesThumbnailController.view.transform = CGAffineTransformIdentity;
+            [self.slidesThumbnailController willMoveToParentViewController:nil];
+            [self.slidesThumbnailController.view removeFromSuperview];
+            [self.slidesThumbnailController removeFromParentViewController];
+        }];
+    } else {
         [self.slidesThumbnailController willMoveToParentViewController:nil];
         [self.slidesThumbnailController.view removeFromSuperview];
         [self.slidesThumbnailController removeFromParentViewController];
-    }];
+    }
     
 }
 
-//TO-DO   Do NOT reload data every time. Just update as necessary...
 - (void) updateSlideSnapshotForItemAtIndex:(NSInteger)index
 {
     if (self.thumbnailIsDisplaying) {

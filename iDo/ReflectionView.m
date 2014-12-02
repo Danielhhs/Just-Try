@@ -11,9 +11,12 @@
 #import "GenericContainerViewHelper.h"
 #import "DrawingConstants.h"
 #import "ReflectionHelper.h"
+#import "TextContainerView.h"
 
 #define REFLECTION_HEIGHT_WIDTH_RATIO 0.2
-#define SPACE_BETWEEN_REFLECTION 30
+#define REFLECTION_GAP_INSET_IMAGE 20
+#define REFLECTION_GAP_INSET_TEXT 40
+
 @implementation ReflectionView
 
 - (instancetype) initWithOriginalView:(GenericContainerView *) originalView
@@ -54,9 +57,18 @@
     CGFloat correctness = MAX(ABS(cos(angel)), ABS(sin(angel)));
     CGFloat inset = [DrawingConstants controlPointSizeHalf] / correctness;
     self.bounds = CGRectMake(0, 0, self.originalView.frame.size.width - 2 * inset, self.originalView.frame.size.height - 2 * inset);
-    CGFloat centerY = self.originalView.center.y + self.originalView.frame.size.height;
+    CGFloat centerY = self.originalView.center.y + self.originalView.frame.size.height - [self reflectionGapInset];
     self.center = [self.originalView convertPoint:CGPointMake(self.originalView.center.x, centerY) fromView:self.originalView.superview];
     [self updateReflectionWithWithReflectionHeight:self.height];
+}
+
+- (CGFloat) reflectionGapInset
+{
+    if ([self.originalView isKindOfClass:[TextContainerView class]]) {
+        return REFLECTION_GAP_INSET_TEXT;
+    } else {
+        return REFLECTION_GAP_INSET_IMAGE;
+    }
 }
 
 - (void) drawRect:(CGRect)rect

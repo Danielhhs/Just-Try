@@ -10,9 +10,11 @@
 #import "GenericContainerView.h"
 #import "CanvasView.h"
 #import "PasteboardHelper.h"
+#import "DrawingConstants.h"
 
 static EditMenuManager *sharedInstance;
-#define PASTE_ITEM_INDEX 2
+#define REPLACE_ITEM_INDEX 2
+#define PASTE_ITEM_INDEX 0
 
 @interface EditMenuManager ()
 @property (nonatomic, strong) NSArray *basicOperationsForContentView;
@@ -57,7 +59,7 @@ static EditMenuManager *sharedInstance;
 - (NSArray *) basicOperationsForCanvas
 {
     if (!_basicOperationsForCanvas) {
-        _basicOperationsForCanvas = [NSArray arrayWithObjects:@(EditMenuAvailableOperationAnimate), nil];
+        _basicOperationsForCanvas = [NSArray arrayWithObjects:@(EditMenuAvailableOperationTransition), nil];
     }
     return _basicOperationsForCanvas;
 }
@@ -77,9 +79,14 @@ static EditMenuManager *sharedInstance;
     NSMutableArray *availableOperations = [NSMutableArray arrayWithArray:self.basicOperationsForContentView];
     NSData *existingData = [PasteboardHelper dataFromPasteboard];
     if (existingData) {
-        [availableOperations insertObject:@(EditMenuAvailableOperationReplace) atIndex:PASTE_ITEM_INDEX];
+        [availableOperations insertObject:@(EditMenuAvailableOperationReplace) atIndex:REPLACE_ITEM_INDEX];
     }
     [self.editMenu showWithAvailableOperations:availableOperations toContent:content];
+    CGPoint origin;
+    origin.y = content.frame.origin.y - self.editMenu.frame.size.height;
+    origin.x = content.center.x - self.editMenu.frame.size.width * [DrawingConstants counterGoldenRatio];
+    origin = [self.containerView convertPoint:origin fromView:content.superview];
+    self.editMenu.frame = CGRectMake(origin.x, origin.y, self.editMenu.frame.size.width, self.editMenu.frame.size.height);
 }
 
 - (void) showEditMenuToCanvas:(CanvasView *) canvas
@@ -90,6 +97,11 @@ static EditMenuManager *sharedInstance;
         [availableOperations insertObject:@(EditMenuAvailableOperationPaste) atIndex:PASTE_ITEM_INDEX];
     }
     [self.editMenu showWithAvailableOperations:availableOperations toCanvas:canvas];
+    CGPoint origin;
+    origin.y = canvas.frame.origin.y - self.editMenu.frame.size.height - 15;
+    origin.x = canvas.center.x - self.editMenu.frame.size.width * [DrawingConstants counterGoldenRatio];
+    origin = [self.containerView convertPoint:origin fromView:canvas];
+    self.editMenu.frame = CGRectMake(origin.x, origin.y, self.editMenu.frame.size.width, self.editMenu.frame.size.height);
 }
 
 - (void) hideEditMenu

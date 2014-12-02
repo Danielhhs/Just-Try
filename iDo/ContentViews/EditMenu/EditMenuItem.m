@@ -41,13 +41,13 @@
 {
     CGSize sizeThatFits = [self sizeThatFits:self.bounds.size];
     CGRect bounds = self.bounds;
-    bounds.size.width = sizeThatFits.width + 40;
+    bounds.size.width = sizeThatFits.width + 30;
     self.bounds = bounds;
 }
 
 - (void) touchBegins
 {
-    self.fillColor = [UIColor colorWithWhite:0.1 alpha:0.7];
+    self.fillColor = [UIColor colorWithWhite:0.2 alpha:0.7];
 }
 
 - (void) touchEnds
@@ -58,6 +58,11 @@
 + (UIColor *) normalStateColor
 {
     return [UIColor colorWithWhite:0 alpha:0.9];
+}
+
+- (void) restoreNormalState
+{
+    self.fillColor = [EditMenuItem normalStateColor];
 }
 
 - (void) setType:(EditMenuItemType)type

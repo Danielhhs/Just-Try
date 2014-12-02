@@ -18,7 +18,6 @@ didChangeFromTextEditor:(TextBasicEditorPanelViewController *)textEditor;
 @end
 
 @interface TextBasicEditorPanelViewController : EditorPanelViewController
-
 @property (nonatomic, weak) id<BasicTextEditorPanelViewControllerDelegate> delegate;
 
 - (void) updateFontPickerByRange:(NSRange) range;

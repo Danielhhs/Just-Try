@@ -23,4 +23,6 @@
 
 + (NSString *) animateText;
 
++ (NSString *) transitionText;
+
 @end

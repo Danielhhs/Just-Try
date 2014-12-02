@@ -32,7 +32,8 @@ typedef NS_ENUM(NSInteger, EditMenuAvailableOperation) {
 
 @interface ContentEditMenuView : UIView
 
-@property (nonatomic, strong) GenericContainerView *triggeredContent;
+@property (nonatomic, weak) GenericContainerView *triggeredContent;
+@property (nonatomic, weak) CanvasView *triggeredCanvas;
 @property (nonatomic, weak) id<ContentEditMenuViewDelegate> delegate;
 - (void) showWithAvailableOperations:(NSArray *) availableOperations toContent:(GenericContainerView *) content;
 - (void) showWithAvailableOperations:(NSArray *) availableOperations toCanvas:(CanvasView *) canvas;

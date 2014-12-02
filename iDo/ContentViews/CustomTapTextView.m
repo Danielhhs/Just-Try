@@ -10,6 +10,7 @@
 #import "GenericContainerViewHelper.h"
 #import "KeyConstants.h"
 #import "CoreTextHelper.h"
+#import "EditMenuManager.h"
 
 @interface CustomTapTextView()
 @property (nonatomic, strong) UITapGestureRecognizer *tapToEdit;
@@ -25,6 +26,7 @@
     self.selectable = NO;
     
     self.tapToEdit = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapToEdit:)];
+    self.tapToEdit.numberOfTapsRequired = 2;
     self.attributedText = attributes[[KeyConstants attibutedStringKey]];
     self.scrollEnabled = NO;
     self.allowsEditingTextAttributes = YES;
@@ -47,6 +49,7 @@
     self.editable = YES;
     self.selectable = YES;
     [self becomeFirstResponder];
+    [[EditMenuManager sharedManager] hideEditMenu];
     [self removeGestureRecognizer:self.tapToEdit];
     [self addGestureRecognizer:self.tapToLocate];
 }

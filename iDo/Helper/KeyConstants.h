@@ -45,6 +45,8 @@
 + (NSString *) alignmentKey;
 + (NSString *) textSelectionKey;
 + (NSString *) attibutedStringKey;
++ (NSString *) textColorKey;
++ (NSString *) textBackgroundColorKey;
 
 #pragma mark - Image Content
 + (NSString *) imageNameKey;

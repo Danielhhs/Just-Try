@@ -12,6 +12,7 @@
 @interface EditMenuManager : NSObject
 
 @property (nonatomic, strong) ContentEditMenuView *editMenu;
+@property (nonatomic, weak) UIView *containerView;
 
 + (EditMenuManager *) sharedManager;
 - (void) showEditMenuToView:(UIView *) view;

@@ -45,4 +45,9 @@
     return @"Animate";
 }
 
++ (NSString *) transitionText
+{
+    return @"Transition";
+}
+
 @end

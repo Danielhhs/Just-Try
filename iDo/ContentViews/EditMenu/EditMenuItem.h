@@ -24,5 +24,6 @@ typedef NS_ENUM(NSInteger, EditMenuItemType) {
                         action:(SEL) action;
 
 + (UIColor *) normalStateColor;
+- (void) restoreNormalState;
 @property (nonatomic) EditMenuItemType type;
 @end

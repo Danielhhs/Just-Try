@@ -94,6 +94,8 @@
     [attributes setObject:attributedString forKey:[KeyConstants attibutedStringKey]];
     NSValue *boundsValue = [NSValue valueWithCGRect:CGRectMake(0, 0, DEFAULT_TEXT_CONTAINER_WIDTH, 2 * [DrawingConstants controlPointSizeHalf] + DEFAULT_TEXT_CONTAINER_HEIGHT)];
     [attributes setObject:boundsValue forKey:[KeyConstants boundsKey]];
+    [attributes setObject:[UIColor whiteColor] forKey:[KeyConstants textColorKey]];
+    [attributes setObject:[UIColor clearColor] forKey:[KeyConstants textBackgroundColorKey]];
     [attributes setObject:[NSValue valueWithCGPoint:CGPointMake(200, 300)] forKey:[KeyConstants centerKey]];
     [attributes setObject:@(ContentViewTypeText) forKey:[KeyConstants contentTypeKey]];
     return attributes;

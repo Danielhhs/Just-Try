@@ -42,6 +42,11 @@ static ColorSelectionManager *sharedInstance;
     return sharedInstance;
 }
 
+- (void) setColorPickerDelegate:(id<ColorPickerViewControllerDelegate>)delegate
+{
+    self.colorPickerController.delegate = delegate;
+}
+
 #pragma mark - Show/Hide
 - (void) showColorPickerFromRect:(CGRect)rect inView:(UIView *) view forType:(ColorUsageType)type
 {

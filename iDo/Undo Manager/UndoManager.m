@@ -84,12 +84,14 @@ static UndoManager *sharedInstance = nil;
 {
     if (cursor == 0) {
         [self.delegate disableUndo];
-    } else if (cursor == [self.undoStack count]) {
+    }
+    if (cursor == [self.undoStack count]) {
         [self.delegate disableRedo];
     }
     if (cursor != 0 && _cursor == 0) {
         [self.delegate enableUndo];
-    } else if (cursor != [self.undoStack count] && _cursor == [self.undoStack count]) {
+    }
+    if (cursor != [self.undoStack count] && _cursor == [self.undoStack count]) {
         [self.delegate enableRedo];
     }
     _cursor = cursor;

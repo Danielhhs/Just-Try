@@ -174,6 +174,7 @@
     [self resignPreviousFirstResponderExceptForContainer:nil];
     [self.canvas enablePinch];
     [self.delegate allContentViewDidResignFirstResponder];
+    [[EditMenuManager sharedManager] showEditMenuToView:canvas];
 }
 
 - (void) performOperation:(SimpleOperation *)operation
@@ -194,6 +195,7 @@
 - (void) addContentViewToCanvas:(GenericContainerView *)content
 {
     content.delegate = self;
+    content.canvas = self.canvas;
     [self.canvas addSubview:content];
     content.center = [self canvasCenter];
     [content becomeFirstResponder];

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "ColorPickerViewController.h"
 
 typedef NS_ENUM(NSInteger, ColorUsageType) {
     ColorUsageTypeTextColor = 0,
@@ -24,5 +25,7 @@ typedef NS_ENUM(NSInteger, ColorUsageType) {
 - (void) hideColorPicker;
 
 - (UIColor *) selectedColorForType:(ColorUsageType) usage;
+
+- (void) setColorPickerDelegate:(id<ColorPickerViewControllerDelegate>)delegate;
 
 @end
