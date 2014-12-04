@@ -15,11 +15,11 @@
 #import "PasteboardHelper.h"
 #import "CanvasView.h"
 
-#define SEPARATOR_WIDTH 2
+#define SEPARATOR_WIDTH 1
 #define EDIT_MENU_ARROW_HEIGHT 10
 #define EDIT_MENU_ARROW_WIDTH_HALF 10
 #define EDIT_MENU_CORNER_RADIUS 10
-#define EDIT_ITEM_HEIGTH 40
+#define EDIT_ITEM_HEIGTH 35
 #define SEPARATOR_TOP_BOTTOM_MARGIN 5
 
 @interface ContentEditMenuView ()

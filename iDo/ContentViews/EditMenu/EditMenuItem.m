@@ -26,7 +26,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-        [self setTitle:title forState:UIControlStateNormal];
+        NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont systemFontOfSize:15]}];
+        [self setAttributedTitle:attributedTitle forState:UIControlStateNormal];
         [self setTitleColor:[UIColor colorWithWhite:1 alpha:[DrawingConstants goldenRatio]] forState:UIControlStateHighlighted];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self addTarget:editMenu action:action forControlEvents:UIControlEventTouchUpInside];
@@ -41,7 +42,7 @@
 {
     CGSize sizeThatFits = [self sizeThatFits:self.bounds.size];
     CGRect bounds = self.bounds;
-    bounds.size.width = sizeThatFits.width + 30;
+    bounds.size.width = sizeThatFits.width + 20;
     self.bounds = bounds;
 }
 
