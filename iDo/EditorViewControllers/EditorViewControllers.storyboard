@@ -326,13 +326,23 @@
                                 </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HRn-vR-Imd">
-                                <rect key="frame" x="27" y="236" width="247" height="30"/>
+                                <rect key="frame" x="27" y="214" width="247" height="30"/>
                                 <state key="normal" title="Text Color">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="showTextColorPicker:" destination="s7p-ek-EEl" eventType="touchUpInside" id="5y9-PP-pvI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2hl-wg-zl1">
+                                <rect key="frame" x="27" y="252" width="247" height="30"/>
+                                <state key="normal" title="Background Color">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showTextColorPicker:" destination="s7p-ek-EEl" eventType="touchUpInside" id="Jn1-NZ-51k"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -343,7 +353,9 @@
                     <size key="freeformSize" width="300" height="675"/>
                     <connections>
                         <outlet property="alignmentSegment" destination="p1Q-5G-SCX" id="71c-DZ-bkw"/>
+                        <outlet property="backgroundColorButton" destination="2hl-wg-zl1" id="ah1-bf-xuz"/>
                         <outlet property="fontPicker" destination="Jtf-eH-qPX" id="dNP-tD-h2e"/>
+                        <outlet property="textColorButton" destination="HRn-vR-Imd" id="yo0-Ff-JqH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QT8-6z-u2U" userLabel="First Responder" sceneMemberID="firstResponder"/>

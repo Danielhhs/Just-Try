@@ -18,6 +18,7 @@
 - (void) deleteCurrentSelectedContent;
 - (void) saveProposal;
 - (void) backToProposals;
+- (void) editCurrentContent;
 @end
 
 @interface SlideEditingToolbarViewController : UIViewController<UndoManagerDelegate>

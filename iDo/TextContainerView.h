@@ -12,6 +12,8 @@
 
 - (void) textViewDidSelectTextRange:(NSRange) selectedRange;
 
+- (void) textViewDidSelectFont:(UIFont *) font;
+
 - (void) textViewDidStartEditing:(TextContainerView *) textView;
 
 @end

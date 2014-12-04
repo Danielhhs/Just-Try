@@ -24,7 +24,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) applyAttributes:(NSDictionary *)attributes
+- (void) applyAttributes:(NSMutableDictionary *)attributes
 {
     
 }

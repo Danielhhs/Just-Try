@@ -51,7 +51,7 @@ static EditMenuManager *sharedInstance;
 - (NSArray *) basicOperationsForContentView
 {
     if (!_basicOperationsForContentView) {
-        _basicOperationsForContentView = [NSArray arrayWithObjects:@(EditMenuAvailableOperationCopy), @(EditMenuAvailableOperationCut), @(EditMenuAvailableOperationEdit), @(EditMenuAvailableOperationDelete), @(EditMenuAvailableOperationAnimate), nil];
+        _basicOperationsForContentView = [NSArray arrayWithObjects:@(EditMenuAvailableOperationCopy), @(EditMenuAvailableOperationCut), @(EditMenuAvailableOperationDelete), @(EditMenuAvailableOperationAnimate), nil];
     }
     return _basicOperationsForContentView;
 }
@@ -98,9 +98,10 @@ static EditMenuManager *sharedInstance;
     }
     [self.editMenu showWithAvailableOperations:availableOperations toCanvas:canvas];
     CGPoint origin;
-    origin.y = canvas.frame.origin.y - self.editMenu.frame.size.height - 15;
-    origin.x = canvas.center.x - self.editMenu.frame.size.width * [DrawingConstants counterGoldenRatio];
-    origin = [self.containerView convertPoint:origin fromView:canvas];
+    CGPoint canvasOrigin = [self.containerView convertPoint:canvas.frame.origin fromView:canvas.superview];
+    CGPoint canvasCenter = [self.containerView convertPoint:canvas.center fromView:canvas.superview];
+    origin.y = canvasOrigin.y - self.editMenu.frame.size.height;
+    origin.x = canvasCenter.x - self.editMenu.frame.size.width * [DrawingConstants counterGoldenRatio];
     self.editMenu.frame = CGRectMake(origin.x, origin.y, self.editMenu.frame.size.width, self.editMenu.frame.size.height);
 }
 

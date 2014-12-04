@@ -9,6 +9,7 @@
 #import "CanvasView.h"
 #import "KeyConstants.h"
 #import "GenericContainerViewHelper.h"
+#import "EditMenuManager.h"
 
 @interface CanvasView ()
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinch;
@@ -64,6 +65,7 @@
     if (pinch.state == UIGestureRecognizerStateBegan || pinch.state == UIGestureRecognizerStateChanged) {
         self.transform = CGAffineTransformScale(self.transform, pinch.scale, pinch.scale);
         pinch.scale = 1;
+        [[EditMenuManager sharedManager] hideEditMenu];
     } else if (pinch.state == UIGestureRecognizerStateEnded || pinch.state == UIGestureRecognizerStateCancelled) {
         self.transform = CGAffineTransformScale(self.transform, pinch.scale, pinch.scale);
         CGAffineTransform finalTransform = self.transform;
@@ -74,6 +76,8 @@
         }
         [UIView animateWithDuration:0.372 animations:^{
             self.transform = finalTransform;
+        } completion:^(BOOL finished) {
+            [[EditMenuManager sharedManager] showEditMenuToView:self];
         }];
         pinch.scale = 1;
     }

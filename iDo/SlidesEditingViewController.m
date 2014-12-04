@@ -68,9 +68,6 @@
 
 - (void) contentView:(GenericContainerView *)contentView didChangeAttributes:(NSDictionary *)attributes
 {
-    if (attributes) {
-        [[EditorPanelManager sharedManager] makeCurrentEditorApplyChanges:attributes];
-    }
     [self.delegate contentDidChangeFromEditingController:self];
 }
 
@@ -107,7 +104,6 @@
     }
 }
 
-
 - (void) handleTapOnImage:(ImageContainerView *)container
 {
     UIPopoverController *popOver = [[UIPopoverController alloc] initWithContentViewController:self.imagePicker];
@@ -120,6 +116,11 @@
 - (void) textViewDidStartEditing:(TextContainerView *)textView
 {
     [[EditorPanelManager sharedManager] selectTextBasicEditorPanel];
+}
+
+- (void) textViewDidSelectFont:(UIFont *)font
+{
+    [[EditorPanelManager sharedManager] textViewDidSelectFont:font];
 }
 
 #pragma mark - EditorPanelContainerViewControllerDelegate

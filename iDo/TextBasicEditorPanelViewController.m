@@ -19,36 +19,32 @@
 #define PICK_VIEW_FONT_FAMILY_NAME_COMPONENT_INDEX 0
 #define PICK_VIEW_FONT_NAME_COMPONENT_INDEX 1
 #define PICK_VIEW_SIZE_COMPONENT_INDEX 2
-
 #define PICK_VIEW_FONT_SIZE 12
-
 #define PICK_VIEW_FONT_FAMILY_RATIO 0.6
 #define PICK_VIEW_FONT_NAME_RATIO 0.3
 #define PICK_VIEW_FONT_SIZE_RATIO 0.1
 
-#define KEYBOARD_OFFSET 200
-
-
 @interface TextBasicEditorPanelViewController ()<UIPickerViewDataSource, UIPickerViewDelegate, OperationTarget, ColorPickerViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIPickerView *fontPicker;
-@property (nonatomic, strong) NSArray *fontFamilies;
-@property (nonatomic, strong) NSArray *displayingFontNames;
-@property (nonatomic, strong) NSArray *fullFontNames;
-@property (nonatomic, strong) NSArray *fontSizes;
 @property (nonatomic) TextAlignment alignment;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *alignmentSegment;
 @property (nonatomic, strong) UIFont *lastSelectedFont;
 @property (nonatomic) NSRange selectedRange;
+@property (weak, nonatomic) IBOutlet UIButton *textColorButton;
+@property (weak, nonatomic) IBOutlet UIButton *backgroundColorButton;
+@property (nonatomic) ColorUsageType colorUsage;
 @end
 
 @implementation TextBasicEditorPanelViewController
-- (void) awakeFromNib
-{
-    [[ColorSelectionManager sharedManager] setColorPickerDelegate:self];
-}
 #pragma mark - Event Handling
 - (IBAction)handleTap:(id)sender {
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[ColorSelectionManager sharedManager] setColorPickerDelegate:self];
 }
 
 #pragma mark - UIPickerViewDataSource
@@ -61,45 +57,14 @@
  numberOfRowsInComponent:(NSInteger)component
 {
     if ([self componentIsFontFamilySelector:component]) {
-        return [self.fontFamilies count];
+        return [[TextFontHelper allFontFamilies] count];
     } else if ([self componentIsFontNameSelector:component]) {
         NSInteger currentFontFamilyComponent = [pickerView selectedRowInComponent:PICK_VIEW_FONT_FAMILY_NAME_COMPONENT_INDEX];
-        return [self.displayingFontNames[currentFontFamilyComponent] count];
+        return [[TextFontHelper displayingFontNamesForEachFontFamilies][currentFontFamilyComponent] count];
     } else if (component == PICK_VIEW_SIZE_COMPONENT_INDEX) {
-        return [self.fontSizes count];
+        return [[TextFontHelper allSizes] count];
     }
     return 0;
-}
-
-- (NSArray *) fontFamilies
-{
-    if (!_fontFamilies) {
-        _fontFamilies = [TextFontHelper allFontFamilies];
-    }
-    return _fontFamilies;
-}
-
-- (NSArray *) fontSizes
-{
-    if (!_fontSizes) {
-        _fontSizes = [TextFontHelper allSizes];
-    }
-    return _fontSizes;
-}
-
-- (NSArray *) displayingFontNames
-{
-    if (!_displayingFontNames) {
-        _displayingFontNames = [TextFontHelper displayingFontNamesForEachFontFamilies];
-    }
-    return _displayingFontNames;
-}
-
-- (NSArray *) fullFontNames{
-    if (!_fullFontNames) {
-        _fullFontNames = [TextFontHelper fullFontNames];
-    }
-    return _fullFontNames;
 }
 
 #pragma mark - UIPickerViewDelegate
@@ -116,18 +81,18 @@
     }
     NSAttributedString *attributedTitle = nil;
     if ([self componentIsFontFamilySelector:component]) {
-        NSString *fontFamily = self.fontFamilies[row];
+        NSString *fontFamily = [TextFontHelper allFontFamilies][row];
         UIFont *font = [UIFont fontWithName:fontFamily size:PICK_VIEW_FONT_SIZE];
         attributedTitle = [[NSAttributedString alloc] initWithString:fontFamily attributes:@{NSFontAttributeName : font}];
     } else if ([self componentIsFontNameSelector:component]) {
         NSInteger fontFamilyRow = [pickerView selectedRowInComponent:PICK_VIEW_FONT_FAMILY_NAME_COMPONENT_INDEX];
-        NSString *displayingFontName = self.displayingFontNames[fontFamilyRow][row];
-        NSString *fullFontName = self.fullFontNames[fontFamilyRow][row];
+        NSString *displayingFontName = [TextFontHelper displayingFontNamesForEachFontFamilies][fontFamilyRow][row];
+        NSString *fullFontName = [TextFontHelper fullFontNames][fontFamilyRow][row];
         UIFont *font = [UIFont fontWithName:fullFontName size:PICK_VIEW_FONT_SIZE];
         attributedTitle = [[NSAttributedString alloc] initWithString:displayingFontName attributes:@{NSFontAttributeName : font}];
     } else {
         UIFont *font = [UIFont systemFontOfSize:PICK_VIEW_FONT_SIZE];
-        NSString *fontSize = [NSString stringWithFormat:@"%d", [self.fontSizes[row] intValue]];
+        NSString *fontSize = [NSString stringWithFormat:@"%d", [[TextFontHelper allSizes][row] intValue]];
         attributedTitle = [[NSAttributedString alloc] initWithString:fontSize attributes:@{NSFontAttributeName : font}];
     }
     label.attributedText = attributedTitle;
@@ -154,15 +119,27 @@
         [pickerView reloadComponent:PICK_VIEW_FONT_NAME_COMPONENT_INDEX];
     }
     UIFont *selectedFont = [self fontFromCurrentSelection];
-    [self.delegate textAttributes:@{[KeyConstants fontKey] : selectedFont} didChangeFromTextEditor:self];
-    SimpleOperation *fontOperation = [[SimpleOperation alloc] initWithTargets:@[self.target, self] key:[KeyConstants fontKey] fromValue:self.lastSelectedFont];
-    fontOperation.toValue = selectedFont;
+    [self applyFontAttributeValue:selectedFont forName:NSFontAttributeName attributeKey:[KeyConstants fontKey]];
+    self.lastSelectedFont = selectedFont;
+}
+
+- (void) applyFontAttributeValue:(NSObject *) attributeValue forName:(NSString *) attributeName attributeKey:(NSString *) attributeKey
+{
+    NSAttributedString *originalText = [self.attributes objectForKey:[KeyConstants attibutedStringKey]];
+    NSMutableAttributedString *attributedString = [originalText mutableCopy];
+    SimpleOperation *textOperation = [[SimpleOperation alloc] initWithTargets:@[self.target] key:[KeyConstants attibutedStringKey] fromValue:originalText];
+    [attributedString enumerateAttribute:attributeName inRange:self.selectedRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
+        [attributedString addAttribute:attributeName value:attributeValue range:range];
+    }];
+    [self.delegate textAttributes:@{[KeyConstants attibutedStringKey] : attributedString, [KeyConstants textSelectionKey] : [NSValue valueWithRange:self.selectedRange]} didChangeFromTextEditor:self];
+    SimpleOperation *fontOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:attributeKey fromValue:self.lastSelectedFont];
+    fontOperation.toValue = attributeValue;
     NSValue *textSelectionValue = [NSValue valueWithRange:self.selectedRange];
     SimpleOperation *selectionOperation = [[SimpleOperation alloc] initWithTargets:@[self.target, self] key:[KeyConstants textSelectionKey] fromValue:textSelectionValue];
     selectionOperation.toValue = textSelectionValue;
-    CompoundOperation *compoundOperation = [[CompoundOperation alloc] initWithOperations:@[selectionOperation, fontOperation]];
+    textOperation.toValue = attributedString;
+    CompoundOperation *compoundOperation = [[CompoundOperation alloc] initWithOperations:@[selectionOperation, textOperation, fontOperation]];
     [[UndoManager sharedManager] pushOperation:compoundOperation];
-    self.lastSelectedFont = selectedFont;
 }
 
 - (BOOL) componentIsFontFamilySelector:(NSInteger) component
@@ -182,10 +159,10 @@
 
 - (UIFont *) fontFromCurrentSelection
 {
-    CGFloat fontSize = [self.fontSizes[[self.fontPicker selectedRowInComponent:PICK_VIEW_SIZE_COMPONENT_INDEX]] doubleValue];
+    CGFloat fontSize = [[TextFontHelper allSizes][[self.fontPicker selectedRowInComponent:PICK_VIEW_SIZE_COMPONENT_INDEX]] doubleValue];
     NSInteger fontFamilyRow = [self.fontPicker selectedRowInComponent:PICK_VIEW_FONT_FAMILY_NAME_COMPONENT_INDEX];
     NSInteger fontNameRow = [self.fontPicker selectedRowInComponent:PICK_VIEW_FONT_NAME_COMPONENT_INDEX];
-    NSString *fullFontName = self.fullFontNames[fontFamilyRow][fontNameRow];
+    NSString *fullFontName = [TextFontHelper fullFontNames][fontFamilyRow][fontNameRow];
     UIFont *font = [UIFont fontWithName:fullFontName size:fontSize];
     return font;
 }
@@ -201,22 +178,22 @@
 }
 
 #pragma mark - Apply Attributes
-- (void) applyAttributes:(NSDictionary *)attributes
+
+- (void) applyUndoRedoAttributes:(NSDictionary *)attributes
 {
-    [super applyAttributes:attributes];
     UIFont *font = [attributes objectForKey:[KeyConstants fontKey]];
     if (font) {
         NSString *familyName = font.familyName;
-        NSInteger index = [self.fontFamilies indexOfObject:familyName];
+        NSInteger index = [[TextFontHelper allFontFamilies] indexOfObject:familyName];
         [self.fontPicker selectRow:index inComponent:PICK_VIEW_FONT_FAMILY_NAME_COMPONENT_INDEX animated:NO];
         [self.fontPicker reloadComponent:PICK_VIEW_FONT_NAME_COMPONENT_INDEX];
         
         NSString *fontName = font.fontName;
-        index = [self.displayingFontNames[index] indexOfObject:[TextFontHelper displayingFontNameFromFamilyName:familyName fontName:fontName]];
+        index = [[TextFontHelper displayingFontNamesForEachFontFamilies][index] indexOfObject:[TextFontHelper displayingFontNameFromFamilyName:familyName fontName:fontName]];
         [self.fontPicker selectRow:index inComponent:PICK_VIEW_FONT_NAME_COMPONENT_INDEX animated:NO];
         
         CGFloat size = font.pointSize;
-        index = [self.fontSizes indexOfObject:@(size)];
+        index = [[TextFontHelper allSizes] indexOfObject:@(size)];
         [self.fontPicker selectRow:index inComponent:PICK_VIEW_SIZE_COMPONENT_INDEX animated:YES];
         self.lastSelectedFont = font;
     }
@@ -224,37 +201,63 @@
     if (alignment) {
         self.alignmentSegment.selectedSegmentIndex = [alignment integerValue];
     }
+    NSValue *textSelection = [attributes objectForKey:[KeyConstants textSelectionKey]];
+    if (textSelection) {
+        self.selectedRange = [textSelection rangeValue];
+    }
 }
 
 - (void) updateFontPickerByRange:(NSRange)range
 {
     self.selectedRange = range;
-    if (range.length == 0) {
-        self.fontPicker.userInteractionEnabled = NO;
-    } else {
-        self.fontPicker.userInteractionEnabled= YES;
-    }
+    self.fontPicker.userInteractionEnabled = (range.length == 0) ? NO : YES;
+}
+
+- (void) selectFont:(UIFont *)font
+{
+    NSString *familyName = font.familyName;
+    NSInteger index = [[TextFontHelper allFontFamilies] indexOfObject:familyName];
+    [self.fontPicker selectRow:index inComponent:PICK_VIEW_FONT_FAMILY_NAME_COMPONENT_INDEX animated:NO];
+    [self.fontPicker reloadComponent:PICK_VIEW_FONT_NAME_COMPONENT_INDEX];
+    
+    NSString *fontName = font.fontName;
+    index = [[TextFontHelper displayingFontNamesForEachFontFamilies][index] indexOfObject:[TextFontHelper displayingFontNameFromFamilyName:familyName fontName:fontName]];
+    [self.fontPicker selectRow:index inComponent:PICK_VIEW_FONT_NAME_COMPONENT_INDEX animated:NO];
+    
+    CGFloat size = font.pointSize;
+    index = [[TextFontHelper allSizes] indexOfObject:@(size)];
+    [self.fontPicker selectRow:index inComponent:PICK_VIEW_SIZE_COMPONENT_INDEX animated:YES];
+    self.lastSelectedFont = font;
 }
 
 - (IBAction)showTextColorPicker:(UIButton *)sender {
+    self.colorUsage = [sender.currentTitle isEqualToString:@"Text Color"] ? ColorUsageTypeTextColor : ColorUsageTypeTextBackground;
     [[ColorSelectionManager sharedManager] showColorPickerFromRect:sender.frame inView:self.view forType:ColorUsageTypeGradient];
 }
 
 #pragma mark - Operation Target
 - (void) performOperation:(SimpleOperation *)operation
 {
-    [self applyAttributes:@{operation.key : operation.toValue}];
+    [self applyUndoRedoAttributes:@{operation.key : operation.toValue}];
 }
 
 #pragma mark - ColorPickerViewControllerDelegate
 - (void) colorPickerDidSelectColor:(UIColor *)color
 {
-    [self.delegate textAttributes:@{[KeyConstants textColorKey] : color} didChangeFromTextEditor:self];
+    if (self.colorUsage == ColorUsageTypeTextColor) {
+        [self applyFontAttributeValue:color forName:NSForegroundColorAttributeName attributeKey:[KeyConstants textColorKey]];
+    } else {
+        [self.delegate textAttributes:@{[KeyConstants textBackgroundColorKey] : color} didChangeFromTextEditor:self];
+    }
 }
 
 - (void) colorPickerDidChangeToColor:(UIColor *)color
 {
-    
+    if (self.colorUsage == ColorUsageTypeTextColor) {
+        [self.textColorButton setTitleColor:color forState:UIControlStateNormal];
+    } else {
+        self.backgroundColorButton.backgroundColor = color;
+    }
 }
 
 @end

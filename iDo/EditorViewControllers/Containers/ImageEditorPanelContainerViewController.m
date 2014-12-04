@@ -97,7 +97,7 @@
     [self.bordersEditor hideTooltip];
 }
 
-- (void) applyAttributes:(NSDictionary *)attributes
+- (void) applyAttributes:(NSMutableDictionary *)attributes
 {
     [self.basicEditor applyAttributes:attributes];
     [self.bordersEditor applyAttributes:attributes];

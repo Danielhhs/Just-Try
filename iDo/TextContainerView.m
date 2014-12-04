@@ -57,6 +57,7 @@
     [self adjustTextViewBoundsForBounds:bounds];
     CGRect boundsAfterAdjustments = [self boundsFromTextViewBounds:self.textView.bounds];
     [super setBounds:boundsAfterAdjustments];
+    [self adjustTextViewCenter];
     if ([self needToAdjustCanvas]) {
         [self.delegate frameDidChangeForContentView:self];
     }
@@ -130,7 +131,7 @@
 - (void) textView:(CustomTapTextView *)textView didSelectFont:(UIFont *)font
 {
     self.bounds = self.bounds;
-    [self.delegate contentView:self didChangeAttributes:@{[KeyConstants fontKey] : font}];
+    [self.delegate textViewDidSelectFont:font];
     [self.delegate textViewDidSelectTextRange:textView.selectedRange];
     self.lastSelectedRange = self.textView.selectedRange;
 }
@@ -147,7 +148,6 @@
 {
     self.lastSelectedRange = textView.selectedRange;
     [self.delegate textViewDidStartEditing:self];
-    
     return YES;
 }
 
@@ -186,6 +186,7 @@
     [[UndoManager sharedManager] pushOperation:compoundOperation];
     self.lastAttrText = self.textView.attributedText;
     self.lastSelectedRange = self.textView.selectedRange;
+    [self.attributes setObject:self.textView.attributedText forKey:[KeyConstants attibutedStringKey]];
 }
 
 - (void) textViewDidChangeAttributedText:(CustomTapTextView *)textView
@@ -198,6 +199,10 @@
     self.textView.frame = [self contentViewFrameFromBounds:bounds];
     CGFloat height = [CoreTextHelper heightForAttributedStringInTextView:self.textView];
     self.textView.bounds = CGRectMake(0, 0, self.textView.bounds.size.width, height);
+}
+
+- (void) adjustTextViewCenter
+{
     self.textView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
 
@@ -215,7 +220,6 @@
 {
     [super applyAttributes:attributes];
     [self applyTextAttributes:attributes];
-    [self applyFontAttribute:attributes];
 }
 
 - (void) applyTextAttributes:(NSDictionary *) attributes
@@ -223,44 +227,17 @@
     NSAttributedString *attrText = [attributes objectForKey:[KeyConstants attibutedStringKey]];
     if (attrText) {
         self.textView.attributedText = attrText;
+        self.lastAttrText = attrText;
         self.bounds = self.bounds;
     }
     NSValue *selectedRange  = [attributes objectForKey:[KeyConstants textSelectionKey]];
     if (selectedRange) {
         self.textView.selectedRange = [selectedRange rangeValue];
     }
-}
-
-- (void) applyFontAttribute:(NSDictionary *) attributes
-{
-    NSMutableAttributedString *attributedString = [self.textView.attributedText mutableCopy];
-
-    NSRange selectedRange = self.textView.selectedRange;
-    UIFont *font = [attributes objectForKey:[KeyConstants fontKey]];
-    if (font) {
-        [attributedString enumerateAttribute:NSFontAttributeName inRange:selectedRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
-            [attributedString addAttribute:NSFontAttributeName value:font range:range];
-        }];
-        self.textView.attributedText = attributedString;
-        [self.textView select:self];
-        self.textView.selectedRange = selectedRange;
-        self.bounds = self.bounds;
+    UIColor *backgroundColor = [attributes objectForKey:[KeyConstants textBackgroundColorKey]];
+    if (backgroundColor) {
+        self.textView.backgroundColor = backgroundColor;
     }
-    NSNumber *alignment = [attributes objectForKey:[KeyConstants alignmentKey]];
-    if (alignment) {
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        paragraphStyle.alignment = [alignment integerValue];
-        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [attributedString length])];
-        self.textView.attributedText = attributedString;
-    }
-    UIColor *textColor = [attributes objectForKey:[KeyConstants textColorKey]];
-    if (textColor) {
-        [attributedString enumerateAttribute:NSForegroundColorAttributeName inRange:selectedRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
-            [attributedString addAttribute:NSForegroundColorAttributeName value:textColor range:selectedRange];
-        }];
-    }
-    self.textView.attributedText = attributedString;
-    self.lastAttrText = self.textView.attributedText;
 }
 
 #pragma mark - Override Super Class Methods
@@ -275,7 +252,6 @@
     [super performOperation:operation];
     if (operation.toValue) {
         [self applyTextAttributes:@{operation.key : operation.toValue}];
-        [self applyFontAttribute:@{operation.key : operation.toValue}];
     }
     [self.delegate contentViewDidPerformUndoRedoOperation:self];
 }

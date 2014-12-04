@@ -138,6 +138,7 @@
 - (void) adjustCanvasSizeAndPosition
 {
     [CanvasAdjustmentHelper adjustCanvasSizeAndPosition:self.editorViewController.view];
+    [self adjustCanvasPositionForContentBottom:CGRectGetMaxY(self.editorViewController.currentSelectedContent.frame)];
 }
 
 #pragma mark - SlidesEditingViewControllerDelegate
@@ -225,13 +226,6 @@
     [self deleteCurrentSelectedContent];
 }
 
-- (void) editMenu:(ContentEditMenuView *)editMenu didEditContent:(GenericContainerView *)content
-{
-    [[SlideThumbnailsManager sharedManager] hideThumnailsFromViewController:self animated:YES];
-    [[EditorPanelManager sharedManager] showEditorPanelInViewController:self forContentView:content];
-    [[EditMenuManager sharedManager] hideEditMenu];
-}
-
 - (void) editMenu:(ContentEditMenuView *)editMenu didCutContent:(GenericContainerView *)content
 {
     [self deleteCurrentSelectedContent];
@@ -278,5 +272,12 @@
         [[UndoManager sharedManager] pushOperation:deleteOperation];
         [self.editorViewController removeCurrentContentViewFromCanvas];
     }
+}
+
+- (void) editCurrentContent
+{
+    [[SlideThumbnailsManager sharedManager] hideThumnailsFromViewController:self animated:YES];
+    [[EditorPanelManager sharedManager] showEditorPanelInViewController:self forContentView:self.editorViewController.currentSelectedContent];
+    [[EditMenuManager sharedManager] hideEditMenu];
 }
 @end

@@ -30,7 +30,6 @@
 @property (weak, nonatomic) IBOutlet SliderWithTooltip *alphaSlider;
 @property (weak, nonatomic) IBOutlet SliderWithTooltip *sizeSlider;
 @property (weak, nonatomic) IBOutlet SliderWithTooltip *viewOpacitySlider;
-@property (nonatomic, strong) NSMutableDictionary *attributes;
 @property (weak, nonatomic) IBOutlet UICollectionView *typeSelector;
 @property (nonatomic, strong) NSArray *reflectionShadowTypes;
 @end
@@ -71,9 +70,13 @@
 - (IBAction)handleTap:(id)sender {
 }
 
-- (void) applyAttributes:(NSDictionary *)attributes
+- (void) applyAttributes:(NSMutableDictionary *)attributes
 {
-    [GenericContainerViewHelper mergeChangedAttributes:attributes withFullAttributes:self.attributes];
+    self.attributes = attributes;
+    [self applyUndoRedoAttributes:attributes];
+}
+
+- (void) applyUndoRedoAttributes:(NSDictionary *)attributes {
     NSNumber *reflection = attributes[[KeyConstants reflectionKey]];
     if (reflection) {
         self.addReflectionView.selected = [reflection boolValue];
@@ -230,7 +233,7 @@
 #pragma mark - Operation Target
 - (void) performOperation:(SimpleOperation *)operation
 {
-    [self applyAttributes:@{operation.key : operation.toValue}];
+    [self applyUndoRedoAttributes:@{operation.key : operation.toValue}];
 }
 
 #pragma mark - UICollectionViewDatasource

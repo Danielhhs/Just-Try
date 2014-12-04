@@ -17,13 +17,15 @@
 @end
 
 @interface EditorPanelViewController : UIViewController
-
+@property (nonatomic, strong) NSMutableDictionary *attributes;
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *glassianView;
 @property (nonatomic, weak) id<OperationTarget> target;
 
 @property (nonatomic, weak) id<EditorPanelViewControllerDelegate> delegate;
 
-- (void) applyAttributes:(NSDictionary *) attributes;
+- (void) applyUndoRedoAttributes:(NSDictionary *)attributes;
+
+- (void) applyAttributes:(NSMutableDictionary *) attributes;
 
 - (void) hideTooltip;
 

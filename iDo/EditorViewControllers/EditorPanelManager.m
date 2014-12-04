@@ -89,9 +89,11 @@ static EditorPanelManager *sharedInstance;
     return [[UIStoryboard storyboardWithName:@"EditorViewControllers" bundle:nil] instantiateViewControllerWithIdentifier:@"TextEditorPanelContainerViewController"];
 }
 
-- (void) makeCurrentEditorApplyChanges:(NSDictionary *)attributes
+- (void) textViewDidSelectFont:(UIFont *)font
 {
-    [self.currentEditor applyAttributes:attributes];
+    if ([self.currentEditor isKindOfClass:[TextEditorPanelContainerViewController class]]) {
+        [(TextEditorPanelContainerViewController *)self.currentEditor selectFont:font];
+    }
 }
 
 #pragma mark - Presenting Editor Panels
@@ -122,7 +124,7 @@ static EditorPanelManager *sharedInstance;
 }
 
 - (void) showImageEditorInViewController:(SlidesContainerViewController *)viewController
-                              attributes:(NSDictionary *)attributes
+                              attributes:(NSMutableDictionary *)attributes
                                   target:(id<OperationTarget>) target
                                 animated:(BOOL) animated
 {
@@ -134,7 +136,7 @@ static EditorPanelManager *sharedInstance;
 }
 
 - (void) showTextEditorInViewController:(SlidesContainerViewController *)viewController
-                             attributes:(NSDictionary *)attributes
+                             attributes:(NSMutableDictionary *)attributes
                                  target:(id<OperationTarget>) target
                                animated:(BOOL) animated
 {

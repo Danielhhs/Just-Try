@@ -152,6 +152,11 @@
                                                     </connections>
                                                 </barButtonItem>
                                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="Fyz-Ru-sBX"/>
+                                                <barButtonItem title="Edit" id="HHc-X3-N8o">
+                                                    <connections>
+                                                        <action selector="editCurrentContent:" destination="fg1-Q1-Y0B" id="126-6w-7p1"/>
+                                                    </connections>
+                                                </barButtonItem>
                                                 <barButtonItem systemItem="undo" id="EjM-Ew-xu1">
                                                     <connections>
                                                         <action selector="undo:" destination="fg1-Q1-Y0B" id="5Mh-RL-cHZ"/>
@@ -187,7 +192,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Yh-be-tTI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="29" y="66"/>
+            <point key="canvasLocation" x="-547" y="72"/>
         </scene>
         <!--Slides Editing View Controller-->
         <scene sceneID="fSe-rA-bii">

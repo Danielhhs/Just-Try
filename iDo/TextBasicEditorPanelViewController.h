@@ -21,4 +21,5 @@ didChangeFromTextEditor:(TextBasicEditorPanelViewController *)textEditor;
 @property (nonatomic, weak) id<BasicTextEditorPanelViewControllerDelegate> delegate;
 
 - (void) updateFontPickerByRange:(NSRange) range;
+- (void) selectFont:(UIFont *) font;
 @end

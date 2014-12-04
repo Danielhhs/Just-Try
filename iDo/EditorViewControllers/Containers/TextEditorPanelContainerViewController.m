@@ -104,7 +104,7 @@
 }
 
 #pragma mark - Apply Attributes
-- (void) applyAttributes:(NSDictionary *)attributes
+- (void) applyAttributes:(NSMutableDictionary *)attributes
 {
     [self.basicEditor applyAttributes:attributes];
     [self.styleEditor applyAttributes:attributes];
@@ -114,6 +114,11 @@
 - (void) updateFontPickerByRange:(NSRange)range
 {
     [self.basicEditor updateFontPickerByRange:range];
+}
+
+- (void) selectFont:(UIFont *)font
+{
+    [self.basicEditor selectFont:font];
 }
 
 @end

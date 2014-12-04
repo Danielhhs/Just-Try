@@ -27,7 +27,6 @@
 @property (nonatomic, strong) EditMenuItem *duplicateButton;
 @property (nonatomic, strong) EditMenuItem *cutButton;
 @property (nonatomic, strong) EditMenuItem *pasteButton;
-@property (nonatomic, strong) EditMenuItem *editButton;
 @property (nonatomic, strong) EditMenuItem *deleteButton;
 @property (nonatomic, strong) EditMenuItem *replaceButton;
 @property (nonatomic, strong) EditMenuItem *animateButton;
@@ -45,7 +44,6 @@
         _duplicateButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants duplicateText] editMenu:self action:@selector(handleCopy)];
         _cutButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants cutText] editMenu:self action:@selector(handleCut)];
         _pasteButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants pasteText] editMenu:self action:@selector(handlePaste)];
-        _editButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants editText] editMenu:self action:@selector(handleEdit)];
         _deleteButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants deleteText] editMenu:self action:@selector(handleDelete)];
         _replaceButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants replaceText] editMenu:self action:@selector(handleReplace)];
         _animateButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants animateText] editMenu:self action:@selector(handleAnimate)];
@@ -78,12 +76,6 @@
     [self handleCopy];
     [self.delegate editMenu:self didCutContent:self.triggeredContent];
     [self.cutButton restoreNormalState];
-}
-
-- (void) handleEdit
-{
-    [self.delegate editMenu:self didEditContent:self.triggeredContent];
-    [self.editButton restoreNormalState];
 }
 
 - (void) handleDelete
@@ -166,8 +158,6 @@
             return self.pasteButton;
         case EditMenuAvailableOperationDelete:
             return self.deleteButton;
-        case EditMenuAvailableOperationEdit:
-            return self.editButton;
         case EditMenuAvailableOperationReplace:
             return self.replaceButton;
         case EditMenuAvailableOperationTransition:
@@ -184,7 +174,7 @@
         CGFloat increment = item.bounds.size.width + SEPARATOR_WIDTH;
         frame.size.width += increment;
     }
-    frame.size.height = self.editButton.bounds.size.height + EDIT_MENU_ARROW_HEIGHT;
+    frame.size.height = self.duplicateButton.bounds.size.height + EDIT_MENU_ARROW_HEIGHT;
     frame.origin.y = self.trigger.frame.origin.y - frame.size.height;
     frame.origin.x = self.trigger.center.x - frame.size.width * [DrawingConstants counterGoldenRatio];
     return frame;

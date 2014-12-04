@@ -21,7 +21,7 @@
 #pragma mark - Set Up
 - (void) setupWithAttributes:(NSDictionary *) attributes
 {
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = attributes[[KeyConstants textBackgroundColorKey]];
     self.editable = NO;
     self.selectable = NO;
     

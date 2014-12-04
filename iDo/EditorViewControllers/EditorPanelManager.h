@@ -18,11 +18,11 @@
                           forContentView:(GenericContainerView *)contentView;
 
 - (void) showImageEditorInViewController:(SlidesContainerViewController *) viewController
-                              attributes:(NSDictionary *) imageItem
+                              attributes:(NSMutableDictionary *) imageItem
                                   target:(id<OperationTarget>)target
                                 animated:(BOOL) animated;
 - (void) showTextEditorInViewController:(SlidesContainerViewController *) viewController
-                             attributes:(NSDictionary *) imageItem
+                             attributes:(NSMutableDictionary *) imageItem
                                  target:(id<OperationTarget>)target
                                animated:(BOOL) animated;
 
@@ -30,7 +30,7 @@
 
 - (void) dismissAllEditorPanelsFromViewController:(SlidesContainerViewController *) viewController;
 
-- (void) makeCurrentEditorApplyChanges:(NSDictionary *) attributes;
+- (void) textViewDidSelectFont:(UIFont *) font;
 
 - (void) handleContentViewDidFinishChanging;
 

@@ -14,16 +14,14 @@ typedef NS_ENUM(NSInteger, EditMenuAvailableOperation) {
     EditMenuAvailableOperationCopy = 0,
     EditMenuAvailableOperationCut = 1,
     EditMenuAvailableOperationPaste = 2,
-    EditMenuAvailableOperationEdit = 3,
-    EditMenuAvailableOperationDelete = 4,
-    EditMenuAvailableOperationAnimate = 5,
-    EditMenuAvailableOperationReplace = 6,
-    EditMenuAvailableOperationTransition = 7
+    EditMenuAvailableOperationDelete = 3,
+    EditMenuAvailableOperationAnimate = 4,
+    EditMenuAvailableOperationReplace = 5,
+    EditMenuAvailableOperationTransition = 6
 };
 
 @protocol ContentEditMenuViewDelegate <NSObject>
 
-- (void) editMenu:(ContentEditMenuView *) editMenu didEditContent:(GenericContainerView *)content;
 - (void) editMenu:(ContentEditMenuView *) editMenu didDeleteContent:(GenericContainerView *)content;
 - (void) editMenu:(ContentEditMenuView *) editMenu didCutContent:(GenericContainerView *)content;
 - (void) editMenu:(ContentEditMenuView *) editMenu didPasteContent:(GenericContainerView *)content;

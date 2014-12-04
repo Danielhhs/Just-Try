@@ -87,5 +87,8 @@
 
 - (IBAction)showSlideThumbnails:(id)sender {
 }
+- (IBAction)editCurrentContent:(id)sender {
+    [self.delegate editCurrentContent];
+}
 
 @end

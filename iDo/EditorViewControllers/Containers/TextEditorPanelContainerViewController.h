@@ -22,4 +22,5 @@
 
 - (void) updateFontPickerByRange:(NSRange) range;
 - (void) selectBasicEditor;
+- (void) selectFont:(UIFont *) font;
 @end
