@@ -44,6 +44,7 @@
 		543FE1031A287A18002276D7 /* EditMenuManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 543FE1021A287A18002276D7 /* EditMenuManager.m */; };
 		543FE1141A2C5037002276D7 /* OperationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 543FE1131A2C5037002276D7 /* OperationHelper.m */; };
 		545C4B7D1A358366002604FA /* AnimationOrderIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4B7C1A358366002604FA /* AnimationOrderIndicatorView.m */; };
+		545C4B801A35AA48002604FA /* AnimationEditMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4B7F1A35AA48002604FA /* AnimationEditMenuItem.m */; };
 		546457BD19F1074900078EAF /* BasicImageEditorContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */; };
 		546457C019F1096200078EAF /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546457BF19F1096200078EAF /* CoreImage.framework */; };
 		546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457C319F10C1700078EAF /* UIView+Snapshot.m */; };
@@ -202,6 +203,8 @@
 		543FE1131A2C5037002276D7 /* OperationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OperationHelper.m; path = "Undo Manager/OperationHelper.m"; sourceTree = "<group>"; };
 		545C4B7B1A358366002604FA /* AnimationOrderIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationOrderIndicatorView.h; sourceTree = "<group>"; };
 		545C4B7C1A358366002604FA /* AnimationOrderIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationOrderIndicatorView.m; sourceTree = "<group>"; };
+		545C4B7E1A35AA48002604FA /* AnimationEditMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationEditMenuItem.h; sourceTree = "<group>"; };
+		545C4B7F1A35AA48002604FA /* AnimationEditMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationEditMenuItem.m; sourceTree = "<group>"; };
 		546457BA19F1074900078EAF /* BasicImageEditorContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicImageEditorContentViewController.h; path = EditorViewControllers/BasicImageEditorContentViewController.h; sourceTree = "<group>"; };
 		546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicImageEditorContentViewController.m; path = EditorViewControllers/BasicImageEditorContentViewController.m; sourceTree = "<group>"; };
 		546457BF19F1096200078EAF /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -634,6 +637,8 @@
 				547EEEC81A18800900EAD132 /* ContentEditMenuView.m */,
 				547EEECB1A1881F200EAD132 /* EditMenuItem.h */,
 				547EEECC1A1881F200EAD132 /* EditMenuItem.m */,
+				545C4B7E1A35AA48002604FA /* AnimationEditMenuItem.h */,
+				545C4B7F1A35AA48002604FA /* AnimationEditMenuItem.m */,
 				547BFD481A1B4B8F0014FBD9 /* EditMenuHelper.h */,
 				547BFD491A1B4B8F0014FBD9 /* EditMenuHelper.m */,
 				543FE1011A287A18002276D7 /* EditMenuManager.h */,
@@ -1029,6 +1034,7 @@
 				54FC6F5A1A1EEFFB00833506 /* SlideEditingToolbarViewController.m in Sources */,
 				543FE0E31A2813DD002276D7 /* BitmapContextManipulator.m in Sources */,
 				543FE1141A2C5037002276D7 /* OperationHelper.m in Sources */,
+				545C4B801A35AA48002604FA /* AnimationEditMenuItem.m in Sources */,
 				547DCA0D1A04CDA5004691EC /* BordersContentViewController.m in Sources */,
 				54E62D0119FDFA8A0083E0F0 /* TextFontHelper.m in Sources */,
 				543FE0E61A2813DD002276D7 /* BitmapRotationManipulator.m in Sources */,

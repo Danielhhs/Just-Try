@@ -14,6 +14,7 @@
 @interface CanvasView ()
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinch;
 @property (nonatomic, weak) id<ContentContainerViewDelegate> contentDelegate;
+@property (nonatomic, strong) UITapGestureRecognizer *tapToGainFocus;
 @end
 
 @implementation CanvasView
@@ -47,8 +48,8 @@
         self.contentDelegate = contentDelegate;
         self.pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
         [self addGestureRecognizer:self.pinch];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-        [self addGestureRecognizer:tap];
+        self.tapToGainFocus = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapToGainFocus:)];
+        [self addGestureRecognizer:self.tapToGainFocus];
         
         self.layer.shadowColor = [UIColor blackColor].CGColor;
         self.layer.shadowPath = [UIBezierPath bezierPathWithRect:CGRectInset(self.bounds, -10, -10)].CGPath;
@@ -83,7 +84,7 @@
     }
 }
 
-- (void) handleTap:(UITapGestureRecognizer *) tap
+- (void) handleTapToGainFocus:(UITapGestureRecognizer *) tap
 {
     [self.delegate userDidTapInCanvas:self];
 }

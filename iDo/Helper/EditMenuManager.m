@@ -21,6 +21,7 @@ static EditMenuManager *sharedInstance;
 @property (nonatomic, strong) NSArray *basicOperationsForCanvas;
 @property (nonatomic, strong) NSArray *animationOperationsForContentView;
 @property (nonatomic, strong) NSArray *animationOperationsForCanvas;
+@property (nonatomic) BOOL editMenuShown;
 @end
 
 @implementation EditMenuManager
@@ -85,6 +86,10 @@ static EditMenuManager *sharedInstance;
 #pragma mark - Show/Hide
 - (void) showEditMenuToView:(UIView *) view
 {
+    if (self.editMenuShown == YES) {
+        [self hideEditMenu];
+        return;
+    }
     if ([view isKindOfClass:[GenericContainerView class]]) {
         [self showEditMenuToContentView:(GenericContainerView *)view];
     } else if ([view isKindOfClass:[CanvasView class]]) {
@@ -121,6 +126,7 @@ static EditMenuManager *sharedInstance;
 
 - (void) showEditMenuToContentView:(GenericContainerView *) content
 {
+    self.editMenuShown = YES;
     NSArray *availableOperations = [self availableOperationsForView:content];
     [self.editMenu showWithAvailableOperations:availableOperations toContent:content];
     CGPoint center = CGPointMake(content.center.x, content.frame.origin.y - self.editMenu.frame.size.height / 2);
@@ -130,6 +136,7 @@ static EditMenuManager *sharedInstance;
 
 - (void) showEditMenuToCanvas:(CanvasView *) canvas
 {
+    self.editMenuShown = YES;
     NSArray *availableOperations = [self availableOperationsForView:canvas];
     [self.editMenu showWithAvailableOperations:availableOperations toCanvas:canvas];
     CGPoint origin;
@@ -142,6 +149,7 @@ static EditMenuManager *sharedInstance;
 
 - (void) hideEditMenu
 {
+    self.editMenuShown = NO;
     self.editMenu.hidden = YES;
 }
 
