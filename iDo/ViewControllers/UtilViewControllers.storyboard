@@ -100,7 +100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x2F-XW-axi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-824.5" y="249"/>
+            <point key="canvasLocation" x="-409.5" y="120"/>
         </scene>
         <!--Slide Editing Toolbar View Controller-->
         <scene sceneID="Djd-qH-nV1">
@@ -125,49 +125,57 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <items>
                                                 <barButtonItem title="Proposals" id="Mbp-vE-kzZ">
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <connections>
                                                         <action selector="backToProposals:" destination="fg1-Q1-Y0B" id="m3M-cD-yWE"/>
                                                     </connections>
                                                 </barButtonItem>
                                                 <barButtonItem title="Slides" id="7N5-Oa-EuN">
+                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <connections>
                                                         <action selector="showSlideThumbnails:" destination="fg1-Q1-Y0B" id="kJH-c1-vey"/>
                                                     </connections>
                                                 </barButtonItem>
                                                 <barButtonItem systemItem="add" id="v16-Fy-wZ4">
+                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <connections>
                                                         <action selector="addText:" destination="fg1-Q1-Y0B" id="hZj-lc-rRv"/>
                                                     </connections>
                                                 </barButtonItem>
                                                 <barButtonItem title="Image" id="o0l-d9-7CY">
+                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <connections>
                                                         <action selector="addImage:" destination="fg1-Q1-Y0B" id="9LU-vH-Hdl"/>
                                                     </connections>
                                                 </barButtonItem>
                                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="xQm-rI-APD"/>
                                                 <barButtonItem systemItem="trash" id="PEz-iS-Ncb">
+                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <connections>
                                                         <action selector="trash:" destination="fg1-Q1-Y0B" id="bD6-KY-ubW"/>
                                                     </connections>
                                                 </barButtonItem>
                                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="Fyz-Ru-sBX"/>
                                                 <barButtonItem title="Edit" id="HHc-X3-N8o">
+                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <connections>
                                                         <action selector="editCurrentContent:" destination="fg1-Q1-Y0B" id="126-6w-7p1"/>
                                                     </connections>
                                                 </barButtonItem>
                                                 <barButtonItem systemItem="undo" id="EjM-Ew-xu1">
+                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <connections>
                                                         <action selector="undo:" destination="fg1-Q1-Y0B" id="5Mh-RL-cHZ"/>
                                                     </connections>
                                                 </barButtonItem>
                                                 <barButtonItem systemItem="redo" id="fkT-Ji-8cY">
+                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <connections>
                                                         <action selector="redo:" destination="fg1-Q1-Y0B" id="TP3-yz-SBu"/>
                                                     </connections>
                                                 </barButtonItem>
                                                 <barButtonItem systemItem="save" id="GNo-gl-cav">
+                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <connections>
                                                         <action selector="saveProposal:" destination="fg1-Q1-Y0B" id="qf0-vZ-Ijx"/>
                                                     </connections>
@@ -192,7 +200,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Yh-be-tTI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-547" y="72"/>
+            <point key="canvasLocation" x="-390" y="-4"/>
         </scene>
         <!--Slides Editing View Controller-->
         <scene sceneID="fSe-rA-bii">

@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) ContentEditMenuView *editMenu;
 @property (nonatomic, weak) UIView *containerView;
+@property (nonatomic) BOOL animationMode;
 
 + (EditMenuManager *) sharedManager;
 - (void) showEditMenuToView:(UIView *) view;

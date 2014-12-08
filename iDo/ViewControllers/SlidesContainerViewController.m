@@ -236,6 +236,12 @@
     [self addGenericContentView:content];
 }
 
+- (void) editMenu:(ContentEditMenuView *)editMenu didEnterAnimationModeToView:(UIView *)content
+{
+    [EditMenuManager sharedManager].animationMode = YES;
+    [[EditMenuManager sharedManager] showEditMenuToView:content];
+}
+
 #pragma mark - SlideEditingToolbarDelegate
 - (void) toolBarViewControllerWillPerformUndoAction:(SlideEditingToolbarViewController *)controller
 {

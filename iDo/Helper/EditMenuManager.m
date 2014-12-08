@@ -19,6 +19,8 @@ static EditMenuManager *sharedInstance;
 @interface EditMenuManager ()
 @property (nonatomic, strong) NSArray *basicOperationsForContentView;
 @property (nonatomic, strong) NSArray *basicOperationsForCanvas;
+@property (nonatomic, strong) NSArray *animationOperationsForContentView;
+@property (nonatomic, strong) NSArray *animationOperationsForCanvas;
 @end
 
 @implementation EditMenuManager
@@ -64,6 +66,22 @@ static EditMenuManager *sharedInstance;
     return _basicOperationsForCanvas;
 }
 
+- (NSArray *) animationOperationsForCanvas
+{
+    if (!_animationOperationsForCanvas) {
+        _animationOperationsForCanvas = @[@(EditMenuAvailableOperationTransitionIn)];
+    }
+    return _animationOperationsForCanvas;
+}
+
+- (NSArray *) animationOperationsForContentView
+{
+    if (!_animationOperationsForContentView) {
+        _animationOperationsForContentView = @[@(EditMenuAvailableOperationAnimateIn), @(EditMenuAvailableOperationAnimateOut)];
+    }
+    return _animationOperationsForContentView;
+}
+
 #pragma mark - Show/Hide
 - (void) showEditMenuToView:(UIView *) view
 {
@@ -74,28 +92,45 @@ static EditMenuManager *sharedInstance;
     }
 }
 
+- (NSArray *) availableOperationsForView:(UIView *) view
+{
+    if (self.animationMode) {
+        if ([view isKindOfClass:[GenericContainerView class]]) {
+            return self.animationOperationsForContentView;
+        } else {
+            return self.animationOperationsForCanvas;
+        }
+    } else {
+        NSData *existingData = [PasteboardHelper dataFromPasteboard];
+        NSMutableArray *availableOperations;
+        if ([view isKindOfClass:[GenericContainerView class]]) {
+            availableOperations = [NSMutableArray arrayWithArray:self.basicOperationsForContentView];
+            if (existingData) {
+                [availableOperations insertObject:@(EditMenuAvailableOperationReplace) atIndex:REPLACE_ITEM_INDEX];
+            }
+            return availableOperations;
+        } else {
+            availableOperations = [NSMutableArray arrayWithArray:self.basicOperationsForCanvas];
+            if (existingData) {
+                [availableOperations insertObject:@(EditMenuAvailableOperationPaste) atIndex:PASTE_ITEM_INDEX];
+            }
+        }
+        return availableOperations;
+    }
+}
+
 - (void) showEditMenuToContentView:(GenericContainerView *) content
 {
-    NSMutableArray *availableOperations = [NSMutableArray arrayWithArray:self.basicOperationsForContentView];
-    NSData *existingData = [PasteboardHelper dataFromPasteboard];
-    if (existingData) {
-        [availableOperations insertObject:@(EditMenuAvailableOperationReplace) atIndex:REPLACE_ITEM_INDEX];
-    }
+    NSArray *availableOperations = [self availableOperationsForView:content];
     [self.editMenu showWithAvailableOperations:availableOperations toContent:content];
-    CGPoint origin;
-    origin.y = content.frame.origin.y - self.editMenu.frame.size.height;
-    origin.x = content.center.x - self.editMenu.frame.size.width * [DrawingConstants counterGoldenRatio];
-    origin = [self.containerView convertPoint:origin fromView:content.superview];
-    self.editMenu.frame = CGRectMake(origin.x, origin.y, self.editMenu.frame.size.width, self.editMenu.frame.size.height);
+    CGPoint center = CGPointMake(content.center.x, content.frame.origin.y - self.editMenu.frame.size.height / 2);
+    center = [self.containerView convertPoint:center fromView:content.superview];
+    self.editMenu.center = center;
 }
 
 - (void) showEditMenuToCanvas:(CanvasView *) canvas
 {
-    NSMutableArray *availableOperations = [NSMutableArray arrayWithArray:self.basicOperationsForCanvas];
-    NSData *existingData = [PasteboardHelper dataFromPasteboard];
-    if (existingData) {
-        [availableOperations insertObject:@(EditMenuAvailableOperationPaste) atIndex:PASTE_ITEM_INDEX];
-    }
+    NSArray *availableOperations = [self availableOperationsForView:canvas];
     [self.editMenu showWithAvailableOperations:availableOperations toCanvas:canvas];
     CGPoint origin;
     CGPoint canvasOrigin = [self.containerView convertPoint:canvas.frame.origin fromView:canvas.superview];

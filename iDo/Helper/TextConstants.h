@@ -25,4 +25,11 @@
 
 + (NSString *) transitionText;
 
++ (NSString *) animateInText;
+
++ (NSString *) animateOutText;
+
++ (NSString *) transitionInText;
+
++ (NSString *) noneText;
 @end

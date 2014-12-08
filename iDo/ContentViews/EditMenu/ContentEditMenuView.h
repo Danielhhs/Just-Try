@@ -17,7 +17,10 @@ typedef NS_ENUM(NSInteger, EditMenuAvailableOperation) {
     EditMenuAvailableOperationDelete = 3,
     EditMenuAvailableOperationAnimate = 4,
     EditMenuAvailableOperationReplace = 5,
-    EditMenuAvailableOperationTransition = 6
+    EditMenuAvailableOperationTransition = 6,
+    EditMenuAvailableOperationAnimateIn = 7,
+    EditMenuAvailableOperationAnimateOut = 8,
+    EditMenuAvailableOperationTransitionIn = 9
 };
 
 @protocol ContentEditMenuViewDelegate <NSObject>
@@ -25,6 +28,7 @@ typedef NS_ENUM(NSInteger, EditMenuAvailableOperation) {
 - (void) editMenu:(ContentEditMenuView *) editMenu didDeleteContent:(GenericContainerView *)content;
 - (void) editMenu:(ContentEditMenuView *) editMenu didCutContent:(GenericContainerView *)content;
 - (void) editMenu:(ContentEditMenuView *) editMenu didPasteContent:(GenericContainerView *)content;
+- (void) editMenu:(ContentEditMenuView *) editMenu didEnterAnimationModeToView:(UIView *)view;
 
 @end
 

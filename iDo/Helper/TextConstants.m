@@ -50,4 +50,24 @@
     return @"Transition";
 }
 
++ (NSString *) animateInText
+{
+    return  @"animate in";
+}
+
++ (NSString *) animateOutText
+{
+    return @"animate out";
+}
+
++ (NSString *) transitionInText
+{
+    return @"Transition";
+}
+
++ (NSString *) noneText
+{
+    return @"None";
+}
+
 @end

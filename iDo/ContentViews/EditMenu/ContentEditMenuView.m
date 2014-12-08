@@ -10,7 +10,6 @@
 #import "EditMenuItem.h"
 #import "TextConstants.h"
 #import "GenericContainerViewHelper.h"
-#import "DrawingConstants.h"
 #import "EditMenuHelper.h"
 #import "PasteboardHelper.h"
 #import "CanvasView.h"
@@ -31,8 +30,12 @@
 @property (nonatomic, strong) EditMenuItem *replaceButton;
 @property (nonatomic, strong) EditMenuItem *animateButton;
 @property (nonatomic, strong) EditMenuItem *transitionButton;
+@property (nonatomic, strong) EditMenuItem *animateInButton;
+@property (nonatomic, strong) EditMenuItem *animateOutButton;
+@property (nonatomic, strong) EditMenuItem *transitionInButton;
 @property (nonatomic, strong) NSMutableArray *separatorLocations;
 @property (nonatomic, weak) UIView *trigger;
+@property (nonatomic) CGFloat itemHeight;
 @end
 
 @implementation ContentEditMenuView
@@ -48,6 +51,9 @@
         _replaceButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants replaceText] editMenu:self action:@selector(handleReplace)];
         _animateButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants animateText] editMenu:self action:@selector(handleAnimate)];
         _transitionButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants transitionText] editMenu:self action:@selector(handleTransition)];
+        _animateInButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants noneText] subTitle:[TextConstants animateInText] editMenu:self action:@selector(handleTransition) type:EditMenuItemTypeLeftMost];
+        _animateOutButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants noneText] subTitle:[TextConstants animateOutText] editMenu:self action:@selector(handleTransition) type:EditMenuItemTypeRightMost];
+        _transitionInButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants noneText] subTitle:nil editMenu:self action:@selector(handleTransition) type:EditMenuItemTypeLeftArrow];
         self.availableOperations = [NSMutableArray array];
         self.separatorLocations = [NSMutableArray array];
         self.backgroundColor = [UIColor clearColor];
@@ -91,6 +97,7 @@
 
 - (void) handleAnimate
 {
+    [self.delegate editMenu:self didEnterAnimationModeToView:self.triggeredContent];
     [self.animateButton restoreNormalState];
 }
 
@@ -127,14 +134,17 @@
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     for (NSInteger i = 0; i < [availableOperations count]; i++) {
         EditMenuItem *item = [self availableOperationForType:[availableOperations[i] integerValue]];
-        item.type = [self itemTypeForItemAtIndex:i totalItems:[availableOperations count]];
+        item.type = [self itemTypeForButtonItem:item index:i totalItems:[availableOperations count]];
         [self.availableOperations addObject:item];
         [self addSubview:item];
+        self.itemHeight = item.bounds.size.height;
     }
 }
 
-- (EditMenuItemType) itemTypeForItemAtIndex:(NSInteger) index totalItems:(NSInteger) totalItems {
-    if (totalItems == 1) {
+- (EditMenuItemType) itemTypeForButtonItem:(EditMenuItem *) item index:(NSInteger) index totalItems:(NSInteger) totalItems {
+    if (item == self.transitionInButton) {
+        return EditMenuItemTypeLeftArrow;
+    } else if (totalItems == 1) {
         return EditMenuItemTypeOnly;
     } else if (index == 0) {
         return EditMenuItemTypeLeftMost;
@@ -162,6 +172,12 @@
             return self.replaceButton;
         case EditMenuAvailableOperationTransition:
             return self.transitionButton;
+        case EditMenuAvailableOperationAnimateIn:
+            return self.animateInButton;
+        case EditMenuAvailableOperationAnimateOut:
+            return self.animateOutButton;
+        case EditMenuAvailableOperationTransitionIn:
+            return self.transitionInButton;
         default:
             return nil;
     }
@@ -174,9 +190,9 @@
         CGFloat increment = item.bounds.size.width + SEPARATOR_WIDTH;
         frame.size.width += increment;
     }
-    frame.size.height = self.duplicateButton.bounds.size.height + EDIT_MENU_ARROW_HEIGHT;
-    frame.origin.y = self.trigger.frame.origin.y - frame.size.height;
-    frame.origin.x = self.trigger.center.x - frame.size.width * [DrawingConstants counterGoldenRatio];
+    frame.size.height = self.itemHeight + EDIT_MENU_ARROW_HEIGHT;
+    frame.origin.y = self.trigger.frame.origin.y - self.itemHeight;
+    frame.origin.x = self.trigger.center.x - self.bounds.size.width / 2;
     return frame;
 }
 
@@ -185,7 +201,7 @@
     [self.separatorLocations removeAllObjects];
     CGFloat currentLocation = 0;
     for (EditMenuItem *item in self.availableOperations) {
-        item.center = CGPointMake(currentLocation + CGRectGetMidX(item.bounds), item.center.y);
+        item.center = CGPointMake(currentLocation + CGRectGetMidX(item.bounds), CGRectGetMidY(item.bounds));
         currentLocation = currentLocation + CGRectGetMaxX(item.bounds) + SEPARATOR_WIDTH;
         [self.separatorLocations addObject:@(currentLocation - SEPARATOR_WIDTH)];
     }
@@ -213,16 +229,16 @@
     CGFloat maxX = CGRectGetMaxX(rect);
     CGFloat maxY = CGRectGetMaxY(rect);
     
-    [bezierPath moveToPoint:CGPointMake(maxX * [DrawingConstants counterGoldenRatio] + EDIT_MENU_ARROW_WIDTH_HALF, maxY - EDIT_MENU_ARROW_HEIGHT - 1)];
-    [bezierPath addLineToPoint:CGPointMake(maxX * [DrawingConstants counterGoldenRatio], maxY)];
-    [bezierPath addLineToPoint:CGPointMake(maxX * [DrawingConstants counterGoldenRatio] - EDIT_MENU_ARROW_WIDTH_HALF, maxY - EDIT_MENU_ARROW_HEIGHT - 1)];
+    [bezierPath moveToPoint:CGPointMake(maxX * 0.5 + EDIT_MENU_ARROW_WIDTH_HALF, maxY - EDIT_MENU_ARROW_HEIGHT - 1)];
+    [bezierPath addLineToPoint:CGPointMake(maxX * 0.5, maxY)];
+    [bezierPath addLineToPoint:CGPointMake(maxX * 0.5 - EDIT_MENU_ARROW_WIDTH_HALF, maxY - EDIT_MENU_ARROW_HEIGHT - 1)];
     [bezierPath closePath];
     [[EditMenuItem normalStateColor] setFill];
     [bezierPath fill];
     
     for (NSNumber *separatorLocation in self.separatorLocations) {
         CGFloat location = [separatorLocation doubleValue];
-        UIBezierPath *separator = [UIBezierPath bezierPathWithRect:CGRectMake(location, 0, SEPARATOR_WIDTH, EDIT_ITEM_HEIGTH)];
+        UIBezierPath *separator = [UIBezierPath bezierPathWithRect:CGRectMake(location, 0, SEPARATOR_WIDTH, self.itemHeight)];
         [[UIColor colorWithWhite:1 alpha:0.5] setFill];
         [separator fill];
     }

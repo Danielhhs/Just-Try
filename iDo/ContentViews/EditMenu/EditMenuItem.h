@@ -13,7 +13,9 @@ typedef NS_ENUM(NSInteger, EditMenuItemType) {
     EditMenuItemTypeCommon = 0,
     EditMenuItemTypeLeftMost = 1,
     EditMenuItemTypeRightMost = 2,
-    EditMenuItemTypeOnly = 3
+    EditMenuItemTypeOnly = 3,
+    EditMenuItemTypeLeftArrow = 4,
+    EditMenuItemTypeRightArrow = 5
 };
 
 @interface EditMenuItem : UIButton
@@ -23,7 +25,15 @@ typedef NS_ENUM(NSInteger, EditMenuItemType) {
                       editMenu:(ContentEditMenuView *) editMenu
                         action:(SEL) action;
 
+- (instancetype) initWithFrame:(CGRect)frame
+                         title:(NSString *)title
+                      subTitle:(NSString *) subtitle
+                      editMenu:(ContentEditMenuView *)editMenu
+                        action:(SEL)action
+                          type:(EditMenuItemType) type;
+
 + (UIColor *) normalStateColor;
 - (void) restoreNormalState;
 @property (nonatomic) EditMenuItemType type;
+@property (nonatomic, strong) NSString *animationTitle;
 @end
