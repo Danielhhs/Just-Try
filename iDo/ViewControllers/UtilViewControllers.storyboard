@@ -4,6 +4,63 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
+        <!--Animation Toolbar View Controller-->
+        <scene sceneID="bK8-ud-R8Y">
+            <objects>
+                <viewController storyboardIdentifier="AnimationToolbarViewController" id="k02-iV-sDX" customClass="AnimationToolbarViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="O7I-u3-XKr"/>
+                        <viewControllerLayoutGuide type="bottom" id="ftc-hp-T3r"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YQn-Jl-EyD">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="66"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Ym-g1-uJy">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="66"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="chS-rH-KbT">
+                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="66"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sUV-md-Zrc">
+                                            <rect key="frame" x="954" y="28" width="37" height="30"/>
+                                            <state key="normal" title="Done">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="exitAnimationMode:" destination="k02-iV-sDX" eventType="touchUpInside" id="zhf-mL-2t7"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Weu-k6-Z3D">
+                                            <rect key="frame" x="902" y="28" width="30" height="30"/>
+                                            <state key="normal" title="Play">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="exitAnimationMode:" destination="k02-iV-sDX" eventType="touchUpInside" id="p6m-9R-vHD"/>
+                                                <action selector="playEffect:" destination="k02-iV-sDX" eventType="touchUpInside" id="Jqu-fR-4bT"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="1024" height="66"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p5E-uS-cUP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1701" y="7"/>
+        </scene>
         <!--Slides Thumbnail View Controller-->
         <scene sceneID="Rrd-mU-pdu">
             <objects>
@@ -13,17 +70,17 @@
                         <viewControllerLayoutGuide type="bottom" id="OtE-no-OJx"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="A90-ew-VEH">
-                        <rect key="frame" x="0.0" y="0.0" width="215" height="724"/>
+                        <rect key="frame" x="0.0" y="0.0" width="215" height="702"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xGL-q6-OCu">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="724"/>
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="702"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="ZlX-Zh-ZCu">
-                                    <rect key="frame" x="0.0" y="0.0" width="200" height="724"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="702"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lh7-rM-0Ck">
-                                            <rect key="frame" x="0.0" y="0.0" width="200" height="704"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="681"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="o8u-QZ-Xeo">
                                                 <size key="itemSize" width="190" height="143"/>
@@ -74,10 +131,11 @@
                                             </connections>
                                         </collectionView>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUt-Pb-3Wr">
-                                            <rect key="frame" x="0.0" y="704" width="200" height="20"/>
+                                            <rect key="frame" x="0.0" y="682" width="200" height="20"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal" title="Add">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -93,14 +151,14 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="215" height="724"/>
+                    <size key="freeformSize" width="215" height="702"/>
                     <connections>
                         <outlet property="thumbnailsCollectionView" destination="lh7-rM-0Ck" id="WH3-7H-JhU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x2F-XW-axi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-409.5" y="120"/>
+            <point key="canvasLocation" x="-778.5" y="113"/>
         </scene>
         <!--Slide Editing Toolbar View Controller-->
         <scene sceneID="Djd-qH-nV1">
@@ -111,80 +169,99 @@
                         <viewControllerLayoutGuide type="bottom" id="5uT-m5-lkk"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="va8-xh-Mh8">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="66"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Duh-Sb-l3n">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="66"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="aLO-d2-1MV">
-                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="66"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pXl-6h-WWp">
-                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <items>
-                                                <barButtonItem title="Proposals" id="Mbp-vE-kzZ">
-                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <connections>
-                                                        <action selector="backToProposals:" destination="fg1-Q1-Y0B" id="m3M-cD-yWE"/>
-                                                    </connections>
-                                                </barButtonItem>
-                                                <barButtonItem title="Slides" id="7N5-Oa-EuN">
-                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <connections>
-                                                        <action selector="showSlideThumbnails:" destination="fg1-Q1-Y0B" id="kJH-c1-vey"/>
-                                                    </connections>
-                                                </barButtonItem>
-                                                <barButtonItem systemItem="add" id="v16-Fy-wZ4">
-                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <connections>
-                                                        <action selector="addText:" destination="fg1-Q1-Y0B" id="hZj-lc-rRv"/>
-                                                    </connections>
-                                                </barButtonItem>
-                                                <barButtonItem title="Image" id="o0l-d9-7CY">
-                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <connections>
-                                                        <action selector="addImage:" destination="fg1-Q1-Y0B" id="9LU-vH-Hdl"/>
-                                                    </connections>
-                                                </barButtonItem>
-                                                <barButtonItem style="plain" systemItem="flexibleSpace" id="xQm-rI-APD"/>
-                                                <barButtonItem systemItem="trash" id="PEz-iS-Ncb">
-                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <connections>
-                                                        <action selector="trash:" destination="fg1-Q1-Y0B" id="bD6-KY-ubW"/>
-                                                    </connections>
-                                                </barButtonItem>
-                                                <barButtonItem style="plain" systemItem="flexibleSpace" id="Fyz-Ru-sBX"/>
-                                                <barButtonItem title="Edit" id="HHc-X3-N8o">
-                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <connections>
-                                                        <action selector="editCurrentContent:" destination="fg1-Q1-Y0B" id="126-6w-7p1"/>
-                                                    </connections>
-                                                </barButtonItem>
-                                                <barButtonItem systemItem="undo" id="EjM-Ew-xu1">
-                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <connections>
-                                                        <action selector="undo:" destination="fg1-Q1-Y0B" id="5Mh-RL-cHZ"/>
-                                                    </connections>
-                                                </barButtonItem>
-                                                <barButtonItem systemItem="redo" id="fkT-Ji-8cY">
-                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <connections>
-                                                        <action selector="redo:" destination="fg1-Q1-Y0B" id="TP3-yz-SBu"/>
-                                                    </connections>
-                                                </barButtonItem>
-                                                <barButtonItem systemItem="save" id="GNo-gl-cav">
-                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <connections>
-                                                        <action selector="saveProposal:" destination="fg1-Q1-Y0B" id="qf0-vZ-Ijx"/>
-                                                    </connections>
-                                                </barButtonItem>
-                                            </items>
-                                        </toolbar>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zld-uU-F9g">
+                                            <rect key="frame" x="973" y="28" width="34" height="30"/>
+                                            <state key="normal" title="Save">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="saveProposal:" destination="fg1-Q1-Y0B" eventType="touchUpInside" id="WZf-Mi-T5T"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LHw-mm-gUT">
+                                            <rect key="frame" x="919" y="28" width="37" height="30"/>
+                                            <state key="normal" title="Redo">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="redo:" destination="fg1-Q1-Y0B" eventType="touchUpInside" id="Ytf-ae-jAs"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dGF-hN-bAS">
+                                            <rect key="frame" x="865" y="28" width="38" height="30"/>
+                                            <state key="normal" title="Undo">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="undo:" destination="fg1-Q1-Y0B" eventType="touchUpInside" id="7HJ-OW-FoJ"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bLc-Jv-cww">
+                                            <rect key="frame" x="819" y="28" width="30" height="30"/>
+                                            <state key="normal" title="Edit">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="editCurrentContent:" destination="fg1-Q1-Y0B" eventType="touchUpInside" id="yV5-yv-b4o"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njF-Dt-Wu7">
+                                            <rect key="frame" x="17" y="28" width="69" height="30"/>
+                                            <state key="normal" title="Proposals">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="backToProposals:" destination="fg1-Q1-Y0B" eventType="touchUpInside" id="bZr-q1-oqs"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e8i-h8-9Fc">
+                                            <rect key="frame" x="484" y="28" width="37" height="30"/>
+                                            <state key="normal" title="Trash">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="trash:" destination="fg1-Q1-Y0B" eventType="touchUpInside" id="Ggr-V3-cGM"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f1z-rX-KFF">
+                                            <rect key="frame" x="132" y="28" width="43" height="30"/>
+                                            <state key="normal" title="Image">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="addImage:" destination="fg1-Q1-Y0B" eventType="touchUpInside" id="e58-dx-Knf"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZX0-mQ-6ik">
+                                            <rect key="frame" x="94" y="28" width="30" height="30"/>
+                                            <state key="normal" title="Add">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="addText:" destination="fg1-Q1-Y0B" eventType="touchUpInside" id="SUl-Rs-o2b"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <blurEffect style="dark"/>
+                                <blurEffect style="light"/>
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -192,15 +269,15 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="1024" height="44"/>
+                    <size key="freeformSize" width="1024" height="66"/>
                     <connections>
-                        <outlet property="redoButton" destination="fkT-Ji-8cY" id="5di-eQ-IJc"/>
-                        <outlet property="undoButton" destination="EjM-Ew-xu1" id="Jds-HO-z77"/>
+                        <outlet property="redoButton" destination="LHw-mm-gUT" id="VjU-kd-zed"/>
+                        <outlet property="undoButton" destination="dGF-hN-bAS" id="ooD-ck-qlI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Yh-be-tTI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-390" y="-4"/>
+            <point key="canvasLocation" x="-1554" y="-121"/>
         </scene>
         <!--Slides Editing View Controller-->
         <scene sceneID="fSe-rA-bii">

@@ -11,6 +11,7 @@
 #import "UndoManager.h"
 
 @class SlideEditingToolbarViewController;
+
 @protocol SlideEditingToolbarDelegate <NSObject>
 
 - (void) toolBarViewControllerWillPerformUndoAction:(SlideEditingToolbarViewController *) controller ;

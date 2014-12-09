@@ -18,6 +18,7 @@
 #import "SlideAttributesManager.h"
 #import "RotationHelper.h"
 #import "EditMenuManager.h"
+#import "ColorSelectionManager.h"
 @interface SlidesEditingViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, OperationTarget>
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 @end
@@ -139,6 +140,17 @@
 - (void) textEditorDidSelectNonBasicEditor:(TextEditorPanelContainerViewController *)textEditorController
 {
     [((TextContainerView *)self.currentSelectedContent) finishEditing];
+}
+
+- (void) showColorPicker
+{
+    [self.currentSelectedContent endEditing:YES];
+    [[ColorSelectionManager sharedManager] showColorPickerFromRect:self.currentSelectedContent.frame inView:self.canvas forType:ColorUsageTypeTextColor];
+}
+
+- (void) changeTextContainerBackgroundColor:(UIColor *)color
+{
+    [self.currentSelectedContent changeBackgroundColor:color];
 }
 
 #pragma mark - ImagePicker

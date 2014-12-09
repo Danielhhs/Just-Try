@@ -105,7 +105,7 @@ static SlideThumbnailsManager *sharedInstance;
 {
     CGRect frame;
     frame.origin.x = 0;
-    frame.origin.y = [DrawingConstants topBarHeight];
+    frame.origin.y = [DrawingConstants topBarHeight] + 1;
     frame.size.width = [DrawingConstants slidesThumbnailWidth];
     frame.size.height = [DrawingConstants slidesEditorContentHeight];
     return frame;

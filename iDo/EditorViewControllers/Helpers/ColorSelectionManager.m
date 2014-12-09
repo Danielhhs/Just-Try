@@ -7,11 +7,10 @@
 //
 
 #import "ColorSelectionManager.h"
-#import "ColorPickerViewController.h"
 
 @interface ColorSelectionManager ()
 @property (nonatomic, strong) UIPopoverController *colorPickerPopover;
-@property (nonatomic, strong) ColorPickerViewController *colorPickerController;
+@property (nonatomic, strong) ColorPickerContainerViewController *colorPickerController;
 @property (nonatomic) ColorUsageType usage;
 @end
 
@@ -28,7 +27,7 @@ static ColorSelectionManager *sharedInstance;
 {
     self = [super init];
     if (self) {
-        self.colorPickerController = [[UIStoryboard storyboardWithName:@"EditorViewControllers" bundle:nil] instantiateViewControllerWithIdentifier:@"ColorPickerViewController"];
+        self.colorPickerController = [[UIStoryboard storyboardWithName:@"EditorViewControllers" bundle:nil] instantiateViewControllerWithIdentifier:@"ColorPickerContainerViewController"];
         self.colorPickerPopover = [[UIPopoverController alloc] initWithContentViewController:self.colorPickerController];
     }
     return self;
@@ -42,7 +41,7 @@ static ColorSelectionManager *sharedInstance;
     return sharedInstance;
 }
 
-- (void) setColorPickerDelegate:(id<ColorPickerViewControllerDelegate>)delegate
+- (void) setColorPickerDelegate:(id<ColorPickerContainerViewControllerDelegate>)delegate
 {
     self.colorPickerController.delegate = delegate;
 }
@@ -50,7 +49,7 @@ static ColorSelectionManager *sharedInstance;
 #pragma mark - Show/Hide
 - (void) showColorPickerFromRect:(CGRect)rect inView:(UIView *) view forType:(ColorUsageType)type
 {
-    self.colorPickerPopover.popoverContentSize = CGSizeMake(500, 500);
+    self.colorPickerPopover.popoverContentSize = CGSizeMake(300, 500);
     [self.colorPickerPopover presentPopoverFromRect:rect inView:view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 

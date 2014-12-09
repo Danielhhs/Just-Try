@@ -8,9 +8,13 @@
 
 #import "ColorPickerViewController.h"
 #import "RSColorPickerView.h"
+#import "RSBrightnessSlider.h"
+#import "RSOpacitySlider.h"
 
 @interface ColorPickerViewController ()<RSColorPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet RSColorPickerView *colorPickerView;
+@property (weak, nonatomic) IBOutlet RSOpacitySlider *opacitySlider;
+@property (weak, nonatomic) IBOutlet RSBrightnessSlider *brightnessSlider;
 
 @end
 
@@ -22,6 +26,8 @@
     self.colorPickerView.cropToCircle = YES;
     self.colorPickerView.showLoupe = YES;
     self.colorPickerView.clipsToBounds = NO;
+    self.opacitySlider.colorPicker = self.colorPickerView;
+    self.brightnessSlider.colorPicker = self.colorPickerView;
     // Do any additional setup after loading the view.
 }
 

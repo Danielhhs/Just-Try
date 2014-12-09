@@ -15,6 +15,10 @@
 - (void) textAttributes:(NSDictionary *)textAttributes didChangeFromTextEditor:(TextEditorPanelContainerViewController *)textEditorContainer;
 
 - (void) textEditorDidSelectNonBasicEditor:(TextEditorPanelContainerViewController *) textEditorController;
+
+- (void) showColorPicker;
+
+- (void) changeTextContainerBackgroundColor:(UIColor *) color;
 @end
 
 @interface TextEditorPanelContainerViewController : EditorPanelContainerViewController

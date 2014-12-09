@@ -45,6 +45,11 @@
 		543FE1141A2C5037002276D7 /* OperationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 543FE1131A2C5037002276D7 /* OperationHelper.m */; };
 		545C4B7D1A358366002604FA /* AnimationOrderIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4B7C1A358366002604FA /* AnimationOrderIndicatorView.m */; };
 		545C4B801A35AA48002604FA /* AnimationEditMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4B7F1A35AA48002604FA /* AnimationEditMenuItem.m */; };
+		545C4B901A369EE5002604FA /* AnimationToolbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4B8F1A369EE5002604FA /* AnimationToolbarViewController.m */; };
+		545C4B931A369F72002604FA /* ToolbarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4B921A369F72002604FA /* ToolbarManager.m */; };
+		545C4B991A36C11B002604FA /* RSBrightnessSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4B961A36C11B002604FA /* RSBrightnessSlider.m */; };
+		545C4B9A1A36C11B002604FA /* RSOpacitySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4B981A36C11B002604FA /* RSOpacitySlider.m */; };
+		545C4B9E1A36C2F1002604FA /* ColorPickerContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4B9D1A36C2F1002604FA /* ColorPickerContainerViewController.m */; };
 		546457BD19F1074900078EAF /* BasicImageEditorContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */; };
 		546457C019F1096200078EAF /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546457BF19F1096200078EAF /* CoreImage.framework */; };
 		546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457C319F10C1700078EAF /* UIView+Snapshot.m */; };
@@ -205,6 +210,16 @@
 		545C4B7C1A358366002604FA /* AnimationOrderIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationOrderIndicatorView.m; sourceTree = "<group>"; };
 		545C4B7E1A35AA48002604FA /* AnimationEditMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationEditMenuItem.h; sourceTree = "<group>"; };
 		545C4B7F1A35AA48002604FA /* AnimationEditMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationEditMenuItem.m; sourceTree = "<group>"; };
+		545C4B8E1A369EE5002604FA /* AnimationToolbarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationToolbarViewController.h; path = ViewControllers/AnimationToolbarViewController.h; sourceTree = "<group>"; };
+		545C4B8F1A369EE5002604FA /* AnimationToolbarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationToolbarViewController.m; path = ViewControllers/AnimationToolbarViewController.m; sourceTree = "<group>"; };
+		545C4B911A369F72002604FA /* ToolbarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToolbarManager.h; path = ViewControllers/ToolbarManager.h; sourceTree = "<group>"; };
+		545C4B921A369F72002604FA /* ToolbarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ToolbarManager.m; path = ViewControllers/ToolbarManager.m; sourceTree = "<group>"; };
+		545C4B951A36C11B002604FA /* RSBrightnessSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSBrightnessSlider.h; sourceTree = "<group>"; };
+		545C4B961A36C11B002604FA /* RSBrightnessSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSBrightnessSlider.m; sourceTree = "<group>"; };
+		545C4B971A36C11B002604FA /* RSOpacitySlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSOpacitySlider.h; sourceTree = "<group>"; };
+		545C4B981A36C11B002604FA /* RSOpacitySlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSOpacitySlider.m; sourceTree = "<group>"; };
+		545C4B9C1A36C2F1002604FA /* ColorPickerContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerContainerViewController.h; sourceTree = "<group>"; };
+		545C4B9D1A36C2F1002604FA /* ColorPickerContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPickerContainerViewController.m; sourceTree = "<group>"; };
 		546457BA19F1074900078EAF /* BasicImageEditorContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicImageEditorContentViewController.h; path = EditorViewControllers/BasicImageEditorContentViewController.h; sourceTree = "<group>"; };
 		546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicImageEditorContentViewController.m; path = EditorViewControllers/BasicImageEditorContentViewController.m; sourceTree = "<group>"; };
 		546457BF19F1096200078EAF /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -451,6 +466,10 @@
 		543FE0B31A2813DD002276D7 /* ColorPickerClasses */ = {
 			isa = PBXGroup;
 			children = (
+				545C4B951A36C11B002604FA /* RSBrightnessSlider.h */,
+				545C4B961A36C11B002604FA /* RSBrightnessSlider.m */,
+				545C4B971A36C11B002604FA /* RSOpacitySlider.h */,
+				545C4B981A36C11B002604FA /* RSOpacitySlider.m */,
 				543FE0B41A2813DD002276D7 /* ANImageBitmapRep */,
 				543FE0D01A2813DD002276D7 /* BGRSLoupeLayer.h */,
 				543FE0D11A2813DD002276D7 /* BGRSLoupeLayer.m */,
@@ -521,6 +540,32 @@
 				543FE0CF1A2813DD002276D7 /* BitmapScaleManipulator.m */,
 			);
 			path = Manipulators;
+			sourceTree = "<group>";
+		};
+		545C4B941A369F8D002604FA /* ToolBar */ = {
+			isa = PBXGroup;
+			children = (
+				54FC6F581A1EEFFB00833506 /* SlideEditingToolbarViewController.h */,
+				54FC6F591A1EEFFB00833506 /* SlideEditingToolbarViewController.m */,
+				545C4B8E1A369EE5002604FA /* AnimationToolbarViewController.h */,
+				545C4B8F1A369EE5002604FA /* AnimationToolbarViewController.m */,
+				545C4B911A369F72002604FA /* ToolbarManager.h */,
+				545C4B921A369F72002604FA /* ToolbarManager.m */,
+			);
+			name = ToolBar;
+			sourceTree = "<group>";
+		};
+		545C4B9B1A36C2C8002604FA /* ColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				543FE0EE1A28156F002276D7 /* ColorPickerViewController.h */,
+				543FE0EF1A28156F002276D7 /* ColorPickerViewController.m */,
+				543FE0FE1A281842002276D7 /* ColorSelectionManager.h */,
+				543FE0FF1A281842002276D7 /* ColorSelectionManager.m */,
+				545C4B9C1A36C2F1002604FA /* ColorPickerContainerViewController.h */,
+				545C4B9D1A36C2F1002604FA /* ColorPickerContainerViewController.m */,
+			);
+			name = ColorPicker;
 			sourceTree = "<group>";
 		};
 		546457B919F1070A00078EAF /* Editors */ = {
@@ -780,10 +825,6 @@
 			children = (
 				54E62CFF19FDFA8A0083E0F0 /* TextFontHelper.h */,
 				54E62D0019FDFA8A0083E0F0 /* TextFontHelper.m */,
-				543FE0EE1A28156F002276D7 /* ColorPickerViewController.h */,
-				543FE0EF1A28156F002276D7 /* ColorPickerViewController.m */,
-				543FE0FE1A281842002276D7 /* ColorSelectionManager.h */,
-				543FE0FF1A281842002276D7 /* ColorSelectionManager.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -849,10 +890,10 @@
 				54F0C50B1A105F2C009B4B0D /* SlidesContainerViewController.m */,
 				54D7294819ECE9B5009A0279 /* SlidesEditingViewController.h */,
 				54D7294919ECE9B5009A0279 /* SlidesEditingViewController.m */,
-				54FC6F581A1EEFFB00833506 /* SlideEditingToolbarViewController.h */,
-				54FC6F591A1EEFFB00833506 /* SlideEditingToolbarViewController.m */,
 				54F0C51A1A108A1B009B4B0D /* CanvasAdjustmentHelper.h */,
 				54F0C51B1A108A1B009B4B0D /* CanvasAdjustmentHelper.m */,
+				54F0C4FB1A0F4563009B4B0D /* UtilViewControllers.storyboard */,
+				545C4B941A369F8D002604FA /* ToolBar */,
 				54F0C4DD1A0F231D009B4B0D /* Thumbnails */,
 			);
 			name = "Slide Editing";
@@ -865,7 +906,6 @@
 				54F0C4DF1A0F233E009B4B0D /* SlideThumbnailsManager.m */,
 				54F0C4E91A0F407D009B4B0D /* SlidesThumbnailViewController.h */,
 				54F0C4EA1A0F407D009B4B0D /* SlidesThumbnailViewController.m */,
-				54F0C4FB1A0F4563009B4B0D /* UtilViewControllers.storyboard */,
 				54EE54781A11D8F300CA1AF7 /* ThumbnailCollectionViewCell.h */,
 				54EE54791A11D8F300CA1AF7 /* ThumbnailCollectionViewCell.m */,
 				546DC4FD1A14E10400E76696 /* ThumbnailMovingIndicatorView.h */,
@@ -882,6 +922,7 @@
 				546457F919F4B7D200078EAF /* EditorPanelViewController.m */,
 				540A0A151A2065C50087C6AC /* ReflectionShadowTypeCell.h */,
 				540A0A161A2065C50087C6AC /* ReflectionShadowTypeCell.m */,
+				545C4B9B1A36C2C8002604FA /* ColorPicker */,
 				547DCA091A04CCAC004691EC /* Image Editor Content ViewControllers */,
 				547DCA141A04D228004691EC /* Text Editor Content ViewControllers */,
 			);
@@ -1009,6 +1050,7 @@
 				542185371A072509006EBDFD /* CompoundOperation.m in Sources */,
 				543FE0E71A2813DD002276D7 /* BitmapScaleManipulator.m in Sources */,
 				547EEEBD1A16061100EAD132 /* Slide.m in Sources */,
+				545C4B931A369F72002604FA /* ToolbarManager.m in Sources */,
 				543FE1031A287A18002276D7 /* EditMenuManager.m in Sources */,
 				54EE54741A11B5F000CA1AF7 /* ProposalAttributesManager.m in Sources */,
 				547EEEB41A16061100EAD132 /* ImageContent.m in Sources */,
@@ -1035,6 +1077,7 @@
 				543FE0E31A2813DD002276D7 /* BitmapContextManipulator.m in Sources */,
 				543FE1141A2C5037002276D7 /* OperationHelper.m in Sources */,
 				545C4B801A35AA48002604FA /* AnimationEditMenuItem.m in Sources */,
+				545C4B901A369EE5002604FA /* AnimationToolbarViewController.m in Sources */,
 				547DCA0D1A04CDA5004691EC /* BordersContentViewController.m in Sources */,
 				54E62D0119FDFA8A0083E0F0 /* TextFontHelper.m in Sources */,
 				543FE0E61A2813DD002276D7 /* BitmapRotationManipulator.m in Sources */,
@@ -1045,6 +1088,7 @@
 				546457C719F10D8100078EAF /* EditorPanelManager.m in Sources */,
 				543FE0E11A2813DD002276D7 /* CGContextCreator.m in Sources */,
 				54E96F6A19F8E53400C5F007 /* ReflectionView.m in Sources */,
+				545C4B9E1A36C2F1002604FA /* ColorPickerContainerViewController.m in Sources */,
 				54F0C4941A0DE3E5009B4B0D /* ProposalCollectionViewCell.m in Sources */,
 				54D7297319ED0FF0009A0279 /* BorderControlPointView.m in Sources */,
 				54D333AD1A0606A900F3D7F9 /* Operation.m in Sources */,
@@ -1058,10 +1102,12 @@
 				543FE0EC1A2813DD002276D7 /* RSGenerateOperation.m in Sources */,
 				54EE547A1A11D8F300CA1AF7 /* ThumbnailCollectionViewCell.m in Sources */,
 				54F0C4431A0C9478009B4B0D /* TextContent+iDo.m in Sources */,
+				545C4B991A36C11B002604FA /* RSBrightnessSlider.m in Sources */,
 				54D10B5519F7AC9200197694 /* GenericContainerViewHelper.m in Sources */,
 				54F0C4EC1A0F407D009B4B0D /* SlidesThumbnailViewController.m in Sources */,
 				54D7296D19ECEAB9009A0279 /* GenericContainerView.m in Sources */,
 				547EEED01A18878200EAD132 /* TextConstants.m in Sources */,
+				545C4B9A1A36C11B002604FA /* RSOpacitySlider.m in Sources */,
 				54F0C4971A0DF7B1009B4B0D /* DefaultValueGenerator.m in Sources */,
 				547EEEC61A16061100EAD132 /* TextContent.m in Sources */,
 				5464580019F4D89900078EAF /* TextBasicEditorPanelViewController.m in Sources */,

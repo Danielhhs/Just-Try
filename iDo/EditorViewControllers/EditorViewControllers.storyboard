@@ -13,7 +13,7 @@
                         <viewControllerLayoutGuide type="bottom" id="zf2-Ud-dkK"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="HpD-0I-T5f">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="724"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="702"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SQe-io-kZv">
@@ -42,7 +42,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="300" height="724"/>
+                    <size key="freeformSize" width="300" height="702"/>
                     <connections>
                         <outlet property="backgroundView" destination="SQe-io-kZv" id="n69-3P-rEd"/>
                         <outlet property="panelSelector" destination="Pha-Gf-zDQ" id="kMU-b7-tuE"/>
@@ -61,7 +61,7 @@
                         <viewControllerLayoutGuide type="bottom" id="VN7-Cf-PmZ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="XbW-9O-Jh4">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="724"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="702"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y2r-18-UpV">
@@ -91,7 +91,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="300" height="724"/>
+                    <size key="freeformSize" width="300" height="702"/>
                     <connections>
                         <outlet property="backgroundView" destination="y2r-18-UpV" id="ZXn-94-Bli"/>
                         <outlet property="textEditorSelector" destination="BeF-Aw-xcL" id="QXi-ES-YMX"/>
@@ -110,15 +110,10 @@
                         <viewControllerLayoutGuide type="bottom" id="39K-1x-hpu"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9hC-Ks-Wpu">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="675"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="653"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E17-S0-L6T" customClass="EditorButtonView">
-                                <rect key="frame" x="188" y="20" width="80" height="80"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mcB-Te-wng">
-                                <rect key="frame" x="30" y="286" width="248" height="369"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="kfu-j6-UIo">
                                     <size key="itemSize" width="248" height="69"/>
@@ -164,7 +159,11 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ARB-vP-NtJ" customClass="EditorButtonView">
-                                <rect key="frame" x="30" y="20" width="80" height="80"/>
+                                <rect key="frame" x="23" y="20" width="80" height="80"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E17-S0-L6T" customClass="EditorButtonView">
+                                <rect key="frame" x="188" y="20" width="80" height="80"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -176,7 +175,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="300" height="675"/>
+                    <size key="freeformSize" width="300" height="653"/>
                     <connections>
                         <outlet property="addReflectionView" destination="E17-S0-L6T" id="HpD-Aw-rrx"/>
                         <outlet property="addShadowView" destination="ARB-vP-NtJ" id="czr-NP-aE9"/>
@@ -205,15 +204,10 @@
                         <viewControllerLayoutGuide type="bottom" id="reG-Wb-28R"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="VzF-8j-LYR">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="675"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="653"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yaf-QI-1M7" customClass="EditorButtonView">
-                                <rect key="frame" x="188" y="20" width="80" height="80"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jPL-0h-lqz">
-                                <rect key="frame" x="30" y="286" width="248" height="369"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4ZP-Te-Eq3">
                                     <size key="itemSize" width="248" height="69"/>
@@ -262,6 +256,10 @@
                                 <rect key="frame" x="30" y="20" width="80" height="80"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yaf-QI-1M7" customClass="EditorButtonView">
+                                <rect key="frame" x="188" y="20" width="80" height="80"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -271,7 +269,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="300" height="675"/>
+                    <size key="freeformSize" width="300" height="653"/>
                     <connections>
                         <outlet property="addReflectionView" destination="yaf-QI-1M7" id="w2i-GZ-T69"/>
                         <outlet property="addShadowView" destination="lqq-uT-JGO" id="wW1-fS-FXr"/>
@@ -300,7 +298,7 @@
                         <viewControllerLayoutGuide type="bottom" id="g1Z-le-rfp"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hrc-3Q-Hgy">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="675"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="653"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jtf-eH-qPX">
@@ -350,7 +348,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="300" height="675"/>
+                    <size key="freeformSize" width="300" height="653"/>
                     <connections>
                         <outlet property="alignmentSegment" destination="p1Q-5G-SCX" id="71c-DZ-bkw"/>
                         <outlet property="backgroundColorButton" destination="2hl-wg-zl1" id="ah1-bf-xuz"/>
@@ -371,13 +369,13 @@
                         <viewControllerLayoutGuide type="bottom" id="dvB-d0-5tx"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="BtQ-Px-rKJ">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="675"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="653"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="300" height="675"/>
+                    <size key="freeformSize" width="300" height="653"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZSA-wH-ds7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -392,27 +390,70 @@
                         <viewControllerLayoutGuide type="bottom" id="JUP-kR-JMQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="HzX-bq-HWg">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="500"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q0H-Oo-RDu" customClass="RSColorPickerView">
-                                <rect key="frame" x="60" y="80" width="280" height="280"/>
+                                <rect key="frame" x="50" y="57" width="200" height="200"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Qpe-ek-DbB" customClass="RSOpacitySlider">
+                                <rect key="frame" x="27" y="357" width="253" height="31"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="RT3-Vu-obZ" customClass="RSBrightnessSlider">
+                                <rect key="frame" x="27" y="297" width="253" height="31"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
-                    <value key="contentSizeForViewInPopover" type="size" width="400" height="500"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="300" height="400"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="400" height="500"/>
+                    <size key="freeformSize" width="300" height="400"/>
                     <connections>
+                        <outlet property="brightnessSlider" destination="RT3-Vu-obZ" id="FoL-4A-iQS"/>
                         <outlet property="colorPickerView" destination="q0H-Oo-RDu" id="bu9-HC-XVd"/>
+                        <outlet property="opacitySlider" destination="Qpe-ek-DbB" id="3Qm-YL-gkD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qxa-FH-y6N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1952" y="-44"/>
+        </scene>
+        <!--Color Picker Container View Controller-->
+        <scene sceneID="FI6-g1-uRw">
+            <objects>
+                <viewController storyboardIdentifier="ColorPickerContainerViewController" id="EoR-cw-vbJ" customClass="ColorPickerContainerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KQQ-nD-A5T"/>
+                        <viewControllerLayoutGuide type="bottom" id="szL-wq-QNZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yah-oN-u9E">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="500"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Twp-Wj-b2k">
+                                <rect key="frame" x="89" y="8" width="123" height="29"/>
+                                <segments>
+                                    <segment title="Color"/>
+                                    <segment title="Regular"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="300" height="500"/>
+                    <connections>
+                        <outlet property="typeSegment" destination="Twp-Wj-b2k" id="MkC-as-zES"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zv9-8r-g3P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2260" y="-38"/>
         </scene>
     </scenes>
 </document>

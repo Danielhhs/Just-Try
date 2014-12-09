@@ -64,4 +64,6 @@ startChangingAttribute:(NSString *)attribute;
 - (void) pushUnsavedOperation;
 
 - (UIView *) contentView;
+
+- (void) changeBackgroundColor:(UIColor *)color;
 @end

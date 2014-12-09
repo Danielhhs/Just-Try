@@ -185,6 +185,9 @@
     return nil;
 }
 
+- (void) changeBackgroundColor:(UIColor *)color
+{};
+
 - (CGSize) minSize
 {
     CGSize minSize;

@@ -12,7 +12,7 @@
 
 + (CGFloat) topBarHeight
 {
-    return 44.f;
+    return 66.f;
 }
 
 + (CGFloat) slidesEditorContentHeight

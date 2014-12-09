@@ -103,6 +103,16 @@
     [self.delegate textAttributes:textAttributes didChangeFromTextEditor:self];
 }
 
+- (void) showColorPicker
+{
+    [self.delegate showColorPicker];
+}
+
+- (void) changeTextContainerBackgroundColor:(UIColor *) color
+{
+    [self.delegate changeTextContainerBackgroundColor:color];
+}
+
 #pragma mark - Apply Attributes
 - (void) applyAttributes:(NSMutableDictionary *)attributes
 {

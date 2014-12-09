@@ -14,8 +14,8 @@
 
 @interface SlideEditingToolbarViewController ()
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *undoButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *redoButton;
+@property (weak, nonatomic) IBOutlet UIButton *undoButton;
+@property (weak, nonatomic) IBOutlet UIButton *redoButton;
 @end
 
 @implementation SlideEditingToolbarViewController
@@ -25,6 +25,10 @@
     [[UndoManager sharedManager] setDelegate:self];
     [self disableRedo];
     [self disableUndo];
+    [self.undoButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+    [self.undoButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+    [self.redoButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+    [self.redoButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
     // Do any additional setup after loading the view.
 }
 
@@ -50,12 +54,12 @@
     self.redoButton.enabled = NO;
 }
 
-- (IBAction)undo:(UIBarButtonItem *)sender {
+- (IBAction)undo:(id)sender {
     [self.delegate toolBarViewControllerWillPerformUndoAction:self];
     [[UndoManager sharedManager] undo];
 }
 
-- (IBAction)redo:(UIBarButtonItem *)sender {
+- (IBAction)redo:(id)sender {
     [[UndoManager sharedManager] redo];
 }
 

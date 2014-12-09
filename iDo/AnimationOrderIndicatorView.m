@@ -11,23 +11,63 @@
 
 #define INDICATOR_EDGE_LENGTH 30
 #define LEAD_SPACE 6.18
+
 @implementation AnimationOrderIndicatorView
 
 + (AnimationOrderIndicatorView *) animationOrderIndicator
 {
     AnimationOrderIndicatorView *indicator = [[self alloc] initWithFrame:CGRectMake(0, 0, INDICATOR_EDGE_LENGTH, INDICATOR_EDGE_LENGTH)];
-    indicator.backgroundColor = [UIColor clearColor];
     return indicator;
+}
+
+- (instancetype) initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor clearColor];
+        self.userInteractionEnabled = NO;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        [self addGestureRecognizer:tap];
+    }
+    return self;
+}
+
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    self.selected = YES;
+}
+
+- (void) handleTap:(UITapGestureRecognizer *) tap
+{
+    if (tap.state == UIGestureRecognizerStateRecognized) {
+        self.selected = NO;
+    }
+}
+
+- (void) setSelected:(BOOL)selected
+{
+    if (_selected != selected) {
+        _selected = selected;
+        [self setNeedsDisplay];
+    }
 }
 
 - (UIColor *) fillColor
 {
-    return self.hasAnimation ? [UIColor yellowColor] : [UIColor colorWithRed:0 green:0.478431 blue:1 alpha:1];
+    if (self.selected) {
+        return self.hasAnimation ? [UIColor yellowColor] : [UIColor colorWithRed:0.1 green:0.378431 blue:1 alpha:0.7];
+    } else {
+        return self.hasAnimation ? [UIColor yellowColor] : [UIColor colorWithRed:0 green:0.478431 blue:1 alpha:1];
+    }
 }
 
 - (UIColor *) textColor
 {
-    return self.hasAnimation ? [UIColor darkTextColor] : [UIColor whiteColor];
+    if (self.selected) {
+        return self.hasAnimation ? [UIColor darkTextColor] : [UIColor colorWithWhite:1 alpha:0.8];
+    } else {
+        return self.hasAnimation ? [UIColor darkTextColor] : [UIColor whiteColor];
+    }
 }
 
 - (void) drawRect:(CGRect)rect

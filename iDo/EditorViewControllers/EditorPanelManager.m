@@ -60,7 +60,7 @@ static EditorPanelManager *sharedInstance;
     frame.size.width = EDITOR_PANEL_WIDTH;
     frame.size.height = parentView.bounds.size.height;
     frame.origin.x = parentView.bounds.size.width - EDITOR_PANEL_WIDTH;
-    frame.origin.y = [DrawingConstants topBarHeight];
+    frame.origin.y = [DrawingConstants topBarHeight] + 1;
     return frame;
 }
 
@@ -70,7 +70,7 @@ static EditorPanelManager *sharedInstance;
     frame.size.width = EDITOR_PANEL_WIDTH;
     frame.size.height = parentView.bounds.size.height;
     frame.origin.x = parentView.bounds.size.width;
-    frame.origin.y = [DrawingConstants topBarHeight];
+    frame.origin.y = [DrawingConstants topBarHeight] + 1;
     return frame;
 }
 

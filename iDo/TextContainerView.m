@@ -240,6 +240,11 @@
     }
 }
 
+- (void) changeBackgroundColor:(UIColor *)color
+{
+    self.textView.backgroundColor = color;
+}
+
 #pragma mark - Override Super Class Methods
 
 - (UIImage *) contentSnapshot

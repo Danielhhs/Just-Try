@@ -18,15 +18,14 @@
 #import "CanvasAdjustmentHelper.h"
 #import "ProposalAttributesManager.h"
 #import "EditMenuManager.h"
-#import "SlideEditingToolbarViewController.h"
 #import "PasteboardHelper.h"
+#import "ToolbarManager.h"
 
-@interface SlidesContainerViewController ()<SlidesEditingViewControllerDelegate, SlidesThumbnailViewControllerDelegate, ContentEditMenuViewDelegate, SlideEditingToolbarDelegate>
+@interface SlidesContainerViewController ()<SlidesEditingViewControllerDelegate, SlidesThumbnailViewControllerDelegate, ContentEditMenuViewDelegate, SlideEditingToolbarDelegate, AnimationToolbarViewControllerDelegate>
 @property (nonatomic) NSInteger currentSelectSlideIndex;
 @property (nonatomic) CGFloat keyboardOriginY;
 @property (nonatomic, strong) NSMutableArray *slideViews;
 @property (nonatomic, strong) NSMutableArray *slideAttributes;
-@property (nonatomic, strong) SlideEditingToolbarViewController *toolbar;
 @property (nonatomic, strong) dispatch_queue_t snapshotQueue;
 @end
 
@@ -36,9 +35,8 @@
 - (void) awakeFromNib
 {
     [[SlideThumbnailsManager sharedManager] showThumbnailsInViewController:self animated:NO];
-    [self setupToolbarViewController];
     [self setupEditorViewController];
-    [self.view bringSubviewToFront:self.toolbar.view];
+    [[ToolbarManager sharedManager] showEditingToolBarToViewController:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardShowNotification:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardHideNotification:) name:UIKeyboardWillHideNotification object:nil];
     [[UndoManager sharedManager] clearUndoStack];
@@ -75,16 +73,6 @@
     [self.view addSubview:self.editorViewController.view];
     [self.editorViewController didMoveToParentViewController:self];
     [self adjustCanvasSizeAndPosition];
-}
-
-- (void) setupToolbarViewController
-{
-    self.toolbar = [[UIStoryboard storyboardWithName:@"UtilViewControllers" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"SlideEditingToolbarViewController"];
-    self.toolbar.delegate = self;
-    [self addChildViewController:self.toolbar];
-    self.toolbar.view.frame = CGRectMake(0, 0, 1024, 44);
-    [self.view addSubview:self.toolbar.view];
-    [self.toolbar didMoveToParentViewController:self];
 }
 
 - (void) dealloc
@@ -239,6 +227,8 @@
 - (void) editMenu:(ContentEditMenuView *)editMenu didEnterAnimationModeToView:(UIView *)content
 {
     [EditMenuManager sharedManager].animationMode = YES;
+    [[ToolbarManager sharedManager] showAnimationToolBarToViewController:self];
+    [[EditMenuManager sharedManager] hideEditMenu];
     [[EditMenuManager sharedManager] showEditMenuToView:content];
 }
 
@@ -285,5 +275,18 @@
     [[SlideThumbnailsManager sharedManager] hideThumnailsFromViewController:self animated:YES];
     [[EditorPanelManager sharedManager] showEditorPanelInViewController:self forContentView:self.editorViewController.currentSelectedContent];
     [[EditMenuManager sharedManager] hideEditMenu];
+}
+
+#pragma mark - AnimationToolbarDelegate
+- (void) exitAnimationMode
+{
+    [[ToolbarManager sharedManager] showEditingToolBarToViewController:self];
+    [EditMenuManager sharedManager].animationMode = NO;
+    [[EditMenuManager sharedManager] hideEditMenu];
+}
+
+- (void) playAnimationForCurrentSelectedView
+{
+    
 }
 @end

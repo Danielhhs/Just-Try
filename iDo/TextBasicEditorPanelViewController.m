@@ -24,12 +24,14 @@
 #define PICK_VIEW_FONT_NAME_RATIO 0.3
 #define PICK_VIEW_FONT_SIZE_RATIO 0.1
 
-@interface TextBasicEditorPanelViewController ()<UIPickerViewDataSource, UIPickerViewDelegate, OperationTarget, ColorPickerViewControllerDelegate>
+@interface TextBasicEditorPanelViewController ()<UIPickerViewDataSource, UIPickerViewDelegate, OperationTarget, ColorPickerContainerViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIPickerView *fontPicker;
 @property (nonatomic) TextAlignment alignment;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *alignmentSegment;
 @property (nonatomic, strong) UIFont *lastSelectedFont;
+@property (nonatomic, strong) UIColor *lastSelectedTextColor;
+@property (nonatomic, strong) UIColor *lastSelectedBackgroundColor;
 @property (nonatomic) NSRange selectedRange;
 @property (weak, nonatomic) IBOutlet UIButton *textColorButton;
 @property (weak, nonatomic) IBOutlet UIButton *backgroundColorButton;
@@ -119,11 +121,14 @@
         [pickerView reloadComponent:PICK_VIEW_FONT_NAME_COMPONENT_INDEX];
     }
     UIFont *selectedFont = [self fontFromCurrentSelection];
-    [self applyFontAttributeValue:selectedFont forName:NSFontAttributeName attributeKey:[KeyConstants fontKey]];
+    [self applyFontAttributeValue:selectedFont forName:NSFontAttributeName attributeKey:[KeyConstants fontKey] pushUndoOperation:YES];
     self.lastSelectedFont = selectedFont;
 }
 
-- (void) applyFontAttributeValue:(NSObject *) attributeValue forName:(NSString *) attributeName attributeKey:(NSString *) attributeKey
+- (void) applyFontAttributeValue:(NSObject *) attributeValue
+                         forName:(NSString *) attributeName
+                    attributeKey:(NSString *) attributeKey
+               pushUndoOperation:(BOOL) pushOperation
 {
     NSAttributedString *originalText = [self.attributes objectForKey:[KeyConstants attibutedStringKey]];
     NSMutableAttributedString *attributedString = [originalText mutableCopy];
@@ -132,14 +137,16 @@
         [attributedString addAttribute:attributeName value:attributeValue range:range];
     }];
     [self.delegate textAttributes:@{[KeyConstants attibutedStringKey] : attributedString, [KeyConstants textSelectionKey] : [NSValue valueWithRange:self.selectedRange]} didChangeFromTextEditor:self];
-    SimpleOperation *fontOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:attributeKey fromValue:self.lastSelectedFont];
-    fontOperation.toValue = attributeValue;
-    NSValue *textSelectionValue = [NSValue valueWithRange:self.selectedRange];
-    SimpleOperation *selectionOperation = [[SimpleOperation alloc] initWithTargets:@[self.target, self] key:[KeyConstants textSelectionKey] fromValue:textSelectionValue];
-    selectionOperation.toValue = textSelectionValue;
-    textOperation.toValue = attributedString;
-    CompoundOperation *compoundOperation = [[CompoundOperation alloc] initWithOperations:@[selectionOperation, textOperation, fontOperation]];
-    [[UndoManager sharedManager] pushOperation:compoundOperation];
+    if (pushOperation) {
+        SimpleOperation *fontOperation = [[SimpleOperation alloc] initWithTargets:@[self] key:attributeKey fromValue:self.lastSelectedFont];
+        fontOperation.toValue = attributeValue;
+        NSValue *textSelectionValue = [NSValue valueWithRange:self.selectedRange];
+        SimpleOperation *selectionOperation = [[SimpleOperation alloc] initWithTargets:@[self.target, self] key:[KeyConstants textSelectionKey] fromValue:textSelectionValue];
+        selectionOperation.toValue = textSelectionValue;
+        textOperation.toValue = attributedString;
+        CompoundOperation *compoundOperation = [[CompoundOperation alloc] initWithOperations:@[selectionOperation, textOperation, fontOperation]];
+        [[UndoManager sharedManager] pushOperation:compoundOperation];
+    }
 }
 
 - (BOOL) componentIsFontFamilySelector:(NSInteger) component
@@ -205,6 +212,8 @@
     if (textSelection) {
         self.selectedRange = [textSelection rangeValue];
     }
+    UIColor *backgroundColor = [attributes objectForKey:[KeyConstants textBackgroundColorKey]];
+    self.lastSelectedBackgroundColor = backgroundColor;
 }
 
 - (void) updateFontPickerByRange:(NSRange)range
@@ -231,8 +240,8 @@
 }
 
 - (IBAction)showTextColorPicker:(UIButton *)sender {
+    [self.delegate showColorPicker];
     self.colorUsage = [sender.currentTitle isEqualToString:@"Text Color"] ? ColorUsageTypeTextColor : ColorUsageTypeTextBackground;
-    [[ColorSelectionManager sharedManager] showColorPickerFromRect:sender.frame inView:self.view forType:ColorUsageTypeGradient];
 }
 
 #pragma mark - Operation Target
@@ -245,8 +254,12 @@
 - (void) colorPickerDidSelectColor:(UIColor *)color
 {
     if (self.colorUsage == ColorUsageTypeTextColor) {
-        [self applyFontAttributeValue:color forName:NSForegroundColorAttributeName attributeKey:[KeyConstants textColorKey]];
+        [self applyFontAttributeValue:color forName:NSForegroundColorAttributeName attributeKey:[KeyConstants textColorKey] pushUndoOperation:YES];
     } else {
+        SimpleOperation *backgroundOperation = [[SimpleOperation alloc] initWithTargets:@[self.target] key:[KeyConstants textBackgroundColorKey] fromValue:self.lastSelectedBackgroundColor];
+        backgroundOperation.toValue = color;
+        [[UndoManager sharedManager] pushOperation:backgroundOperation];
+        self.lastSelectedBackgroundColor = color;
         [self.delegate textAttributes:@{[KeyConstants textBackgroundColorKey] : color} didChangeFromTextEditor:self];
     }
 }
@@ -254,9 +267,9 @@
 - (void) colorPickerDidChangeToColor:(UIColor *)color
 {
     if (self.colorUsage == ColorUsageTypeTextColor) {
-        [self.textColorButton setTitleColor:color forState:UIControlStateNormal];
+        [self applyFontAttributeValue:color forName:NSForegroundColorAttributeName attributeKey:[KeyConstants textColorKey] pushUndoOperation:NO];
     } else {
-        self.backgroundColorButton.backgroundColor = color;
+        [self.delegate changeTextContainerBackgroundColor:color];
     }
 }
 

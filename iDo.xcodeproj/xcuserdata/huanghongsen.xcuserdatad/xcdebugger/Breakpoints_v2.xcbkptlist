@@ -35,13 +35,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iDo/Helper/EditMenuManager.m"
-            timestampString = "439727032.252924"
+            filePath = "iDo/TextBasicEditorPanelViewController.m"
+            timestampString = "439801060.314878"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "-showEditMenuToView:"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "-applyUndoRedoAttributes:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

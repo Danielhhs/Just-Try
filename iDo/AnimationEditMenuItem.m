@@ -62,6 +62,24 @@
     return self;
 }
 
+- (void) touchBegins
+{
+    [super touchBegins];
+    self.animationOrderIndicator.selected = YES;
+}
+
+- (void) touchEnds
+{
+    [super touchEnds];
+    self.animationOrderIndicator.selected = NO;
+}
+
+- (void) restoreNormalState
+{
+    [super restoreNormalState];
+    self.animationOrderIndicator.selected = NO;
+}
+
 - (void) layoutComponents
 {
     CGFloat titleAreaWidth = MAX(self.animationTitleLabel.bounds.size.width, self.subTitleLabel.bounds.size.width) + COMPONENT_DISTANCE * 2;
@@ -78,8 +96,6 @@
     }
     [self setNeedsDisplay];
 }
-
-
 
 - (UIBezierPath *) fillPathForLeftArrowType
 {
