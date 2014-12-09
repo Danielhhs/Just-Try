@@ -42,4 +42,9 @@
     [self.delegate colorPickerDidSelectColor:color];
 }
 
+- (void) setSelectedColor:(UIColor *)color
+{
+    [self.colorPicker setSelectedColor:color];
+}
+
 @end

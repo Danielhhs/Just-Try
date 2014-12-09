@@ -18,5 +18,6 @@
 @interface ColorPickerViewController : UIViewController
 
 @property (nonatomic, weak) id<ColorPickerViewControllerDelegate> delegate;
+- (void) setSelectedColor:(UIColor *) color;
 
 @end

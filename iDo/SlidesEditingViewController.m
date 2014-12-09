@@ -25,10 +25,6 @@
 
 @implementation SlidesEditingViewController
 
-- (void) viewDidLoad
-{
-    [super viewDidLoad];
-}
 - (void) saveSlideAttributes
 {
     [self resignPreviousFirstResponderExceptForContainer:nil];
@@ -142,10 +138,10 @@
     [((TextContainerView *)self.currentSelectedContent) finishEditing];
 }
 
-- (void) showColorPicker
+- (void) showColorPickerForColor:(UIColor *) color
 {
     [self.currentSelectedContent endEditing:YES];
-    [[ColorSelectionManager sharedManager] showColorPickerFromRect:self.currentSelectedContent.frame inView:self.canvas forType:ColorUsageTypeTextColor];
+    [[ColorSelectionManager sharedManager] showColorPickerFromRect:self.currentSelectedContent.frame inView:self.canvas forType:ColorUsageTypeTextColor selectedColor:color];
 }
 
 - (void) changeTextContainerBackgroundColor:(UIColor *)color

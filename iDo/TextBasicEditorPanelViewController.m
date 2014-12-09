@@ -240,7 +240,8 @@
 }
 
 - (IBAction)showTextColorPicker:(UIButton *)sender {
-    [self.delegate showColorPicker];
+    UIColor *currentColor = [sender.currentTitle isEqualToString:@"Text Color"] ? self.lastSelectedTextColor : self.lastSelectedBackgroundColor;
+    [self.delegate showColorPickerForColor:currentColor];
     self.colorUsage = [sender.currentTitle isEqualToString:@"Text Color"] ? ColorUsageTypeTextColor : ColorUsageTypeTextBackground;
 }
 

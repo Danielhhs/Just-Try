@@ -47,9 +47,10 @@ static ColorSelectionManager *sharedInstance;
 }
 
 #pragma mark - Show/Hide
-- (void) showColorPickerFromRect:(CGRect)rect inView:(UIView *) view forType:(ColorUsageType)type
+- (void) showColorPickerFromRect:(CGRect)rect inView:(UIView *) view forType:(ColorUsageType)type selectedColor:(UIColor *)color
 {
     self.colorPickerPopover.popoverContentSize = CGSizeMake(300, 500);
+    [self.colorPickerController setSelectedColor:color];
     [self.colorPickerPopover presentPopoverFromRect:rect inView:view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 

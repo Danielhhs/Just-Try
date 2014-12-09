@@ -103,9 +103,9 @@
     [self.delegate textAttributes:textAttributes didChangeFromTextEditor:self];
 }
 
-- (void) showColorPicker
+- (void) showColorPickerForColor:(UIColor *) color;
 {
-    [self.delegate showColorPicker];
+    [self.delegate showColorPickerForColor:color];
 }
 
 - (void) changeTextContainerBackgroundColor:(UIColor *) color

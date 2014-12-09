@@ -16,7 +16,7 @@
 
 - (void) textEditorDidSelectNonBasicEditor:(TextEditorPanelContainerViewController *) textEditorController;
 
-- (void) showColorPicker;
+- (void) showColorPickerForColor:(UIColor *) color;
 
 - (void) changeTextContainerBackgroundColor:(UIColor *) color;
 @end

@@ -28,12 +28,6 @@
     self.colorPickerView.clipsToBounds = NO;
     self.opacitySlider.colorPicker = self.colorPickerView;
     self.brightnessSlider.colorPicker = self.colorPickerView;
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - RSColorPickerViewDelegate
@@ -46,14 +40,15 @@
 {
     [self.delegate colorPickerDidSelectColor:colorPicker.selectionColor];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void) setSelectedColor:(UIColor *)color
+{
+    self.colorPickerView.selectionColor = color;
+    CGFloat hue, saturation, brightness, alpha;
+    [color getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
+    self.colorPickerView.opacity = alpha;
+    self.colorPickerView.brightness = brightness;
+    self.opacitySlider.value = alpha;
+    self.brightnessSlider.value = brightness;
 }
-*/
-
 @end

@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, ColorUsageType) {
 
 + (ColorSelectionManager *) sharedManager;
 
-- (void) showColorPickerFromRect:(CGRect) rect inView:(UIView *)view forType:(ColorUsageType) type;
+- (void) showColorPickerFromRect:(CGRect)rect inView:(UIView *) view forType:(ColorUsageType)type selectedColor:(UIColor *)color;
 
 - (void) hideColorPicker;
 

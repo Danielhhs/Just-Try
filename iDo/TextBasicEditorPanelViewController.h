@@ -14,7 +14,7 @@
 
 - (void) textAttributes:(NSDictionary *)textAttributes
 didChangeFromTextEditor:(TextBasicEditorPanelViewController *)textEditor;
-- (void) showColorPicker;
+- (void) showColorPickerForColor:(UIColor *) color;
 - (void) changeTextContainerBackgroundColor:(UIColor *) color;
 @end
 
