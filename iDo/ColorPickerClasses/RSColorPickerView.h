@@ -72,11 +72,12 @@
  */
 - (UIColor *)colorAtPoint:(CGPoint)point;
 
+//- (void) finishSettingBrightness:(CGFloat)brightness;
+//- (void) finishSettingOpacity:(CGFloat) opacity;
 /**
  * Methods that create/cache data needed to create a color picker.
  * These run async (except where noted) and can help the overall UX.
  */
-
 + (void)prepareForDiameter:(CGFloat)diameter;
 + (void)prepareForDiameter:(CGFloat)diameter padding:(CGFloat)padding;
 + (void)prepareForDiameter:(CGFloat)diameter scale:(CGFloat)scale;

@@ -228,4 +228,10 @@
     return center;
 }
 
+#pragma mark - AnimationEditorContainerViewControllerDelegate
+- (void) animationEditorDidSelectAnimation:(AnimationDescription *)animation
+{
+    
+}
+
 @end

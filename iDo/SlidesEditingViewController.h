@@ -13,6 +13,7 @@
 #import "TextContainerView.h"
 #import "CanvasView.h"
 #import "ContentEditMenuView.h"
+#import "AnimationEditorContainerViewController.h"
 
 @class SlidesEditingViewController;
 @protocol SlidesEditingViewControllerDelegate <NSObject>
@@ -25,7 +26,7 @@
 - (void) contentViewDidBecomeFirstResponder:(GenericContainerView *) content;
 @end
 
-@interface SlidesEditingViewController : UIViewController<CanvasViewDelegate, ImageContainerViewDelegate, TextContainerViewDelegate, TextEditorPanelContainerViewControllerDelegate, EditorPanelContainerViewControllerDelegate>
+@interface SlidesEditingViewController : UIViewController<CanvasViewDelegate, ImageContainerViewDelegate, TextContainerViewDelegate, TextEditorPanelContainerViewControllerDelegate, EditorPanelContainerViewControllerDelegate, AnimationEditorContainerViewControllerDelegate>
 
 @property (strong, nonatomic) CanvasView *canvas;
 @property (nonatomic, strong) GenericContainerView *currentSelectedContent;

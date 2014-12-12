@@ -30,6 +30,11 @@
     self.brightnessSlider.colorPicker = self.colorPickerView;
 }
 
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [self.delegate colorPickerDidSelectColor:self.colorPickerView.selectionColor];
+}
+
 #pragma mark - RSColorPickerViewDelegate
 - (void) colorPickerDidChangeSelection:(RSColorPickerView *)colorPicker
 {
@@ -38,17 +43,19 @@
 
 - (void) colorPicker:(RSColorPickerView *)colorPicker touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self.delegate colorPickerDidSelectColor:colorPicker.selectionColor];
+    [self.delegate colorPickerDidChangeToColor:colorPicker.selectionColor];
 }
 
 - (void) setSelectedColor:(UIColor *)color
 {
-    self.colorPickerView.selectionColor = color;
-    CGFloat hue, saturation, brightness, alpha;
-    [color getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
-    self.colorPickerView.opacity = alpha;
-    self.colorPickerView.brightness = brightness;
-    self.opacitySlider.value = alpha;
-    self.brightnessSlider.value = brightness;
+    if (![color isEqual:[UIColor clearColor]]) {
+        self.colorPickerView.selectionColor = color;
+        CGFloat hue, saturation, brightness, alpha;
+        [color getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
+        self.colorPickerView.opacity = alpha;
+        self.colorPickerView.brightness = brightness;
+        self.opacitySlider.value = alpha;
+        self.brightnessSlider.value = brightness;
+    }
 }
 @end

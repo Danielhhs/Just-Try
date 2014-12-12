@@ -109,6 +109,7 @@
 
 - (void) handleAnimateIn
 {
+    [self.delegate editMenu:self willShowAnimationEditorForContent:self.triggeredContent forType:AnimationTypeBuiltIn];
     [self.animateInButton restoreNormalState];
 }
 

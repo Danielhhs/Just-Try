@@ -20,6 +20,7 @@
 #import "EditMenuManager.h"
 #import "PasteboardHelper.h"
 #import "ToolbarManager.h"
+#import "AnimationEditorManager.h"
 
 @interface SlidesContainerViewController ()<SlidesEditingViewControllerDelegate, SlidesThumbnailViewControllerDelegate, ContentEditMenuViewDelegate, SlideEditingToolbarDelegate, AnimationToolbarViewControllerDelegate>
 @property (nonatomic) NSInteger currentSelectSlideIndex;
@@ -44,6 +45,7 @@
     [EditMenuManager sharedManager].editMenu.delegate = self;
     [self.view addSubview:[EditMenuManager sharedManager].editMenu];
     [EditMenuManager sharedManager].containerView = self.view;
+    [[AnimationEditorManager sharedManager] setAnimationEditorDelegate:self.editorViewController];
 }
 
 - (void) loadAllSlideViews
@@ -230,6 +232,11 @@
     [[ToolbarManager sharedManager] showAnimationToolBarToViewController:self];
     [[EditMenuManager sharedManager] hideEditMenu];
     [[EditMenuManager sharedManager] showEditMenuToView:content];
+}
+
+- (void) editMenu:(ContentEditMenuView *)editMenu willShowAnimationEditorForContent:(UIView *)view forType:(AnimationType)animationType
+{
+    [[AnimationEditorManager sharedManager] showAnimationEditorFromRect:editMenu.frame inView:self.view forContent:view animationType:animationType];
 }
 
 #pragma mark - SlideEditingToolbarDelegate

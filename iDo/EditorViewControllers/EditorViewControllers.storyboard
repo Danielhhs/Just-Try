@@ -394,15 +394,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q0H-Oo-RDu" customClass="RSColorPickerView">
-                                <rect key="frame" x="50" y="57" width="200" height="200"/>
+                                <rect key="frame" x="50" y="50" width="200" height="200"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Qpe-ek-DbB" customClass="RSOpacitySlider">
-                                <rect key="frame" x="27" y="357" width="253" height="31"/>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="RT3-Vu-obZ" customClass="RSBrightnessSlider">
+                                <rect key="frame" x="27" y="281" width="253" height="31"/>
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="RT3-Vu-obZ" customClass="RSBrightnessSlider">
-                                <rect key="frame" x="27" y="297" width="253" height="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hre-XA-ZOx">
+                                <rect key="frame" x="29" y="362" width="255" height="30"/>
+                                <state key="normal" title="Clear Color">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Qpe-ek-DbB" customClass="RSOpacitySlider">
+                                <rect key="frame" x="27" y="324" width="253" height="31"/>
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             </slider>
                         </subviews>
@@ -437,9 +444,12 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Twp-Wj-b2k">
                                 <rect key="frame" x="89" y="8" width="123" height="29"/>
                                 <segments>
-                                    <segment title="Color"/>
                                     <segment title="Regular"/>
+                                    <segment title="Color"/>
                                 </segments>
+                                <connections>
+                                    <action selector="fragmentChanged:" destination="EoR-cw-vbJ" eventType="valueChanged" id="3XI-TA-VK6"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -454,6 +464,78 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zv9-8r-g3P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2260" y="-38"/>
+        </scene>
+        <!--Regular Color Picker View Controller-->
+        <scene sceneID="aGA-5M-OSg">
+            <objects>
+                <viewController storyboardIdentifier="RegularColorPickerViewController" id="1D2-0W-gMU" customClass="RegularColorPickerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cmr-iN-wd2"/>
+                        <viewControllerLayoutGuide type="bottom" id="tZW-ix-uRI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xMP-nT-Pmp">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cbR-r7-YuC">
+                                <rect key="frame" x="16" y="0.0" width="268" height="400"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="f7I-qt-olO">
+                                    <size key="itemSize" width="75" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RegularColorCell" id="GoT-ze-2Tv" customClass="RegularColorPickerCollectioinViewCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="75" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ahI-lN-dwL">
+                                                    <rect key="frame" x="0.0" y="0.0" width="75" height="50"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </view>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CZ7-b8-BZl">
+                                                    <rect key="frame" x="3" y="2" width="69" height="46"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <size key="customSize" width="75" height="50"/>
+                                        <connections>
+                                            <outlet property="colorIndicator" destination="CZ7-b8-BZl" id="yhz-mg-pY0"/>
+                                            <outlet property="selectionIndicator" destination="ahI-lN-dwL" id="xgs-8g-LaR"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="1D2-0W-gMU" id="dI5-1E-hQl"/>
+                                    <outletCollection property="gestureRecognizers" destination="vTa-gE-N8c" appends="YES" id="GW3-Jr-kZ4"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="300" height="400"/>
+                    <connections>
+                        <outlet property="colorsCollectionView" destination="cbR-r7-YuC" id="0l8-Ij-qwr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="49g-zR-k4f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="vTa-gE-N8c">
+                    <connections>
+                        <action selector="handleTap:" destination="1D2-0W-gMU" id="is9-8s-yc9"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="2647" y="-74"/>
         </scene>
     </scenes>
 </document>

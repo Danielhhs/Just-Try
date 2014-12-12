@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <scenes>
+        <!--Animation Editor Container View Controller-->
+        <scene sceneID="jch-Ba-N8L">
+            <objects>
+                <viewController storyboardIdentifier="AnimationEditorContainerViewController" id="PKB-mU-xf0" customClass="AnimationEditorContainerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WVv-z8-3Om"/>
+                        <viewControllerLayoutGuide type="bottom" id="PaZ-T6-tMg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hHH-7K-IK2">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="450"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="OIP-tZ-Dfq">
+                                <rect key="frame" x="105" y="8" width="91" height="29"/>
+                                <segments>
+                                    <segment title="Type"/>
+                                    <segment title="Input"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentValueChanged:" destination="PKB-mU-xf0" eventType="valueChanged" id="1wx-aW-iHT"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="300" height="450"/>
+                    <connections>
+                        <outlet property="editorSegment" destination="OIP-tZ-Dfq" id="Ous-Pb-uSh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="stN-Oh-3c7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="482" y="300"/>
+        </scene>
+        <!--Animation Parameter View Controller-->
+        <scene sceneID="uQu-Jy-nvA">
+            <objects>
+                <viewController storyboardIdentifier="AnimationParameterViewController" id="yQg-4V-nQ8" customClass="AnimationParameterViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cVF-Xg-9Uj"/>
+                        <viewControllerLayoutGuide type="bottom" id="j3e-47-kpU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zco-Ki-yjt">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="300" height="400"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zrK-EF-wqy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="637" y="626"/>
+        </scene>
+        <!--Animation Type Selection View Controller-->
+        <scene sceneID="Ugs-6H-3HB">
+            <objects>
+                <viewController storyboardIdentifier="AnimationTypeSelectionViewController" id="jy3-hw-GGQ" customClass="AnimationTypeSelectionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="c4y-Y6-XSU"/>
+                        <viewControllerLayoutGuide type="bottom" id="AFa-y7-sYm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Bzz-Po-d0P">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ifw-D5-Gd0">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="AnimationTypeTableViewCell" selectionStyle="blue" indentationWidth="10" reuseIdentifier="AnimationTypeTableViewCell" id="VPH-Os-ilK" customClass="AnimationTypeTableViewCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VPH-Os-ilK" id="f7m-C6-JW9">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="jy3-hw-GGQ" id="MEU-PO-dEf"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="300" height="400"/>
+                    <connections>
+                        <outlet property="animationTypesTableView" destination="ifw-D5-Gd0" id="MkL-fj-81C"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tnf-aV-vBr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="215" y="592"/>
+        </scene>
+    </scenes>
+</document>

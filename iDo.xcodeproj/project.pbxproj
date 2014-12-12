@@ -50,6 +50,18 @@
 		545C4B991A36C11B002604FA /* RSBrightnessSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4B961A36C11B002604FA /* RSBrightnessSlider.m */; };
 		545C4B9A1A36C11B002604FA /* RSOpacitySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4B981A36C11B002604FA /* RSOpacitySlider.m */; };
 		545C4B9E1A36C2F1002604FA /* ColorPickerContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4B9D1A36C2F1002604FA /* ColorPickerContainerViewController.m */; };
+		545C4BA11A36F88C002604FA /* RegularColorGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4BA01A36F88C002604FA /* RegularColorGenerator.m */; };
+		545C4BA41A36FC8F002604FA /* RegularColorPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4BA31A36FC8F002604FA /* RegularColorPickerViewController.m */; };
+		545C4BCA1A37F758002604FA /* RegularColorPickerCollectioinViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4BC91A37F758002604FA /* RegularColorPickerCollectioinViewCell.m */; };
+		545C4C511A3A9818002604FA /* AnimationEditorContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C501A3A9818002604FA /* AnimationEditorContainerViewController.m */; };
+		545C4C551A3A9847002604FA /* AnimationTypeSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C541A3A9847002604FA /* AnimationTypeSelectionViewController.m */; };
+		545C4C581A3A985A002604FA /* AnimationParameterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C571A3A985A002604FA /* AnimationParameterViewController.m */; };
+		545C4C5A1A3A988B002604FA /* AnimationEditorViewControllers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545C4C591A3A988B002604FA /* AnimationEditorViewControllers.storyboard */; };
+		545C4C5D1A3A9DB9002604FA /* AnimationTypeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C5C1A3A9DB9002604FA /* AnimationTypeTableViewCell.m */; };
+		545C4C601A3A9E43002604FA /* AnimationTypesGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C5F1A3A9E43002604FA /* AnimationTypesGenerator.m */; };
+		545C4C631A3AC523002604FA /* AnimationEditorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C621A3AC523002604FA /* AnimationEditorManager.m */; };
+		545C4C661A3AC821002604FA /* AnimationDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C651A3AC821002604FA /* AnimationDescription.m */; };
+		545C4C831A3ACE8E002604FA /* AnimationConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C821A3ACE8E002604FA /* AnimationConstants.m */; };
 		546457BD19F1074900078EAF /* BasicImageEditorContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */; };
 		546457C019F1096200078EAF /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546457BF19F1096200078EAF /* CoreImage.framework */; };
 		546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457C319F10C1700078EAF /* UIView+Snapshot.m */; };
@@ -220,6 +232,29 @@
 		545C4B981A36C11B002604FA /* RSOpacitySlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSOpacitySlider.m; sourceTree = "<group>"; };
 		545C4B9C1A36C2F1002604FA /* ColorPickerContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerContainerViewController.h; sourceTree = "<group>"; };
 		545C4B9D1A36C2F1002604FA /* ColorPickerContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPickerContainerViewController.m; sourceTree = "<group>"; };
+		545C4B9F1A36F88C002604FA /* RegularColorGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegularColorGenerator.h; path = ColorPickerClasses/RegularColorGenerator.h; sourceTree = "<group>"; };
+		545C4BA01A36F88C002604FA /* RegularColorGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegularColorGenerator.m; path = ColorPickerClasses/RegularColorGenerator.m; sourceTree = "<group>"; };
+		545C4BA21A36FC8F002604FA /* RegularColorPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegularColorPickerViewController.h; sourceTree = "<group>"; };
+		545C4BA31A36FC8F002604FA /* RegularColorPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegularColorPickerViewController.m; sourceTree = "<group>"; };
+		545C4BC81A37F758002604FA /* RegularColorPickerCollectioinViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegularColorPickerCollectioinViewCell.h; sourceTree = "<group>"; };
+		545C4BC91A37F758002604FA /* RegularColorPickerCollectioinViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegularColorPickerCollectioinViewCell.m; sourceTree = "<group>"; };
+		545C4C4F1A3A9818002604FA /* AnimationEditorContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationEditorContainerViewController.h; path = AnimationEditor/AnimationEditorContainerViewController.h; sourceTree = "<group>"; };
+		545C4C501A3A9818002604FA /* AnimationEditorContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationEditorContainerViewController.m; path = AnimationEditor/AnimationEditorContainerViewController.m; sourceTree = "<group>"; };
+		545C4C531A3A9847002604FA /* AnimationTypeSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationTypeSelectionViewController.h; path = AnimationEditor/AnimationTypeSelectionViewController.h; sourceTree = "<group>"; };
+		545C4C541A3A9847002604FA /* AnimationTypeSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationTypeSelectionViewController.m; path = AnimationEditor/AnimationTypeSelectionViewController.m; sourceTree = "<group>"; };
+		545C4C561A3A985A002604FA /* AnimationParameterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationParameterViewController.h; sourceTree = "<group>"; };
+		545C4C571A3A985A002604FA /* AnimationParameterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationParameterViewController.m; sourceTree = "<group>"; };
+		545C4C591A3A988B002604FA /* AnimationEditorViewControllers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = AnimationEditorViewControllers.storyboard; path = AnimationEditor/AnimationEditorViewControllers.storyboard; sourceTree = "<group>"; };
+		545C4C5B1A3A9DB9002604FA /* AnimationTypeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationTypeTableViewCell.h; path = AnimationEditor/AnimationTypeTableViewCell.h; sourceTree = "<group>"; };
+		545C4C5C1A3A9DB9002604FA /* AnimationTypeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationTypeTableViewCell.m; path = AnimationEditor/AnimationTypeTableViewCell.m; sourceTree = "<group>"; };
+		545C4C5E1A3A9E43002604FA /* AnimationTypesGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationTypesGenerator.h; path = AnimationEditor/AnimationTypesGenerator.h; sourceTree = "<group>"; };
+		545C4C5F1A3A9E43002604FA /* AnimationTypesGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationTypesGenerator.m; path = AnimationEditor/AnimationTypesGenerator.m; sourceTree = "<group>"; };
+		545C4C611A3AC523002604FA /* AnimationEditorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationEditorManager.h; path = AnimationEditor/AnimationEditorManager.h; sourceTree = "<group>"; };
+		545C4C621A3AC523002604FA /* AnimationEditorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationEditorManager.m; path = AnimationEditor/AnimationEditorManager.m; sourceTree = "<group>"; };
+		545C4C641A3AC821002604FA /* AnimationDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationDescription.h; path = AnimationEditor/AnimationDescription.h; sourceTree = "<group>"; };
+		545C4C651A3AC821002604FA /* AnimationDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationDescription.m; path = AnimationEditor/AnimationDescription.m; sourceTree = "<group>"; };
+		545C4C811A3ACE8E002604FA /* AnimationConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationConstants.h; path = AnimationEditor/AnimationConstants.h; sourceTree = "<group>"; };
+		545C4C821A3ACE8E002604FA /* AnimationConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationConstants.m; path = AnimationEditor/AnimationConstants.m; sourceTree = "<group>"; };
 		546457BA19F1074900078EAF /* BasicImageEditorContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicImageEditorContentViewController.h; path = EditorViewControllers/BasicImageEditorContentViewController.h; sourceTree = "<group>"; };
 		546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicImageEditorContentViewController.m; path = EditorViewControllers/BasicImageEditorContentViewController.m; sourceTree = "<group>"; };
 		546457BF19F1096200078EAF /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -564,8 +599,38 @@
 				543FE0FF1A281842002276D7 /* ColorSelectionManager.m */,
 				545C4B9C1A36C2F1002604FA /* ColorPickerContainerViewController.h */,
 				545C4B9D1A36C2F1002604FA /* ColorPickerContainerViewController.m */,
+				545C4B9F1A36F88C002604FA /* RegularColorGenerator.h */,
+				545C4BA01A36F88C002604FA /* RegularColorGenerator.m */,
+				545C4BA21A36FC8F002604FA /* RegularColorPickerViewController.h */,
+				545C4BA31A36FC8F002604FA /* RegularColorPickerViewController.m */,
+				545C4BC81A37F758002604FA /* RegularColorPickerCollectioinViewCell.h */,
+				545C4BC91A37F758002604FA /* RegularColorPickerCollectioinViewCell.m */,
 			);
 			name = ColorPicker;
+			sourceTree = "<group>";
+		};
+		545C4C521A3A981C002604FA /* Animation Editors */ = {
+			isa = PBXGroup;
+			children = (
+				545C4C611A3AC523002604FA /* AnimationEditorManager.h */,
+				545C4C621A3AC523002604FA /* AnimationEditorManager.m */,
+				545C4C4F1A3A9818002604FA /* AnimationEditorContainerViewController.h */,
+				545C4C501A3A9818002604FA /* AnimationEditorContainerViewController.m */,
+				545C4C531A3A9847002604FA /* AnimationTypeSelectionViewController.h */,
+				545C4C541A3A9847002604FA /* AnimationTypeSelectionViewController.m */,
+				545C4C561A3A985A002604FA /* AnimationParameterViewController.h */,
+				545C4C571A3A985A002604FA /* AnimationParameterViewController.m */,
+				545C4C5B1A3A9DB9002604FA /* AnimationTypeTableViewCell.h */,
+				545C4C5C1A3A9DB9002604FA /* AnimationTypeTableViewCell.m */,
+				545C4C5E1A3A9E43002604FA /* AnimationTypesGenerator.h */,
+				545C4C5F1A3A9E43002604FA /* AnimationTypesGenerator.m */,
+				545C4C591A3A988B002604FA /* AnimationEditorViewControllers.storyboard */,
+				545C4C641A3AC821002604FA /* AnimationDescription.h */,
+				545C4C651A3AC821002604FA /* AnimationDescription.m */,
+				545C4C811A3ACE8E002604FA /* AnimationConstants.h */,
+				545C4C821A3ACE8E002604FA /* AnimationConstants.m */,
+			);
+			name = "Animation Editors";
 			sourceTree = "<group>";
 		};
 		546457B919F1070A00078EAF /* Editors */ = {
@@ -859,6 +924,7 @@
 				546457B919F1070A00078EAF /* Editors */,
 				54F0C4CF1A0E3788009B4B0D /* Slide Editing */,
 				54F0C4911A0DE28A009B4B0D /* Proposal Overview */,
+				545C4C521A3A981C002604FA /* Animation Editors */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1010,6 +1076,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				547DC9FA1A036EAF004691EC /* Canvas.png in Resources */,
+				545C4C5A1A3A988B002604FA /* AnimationEditorViewControllers.storyboard in Resources */,
 				54F0C4FC1A0F4563009B4B0D /* UtilViewControllers.storyboard in Resources */,
 				54CB19DA19EE3BD40044BBDD /* background.jpg in Resources */,
 				54D7294D19ECE9B5009A0279 /* Main.storyboard in Resources */,
@@ -1041,16 +1108,19 @@
 				54E96F6719F8CB6A00C5F007 /* EditorButtonView.m in Sources */,
 				543FE0DD1A2813DD002276D7 /* BitmapContextRep.m in Sources */,
 				543FE0EB1A2813DD002276D7 /* RSColorPickerView.m in Sources */,
+				545C4C551A3A9847002604FA /* AnimationTypeSelectionViewController.m in Sources */,
 				546457D519F3614100078EAF /* ControlPointManager.m in Sources */,
 				546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */,
 				540A0A1F1A2085C10087C6AC /* ShadowView.m in Sources */,
 				5421863F1A09FBBB006EBDFD /* GenericConent+iDo.m in Sources */,
+				545C4C661A3AC821002604FA /* AnimationDescription.m in Sources */,
 				54EE541E1A10E7CB00CA1AF7 /* GenericContentConstants.m in Sources */,
 				542185341A07245C006EBDFD /* SimpleOperation.m in Sources */,
 				542185371A072509006EBDFD /* CompoundOperation.m in Sources */,
 				543FE0E71A2813DD002276D7 /* BitmapScaleManipulator.m in Sources */,
 				547EEEBD1A16061100EAD132 /* Slide.m in Sources */,
 				545C4B931A369F72002604FA /* ToolbarManager.m in Sources */,
+				545C4BA11A36F88C002604FA /* RegularColorGenerator.m in Sources */,
 				543FE1031A287A18002276D7 /* EditMenuManager.m in Sources */,
 				54EE54741A11B5F000CA1AF7 /* ProposalAttributesManager.m in Sources */,
 				547EEEB41A16061100EAD132 /* ImageContent.m in Sources */,
@@ -1066,6 +1136,7 @@
 				543FE1001A281842002276D7 /* ColorSelectionManager.m in Sources */,
 				546457D119F116B700078EAF /* ImageHelper.m in Sources */,
 				546F5CC919FFAFE600C30CBB /* TextDisplayView.m in Sources */,
+				545C4C511A3A9818002604FA /* AnimationEditorContainerViewController.m in Sources */,
 				547EEECD1A1881F200EAD132 /* EditMenuItem.m in Sources */,
 				549148F01A26E7AB00DE859F /* PasteboardHelper.m in Sources */,
 				54D333A91A0604EE00F3D7F9 /* UndoManager.m in Sources */,
@@ -1080,10 +1151,12 @@
 				545C4B901A369EE5002604FA /* AnimationToolbarViewController.m in Sources */,
 				547DCA0D1A04CDA5004691EC /* BordersContentViewController.m in Sources */,
 				54E62D0119FDFA8A0083E0F0 /* TextFontHelper.m in Sources */,
+				545C4BA41A36FC8F002604FA /* RegularColorPickerViewController.m in Sources */,
 				543FE0E61A2813DD002276D7 /* BitmapRotationManipulator.m in Sources */,
 				549567711A05EA18006D6BAE /* CustomTapTextView.m in Sources */,
 				5421860D1A09F14C006EBDFD /* CoreDataManager.m in Sources */,
 				540A0A171A2065C50087C6AC /* ReflectionShadowTypeCell.m in Sources */,
+				545C4C831A3ACE8E002604FA /* AnimationConstants.m in Sources */,
 				549E21631A25A43C0013E051 /* RotationHelper.m in Sources */,
 				546457C719F10D8100078EAF /* EditorPanelManager.m in Sources */,
 				543FE0E11A2813DD002276D7 /* CGContextCreator.m in Sources */,
@@ -1094,8 +1167,11 @@
 				54D333AD1A0606A900F3D7F9 /* Operation.m in Sources */,
 				543FE0DC1A2813DD002276D7 /* ANImageBitmapRep.m in Sources */,
 				54E96F8819F91FA000C5F007 /* TooltipView.m in Sources */,
+				545C4BCA1A37F758002604FA /* RegularColorPickerCollectioinViewCell.m in Sources */,
 				543FE0ED1A2813DD002276D7 /* RSSelectionLayer.m in Sources */,
+				545C4C601A3A9E43002604FA /* AnimationTypesGenerator.m in Sources */,
 				54F0C51C1A108A1B009B4B0D /* CanvasAdjustmentHelper.m in Sources */,
+				545C4C5D1A3A9DB9002604FA /* AnimationTypeTableViewCell.m in Sources */,
 				543FE0E51A2813DD002276D7 /* BitmapDrawManipulator.m in Sources */,
 				547BFD4A1A1B4B8F0014FBD9 /* EditMenuHelper.m in Sources */,
 				54CB19D819EE37BE0044BBDD /* ImageContainerView.m in Sources */,
@@ -1118,6 +1194,7 @@
 				54D7294719ECE9B5009A0279 /* AppDelegate.m in Sources */,
 				54FF2BC21A04DDB6002EB326 /* TextStyleEditorContentViewController.m in Sources */,
 				543FE0DE1A2813DD002276D7 /* NSImage+ANImageBitmapRep.m in Sources */,
+				545C4C581A3A985A002604FA /* AnimationParameterViewController.m in Sources */,
 				54F0C4E31A0F25F4009B4B0D /* DrawingConstants.m in Sources */,
 				546DC4FF1A14E10400E76696 /* ThumbnailMovingIndicatorView.m in Sources */,
 				543FE0E21A2813DD002276D7 /* CGImageContainer.m in Sources */,
@@ -1134,6 +1211,7 @@
 				54F0C48D1A0DCF64009B4B0D /* ProposalOverViewViewController.m in Sources */,
 				54965B061A00E50F005AF774 /* ShadowHelper.m in Sources */,
 				547EEEC01A16061100EAD132 /* Animation.m in Sources */,
+				545C4C631A3AC523002604FA /* AnimationEditorManager.m in Sources */,
 				54E8B9CB19FA271200AD324D /* SliderWithTooltip.m in Sources */,
 				546457BD19F1074900078EAF /* BasicImageEditorContentViewController.m in Sources */,
 				543FE0E01A2813DD002276D7 /* UIImage+ANImageBitmapRep.m in Sources */,

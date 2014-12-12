@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AnimationConstants.h"
 @class GenericContainerView;
 @class ContentEditMenuView;
 @class CanvasView;
@@ -29,6 +30,7 @@ typedef NS_ENUM(NSInteger, EditMenuAvailableOperation) {
 - (void) editMenu:(ContentEditMenuView *) editMenu didCutContent:(GenericContainerView *)content;
 - (void) editMenu:(ContentEditMenuView *) editMenu didPasteContent:(GenericContainerView *)content;
 - (void) editMenu:(ContentEditMenuView *) editMenu didEnterAnimationModeToView:(UIView *)view;
+- (void) editMenu:(ContentEditMenuView *) editMenu willShowAnimationEditorForContent:(UIView *)view forType:(AnimationType) animationType;
 
 @end
 

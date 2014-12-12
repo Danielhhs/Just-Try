@@ -7,7 +7,6 @@
 
 #import <Foundation/Foundation.h>
 #import "RSColorPickerView.h"
-
 @interface RSBrightnessSlider : UISlider
 
 @property (nonatomic) RSColorPickerView *colorPicker;

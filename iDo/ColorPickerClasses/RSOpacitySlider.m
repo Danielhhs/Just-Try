@@ -50,6 +50,16 @@
     _colorPicker.opacity = self.value;
 }
 
+//- (void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    [_colorPicker finishSettingOpacity:self.value];
+//}
+//
+//- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    [_colorPicker finishSettingOpacity:self.value];
+//}
+
 - (void)drawRect:(CGRect)rect {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
 
@@ -70,5 +80,4 @@
     if (!_colorPicker) { return; }
     self.value = [_colorPicker brightness];
 }
-
 @end

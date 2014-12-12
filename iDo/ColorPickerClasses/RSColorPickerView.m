@@ -273,13 +273,21 @@
 
 - (void)setBrightness:(CGFloat)bright {
     state = [state stateBySettingBrightness:bright];
-    [self handleStateChanged];
 }
 
 - (void)setOpacity:(CGFloat)opacity {
     state = [state stateBySettingAlpha:opacity];
-    [self handleStateChanged];
 }
+
+//- (void) finishSettingBrightness:(CGFloat)brightness {
+//    [self setBrightness:brightness];
+//    [self handleStateChanged];
+//}
+//
+//- (void) finishSettingOpacity:(CGFloat) opacity {
+//    [self setOpacity:opacity];
+//    [self handleStateChanged];
+//}
 
 - (void)setCropToCircle:(BOOL)circle {
     _cropToCircle = circle;
@@ -297,7 +305,7 @@
 
 - (void)setSelectionColor:(UIColor *)selectionColor {
     state = [[RSColorPickerState alloc] initWithColor:selectionColor];
-    [self handleStateChanged];
+//    [self handleStateChanged];
 }
 
 #pragma mark - Selection Updates -

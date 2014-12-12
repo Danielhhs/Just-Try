@@ -151,6 +151,16 @@ UIImage * RSArrowLoopThumbImage(CGSize size, CGSize loopSize){
     [_colorPicker setBrightness:self.value];
 }
 
+//- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    [_colorPicker finishSettingBrightness:self.value];
+//}
+//
+//- (void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    [_colorPicker finishSettingBrightness:self.value];
+//}
+
 - (void)drawRect:(CGRect)rect {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
 
@@ -170,5 +180,4 @@ UIImage * RSArrowLoopThumbImage(CGSize size, CGSize loopSize){
     if (!_colorPicker) { return; }
     self.value = [_colorPicker brightness];
 }
-
 @end
