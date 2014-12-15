@@ -19,6 +19,7 @@
 #import "RotationHelper.h"
 #import "EditMenuManager.h"
 #import "ColorSelectionManager.h"
+#import "AnimationAttributesHelper.h"
 @interface SlidesEditingViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, OperationTarget>
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 @end
@@ -231,6 +232,7 @@
 #pragma mark - AnimationEditorContainerViewControllerDelegate
 - (void) animationEditorDidSelectAnimation:(AnimationDescription *)animation
 {
+    [AnimationAttributesHelper updateContentAttributes:[self.currentSelectedContent attributes] withAnimationDescription:animation];
     [[EditMenuManager sharedManager] updateEditMenuWithAnimationName:animation.animationName];
 }
 

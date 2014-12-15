@@ -63,6 +63,7 @@
     [attributes setValue:@(ContentViewReflectionTypeVerticalMirror) forKey:[KeyConstants reflectionTypeKey]];
     [attributes setValue:@(1) forKey:[KeyConstants viewOpacityKey]];
     [attributes setObject:[NSValue valueWithCGAffineTransform:CGAffineTransformIdentity] forKey:[KeyConstants transformKey]];
+    [attributes setObject:[NSMutableArray array] forKey:[KeyConstants animationsKey]];
     return attributes;
 }
 

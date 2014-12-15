@@ -7,23 +7,28 @@
 //
 
 #import "AnimationDescription.h"
-
+#import "AnimationAttributesHelper.h"
 @implementation AnimationDescription
 
-- (instancetype) initWithAnimationName:(NSString *)animationName parameters:(AnimationParameters *)parameters
+- (instancetype) initWithAnimationEffect:(AnimationEffect)animationEffect forEvent:(AnimationEvent) animationEvent parameters:(AnimationParameters *)parameters
 {
     self = [super init];
     if (self) {
-        _animationName = animationName;
+        _animationEffect = animationEffect;
+        _animationEvent = animationEvent;
         _parameters = parameters;
+        _animationName = [AnimationAttributesHelper animationTitleForAnimationEffect:animationEffect];
     }
     return self;
 }
 
-+ (AnimationDescription *) animationDescriptionWithAnimationName:(NSString *)animationName duration:(NSTimeInterval)duration permittedDirection:(AnimationPermittedDirection)direction timeAfterLastAnimation:(NSTimeInterval)timeAfterLastAnimation
-{
++ (AnimationDescription *) animationDescriptionWithAnimationEffect:(AnimationEffect) animationEffect
+                                                  animationEvent:(AnimationEvent) animationEvent
+                                                        duration:(NSTimeInterval)duration
+                                              permittedDirection:(AnimationPermittedDirection) direction
+                                          timeAfterLastAnimation:(NSTimeInterval) timeAfterLastAnimation {
     AnimationParameters *parameters = [AnimationParameters animationParametersWithDuration:duration permittedDirection:direction timeAfterPreviousAnimation:timeAfterLastAnimation];
-    AnimationDescription *animation = [[AnimationDescription alloc] initWithAnimationName:animationName parameters:parameters];
+    AnimationDescription *animation = [[AnimationDescription alloc] initWithAnimationEffect:animationEffect forEvent:animationEvent parameters:parameters];
     return animation;
 }
 @end

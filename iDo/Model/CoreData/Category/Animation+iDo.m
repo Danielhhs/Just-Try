@@ -24,18 +24,23 @@
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
     
     attributes[[KeyConstants animationDurationKey]] = animation.duration;
-    attributes[[KeyConstants animationTypeKey]] = animation.type;
+    attributes[[KeyConstants animationEffectKey]] = animation.effect;
     attributes[[KeyConstants animationTriggerTimeKey]] = animation.triggerTime;
+#warning Delete This
+    animation.index = @(1);
     attributes[[KeyConstants animationIndexKey]] = animation.index;
-    
+    attributes[[KeyConstants animationDirectionKey]] = animation.direction;
+    attributes[[KeyConstants animationEventKey]] = animation.event;
     return attributes;
 }
 
 + (void) applyAnimationAttributes:(NSDictionary *) attributes toAnimation:(Animation *) animation
 {
     animation.duration = attributes[[KeyConstants animationDurationKey]];
-    animation.type = attributes[[KeyConstants animationTypeKey]];
+    animation.effect = attributes[[KeyConstants animationEffectKey]];
+    animation.event = attributes[[KeyConstants animationEventKey]];
     animation.triggerTime = attributes[[KeyConstants animationTriggerTimeKey]];
     animation.index = attributes[[KeyConstants animationIndexKey]];
+    animation.direction = attributes[[KeyConstants animationDirectionKey]];
 }
 @end

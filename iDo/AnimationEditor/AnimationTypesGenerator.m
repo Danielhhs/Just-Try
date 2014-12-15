@@ -59,24 +59,24 @@ static AnimationTypesGenerator *sharedInstance;
 }
 
 #pragma mark - Animations
-- (NSArray *) animationTypesForContentView:(GenericContainerView *)content type:(AnimationType)animationType
+- (NSArray *) animationTypesForContentView:(GenericContainerView *)content type:(AnimationEvent)animationEvent
 {
     if ([content isKindOfClass:[ImageContainerView class]]) {
-        return [self animationTypesForImageContentOfType:animationType];
+        return [self animationTypesForImageContentOfType:animationEvent];
     } else if ([content isKindOfClass:[TextContainerView class]]) {
-        return [self animationTypesForTextContentOfType:animationType];
+        return [self animationTypesForTextContentOfType:animationEvent];
     }
     return nil;
 }
 
-- (NSArray *) animationTypesForImageContentOfType:(AnimationType) animationType
+- (NSArray *) animationTypesForImageContentOfType:(AnimationEvent) animationEvent
 {
-    return animationType == AnimationTypeBuiltIn ? self.animationInTypesForImageView : self.animationOutTypesForImageView;
+    return animationEvent == AnimationEventBuiltIn ? self.animationInTypesForImageView : self.animationOutTypesForImageView;
 }
 
-- (NSArray *) animationTypesForTextContentOfType:(AnimationType) animationType
+- (NSArray *) animationTypesForTextContentOfType:(AnimationEvent) animationType
 {
-    return animationType == AnimationTypeBuiltIn ? self.animationInTypesForTextView : self.animationOutTypesForTextView;
+    return animationType == AnimationEventBuiltIn ? self.animationInTypesForTextView : self.animationOutTypesForTextView;
 }
 
 - (NSArray *) animationTypesForTransition

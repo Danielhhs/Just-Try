@@ -59,10 +59,10 @@
     self.typeSelectionViewController.animationTarget = animationTarget;
 }
 
-- (void) setAnimationType:(AnimationType)animationType
+- (void) setAnimationType:(AnimationEvent)animationEvent
 {
-    _animationType = animationType;
-    self.typeSelectionViewController.animationType = animationType;
+    _animationEvent = animationEvent;
+    self.typeSelectionViewController.animationEvent = animationEvent;
 }
 
 #pragma mark - AnimationTypeSelectionViewController

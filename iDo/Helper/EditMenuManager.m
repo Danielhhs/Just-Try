@@ -11,6 +11,7 @@
 #import "CanvasView.h"
 #import "PasteboardHelper.h"
 #import "DrawingConstants.h"
+#import "AnimationModeManager.h"
 
 static EditMenuManager *sharedInstance;
 #define REPLACE_ITEM_INDEX 2
@@ -99,7 +100,7 @@ static EditMenuManager *sharedInstance;
 
 - (NSArray *) availableOperationsForView:(UIView *) view
 {
-    if (self.animationMode) {
+    if ([[AnimationModeManager sharedManager] isInAnimationMode]) {
         if ([view isKindOfClass:[GenericContainerView class]]) {
             return self.animationOperationsForContentView;
         } else {

@@ -55,9 +55,11 @@
 #pragma mark - Animiation
 + (NSString *) animationsKey;
 + (NSString *) animationDurationKey;
-+ (NSString *) animationTypeKey;
++ (NSString *) animationEffectKey;
 + (NSString *) animationIndexKey;
++ (NSString *) animationDirectionKey;
 + (NSString *) animationTriggerTimeKey;
++ (NSString *) animationEventKey;
 
 +(NSString *) addKey;
 +(NSString *) deleteKey;

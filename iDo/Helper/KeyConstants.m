@@ -184,9 +184,14 @@
     return @"ANIMATION_DURATION";
 }
 
-+ (NSString *) animationTypeKey
++ (NSString *) animationEffectKey
 {
-    return @"ANIMATION_TYPE";
+    return @"ANIMATION_EFFECT";
+}
+
++ (NSString *) animationDirectionKey
+{
+    return @"ANIMATION_DIRECTION";
 }
 
 + (NSString *) animationIndexKey
@@ -197,6 +202,11 @@
 + (NSString *) animationTriggerTimeKey
 {
     return @"ANIMATION_TRIGGER_TIME";
+}
+
++ (NSString *) animationEventKey
+{
+    return @"ANIMATION_EVENT";
 }
 
 #pragma mark - Operation

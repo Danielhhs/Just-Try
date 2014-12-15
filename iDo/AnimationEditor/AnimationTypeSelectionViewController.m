@@ -21,11 +21,11 @@
     [super viewDidLoad];
 }
 
-- (void) setAnimationType:(AnimationType)animationType
+- (void) setAnimationType:(AnimationEvent)animationEvent
 {
-    if (_animationType != animationType) {
-        _animationType = animationType;
-        self.animationTypes = [[AnimationTypesGenerator generator] animationTypesForContentView:self.animationTarget type:animationType];
+    if (_animationEvent != animationEvent) {
+        _animationEvent = animationEvent;
+        self.animationTypes = [[AnimationTypesGenerator generator] animationTypesForContentView:self.animationTarget type:animationEvent];
         [self.animationTypesTableView reloadData];
     }
 }
@@ -34,7 +34,7 @@
 {
     if (_animationTarget != animationTarget) {
         _animationTarget = animationTarget;
-        self.animationTypes = [[AnimationTypesGenerator generator] animationTypesForContentView:self.animationTarget type:self.animationType];
+        self.animationTypes = [[AnimationTypesGenerator generator] animationTypesForContentView:self.animationTarget type:self.animationEvent];
         [self.animationTypesTableView reloadData];
     }
 }

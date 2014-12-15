@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, EditMenuAvailableOperation) {
 - (void) editMenu:(ContentEditMenuView *) editMenu didDeleteContent:(GenericContainerView *)content;
 - (void) editMenu:(ContentEditMenuView *) editMenu didCutContent:(GenericContainerView *)content;
 - (void) editMenu:(ContentEditMenuView *) editMenu didPasteContent:(GenericContainerView *)content;
-- (void) editMenu:(ContentEditMenuView *) editMenu willShowAnimationEditorForContent:(UIView *)view forType:(AnimationType) animationType;
+- (void) editMenu:(ContentEditMenuView *) editMenu willShowAnimationEditorForContent:(UIView *)view forType:(AnimationEvent) animationEvent;
 
 @end
 

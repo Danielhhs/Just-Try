@@ -14,7 +14,7 @@
 @end
 
 @interface AnimationEditorContainerViewController : UIViewController
-@property (nonatomic) AnimationType animationType;
+@property (nonatomic) AnimationEvent animationEvent;
 @property (nonatomic, weak) UIView *animationTarget;
 @property (nonatomic, weak) id<AnimationEditorContainerViewControllerDelegate> delegate;
 @end

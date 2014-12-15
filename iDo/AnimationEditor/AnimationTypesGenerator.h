@@ -11,6 +11,6 @@
 #import "AnimationConstants.h"
 @interface AnimationTypesGenerator : NSObject
 + (AnimationTypesGenerator *) generator;
-- (NSArray *) animationTypesForContentView:(UIView *) content type:(AnimationType) animationType;
+- (NSArray *) animationTypesForContentView:(UIView *) content type:(AnimationEvent) animationEvent;
 
 @end

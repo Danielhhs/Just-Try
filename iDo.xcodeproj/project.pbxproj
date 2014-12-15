@@ -69,6 +69,8 @@
 		545C4C921A3EA683002604FA /* AnimationDirectionSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C911A3EA683002604FA /* AnimationDirectionSelectionView.m */; };
 		545C4C951A3EA882002604FA /* AnimationParameterSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C941A3EA882002604FA /* AnimationParameterSlider.m */; };
 		545C4C981A3EB25D002604FA /* Animation+iDo.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C971A3EB25D002604FA /* Animation+iDo.m */; };
+		545C4C9B1A3EB810002604FA /* AnimationAttributesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C9A1A3EB810002604FA /* AnimationAttributesHelper.m */; };
+		545C4D381A3ECD7E002604FA /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4D371A3ECD7E002604FA /* Animation.m */; };
 		546457BD19F1074900078EAF /* BasicImageEditorContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */; };
 		546457C019F1096200078EAF /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546457BF19F1096200078EAF /* CoreImage.framework */; };
 		546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457C319F10C1700078EAF /* UIView+Snapshot.m */; };
@@ -90,7 +92,6 @@
 		547EEEB71A16061100EAD132 /* Proposal.m in Sources */ = {isa = PBXBuildFile; fileRef = 547EEEB61A16061100EAD132 /* Proposal.m */; };
 		547EEEBA1A16061100EAD132 /* Transition.m in Sources */ = {isa = PBXBuildFile; fileRef = 547EEEB91A16061100EAD132 /* Transition.m */; };
 		547EEEBD1A16061100EAD132 /* Slide.m in Sources */ = {isa = PBXBuildFile; fileRef = 547EEEBC1A16061100EAD132 /* Slide.m */; };
-		547EEEC01A16061100EAD132 /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 547EEEBF1A16061100EAD132 /* Animation.m */; };
 		547EEEC31A16061100EAD132 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 547EEEC21A16061100EAD132 /* Game.m */; };
 		547EEEC61A16061100EAD132 /* TextContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 547EEEC51A16061100EAD132 /* TextContent.m */; };
 		547EEEC91A18800900EAD132 /* ContentEditMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 547EEEC81A18800900EAD132 /* ContentEditMenuView.m */; };
@@ -276,6 +277,10 @@
 		545C4C941A3EA882002604FA /* AnimationParameterSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationParameterSlider.m; path = AnimationEditor/AnimationParameterSlider.m; sourceTree = "<group>"; };
 		545C4C961A3EB25D002604FA /* Animation+iDo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Animation+iDo.h"; path = "Model/CoreData/Category/Animation+iDo.h"; sourceTree = "<group>"; };
 		545C4C971A3EB25D002604FA /* Animation+iDo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Animation+iDo.m"; path = "Model/CoreData/Category/Animation+iDo.m"; sourceTree = "<group>"; };
+		545C4C991A3EB810002604FA /* AnimationAttributesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationAttributesHelper.h; path = AnimationEditor/AnimationAttributesHelper.h; sourceTree = "<group>"; };
+		545C4C9A1A3EB810002604FA /* AnimationAttributesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationAttributesHelper.m; path = AnimationEditor/AnimationAttributesHelper.m; sourceTree = "<group>"; };
+		545C4D361A3ECD7E002604FA /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Animation.h; path = "Model/CoreData/Model Objects/Animation.h"; sourceTree = "<group>"; };
+		545C4D371A3ECD7E002604FA /* Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Animation.m; path = "Model/CoreData/Model Objects/Animation.m"; sourceTree = "<group>"; };
 		546457BA19F1074900078EAF /* BasicImageEditorContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicImageEditorContentViewController.h; path = EditorViewControllers/BasicImageEditorContentViewController.h; sourceTree = "<group>"; };
 		546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicImageEditorContentViewController.m; path = EditorViewControllers/BasicImageEditorContentViewController.m; sourceTree = "<group>"; };
 		546457BF19F1096200078EAF /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -316,8 +321,6 @@
 		547EEEB91A16061100EAD132 /* Transition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Transition.m; path = "Model/CoreData/Model Objects/Transition.m"; sourceTree = "<group>"; };
 		547EEEBB1A16061100EAD132 /* Slide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Slide.h; path = "Model/CoreData/Model Objects/Slide.h"; sourceTree = "<group>"; };
 		547EEEBC1A16061100EAD132 /* Slide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Slide.m; path = "Model/CoreData/Model Objects/Slide.m"; sourceTree = "<group>"; };
-		547EEEBE1A16061100EAD132 /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Animation.h; path = "Model/CoreData/Model Objects/Animation.h"; sourceTree = "<group>"; };
-		547EEEBF1A16061100EAD132 /* Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Animation.m; path = "Model/CoreData/Model Objects/Animation.m"; sourceTree = "<group>"; };
 		547EEEC11A16061100EAD132 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Game.h; path = "Model/CoreData/Model Objects/Game.h"; sourceTree = "<group>"; };
 		547EEEC21A16061100EAD132 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Game.m; path = "Model/CoreData/Model Objects/Game.m"; sourceTree = "<group>"; };
 		547EEEC41A16061100EAD132 /* TextContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextContent.h; path = "Model/CoreData/Model Objects/TextContent.h"; sourceTree = "<group>"; };
@@ -482,14 +485,14 @@
 		5421863C1A09FB47006EBDFD /* Model Objects */ = {
 			isa = PBXGroup;
 			children = (
+				545C4D361A3ECD7E002604FA /* Animation.h */,
+				545C4D371A3ECD7E002604FA /* Animation.m */,
 				540A0A121A20508D0087C6AC /* GenericConent.h */,
 				540A0A131A20508D0087C6AC /* GenericConent.m */,
 				547EEEC41A16061100EAD132 /* TextContent.h */,
 				547EEEC51A16061100EAD132 /* TextContent.m */,
 				547EEEC11A16061100EAD132 /* Game.h */,
 				547EEEC21A16061100EAD132 /* Game.m */,
-				547EEEBE1A16061100EAD132 /* Animation.h */,
-				547EEEBF1A16061100EAD132 /* Animation.m */,
 				547EEEBB1A16061100EAD132 /* Slide.h */,
 				547EEEBC1A16061100EAD132 /* Slide.m */,
 				547EEEB81A16061100EAD132 /* Transition.h */,
@@ -664,6 +667,8 @@
 				545C4C821A3ACE8E002604FA /* AnimationConstants.m */,
 				545C4C8D1A3E9123002604FA /* AnimationModeManager.h */,
 				545C4C8E1A3E9123002604FA /* AnimationModeManager.m */,
+				545C4C991A3EB810002604FA /* AnimationAttributesHelper.h */,
+				545C4C9A1A3EB810002604FA /* AnimationAttributesHelper.m */,
 			);
 			name = "Animation Editors";
 			sourceTree = "<group>";
@@ -1137,6 +1142,7 @@
 			files = (
 				5421860A1A09E786006EBDFD /* iDoDataModel.xcdatamodeld in Sources */,
 				54F0C4561A0CAE0C009B4B0D /* Slide+iDo.m in Sources */,
+				545C4D381A3ECD7E002604FA /* Animation.m in Sources */,
 				54CB19DD19EE3D0A0044BBDD /* TextContainerView.m in Sources */,
 				547EEEC31A16061100EAD132 /* Game.m in Sources */,
 				540A0A141A20508D0087C6AC /* GenericConent.m in Sources */,
@@ -1220,6 +1226,7 @@
 				54D10B5519F7AC9200197694 /* GenericContainerViewHelper.m in Sources */,
 				54F0C4EC1A0F407D009B4B0D /* SlidesThumbnailViewController.m in Sources */,
 				54D7296D19ECEAB9009A0279 /* GenericContainerView.m in Sources */,
+				545C4C9B1A3EB810002604FA /* AnimationAttributesHelper.m in Sources */,
 				545C4C891A3E7F69002604FA /* DefaultAnimationGenerator.m in Sources */,
 				547EEED01A18878200EAD132 /* TextConstants.m in Sources */,
 				545C4B9A1A36C11B002604FA /* RSOpacitySlider.m in Sources */,
@@ -1251,7 +1258,6 @@
 				546F5CCC1A00904D00C30CBB /* CoreTextHelper.m in Sources */,
 				54F0C48D1A0DCF64009B4B0D /* ProposalOverViewViewController.m in Sources */,
 				54965B061A00E50F005AF774 /* ShadowHelper.m in Sources */,
-				547EEEC01A16061100EAD132 /* Animation.m in Sources */,
 				545C4C631A3AC523002604FA /* AnimationEditorManager.m in Sources */,
 				54E8B9CB19FA271200AD324D /* SliderWithTooltip.m in Sources */,
 				546457BD19F1074900078EAF /* BasicImageEditorContentViewController.m in Sources */,

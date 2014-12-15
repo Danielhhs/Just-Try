@@ -228,15 +228,14 @@
     [self addGenericContentView:content];
 }
 
-- (void) editMenu:(ContentEditMenuView *)editMenu willShowAnimationEditorForContent:(UIView *)view forType:(AnimationType)animationType
+- (void) editMenu:(ContentEditMenuView *)editMenu willShowAnimationEditorForContent:(UIView *)view forType:(AnimationEvent)animationEvent
 {
-    [[AnimationEditorManager sharedManager] showAnimationEditorFromRect:editMenu.frame inView:self.view forContent:view animationType:animationType];
+    [[AnimationEditorManager sharedManager] showAnimationEditorFromRect:editMenu.frame inView:self.view forContent:view animationType:animationEvent];
 }
 
 #pragma mark - AnimationModeManagerDelegate
 - (void) applicationDidEnterAnimationModeFromView:(UIView *)view
 {
-    [EditMenuManager sharedManager].animationMode = YES;
     [[ToolbarManager sharedManager] showAnimationToolBarToViewController:self];
     [[EditMenuManager sharedManager] hideEditMenu];
     [[EditMenuManager sharedManager] showEditMenuToView:view];
@@ -246,7 +245,6 @@
 - (void) applicationDidExitAnimationMode
 {
     [[ToolbarManager sharedManager] showEditingToolBarToViewController:self];
-    [EditMenuManager sharedManager].animationMode = NO;
     [[EditMenuManager sharedManager] hideEditMenu];
     [[ControlPointManager sharedManager] updateControlPointColor];
 }

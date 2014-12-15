@@ -16,6 +16,9 @@
 #import "AnimationEditMenuItem.h"
 #import "AnimationModeManager.h"
 #import "DrawingConstants.h"
+#import "AnimationModeManager.h"
+#import "KeyConstants.h"
+#import "AnimationAttributesHelper.h"
 
 #define SEPARATOR_WIDTH 1
 #define EDIT_MENU_ARROW_HEIGHT 10
@@ -33,8 +36,8 @@
 @property (nonatomic, strong) EditMenuItem *replaceButton;
 @property (nonatomic, strong) EditMenuItem *animateButton;
 @property (nonatomic, strong) EditMenuItem *transitionButton;
-@property (nonatomic, strong) EditMenuItem *animateInButton;
-@property (nonatomic, strong) EditMenuItem *animateOutButton;
+@property (nonatomic, strong) AnimationEditMenuItem *animateInButton;
+@property (nonatomic, strong) AnimationEditMenuItem *animateOutButton;
 @property (nonatomic, strong) EditMenuItem *transitionInButton;
 @property (nonatomic, strong) NSMutableArray *separatorLocations;
 @property (nonatomic, weak) UIView *trigger;
@@ -113,7 +116,7 @@
 - (void) handleAnimateIn
 {
     self.currentSelectedItem = self.animateInButton;
-    [self.delegate editMenu:self willShowAnimationEditorForContent:self.triggeredContent forType:AnimationTypeBuiltIn];
+    [self.delegate editMenu:self willShowAnimationEditorForContent:self.triggeredContent forType:AnimationEventBuiltIn];
     [self.animateInButton restoreNormalState];
 }
 
@@ -131,6 +134,10 @@
 
 - (void) showWithAvailableOperations:(NSArray *)availableOperations toContent:(GenericContainerView *)content
 {
+    if ([[AnimationModeManager sharedManager] isInAnimationMode]) {
+        self.animateInButton.animationTitle = [AnimationAttributesHelper animationInTitleForContent:content];
+        self.animateOutButton.animationTitle = [AnimationAttributesHelper animationOutTitleForContent:content];
+    }
     self.triggeredContent = content;
     self.trigger = content;
     [self updateOperationButtonsFromAvailableOperations:availableOperations];

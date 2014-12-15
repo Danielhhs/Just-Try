@@ -8,11 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "AnimationParameters.h"
+#import "AnimationConstants.h"
 @interface AnimationDescription : NSObject
+@property (nonatomic) AnimationEvent animationEvent;
 @property (nonatomic, strong) NSString *animationName;
+@property (nonatomic) AnimationEffect animationEffect;
 @property (nonatomic, strong) AnimationParameters *parameters;
-- (instancetype) initWithAnimationName:(NSString *) animationName parameters:(AnimationParameters *) parameters;
-+ (AnimationDescription *) animationDescriptionWithAnimationName:(NSString *) animationName
+- (instancetype) initWithAnimationEffect:(AnimationEffect)animationEffect forEvent:(AnimationEvent) animationEvent parameters:(AnimationParameters *)parameters;
++ (AnimationDescription *) animationDescriptionWithAnimationEffect:(AnimationEffect) animationEffect
+                                                  animationEvent:(AnimationEvent) animationEvent
                                                         duration:(NSTimeInterval)duration
                                               permittedDirection:(AnimationPermittedDirection) direction
                                           timeAfterLastAnimation:(NSTimeInterval) timeAfterLastAnimation;

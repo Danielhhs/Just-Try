@@ -46,12 +46,12 @@ static AnimationEditorManager *sharedInstance;
 }
 
 #pragma mark - Show & Hide
-- (void) showAnimationEditorFromRect:(CGRect)rect inView:(UIView *)view forContent:(UIView *)content animationType:(AnimationType)animationType
+- (void) showAnimationEditorFromRect:(CGRect)rect inView:(UIView *)view forContent:(UIView *)content animationType:(AnimationEvent)animationEvent
 {
     self.animationEditorContainer.animationTarget = content;
-    self.animationEditorContainer.animationType = animationType;
+    self.animationEditorContainer.animationEvent = animationEvent;
     UIPopoverArrowDirection direction = UIPopoverArrowDirectionDown | UIPopoverArrowDirectionUp;
-    if (animationType == AnimationTypeBuiltIn) {
+    if (animationEvent == AnimationEventBuiltIn) {
         direction = UIPopoverArrowDirectionRight | direction;
     } else {
         direction = UIPopoverArrowDirectionLeft | direction;

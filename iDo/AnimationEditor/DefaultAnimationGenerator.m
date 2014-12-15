@@ -45,7 +45,7 @@ static DefaultAnimationGenerator *sharedInstance;
 - (AnimationDescription *) breakAnimation
 {
     if (!_breakAnimation) {
-        _breakAnimation = [AnimationDescription animationDescriptionWithAnimationName:@"Break" duration:2.f permittedDirection:AnimationPermittedDirectionHorizontal timeAfterLastAnimation:2.f];
+        _breakAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectBreak animationEvent:AnimationEventBuiltIn duration:2.f permittedDirection:AnimationPermittedDirectionHorizontal timeAfterLastAnimation:2.f];
     }
     return _breakAnimation;
 }
@@ -53,7 +53,7 @@ static DefaultAnimationGenerator *sharedInstance;
 - (AnimationDescription *) anvilAnimation
 {
     if (!_anvilAnimation) {
-        _anvilAnimation = [AnimationDescription animationDescriptionWithAnimationName:@"Avil" duration:2.f permittedDirection:AnimationPermittedDirectionUp timeAfterLastAnimation:2.f];
+        _anvilAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectAnvil animationEvent:AnimationEventBuiltIn duration:2.f permittedDirection:AnimationPermittedDirectionUp timeAfterLastAnimation:2.f];
     }
     return _anvilAnimation;
 }
@@ -61,7 +61,7 @@ static DefaultAnimationGenerator *sharedInstance;
 - (AnimationDescription *) fireworkAnimation
 {
     if (!_fireworkAnimation) {
-        _fireworkAnimation = [AnimationDescription animationDescriptionWithAnimationName:@"Firework" duration:2.f permittedDirection:AnimationPermittedDirectionBottom timeAfterLastAnimation:2.f];
+        _fireworkAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectFirework animationEvent:AnimationEventBuiltIn duration:2.f permittedDirection:AnimationPermittedDirectionBottom timeAfterLastAnimation:2.f];
     }
     return _fireworkAnimation;
 }
@@ -69,7 +69,7 @@ static DefaultAnimationGenerator *sharedInstance;
 - (AnimationDescription *) flameAnimation
 {
     if (!_flameAnimation) {
-        _flameAnimation = [AnimationDescription animationDescriptionWithAnimationName:@"Flame" duration:2.f permittedDirection:AnimationPermittedDirectionBottom timeAfterLastAnimation:2.f];
+        _flameAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectFlame animationEvent:AnimationEventBuiltIn duration:2.f permittedDirection:AnimationPermittedDirectionBottom timeAfterLastAnimation:2.f];
     }
     return _flameAnimation;
 }
@@ -77,7 +77,7 @@ static DefaultAnimationGenerator *sharedInstance;
 - (AnimationDescription *) rotateAnimation
 {
     if (!_rotateAnimation) {
-        _rotateAnimation = [AnimationDescription animationDescriptionWithAnimationName:@"Rotate" duration:2.f permittedDirection:AnimationPermittedDirectionHorizontal timeAfterLastAnimation:2.f];
+        _rotateAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectRotate animationEvent:AnimationEventBuiltIn duration:2.f permittedDirection:AnimationPermittedDirectionHorizontal timeAfterLastAnimation:2.f];
     }
     return _rotateAnimation;
 }
@@ -85,7 +85,7 @@ static DefaultAnimationGenerator *sharedInstance;
 - (AnimationDescription *) resolveAnimation
 {
     if (!_resolveAnimation) {
-        _resolveAnimation = [AnimationDescription animationDescriptionWithAnimationName:@"Resolve" duration:2.f permittedDirection:AnimationPermittedDirectionAny timeAfterLastAnimation:2.f];
+        _resolveAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectResolve animationEvent:AnimationEventBuiltIn duration:2.f permittedDirection:AnimationPermittedDirectionAny timeAfterLastAnimation:2.f];
     }
     return _resolveAnimation;
 }
@@ -93,7 +93,7 @@ static DefaultAnimationGenerator *sharedInstance;
 - (AnimationDescription *) jumpAnimation
 {
     if (!_jumpAnimation) {
-        _jumpAnimation = [AnimationDescription animationDescriptionWithAnimationName:@"Jump" duration:2.f permittedDirection:AnimationPermittedDirectionHorizontal timeAfterLastAnimation:2.f];
+        _jumpAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectJump animationEvent:AnimationEventBuiltIn duration:2.f permittedDirection:AnimationPermittedDirectionHorizontal timeAfterLastAnimation:2.f];
     }
     return _jumpAnimation;
 }
@@ -101,7 +101,7 @@ static DefaultAnimationGenerator *sharedInstance;
 - (AnimationDescription *) typerAnimation
 {
     if (!_typerAnimation) {
-        _typerAnimation = [AnimationDescription animationDescriptionWithAnimationName:@"Typer" duration:2.f permittedDirection:AnimationPermittedDirectionLeft timeAfterLastAnimation:2.f];
+        _typerAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectTyper animationEvent:AnimationEventBuiltIn duration:2.f permittedDirection:AnimationPermittedDirectionLeft timeAfterLastAnimation:2.f];
     }
     return _typerAnimation;
 }

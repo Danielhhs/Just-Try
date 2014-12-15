@@ -2,7 +2,7 @@
 //  Animation.m
 //  iDo
 //
-//  Created by Huang Hongsen on 11/14/14.
+//  Created by Huang Hongsen on 12/15/14.
 //  Copyright (c) 2014 com.microstrategy. All rights reserved.
 //
 
@@ -15,7 +15,9 @@
 @dynamic duration;
 @dynamic index;
 @dynamic triggerTime;
-@dynamic type;
+@dynamic effect;
+@dynamic direction;
+@dynamic event;
 @dynamic container;
 
 @end
