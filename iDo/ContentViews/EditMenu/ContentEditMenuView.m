@@ -14,6 +14,7 @@
 #import "PasteboardHelper.h"
 #import "CanvasView.h"
 #import "AnimationEditMenuItem.h"
+#import "AnimationModeManager.h"
 
 #define SEPARATOR_WIDTH 1
 #define EDIT_MENU_ARROW_HEIGHT 10
@@ -99,7 +100,7 @@
 
 - (void) handleAnimate
 {
-    [self.delegate editMenu:self didEnterAnimationModeToView:self.triggeredContent];
+    [[AnimationModeManager sharedManager] enterAnimationModeFromView:self.trigger];
     [self.animateButton restoreNormalState];
 }
 

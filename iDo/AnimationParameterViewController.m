@@ -7,8 +7,12 @@
 //
 
 #import "AnimationParameterViewController.h"
-
+#import "AnimationDirectionSelectionView.h"
+#import "AnimationParameterSlider.h"
 @interface AnimationParameterViewController ()
+@property (weak, nonatomic) IBOutlet AnimationParameterSlider *durationSlider;
+@property (weak, nonatomic) IBOutlet AnimationDirectionSelectionView *animationDirectionSelector;
+@property (weak, nonatomic) IBOutlet AnimationParameterSlider *timeAfterLastAnimationSlider;
 
 @end
 

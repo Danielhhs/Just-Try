@@ -15,11 +15,13 @@
 
 - (instancetype) initWithControlPointLocation:(ControlPointLocation)location
                                      delegate:(id<BorderControlPointViewDelegate>)delegate
+                                        color:(UIColor *)fillColor
 {
     self = [super initWithFrame:CGRectMake(0, 0, [DrawingConstants controlPointSizeHalf] * 2, [DrawingConstants controlPointSizeHalf] * 2)];
     if (self) {
         _location = location;
         _delegate = delegate;
+        _fillColor = fillColor;
         self.backgroundColor = [UIColor clearColor];
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(locationChanged:)];
         [self addGestureRecognizer:pan];
@@ -41,6 +43,13 @@
     }
 }
 
+- (void) setFillColor:(UIColor *)fillColor
+{
+    if (![_fillColor isEqual:fillColor]) {
+        _fillColor = fillColor;
+        [self setNeedsDisplay];
+    }
+}
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

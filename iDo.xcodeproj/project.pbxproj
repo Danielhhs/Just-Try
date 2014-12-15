@@ -65,6 +65,9 @@
 		545C4C861A3BF11F002604FA /* AnimationOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C851A3BF11F002604FA /* AnimationOrderViewController.m */; };
 		545C4C891A3E7F69002604FA /* DefaultAnimationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C881A3E7F69002604FA /* DefaultAnimationGenerator.m */; };
 		545C4C8C1A3E7FAA002604FA /* AnimationParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C8B1A3E7FAA002604FA /* AnimationParameters.m */; };
+		545C4C8F1A3E9123002604FA /* AnimationModeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C8E1A3E9123002604FA /* AnimationModeManager.m */; };
+		545C4C921A3EA683002604FA /* AnimationDirectionSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C911A3EA683002604FA /* AnimationDirectionSelectionView.m */; };
+		545C4C951A3EA882002604FA /* AnimationParameterSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C941A3EA882002604FA /* AnimationParameterSlider.m */; };
 		546457BD19F1074900078EAF /* BasicImageEditorContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */; };
 		546457C019F1096200078EAF /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546457BF19F1096200078EAF /* CoreImage.framework */; };
 		546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457C319F10C1700078EAF /* UIView+Snapshot.m */; };
@@ -264,6 +267,12 @@
 		545C4C881A3E7F69002604FA /* DefaultAnimationGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DefaultAnimationGenerator.m; path = AnimationEditor/DefaultAnimationGenerator.m; sourceTree = "<group>"; };
 		545C4C8A1A3E7FAA002604FA /* AnimationParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationParameters.h; path = AnimationEditor/AnimationParameters.h; sourceTree = "<group>"; };
 		545C4C8B1A3E7FAA002604FA /* AnimationParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationParameters.m; path = AnimationEditor/AnimationParameters.m; sourceTree = "<group>"; };
+		545C4C8D1A3E9123002604FA /* AnimationModeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationModeManager.h; path = AnimationEditor/AnimationModeManager.h; sourceTree = "<group>"; };
+		545C4C8E1A3E9123002604FA /* AnimationModeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationModeManager.m; path = AnimationEditor/AnimationModeManager.m; sourceTree = "<group>"; };
+		545C4C901A3EA683002604FA /* AnimationDirectionSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationDirectionSelectionView.h; path = AnimationEditor/AnimationDirectionSelectionView.h; sourceTree = "<group>"; };
+		545C4C911A3EA683002604FA /* AnimationDirectionSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationDirectionSelectionView.m; path = AnimationEditor/AnimationDirectionSelectionView.m; sourceTree = "<group>"; };
+		545C4C931A3EA882002604FA /* AnimationParameterSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationParameterSlider.h; path = AnimationEditor/AnimationParameterSlider.h; sourceTree = "<group>"; };
+		545C4C941A3EA882002604FA /* AnimationParameterSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationParameterSlider.m; path = AnimationEditor/AnimationParameterSlider.m; sourceTree = "<group>"; };
 		546457BA19F1074900078EAF /* BasicImageEditorContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicImageEditorContentViewController.h; path = EditorViewControllers/BasicImageEditorContentViewController.h; sourceTree = "<group>"; };
 		546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicImageEditorContentViewController.m; path = EditorViewControllers/BasicImageEditorContentViewController.m; sourceTree = "<group>"; };
 		546457BF19F1096200078EAF /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -642,8 +651,14 @@
 				545C4C8A1A3E7FAA002604FA /* AnimationParameters.h */,
 				545C4C8B1A3E7FAA002604FA /* AnimationParameters.m */,
 				545C4C591A3A988B002604FA /* AnimationEditorViewControllers.storyboard */,
+				545C4C931A3EA882002604FA /* AnimationParameterSlider.h */,
+				545C4C941A3EA882002604FA /* AnimationParameterSlider.m */,
+				545C4C901A3EA683002604FA /* AnimationDirectionSelectionView.h */,
+				545C4C911A3EA683002604FA /* AnimationDirectionSelectionView.m */,
 				545C4C811A3ACE8E002604FA /* AnimationConstants.h */,
 				545C4C821A3ACE8E002604FA /* AnimationConstants.m */,
+				545C4C8D1A3E9123002604FA /* AnimationModeManager.h */,
+				545C4C8E1A3E9123002604FA /* AnimationModeManager.m */,
 			);
 			name = "Animation Editors";
 			sourceTree = "<group>";
@@ -1168,6 +1183,7 @@
 				54E62D0119FDFA8A0083E0F0 /* TextFontHelper.m in Sources */,
 				545C4BA41A36FC8F002604FA /* RegularColorPickerViewController.m in Sources */,
 				543FE0E61A2813DD002276D7 /* BitmapRotationManipulator.m in Sources */,
+				545C4C951A3EA882002604FA /* AnimationParameterSlider.m in Sources */,
 				549567711A05EA18006D6BAE /* CustomTapTextView.m in Sources */,
 				5421860D1A09F14C006EBDFD /* CoreDataManager.m in Sources */,
 				540A0A171A2065C50087C6AC /* ReflectionShadowTypeCell.m in Sources */,
@@ -1182,6 +1198,7 @@
 				54D7297319ED0FF0009A0279 /* BorderControlPointView.m in Sources */,
 				54D333AD1A0606A900F3D7F9 /* Operation.m in Sources */,
 				543FE0DC1A2813DD002276D7 /* ANImageBitmapRep.m in Sources */,
+				545C4C8F1A3E9123002604FA /* AnimationModeManager.m in Sources */,
 				54E96F8819F91FA000C5F007 /* TooltipView.m in Sources */,
 				545C4BCA1A37F758002604FA /* RegularColorPickerCollectioinViewCell.m in Sources */,
 				543FE0ED1A2813DD002276D7 /* RSSelectionLayer.m in Sources */,
@@ -1210,6 +1227,7 @@
 				543FE0DF1A2813DD002276D7 /* OSCommonImage.m in Sources */,
 				54D7294719ECE9B5009A0279 /* AppDelegate.m in Sources */,
 				54FF2BC21A04DDB6002EB326 /* TextStyleEditorContentViewController.m in Sources */,
+				545C4C921A3EA683002604FA /* AnimationDirectionSelectionView.m in Sources */,
 				543FE0DE1A2813DD002276D7 /* NSImage+ANImageBitmapRep.m in Sources */,
 				545C4C581A3A985A002604FA /* AnimationParameterViewController.m in Sources */,
 				545C4C861A3BF11F002604FA /* AnimationOrderViewController.m in Sources */,

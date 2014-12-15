@@ -21,8 +21,9 @@
 #import "PasteboardHelper.h"
 #import "ToolbarManager.h"
 #import "AnimationEditorManager.h"
+#import "AnimationModeManager.h"
 
-@interface SlidesContainerViewController ()<SlidesEditingViewControllerDelegate, SlidesThumbnailViewControllerDelegate, ContentEditMenuViewDelegate, SlideEditingToolbarDelegate, AnimationToolbarViewControllerDelegate>
+@interface SlidesContainerViewController ()<SlidesEditingViewControllerDelegate, SlidesThumbnailViewControllerDelegate, ContentEditMenuViewDelegate, SlideEditingToolbarDelegate, AnimationToolbarViewControllerDelegate, AnimationModeManagerDelegate>
 @property (nonatomic) NSInteger currentSelectSlideIndex;
 @property (nonatomic) CGFloat keyboardOriginY;
 @property (nonatomic, strong) NSMutableArray *slideViews;
@@ -46,6 +47,7 @@
     [self.view addSubview:[EditMenuManager sharedManager].editMenu];
     [EditMenuManager sharedManager].containerView = self.view;
     [[AnimationEditorManager sharedManager] setAnimationEditorDelegate:self.editorViewController];
+    [AnimationModeManager sharedManager].delegate = self;
 }
 
 - (void) loadAllSlideViews
@@ -226,17 +228,27 @@
     [self addGenericContentView:content];
 }
 
-- (void) editMenu:(ContentEditMenuView *)editMenu didEnterAnimationModeToView:(UIView *)content
+- (void) editMenu:(ContentEditMenuView *)editMenu willShowAnimationEditorForContent:(UIView *)view forType:(AnimationType)animationType
+{
+    [[AnimationEditorManager sharedManager] showAnimationEditorFromRect:editMenu.frame inView:self.view forContent:view animationType:animationType];
+}
+
+#pragma mark - AnimationModeManagerDelegate
+- (void) applicationDidEnterAnimationModeFromView:(UIView *)view
 {
     [EditMenuManager sharedManager].animationMode = YES;
     [[ToolbarManager sharedManager] showAnimationToolBarToViewController:self];
     [[EditMenuManager sharedManager] hideEditMenu];
-    [[EditMenuManager sharedManager] showEditMenuToView:content];
+    [[EditMenuManager sharedManager] showEditMenuToView:view];
+    [[ControlPointManager sharedManager] updateControlPointColor];
 }
 
-- (void) editMenu:(ContentEditMenuView *)editMenu willShowAnimationEditorForContent:(UIView *)view forType:(AnimationType)animationType
+- (void) applicationDidExitAnimationMode
 {
-    [[AnimationEditorManager sharedManager] showAnimationEditorFromRect:editMenu.frame inView:self.view forContent:view animationType:animationType];
+    [[ToolbarManager sharedManager] showEditingToolBarToViewController:self];
+    [EditMenuManager sharedManager].animationMode = NO;
+    [[EditMenuManager sharedManager] hideEditMenu];
+    [[ControlPointManager sharedManager] updateControlPointColor];
 }
 
 #pragma mark - SlideEditingToolbarDelegate
@@ -285,13 +297,6 @@
 }
 
 #pragma mark - AnimationToolbarDelegate
-- (void) exitAnimationMode
-{
-    [[ToolbarManager sharedManager] showEditingToolBarToViewController:self];
-    [EditMenuManager sharedManager].animationMode = NO;
-    [[EditMenuManager sharedManager] hideEditMenu];
-}
-
 - (void) playAnimationForCurrentSelectedView
 {
     

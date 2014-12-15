@@ -14,6 +14,7 @@
 #import "KeyConstants.h"
 #import "TextContainerView.h"
 #import "DrawingConstants.h"
+#import "AnimationModeManager.h"
 
 @interface ControlPointManager ()<BorderControlPointViewDelegate>
 @property (nonatomic, strong) BorderControlPointView *topLeftControlPoint;
@@ -43,14 +44,14 @@ static ControlPointManager *sharedInstance;
 {
     self = [super init];
     if (self) {
-        _topLeftControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationTopLeft delegate:self];
-        _topMiddleControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationTopMiddle delegate:self];
-        _topRightControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationTopRight delegate:self];
-        _middleLeftControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationMiddleLeft delegate:self];
-        _middleRightControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationMiddleRight delegate:self];
-        _bottomLeftControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationBottomLeft delegate:self];
-        _bottomMiddleControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationBottomMiddle delegate:self];
-        _bottomRightControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationBottomRight delegate:self];
+        _topLeftControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationTopLeft delegate:self color:[self borderColor]];
+        _topMiddleControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationTopMiddle delegate:self color:[self borderColor]];
+        _topRightControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationTopRight delegate:self color:[self borderColor]];
+        _middleLeftControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationMiddleLeft delegate:self color:[self borderColor]];
+        _middleRightControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationMiddleRight delegate:self color:[self borderColor]];
+        _bottomLeftControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationBottomLeft delegate:self color:[self borderColor]];
+        _bottomMiddleControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationBottomMiddle delegate:self color:[self borderColor]];
+        _bottomRightControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationBottomRight delegate:self color:[self borderColor]];
 
     }
     return self;
@@ -363,7 +364,19 @@ translationInSuperView:(CGPoint)translationInSuperView
 
 - (UIColor *) borderColor
 {
-    return [UIColor colorWithRed:0 green:0.478431 blue:1 alpha:1];
+    return [[AnimationModeManager sharedManager] isInAnimationMode] ? [UIColor yellowColor] : [UIColor colorWithRed:0 green:0.478431 blue:1 alpha:1];
+}
+
+- (void) updateControlPointColor
+{
+    self.topLeftControlPoint.fillColor = [self borderColor];
+    self.topMiddleControlPoint.fillColor = [self borderColor];
+    self.topRightControlPoint.fillColor = [self borderColor];
+    self.middleLeftControlPoint.fillColor = [self borderColor];
+    self.middleRightControlPoint.fillColor = [self borderColor];
+    self.bottomLeftControlPoint.fillColor = [self borderColor];
+    self.bottomMiddleControlPoint.fillColor = [self borderColor];
+    self.bottomRightControlPoint.fillColor = [self borderColor];
 }
 
 - (CGFloat) viewRotateRadians

@@ -7,10 +7,10 @@
 //
 
 #import "AnimationToolbarViewController.h"
-
+#import "AnimationModeManager.h"
 @implementation AnimationToolbarViewController
 - (IBAction)exitAnimationMode:(id)sender {
-    [self.delegate exitAnimationMode];
+    [[AnimationModeManager sharedManager] exitAnimationMode];
 }
 
 

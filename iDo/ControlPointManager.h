@@ -34,4 +34,5 @@
 - (CGRect) borderRectFromContainerViewBounds:(CGRect) containerViewBounds;
 - (void) enableControlPoints;
 - (UIColor *) borderColor;
+- (void) updateControlPointColor;
 @end

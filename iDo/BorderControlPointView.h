@@ -37,9 +37,11 @@ typedef NS_ENUM(NSUInteger, ControlPointLocation) {
 @interface BorderControlPointView : UIView
 
 @property (nonatomic) ControlPointLocation location;
+@property (nonatomic, strong) UIColor *fillColor;
 @property (nonatomic, weak) id<BorderControlPointViewDelegate> delegate;
 
 - (instancetype) initWithControlPointLocation:(ControlPointLocation) location
-                                     delegate:(id<BorderControlPointViewDelegate>) delegate;
+                                     delegate:(id<BorderControlPointViewDelegate>) delegate
+                                        color:(UIColor *)fillColor;
 
 @end
