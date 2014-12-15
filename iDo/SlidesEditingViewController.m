@@ -20,6 +20,7 @@
 #import "EditMenuManager.h"
 #import "ColorSelectionManager.h"
 #import "AnimationAttributesHelper.h"
+#import "AnimationOrderManager.h"
 @interface SlidesEditingViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, OperationTarget>
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 @end
@@ -234,6 +235,7 @@
 {
     [AnimationAttributesHelper updateContentAttributes:[self.currentSelectedContent attributes] withAnimationDescription:animation];
     [[EditMenuManager sharedManager] updateEditMenuWithAnimationName:animation.animationName];
+    [[AnimationOrderManager sharedManager] applyAnimationOrderIndicatorToView:self.currentSelectedContent];
 }
 
 @end

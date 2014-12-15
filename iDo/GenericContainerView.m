@@ -19,6 +19,7 @@
 #import "RotationHelper.h"
 #import "CanvasView.h"
 #import "EditMenuManager.h"
+#import "AnimationOrderManager.h"
 @interface GenericContainerView()
 @property (nonatomic) BOOL currentlySelected;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
@@ -105,6 +106,7 @@
 {
     self.currentlySelected = NO;
     [[ControlPointManager sharedManager] removeAllControlPointsFromView:self];
+    [[AnimationOrderManager sharedManager] hideAnimationOrderIndicator];
     return [super resignFirstResponder];
 }
 
@@ -113,6 +115,7 @@
     [self.delegate contentViewWillBecomFirstResponder:self];
     self.currentlySelected = YES;
     [[ControlPointManager sharedManager] addAndLayoutControlPointsInView:self];
+    [[AnimationOrderManager sharedManager] applyAnimationOrderIndicatorToView:self];
     return [super becomeFirstResponder];
 }
 
@@ -152,6 +155,7 @@
     } else if (gesture.state == UIGestureRecognizerStateChanged) {
         [GenericContainerViewHelper applyRotation:gesture.rotation toView:self];
         [RotationHelper updateRotationIndicator];
+        [[AnimationOrderManager sharedManager] updateAnimationOrderIndicatorToView:self];
         gesture.rotation = 0;
     } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
         [RotationHelper hideRotationIndicator];
@@ -260,6 +264,11 @@
 {
     [ShadowHelper applyShadowToGenericContainerView:self];
     [ReflectionHelper applyReflectionViewToGenericContainerView:self];
+}
+
+- (NSArray *) animationAttributes
+{
+    return [self.attributes objectForKey:[KeyConstants animationsKey]];
 }
 
 @end

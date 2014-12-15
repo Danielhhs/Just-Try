@@ -22,6 +22,7 @@
 #import "ToolbarManager.h"
 #import "AnimationEditorManager.h"
 #import "AnimationModeManager.h"
+#import "AnimationOrderManager.h"
 
 @interface SlidesContainerViewController ()<SlidesEditingViewControllerDelegate, SlidesThumbnailViewControllerDelegate, ContentEditMenuViewDelegate, SlideEditingToolbarDelegate, AnimationToolbarViewControllerDelegate, AnimationModeManagerDelegate>
 @property (nonatomic) NSInteger currentSelectSlideIndex;
@@ -247,6 +248,7 @@
     [[ToolbarManager sharedManager] showEditingToolBarToViewController:self];
     [[EditMenuManager sharedManager] hideEditMenu];
     [[ControlPointManager sharedManager] updateControlPointColor];
+    [[AnimationOrderManager sharedManager] hideAnimationOrderIndicator];
 }
 
 #pragma mark - SlideEditingToolbarDelegate

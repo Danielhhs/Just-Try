@@ -20,6 +20,7 @@
 - (UIView *) superview;
 - (void) controlPointDidStartMoving;
 - (void) controlPointDidFinishMoving;
+- (NSArray *) animationAttributes;
 @end
 
 @interface ControlPointManager : NSObject

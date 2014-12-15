@@ -15,7 +15,6 @@
 #import "TextContainerView.h"
 #import "DrawingConstants.h"
 #import "AnimationModeManager.h"
-
 @interface ControlPointManager ()<BorderControlPointViewDelegate>
 @property (nonatomic, strong) BorderControlPointView *topLeftControlPoint;
 @property (nonatomic, strong) BorderControlPointView *topMiddleControlPoint;
@@ -52,7 +51,6 @@ static ControlPointManager *sharedInstance;
         _bottomLeftControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationBottomLeft delegate:self color:[self borderColor]];
         _bottomMiddleControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationBottomMiddle delegate:self color:[self borderColor]];
         _bottomRightControlPoint = [[BorderControlPointView alloc] initWithControlPointLocation:ControlPointLocationBottomRight delegate:self color:[self borderColor]];
-
     }
     return self;
 }
