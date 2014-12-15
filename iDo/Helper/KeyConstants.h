@@ -52,6 +52,13 @@
 + (NSString *) imageNameKey;
 + (NSString *) filterKey;
 
+#pragma mark - Animiation
++ (NSString *) animationsKey;
++ (NSString *) animationDurationKey;
++ (NSString *) animationTypeKey;
++ (NSString *) animationIndexKey;
++ (NSString *) animationTriggerTimeKey;
+
 +(NSString *) addKey;
 +(NSString *) deleteKey;
 + (NSString *) uniqueKey;

@@ -68,6 +68,7 @@
 		545C4C8F1A3E9123002604FA /* AnimationModeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C8E1A3E9123002604FA /* AnimationModeManager.m */; };
 		545C4C921A3EA683002604FA /* AnimationDirectionSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C911A3EA683002604FA /* AnimationDirectionSelectionView.m */; };
 		545C4C951A3EA882002604FA /* AnimationParameterSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C941A3EA882002604FA /* AnimationParameterSlider.m */; };
+		545C4C981A3EB25D002604FA /* Animation+iDo.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4C971A3EB25D002604FA /* Animation+iDo.m */; };
 		546457BD19F1074900078EAF /* BasicImageEditorContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */; };
 		546457C019F1096200078EAF /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546457BF19F1096200078EAF /* CoreImage.framework */; };
 		546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 546457C319F10C1700078EAF /* UIView+Snapshot.m */; };
@@ -273,6 +274,8 @@
 		545C4C911A3EA683002604FA /* AnimationDirectionSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationDirectionSelectionView.m; path = AnimationEditor/AnimationDirectionSelectionView.m; sourceTree = "<group>"; };
 		545C4C931A3EA882002604FA /* AnimationParameterSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationParameterSlider.h; path = AnimationEditor/AnimationParameterSlider.h; sourceTree = "<group>"; };
 		545C4C941A3EA882002604FA /* AnimationParameterSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationParameterSlider.m; path = AnimationEditor/AnimationParameterSlider.m; sourceTree = "<group>"; };
+		545C4C961A3EB25D002604FA /* Animation+iDo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Animation+iDo.h"; path = "Model/CoreData/Category/Animation+iDo.h"; sourceTree = "<group>"; };
+		545C4C971A3EB25D002604FA /* Animation+iDo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Animation+iDo.m"; path = "Model/CoreData/Category/Animation+iDo.m"; sourceTree = "<group>"; };
 		546457BA19F1074900078EAF /* BasicImageEditorContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicImageEditorContentViewController.h; path = EditorViewControllers/BasicImageEditorContentViewController.h; sourceTree = "<group>"; };
 		546457BB19F1074900078EAF /* BasicImageEditorContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicImageEditorContentViewController.m; path = EditorViewControllers/BasicImageEditorContentViewController.m; sourceTree = "<group>"; };
 		546457BF19F1096200078EAF /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -512,6 +515,8 @@
 				54F0C4551A0CAE0C009B4B0D /* Slide+iDo.m */,
 				54F0C4841A0DC85A009B4B0D /* Proposal+iDo.h */,
 				54F0C4851A0DC85A009B4B0D /* Proposal+iDo.m */,
+				545C4C961A3EB25D002604FA /* Animation+iDo.h */,
+				545C4C971A3EB25D002604FA /* Animation+iDo.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -1252,6 +1257,7 @@
 				546457BD19F1074900078EAF /* BasicImageEditorContentViewController.m in Sources */,
 				543FE0E01A2813DD002276D7 /* UIImage+ANImageBitmapRep.m in Sources */,
 				543FE0E41A2813DD002276D7 /* BitmapCropManipulator.m in Sources */,
+				545C4C981A3EB25D002604FA /* Animation+iDo.m in Sources */,
 				545C4B7D1A358366002604FA /* AnimationOrderIndicatorView.m in Sources */,
 				547DCA071A04CB4C004691EC /* ImageEditorPanelContainerViewController.m in Sources */,
 			);

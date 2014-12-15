@@ -15,6 +15,7 @@
 #import "CanvasView.h"
 #import "AnimationEditMenuItem.h"
 #import "AnimationModeManager.h"
+#import "DrawingConstants.h"
 
 #define SEPARATOR_WIDTH 1
 #define EDIT_MENU_ARROW_HEIGHT 10
@@ -137,7 +138,7 @@
     [self layoutButtons];
     self.alpha = 0;
     self.hidden = NO;
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:[DrawingConstants counterGoldenRatio] animations:^{
         self.alpha = 1;
     }];
     [self setNeedsDisplay];
@@ -152,7 +153,7 @@
     [self layoutButtons];
     self.alpha = 0;
     self.hidden = NO;
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:[DrawingConstants counterGoldenRatio] animations:^{
         self.alpha = 1;
     }];
     [self setNeedsDisplay];

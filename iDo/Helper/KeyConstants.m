@@ -173,6 +173,32 @@
     return @"FILTER";
 }
 
+#pragma mark - Animation
++ (NSString *) animationsKey
+{
+    return @"ANIMATIONS";
+}
+
++ (NSString *) animationDurationKey
+{
+    return @"ANIMATION_DURATION";
+}
+
++ (NSString *) animationTypeKey
+{
+    return @"ANIMATION_TYPE";
+}
+
++ (NSString *) animationIndexKey
+{
+    return @"ANIMATION_INDEX";
+}
+
++ (NSString *) animationTriggerTimeKey
+{
+    return @"ANIMATION_TRIGGER_TIME";
+}
+
 #pragma mark - Operation
 
 + (NSString *) addKey

@@ -9,6 +9,7 @@
 #import "GenericConent+iDo.h"
 #import "KeyConstants.h"
 #import "CoreDataHelper.h"
+#import "Animation+iDo.h"
 
 @implementation GenericConent (iDo)
 
@@ -39,6 +40,11 @@
     [attributes setValue:content.shadowSize forKey:[KeyConstants shadowSizeKey]];
     [attributes setValue:content.rotation forKey:[KeyConstants rotationKey]];
     [attributes setValue:[CoreDataHelper decodeNSData:content.transform] forKey:[KeyConstants transformKey]];
+    NSMutableArray *animations = [NSMutableArray array];
+    for (Animation *animation in content.animations) {
+        [animations addObject:[Animation attributesFromAnimation:animation]];
+    }
+    [attributes setValue:animations forKey:[KeyConstants animationsKey]];
     return attributes;
 }
 
@@ -58,5 +64,12 @@
     content.shadowSize = attributes[[KeyConstants shadowSizeKey]];
     content.rotation = attributes[[KeyConstants rotationKey]];
     content.transform = [CoreDataHelper encodeObject:attributes[[KeyConstants transformKey]]];
+    NSMutableSet *animations = [NSMutableSet set];
+    NSArray *animationArray = attributes[[KeyConstants animationsKey]];
+    for (NSDictionary *animationAttributes in animationArray) {
+        Animation *animation = [Animation animationFromAttributes:animationAttributes inManagedObjectContext:manageObjectContext];
+        [animations addObject:animation];
+    }
+    content.animations = animations;
 }
 @end
