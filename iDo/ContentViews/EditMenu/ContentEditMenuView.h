@@ -43,4 +43,5 @@ typedef NS_ENUM(NSInteger, EditMenuAvailableOperation) {
 - (void) showWithAvailableOperations:(NSArray *) availableOperations toCanvas:(CanvasView *) canvas;
 - (void) hide;
 - (void) update;
+- (void) updateEditAnimationItemWithAnimationName:(NSString *) animationName;
 @end

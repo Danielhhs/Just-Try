@@ -8,17 +8,21 @@
 
 #import "AnimationTypeTableViewCell.h"
 
+@interface AnimationTypeTableViewCell ()
+@end
+
 @implementation AnimationTypeTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code
     self.backgroundColor = [UIColor clearColor];
+    UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
+    backgroundView.backgroundColor = self.tintColor;
+    self.selectedBackgroundView = backgroundView;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

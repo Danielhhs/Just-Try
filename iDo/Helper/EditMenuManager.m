@@ -157,4 +157,9 @@ static EditMenuManager *sharedInstance;
 {
     [self.editMenu update];
 }
+
+- (void) updateEditMenuWithAnimationName:(NSString *)animationName
+{
+    [self.editMenu updateEditAnimationItemWithAnimationName:animationName];
+}
 @end

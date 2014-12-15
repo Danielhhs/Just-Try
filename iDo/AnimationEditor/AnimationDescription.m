@@ -10,4 +10,20 @@
 
 @implementation AnimationDescription
 
+- (instancetype) initWithAnimationName:(NSString *)animationName parameters:(AnimationParameters *)parameters
+{
+    self = [super init];
+    if (self) {
+        _animationName = animationName;
+        _parameters = parameters;
+    }
+    return self;
+}
+
++ (AnimationDescription *) animationDescriptionWithAnimationName:(NSString *)animationName duration:(NSTimeInterval)duration permittedDirection:(AnimationPermittedDirection)direction timeAfterLastAnimation:(NSTimeInterval)timeAfterLastAnimation
+{
+    AnimationParameters *parameters = [AnimationParameters animationParametersWithDuration:duration permittedDirection:direction timeAfterPreviousAnimation:timeAfterLastAnimation];
+    AnimationDescription *animation = [[AnimationDescription alloc] initWithAnimationName:animationName parameters:parameters];
+    return animation;
+}
 @end

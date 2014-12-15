@@ -9,7 +9,8 @@
 #import "AnimationTypeSelectionViewController.h"
 #import "AnimationTypeTableViewCell.h"
 #import "AnimationTypesGenerator.h"
-@interface AnimationTypeSelectionViewController ()<UITableViewDataSource>
+#import "AnimationDescription.h"
+@interface AnimationTypeSelectionViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *animationTypesTableView;
 @property (nonatomic, strong) NSArray *animationTypes;
 @end
@@ -24,7 +25,7 @@
 {
     if (_animationType != animationType) {
         _animationType = animationType;
-        self.animationTypes = [AnimationTypesGenerator animationTypesForContentView:self.animationTarget type:animationType];
+        self.animationTypes = [[AnimationTypesGenerator generator] animationTypesForContentView:self.animationTarget type:animationType];
         [self.animationTypesTableView reloadData];
     }
 }
@@ -33,7 +34,7 @@
 {
     if (_animationTarget != animationTarget) {
         _animationTarget = animationTarget;
-        self.animationTypes = [AnimationTypesGenerator animationTypesForContentView:self.animationTarget type:self.animationType];
+        self.animationTypes = [[AnimationTypesGenerator generator] animationTypesForContentView:self.animationTarget type:self.animationType];
         [self.animationTypesTableView reloadData];
     }
 }
@@ -54,9 +55,15 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AnimationTypeTableViewCell"];
     
     if ([cell isKindOfClass:[AnimationTypeTableViewCell class]]) {
-        cell.textLabel.text = self.animationTypes[indexPath.row];
+        AnimationDescription *animation = self.animationTypes[indexPath.row];
+        cell.textLabel.text = animation.animationName;
     }
     return cell;
 }
 
+#pragma mark - UITableViewDelegate
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.delegate animationEditorDidSelectAnimation:self.animationTypes[indexPath.row]];
+}
 @end

@@ -9,7 +9,7 @@
 #import "AnimationEditorContainerViewController.h"
 #import "AnimationTypeSelectionViewController.h"
 #import "AnimationParameterViewController.h"
-@interface AnimationEditorContainerViewController ()
+@interface AnimationEditorContainerViewController ()<AnimationTypeSelectionViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *editorSegment;
 @property (nonatomic, strong) AnimationTypeSelectionViewController *typeSelectionViewController;
 @property (nonatomic, strong) AnimationParameterViewController *parameterInputViewController;
@@ -25,6 +25,7 @@
     
     if (!_typeSelectionViewController) {
         _typeSelectionViewController = [[UIStoryboard storyboardWithName:@"AnimationEditorViewControllers" bundle:nil] instantiateViewControllerWithIdentifier:@"AnimationTypeSelectionViewController"];
+        _typeSelectionViewController.delegate = self;
     }
     return _typeSelectionViewController;
 }
@@ -102,6 +103,11 @@
 {
     [self hideAnimationTypeSelectionViewController];
     [self hideAnimationParameterViewController];
+}
+#pragma mark - AnimationTypeSelectionViewControllerDelegate
+- (void) animationEditorDidSelectAnimation:(AnimationDescription *)animation
+{
+    [self.delegate animationEditorDidSelectAnimation:animation];
 }
 
 @end

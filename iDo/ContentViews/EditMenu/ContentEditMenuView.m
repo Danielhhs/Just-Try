@@ -37,6 +37,7 @@
 @property (nonatomic, strong) NSMutableArray *separatorLocations;
 @property (nonatomic, weak) UIView *trigger;
 @property (nonatomic) CGFloat itemHeight;
+@property (nonatomic, weak) EditMenuItem *currentSelectedItem;
 @end
 
 @implementation ContentEditMenuView
@@ -109,17 +110,20 @@
 
 - (void) handleAnimateIn
 {
+    self.currentSelectedItem = self.animateInButton;
     [self.delegate editMenu:self willShowAnimationEditorForContent:self.triggeredContent forType:AnimationTypeBuiltIn];
     [self.animateInButton restoreNormalState];
 }
 
 - (void) handleAnimateOut
 {
+    self.currentSelectedItem = self.animateOutButton;
     [self.animateOutButton restoreNormalState];
 }
 
 - (void) handleTransitionIn
 {
+    self.currentSelectedItem = self.transitionButton;
     [self.transitionInButton restoreNormalState];
 }
 
@@ -269,5 +273,11 @@
     }
 }
 
-
+- (void) updateEditAnimationItemWithAnimationName:(NSString *)animationName
+{
+    if ([self.currentSelectedItem isKindOfClass:[AnimationEditMenuItem class]]) {
+        AnimationEditMenuItem *item = (AnimationEditMenuItem *)self.currentSelectedItem;
+        item.animationTitle = animationName;
+    }
+}
 @end

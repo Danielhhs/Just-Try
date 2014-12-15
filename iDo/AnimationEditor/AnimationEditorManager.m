@@ -52,11 +52,12 @@ static AnimationEditorManager *sharedInstance;
     self.animationEditorContainer.animationType = animationType;
     UIPopoverArrowDirection direction = UIPopoverArrowDirectionDown | UIPopoverArrowDirectionUp;
     if (animationType == AnimationTypeBuiltIn) {
-        direction = UIPopoverArrowDirectionLeft | direction;
-    } else {
         direction = UIPopoverArrowDirectionRight | direction;
+    } else {
+        direction = UIPopoverArrowDirectionLeft | direction;
     }
-    [self.animationEditorPopover presentPopoverFromRect:rect inView:view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    self.animationEditorPopover.popoverContentSize = CGSizeMake(250, 450);
+    [self.animationEditorPopover presentPopoverFromRect:rect inView:view permittedArrowDirections:direction animated:YES];
 }
 
 @end

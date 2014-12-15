@@ -37,14 +37,14 @@
         self.type = type;
         _hasAnimation = hasAnimation;
         
-        NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont boldSystemFontOfSize:18]}];
+        NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:[self titleTextAttributes]];
         CGRect titleBounds = [attributedTitle boundingRectWithSize:CGSizeZero options:0 context:nil];
         self.animationTitleLabel = [[UILabel alloc] initWithFrame:titleBounds];
         self.animationTitleLabel.attributedText = attributedTitle;
         self.animationTitleLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:self.animationTitleLabel];
         if (subtitle) {
-            NSAttributedString *attributedSubTitle = [[NSAttributedString alloc] initWithString:subtitle attributes:@{NSForegroundColorAttributeName : [UIColor colorWithWhite:0.9 alpha:0.9], NSFontAttributeName : [UIFont boldSystemFontOfSize:15]}];
+            NSAttributedString *attributedSubTitle = [[NSAttributedString alloc] initWithString:subtitle attributes:[self subTitleTextAttribtues]];
             CGRect subTitleBounds = [attributedSubTitle boundingRectWithSize:CGSizeZero options:0 context:nil];
             self.subTitleLabel = [[UILabel alloc] initWithFrame:subTitleBounds];
             self.subTitleLabel.backgroundColor = [UIColor clearColor];
@@ -60,6 +60,16 @@
         [self addTarget:self action:@selector(touchEnds) forControlEvents:(UIControlEventTouchDragExit | UIControlEventTouchCancel)];
     }
     return self;
+}
+
+- (NSDictionary *) titleTextAttributes
+{
+    return @{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont boldSystemFontOfSize:18]};
+}
+
+- (NSDictionary *) subTitleTextAttribtues
+{
+    return @{NSForegroundColorAttributeName : [UIColor colorWithWhite:0.9 alpha:0.9], NSFontAttributeName : [UIFont boldSystemFontOfSize:15]};
 }
 
 - (void) touchBegins
@@ -78,6 +88,17 @@
 {
     [super restoreNormalState];
     self.animationOrderIndicator.selected = NO;
+}
+
+- (void) setAnimationTitle:(NSString *)animationTitle
+{
+    _animationTitle = animationTitle;
+    NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:animationTitle attributes:[self titleTextAttributes]];
+    CGRect bounds = [attributedTitle boundingRectWithSize:CGSizeZero options:0 context:nil];
+    bounds.origin.y = 0;
+    self.animationTitleLabel.bounds = bounds;
+    self.animationTitleLabel.attributedText = attributedTitle;
+    [self layoutComponents];
 }
 
 - (void) layoutComponents

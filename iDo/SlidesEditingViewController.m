@@ -231,7 +231,7 @@
 #pragma mark - AnimationEditorContainerViewControllerDelegate
 - (void) animationEditorDidSelectAnimation:(AnimationDescription *)animation
 {
-    
+    [[EditMenuManager sharedManager] updateEditMenuWithAnimationName:animation.animationName];
 }
 
 @end

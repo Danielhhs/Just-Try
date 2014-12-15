@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "AnimationConstants.h"
 @interface AnimationTypesGenerator : NSObject
-
-+ (NSArray *) animationTypesForContentView:(UIView *) content type:(AnimationType) animationType;
++ (AnimationTypesGenerator *) generator;
+- (NSArray *) animationTypesForContentView:(UIView *) content type:(AnimationType) animationType;
 
 @end
