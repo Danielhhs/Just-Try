@@ -11,7 +11,7 @@
 @interface AnimationOrderManager : NSObject
 
 + (AnimationOrderManager *) sharedManager;
-- (void) applyAnimationOrderIndicatorToView:(GenericContainerView *) view;
+- (void) applyAnimationOrderIndicatorToView:(UIView *) view;
 - (void) updateAnimationOrderIndicatorToView:(UIView *) view;
 - (void) hideAnimationOrderIndicator;
 @end

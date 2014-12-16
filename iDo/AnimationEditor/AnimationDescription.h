@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "AnimationParameters.h"
 #import "AnimationConstants.h"
-@interface AnimationDescription : NSObject
+@interface AnimationDescription : NSObject<NSCopying>
 @property (nonatomic) AnimationEvent animationEvent;
 @property (nonatomic, strong) NSString *animationName;
 @property (nonatomic) AnimationEffect animationEffect;
@@ -18,6 +18,7 @@
 + (AnimationDescription *) animationDescriptionWithAnimationEffect:(AnimationEffect) animationEffect
                                                   animationEvent:(AnimationEvent) animationEvent
                                                         duration:(NSTimeInterval)duration
-                                              permittedDirection:(AnimationPermittedDirection) direction
+                                              permittedDirection:(AnimationPermittedDirection) permittedDirection
+                                               selectedDirection:(AnimationPermittedDirection) selectedDirection
                                           timeAfterLastAnimation:(NSTimeInterval) timeAfterLastAnimation;
 @end

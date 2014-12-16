@@ -56,11 +56,9 @@ static AnimationEditorManager *sharedInstance;
                       animationEvent:(AnimationEvent)animationEvent
 {
     self.animationEditorContainer.animationTarget = content;
-    self.animationEditorContainer.animationEvent = animationEvent;
     AnimationEffect animationEffect = [self findAnimationEffectFromView:content event:animationEvent];
     AnimationParameters *parameters = [self findAnimationParametersFromView:content event:animationEvent];
-    self.animationEditorContainer.animationParameters = parameters;
-    self.animationEditorContainer.animationEffect = animationEffect;
+    self.animationEditorContainer.animation = [AnimationDescription animationDescriptionWithAnimationEffect:animationEffect animationEvent:animationEvent duration:parameters.duration permittedDirection:parameters.permittedDirection selectedDirection:parameters.selectedDirection  timeAfterLastAnimation:parameters.timeAfterPreviousAnimation];
     UIPopoverArrowDirection direction = UIPopoverArrowDirectionRight | UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
     self.animationEditorPopover.popoverContentSize = CGSizeMake(250, 450);
     [self.animationEditorPopover presentPopoverFromRect:rect inView:view permittedArrowDirections:direction animated:YES];

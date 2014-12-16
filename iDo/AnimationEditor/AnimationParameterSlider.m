@@ -56,12 +56,14 @@
 {
     [super touchesEnded:touches withEvent:event];
     self.tooltip.hidden = YES;
+    [self.delegate slider:self didChangeValue:self.value];
 }
 
 - (void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesCancelled:touches withEvent:event];
     self.tooltip.hidden = YES;
+    [self.delegate slider:self didChangeValue:self.value];
 }
 
 @end

@@ -46,7 +46,7 @@ static DefaultAnimationGenerator *sharedInstance;
 - (AnimationDescription *) breakAnimation
 {
     if (!_breakAnimation) {
-        _breakAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectBreak animationEvent:AnimationEventUnknown duration:2.f permittedDirection:AnimationPermittedDirectionHorizontal timeAfterLastAnimation:2.f];
+        _breakAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectBreak animationEvent:AnimationEventUnknown duration:2.f permittedDirection:AnimationPermittedDirectionHorizontal selectedDirection:AnimationPermittedDirectionLeft timeAfterLastAnimation:2.f];
     }
     return _breakAnimation;
 }
@@ -54,7 +54,7 @@ static DefaultAnimationGenerator *sharedInstance;
 - (AnimationDescription *) anvilAnimation
 {
     if (!_anvilAnimation) {
-        _anvilAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectAnvil animationEvent:AnimationEventUnknown duration:2.f permittedDirection:AnimationPermittedDirectionUp timeAfterLastAnimation:2.f];
+        _anvilAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectAnvil animationEvent:AnimationEventUnknown duration:2.f permittedDirection:AnimationPermittedDirectionUp selectedDirection:AnimationPermittedDirectionUp timeAfterLastAnimation:2.f];
     }
     return _anvilAnimation;
 }
@@ -62,7 +62,7 @@ static DefaultAnimationGenerator *sharedInstance;
 - (AnimationDescription *) fireworkAnimation
 {
     if (!_fireworkAnimation) {
-        _fireworkAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectFirework animationEvent:AnimationEventUnknown duration:2.f permittedDirection:AnimationPermittedDirectionBottom timeAfterLastAnimation:2.f];
+        _fireworkAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectFirework animationEvent:AnimationEventUnknown duration:2.f permittedDirection:AnimationPermittedDirectionBottom selectedDirection:AnimationPermittedDirectionBottom timeAfterLastAnimation:2.f];
     }
     return _fireworkAnimation;
 }
@@ -70,7 +70,7 @@ static DefaultAnimationGenerator *sharedInstance;
 - (AnimationDescription *) flameAnimation
 {
     if (!_flameAnimation) {
-        _flameAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectFlame animationEvent:AnimationEventUnknown duration:2.f permittedDirection:AnimationPermittedDirectionBottom timeAfterLastAnimation:2.f];
+        _flameAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectFlame animationEvent:AnimationEventUnknown duration:2.f permittedDirection:AnimationPermittedDirectionBottom selectedDirection:AnimationPermittedDirectionBottom timeAfterLastAnimation:2.f];
     }
     return _flameAnimation;
 }
@@ -78,7 +78,7 @@ static DefaultAnimationGenerator *sharedInstance;
 - (AnimationDescription *) rotateAnimation
 {
     if (!_rotateAnimation) {
-        _rotateAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectRotate animationEvent:AnimationEventUnknown duration:2.f permittedDirection:AnimationPermittedDirectionHorizontal timeAfterLastAnimation:2.f];
+        _rotateAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectRotate animationEvent:AnimationEventUnknown duration:2.f permittedDirection:AnimationPermittedDirectionHorizontal selectedDirection:AnimationPermittedDirectionLeft timeAfterLastAnimation:2.f];
     }
     return _rotateAnimation;
 }
@@ -86,7 +86,7 @@ static DefaultAnimationGenerator *sharedInstance;
 - (AnimationDescription *) resolveAnimation
 {
     if (!_resolveAnimation) {
-        _resolveAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectResolve animationEvent:AnimationEventUnknown duration:2.f permittedDirection:AnimationPermittedDirectionAny timeAfterLastAnimation:2.f];
+        _resolveAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectResolve animationEvent:AnimationEventUnknown duration:2.f permittedDirection:AnimationPermittedDirectionAny selectedDirection:AnimationPermittedDirectionLeft timeAfterLastAnimation:2.f];
     }
     return _resolveAnimation;
 }
@@ -94,7 +94,7 @@ static DefaultAnimationGenerator *sharedInstance;
 - (AnimationDescription *) jumpAnimation
 {
     if (!_jumpAnimation) {
-        _jumpAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectJump animationEvent:AnimationEventUnknown duration:2.f permittedDirection:AnimationPermittedDirectionHorizontal timeAfterLastAnimation:2.f];
+        _jumpAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectJump animationEvent:AnimationEventUnknown duration:2.f permittedDirection:AnimationPermittedDirectionHorizontal selectedDirection:AnimationPermittedDirectionLeft timeAfterLastAnimation:2.f];
     }
     return _jumpAnimation;
 }
@@ -102,7 +102,7 @@ static DefaultAnimationGenerator *sharedInstance;
 - (AnimationDescription *) typerAnimation
 {
     if (!_typerAnimation) {
-        _typerAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectTyper animationEvent:AnimationEventUnknown duration:2.f permittedDirection:AnimationPermittedDirectionLeft timeAfterLastAnimation:2.f];
+        _typerAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectTyper animationEvent:AnimationEventUnknown duration:2.f permittedDirection:AnimationPermittedDirectionLeft selectedDirection:AnimationPermittedDirectionLeft timeAfterLastAnimation:2.f];
     }
     return _typerAnimation;
 }
@@ -110,7 +110,7 @@ static DefaultAnimationGenerator *sharedInstance;
 - (AnimationDescription *) noAnimation
 {
     if (!_noAnimation) {
-        _noAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectNone animationEvent:AnimationEventUnknown duration:0 permittedDirection:AnimationPermittedDirectionAny timeAfterLastAnimation:0];
+        _noAnimation = [AnimationDescription animationDescriptionWithAnimationEffect:AnimationEffectNone animationEvent:AnimationEventUnknown duration:0 permittedDirection:AnimationPermittedDirectionNone selectedDirection:AnimationPermittedDirectionNone timeAfterLastAnimation:0];
     }
     return _noAnimation;
 }

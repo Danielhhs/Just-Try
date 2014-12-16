@@ -26,6 +26,7 @@
 {
     [super viewDidAppear:animated];
     [self.animationTypesTableView selectRowAtIndexPath:[NSIndexPath indexPathForItem:self.selectedEffectIndex inSection:0] animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+    [self.delegate animationEditorInitializedWithAnimation:self.animationTypes[self.selectedEffectIndex]];
 }
 
 - (void) setAnimationEvent:(AnimationEvent)animationEvent

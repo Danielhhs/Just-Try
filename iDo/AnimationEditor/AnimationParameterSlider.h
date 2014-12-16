@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@class AnimationParameterSlider;
+@protocol AnimationParameterSliderDelegate <NSObject>
+
+- (void) slider:(AnimationParameterSlider *) slider didChangeValue:(CGFloat) value;
+
+@end
 
 @interface AnimationParameterSlider : UISlider
+
+@property (nonatomic, weak) id<AnimationParameterSliderDelegate> delegate;
 
 @end

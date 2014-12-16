@@ -234,6 +234,10 @@
 - (void) animationEditorDidSelectAnimation:(AnimationDescription *)animation
 {
     [AnimationAttributesHelper updateContentAttributes:[self.currentSelectedContent attributes] withAnimationDescription:animation];
+}
+
+- (void) animationEditorDidUpdateAnimationEffect:(AnimationDescription *) animation
+{
     [[EditMenuManager sharedManager] updateEditMenuWithAnimationName:animation.animationName];
     [[AnimationOrderManager sharedManager] applyAnimationOrderIndicatorToView:self.currentSelectedContent];
 }

@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "AnimationParameters.h"
+@protocol AnimationParameterViewControllerDelegate
+- (void) animationParameterViewControllerDidChangeAnimationParameters:(AnimationParameters *) animaitonParameters;
+@end
+
 @interface AnimationParameterViewController : UIViewController
 
 @property (nonatomic, strong) AnimationParameters *animationParameters;
 @property (nonatomic) AnimationPermittedDirection permittedDirection;
+@property (nonatomic, weak) id<AnimationParameterViewControllerDelegate> delegate;
 @end

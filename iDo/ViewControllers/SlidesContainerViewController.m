@@ -241,6 +241,7 @@
     [[ToolbarManager sharedManager] showAnimationToolBarToViewController:self];
     [[EditMenuManager sharedManager] hideEditMenu];
     [[EditMenuManager sharedManager] showEditMenuToView:view];
+    [[AnimationOrderManager sharedManager] applyAnimationOrderIndicatorToView:view];
     [[ControlPointManager sharedManager] updateControlPointColor];
     [self allContentViewDidResignFirstResponder];
 }

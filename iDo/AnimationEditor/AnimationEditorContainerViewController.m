@@ -34,6 +34,7 @@
 {
     if (!_parameterInputViewController) {
         _parameterInputViewController = [[UIStoryboard storyboardWithName:@"AnimationEditorViewControllers" bundle:nil] instantiateViewControllerWithIdentifier:@"AnimationParameterViewController"];
+//        self.parameterInputViewController.delegate = self;
     }
     return _parameterInputViewController;
 }
@@ -59,22 +60,12 @@
     self.typeSelectionViewController.animationTarget = animationTarget;
 }
 
-- (void) setAnimationEvent:(AnimationEvent)animationEvent
+- (void) setAnimation:(AnimationDescription *)animation
 {
-    _animationEvent = animationEvent;
-    self.typeSelectionViewController.animationEvent = animationEvent;
-}
-
-- (void) setAnimationEffect:(AnimationEffect)animationEffect
-{
-    _animationEffect = animationEffect;
-    self.typeSelectionViewController.animationEffect = animationEffect;
-}
-
-- (void) setAnimationParameters:(AnimationParameters *)animationParameters
-{
-    _animationParameters = animationParameters;
-    self.parameterInputViewController.animationParameters = animationParameters;
+    _animation = animation;
+    self.typeSelectionViewController.animationEvent = animation.animationEvent;
+    self.typeSelectionViewController.animationEffect = animation.animationEffect;
+    self.parameterInputViewController.animationParameters = animation.parameters;
 }
 
 #pragma mark - AnimationTypeSelectionViewController
@@ -119,8 +110,21 @@
 #pragma mark - AnimationTypeSelectionViewControllerDelegate
 - (void) animationEditorDidSelectAnimation:(AnimationDescription *)animation
 {
-    [self.delegate animationEditorDidSelectAnimation:animation];
-    self.parameterInputViewController.animationParameters = animation.parameters;
+    self.animation = [animation copyWithZone:nil];
+    self.parameterInputViewController.animationParameters = self.animation.parameters;
+    [self.delegate animationEditorDidUpdateAnimationEffect:animation];
+}
+
+- (void) animationEditorInitializedWithAnimation:(AnimationDescription *)animation
+{
+    self.parameterInputViewController.permittedDirection = animation.parameters.permittedDirection;
+}
+
+#pragma mark - Memory Management
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [self.delegate animationEditorDidSelectAnimation:self.animation];
+    [super viewWillDisappear:animated];
 }
 
 @end

@@ -25,10 +25,17 @@
 + (AnimationDescription *) animationDescriptionWithAnimationEffect:(AnimationEffect) animationEffect
                                                   animationEvent:(AnimationEvent) animationEvent
                                                         duration:(NSTimeInterval)duration
-                                              permittedDirection:(AnimationPermittedDirection) direction
+                                              permittedDirection:(AnimationPermittedDirection) permittedDirection
+                                                 selectedDirection:(AnimationPermittedDirection) selectedDirection
                                           timeAfterLastAnimation:(NSTimeInterval) timeAfterLastAnimation {
-    AnimationParameters *parameters = [AnimationParameters animationParametersWithDuration:duration permittedDirection:direction timeAfterPreviousAnimation:timeAfterLastAnimation];
+    AnimationParameters *parameters = [AnimationParameters animationParametersWithDuration:duration permittedDirection:permittedDirection selectedDirection:selectedDirection timeAfterPreviousAnimation:timeAfterLastAnimation];
     AnimationDescription *animation = [[AnimationDescription alloc] initWithAnimationEffect:animationEffect forEvent:animationEvent parameters:parameters];
     return animation;
+}
+
+- (id) copyWithZone:(NSZone *)zone
+{
+    AnimationDescription *copyAnimation = [[AnimationDescription alloc] initWithAnimationEffect:self.animationEffect forEvent:self.animationEvent parameters:[self.parameters copyWithZone:nil]];
+    return copyAnimation;
 }
 @end

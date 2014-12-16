@@ -11,6 +11,7 @@
 #import "AnimationDescription.h"
 @protocol AnimationTypeSelectionViewControllerDelegate
 - (void) animationEditorDidSelectAnimation:(AnimationDescription *) animation;
+- (void) animationEditorInitializedWithAnimation:(AnimationDescription *) animation;
 @end
 @interface AnimationTypeSelectionViewController : UIViewController
 

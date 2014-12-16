@@ -11,12 +11,11 @@
 #import "AnimationConstants.h"
 @protocol AnimationEditorContainerViewControllerDelegate
 - (void) animationEditorDidSelectAnimation:(AnimationDescription *) animation;
+- (void) animationEditorDidUpdateAnimationEffect:(AnimationDescription *) animation;
 @end
 
 @interface AnimationEditorContainerViewController : UIViewController
-@property (nonatomic) AnimationEvent animationEvent;
-@property (nonatomic) AnimationEffect animationEffect;
-@property (nonatomic, strong) AnimationParameters *animationParameters;
+@property (nonatomic, strong) AnimationDescription *animation;
 @property (nonatomic, weak) UIView *animationTarget;
 @property (nonatomic, weak) id<AnimationEditorContainerViewControllerDelegate> delegate;
 @end

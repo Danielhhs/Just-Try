@@ -68,7 +68,10 @@
 #pragma mark - AnimationDirectionArrowViewDelegate
 - (void) didSelectDirection:(AnimationPermittedDirection)direction
 {
-    self.selectedDirection = direction;
+    if (self.selectedDirection != direction) {
+        self.selectedDirection = direction;
+        [self.delegate animationDirectionSelectionViewDidSelectDirection:direction];
+    }
 }
 
 @end

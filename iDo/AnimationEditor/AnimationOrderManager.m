@@ -44,12 +44,16 @@ static AnimationOrderManager *sharedInstance;
 }
 
 #pragma mark - Show & Hide
-- (void) applyAnimationOrderIndicatorToView:(GenericContainerView *)view
+- (void) applyAnimationOrderIndicatorToView:(UIView *)view
 {
+    if (![view isKindOfClass:[GenericContainerView class]]) {
+        return ;
+    }
+    GenericContainerView *content = (GenericContainerView *) view;
     if ([[AnimationModeManager sharedManager] isInAnimationMode]) {
-        [view addSubview:self.animationControlPoint];
+        [content addSubview:self.animationControlPoint];
         self.animationControlPoint.transform = CGAffineTransformInvert(view.transform);
-        NSArray *animations = [[view attributes] valueForKey:[KeyConstants animationsKey]];
+        NSArray *animations = [[content attributes] valueForKey:[KeyConstants animationsKey]];
         self.animationControlPoint.animateInOrder = -1;
         self.animationControlPoint.animateOutOrder = -1;
         for (NSDictionary *animation in animations) {
