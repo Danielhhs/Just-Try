@@ -15,4 +15,6 @@
 + (NSString *) animationTitleForAnimationEffect:(AnimationEffect) effect;
 + (NSString *) animationInTitleForContent:(GenericContainerView *)content;
 + (NSString *) animationOutTitleForContent:(GenericContainerView *)content;
++ (AnimationEffect) animationEffectFromAnimationAttributes:(NSArray *) animations event:(AnimationEvent) event;
++ (AnimationParameters *) animationParametersFromAnimationAttributes:(NSArray *) animations event:(AnimationEvent) event;
 @end

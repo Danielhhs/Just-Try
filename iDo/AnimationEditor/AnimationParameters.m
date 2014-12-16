@@ -14,7 +14,7 @@
 {
     AnimationParameters *parameters = [[AnimationParameters alloc] init];
     parameters.duration = duration;
-    parameters.direction = permittedDirection;
+    parameters.permittedDirection = permittedDirection;
     parameters.timeAfterPreviousAnimation = timeAfterLastAnimation;
     return parameters;
 }

@@ -120,6 +120,7 @@
 		54D7295E19ECE9B5009A0279 /* iDoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7295D19ECE9B5009A0279 /* iDoTests.m */; };
 		54D7296D19ECEAB9009A0279 /* GenericContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7296C19ECEAB9009A0279 /* GenericContainerView.m */; };
 		54D7297319ED0FF0009A0279 /* BorderControlPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7297219ED0FF0009A0279 /* BorderControlPointView.m */; };
+		54E3539C1A40040B00CBCCA4 /* AnimationDirectionArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3539B1A40040B00CBCCA4 /* AnimationDirectionArrowView.m */; };
 		54E62D0119FDFA8A0083E0F0 /* TextFontHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E62D0019FDFA8A0083E0F0 /* TextFontHelper.m */; };
 		54E8B9CB19FA271200AD324D /* SliderWithTooltip.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E8B9CA19FA271200AD324D /* SliderWithTooltip.m */; };
 		54E96F6719F8CB6A00C5F007 /* EditorButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E96F6619F8CB6A00C5F007 /* EditorButtonView.m */; };
@@ -377,6 +378,8 @@
 		54D7296C19ECEAB9009A0279 /* GenericContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericContainerView.m; sourceTree = "<group>"; };
 		54D7297119ED0FF0009A0279 /* BorderControlPointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BorderControlPointView.h; sourceTree = "<group>"; };
 		54D7297219ED0FF0009A0279 /* BorderControlPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BorderControlPointView.m; sourceTree = "<group>"; };
+		54E3539A1A40040B00CBCCA4 /* AnimationDirectionArrowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationDirectionArrowView.h; path = AnimationEditor/AnimationDirectionArrowView.h; sourceTree = "<group>"; };
+		54E3539B1A40040B00CBCCA4 /* AnimationDirectionArrowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationDirectionArrowView.m; path = AnimationEditor/AnimationDirectionArrowView.m; sourceTree = "<group>"; };
 		54E62CFF19FDFA8A0083E0F0 /* TextFontHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextFontHelper.h; path = EditorViewControllers/Helpers/TextFontHelper.h; sourceTree = "<group>"; };
 		54E62D0019FDFA8A0083E0F0 /* TextFontHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextFontHelper.m; path = EditorViewControllers/Helpers/TextFontHelper.m; sourceTree = "<group>"; };
 		54E8B9C919FA271200AD324D /* SliderWithTooltip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SliderWithTooltip.h; path = EditorViewControllers/SliderWithTooltip.h; sourceTree = "<group>"; };
@@ -669,6 +672,8 @@
 				545C4C941A3EA882002604FA /* AnimationParameterSlider.m */,
 				545C4C901A3EA683002604FA /* AnimationDirectionSelectionView.h */,
 				545C4C911A3EA683002604FA /* AnimationDirectionSelectionView.m */,
+				54E3539A1A40040B00CBCCA4 /* AnimationDirectionArrowView.h */,
+				54E3539B1A40040B00CBCCA4 /* AnimationDirectionArrowView.m */,
 				545C4C811A3ACE8E002604FA /* AnimationConstants.h */,
 				545C4C821A3ACE8E002604FA /* AnimationConstants.m */,
 				545C4C8D1A3E9123002604FA /* AnimationModeManager.h */,
@@ -1191,6 +1196,7 @@
 				545C4C511A3A9818002604FA /* AnimationEditorContainerViewController.m in Sources */,
 				547EEECD1A1881F200EAD132 /* EditMenuItem.m in Sources */,
 				549148F01A26E7AB00DE859F /* PasteboardHelper.m in Sources */,
+				54E3539C1A40040B00CBCCA4 /* AnimationDirectionArrowView.m in Sources */,
 				54D333A91A0604EE00F3D7F9 /* UndoManager.m in Sources */,
 				54F4C7521A036B63006A3F07 /* CanvasView.m in Sources */,
 				540A0A0E1A204F3A0087C6AC /* ReflectionHelper.m in Sources */,

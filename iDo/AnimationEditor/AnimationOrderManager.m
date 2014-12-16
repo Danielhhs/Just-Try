@@ -48,6 +48,7 @@ static AnimationOrderManager *sharedInstance;
 {
     if ([[AnimationModeManager sharedManager] isInAnimationMode]) {
         [view addSubview:self.animationControlPoint];
+        self.animationControlPoint.transform = CGAffineTransformInvert(view.transform);
         NSArray *animations = [[view attributes] valueForKey:[KeyConstants animationsKey]];
         self.animationControlPoint.animateInOrder = -1;
         self.animationControlPoint.animateOutOrder = -1;

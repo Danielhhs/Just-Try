@@ -28,4 +28,23 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) setAnimationParameters:(AnimationParameters *)animationParameters
+{
+    _animationParameters = animationParameters;
+    [self updateUI];
+}
+- (void) setPermittedDirection:(AnimationPermittedDirection)permittedDirection
+{
+    _permittedDirection = permittedDirection;
+    [self updateUI];
+}
+
+- (void) updateUI
+{
+    self.durationSlider.value = self.animationParameters.duration;
+    self.timeAfterLastAnimationSlider.value = self.animationParameters.timeAfterPreviousAnimation;
+    self.animationDirectionSelector.selectedDirection = self.animationParameters.selectedDirection;
+    self.animationDirectionSelector.permittedDirection = self.animationParameters.permittedDirection;
+}
+
 @end

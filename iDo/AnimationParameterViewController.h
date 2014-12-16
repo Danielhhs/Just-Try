@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "AnimationParameters.h"
 @interface AnimationParameterViewController : UIViewController
 
+@property (nonatomic, strong) AnimationParameters *animationParameters;
+@property (nonatomic) AnimationPermittedDirection permittedDirection;
 @end

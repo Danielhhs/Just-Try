@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "AnimationConstants.h"
 @interface AnimationDirectionSelectionView : UIView
 
+@property (nonatomic) AnimationPermittedDirection permittedDirection;
+@property (nonatomic) AnimationPermittedDirection selectedDirection;
 @end

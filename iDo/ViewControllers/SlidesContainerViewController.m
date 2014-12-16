@@ -231,7 +231,8 @@
 
 - (void) editMenu:(ContentEditMenuView *)editMenu willShowAnimationEditorForContent:(UIView *)view forType:(AnimationEvent)animationEvent
 {
-    [[AnimationEditorManager sharedManager] showAnimationEditorFromRect:editMenu.frame inView:self.view forContent:view animationType:animationEvent];
+    CGRect rect = [self.view convertRect:self.editorViewController.currentSelectedContent.frame fromView:self.editorViewController.view];
+    [[AnimationEditorManager sharedManager] showAnimationEditorFromRect:rect inView:self.view forContent:view animationEvent:animationEvent];
 }
 
 #pragma mark - AnimationModeManagerDelegate
@@ -241,6 +242,7 @@
     [[EditMenuManager sharedManager] hideEditMenu];
     [[EditMenuManager sharedManager] showEditMenuToView:view];
     [[ControlPointManager sharedManager] updateControlPointColor];
+    [self allContentViewDidResignFirstResponder];
 }
 
 - (void) applicationDidExitAnimationMode

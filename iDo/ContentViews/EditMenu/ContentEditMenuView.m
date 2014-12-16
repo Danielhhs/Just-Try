@@ -123,6 +123,7 @@
 - (void) handleAnimateOut
 {
     self.currentSelectedItem = self.animateOutButton;
+    [self.delegate editMenu:self willShowAnimationEditorForContent:self.triggeredContent forType:AnimationEventBuiltOut];
     [self.animateOutButton restoreNormalState];
 }
 

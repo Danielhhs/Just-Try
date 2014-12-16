@@ -20,5 +20,6 @@
 - (AnimationDescription *) resolveAnimation;
 - (AnimationDescription *) typerAnimation;
 - (AnimationDescription *) jumpAnimation;
+- (AnimationDescription *) noAnimation;
 
 @end

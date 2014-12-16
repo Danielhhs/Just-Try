@@ -59,10 +59,22 @@
     self.typeSelectionViewController.animationTarget = animationTarget;
 }
 
-- (void) setAnimationType:(AnimationEvent)animationEvent
+- (void) setAnimationEvent:(AnimationEvent)animationEvent
 {
     _animationEvent = animationEvent;
     self.typeSelectionViewController.animationEvent = animationEvent;
+}
+
+- (void) setAnimationEffect:(AnimationEffect)animationEffect
+{
+    _animationEffect = animationEffect;
+    self.typeSelectionViewController.animationEffect = animationEffect;
+}
+
+- (void) setAnimationParameters:(AnimationParameters *)animationParameters
+{
+    _animationParameters = animationParameters;
+    self.parameterInputViewController.animationParameters = animationParameters;
 }
 
 #pragma mark - AnimationTypeSelectionViewController
@@ -108,6 +120,7 @@
 - (void) animationEditorDidSelectAnimation:(AnimationDescription *)animation
 {
     [self.delegate animationEditorDidSelectAnimation:animation];
+    self.parameterInputViewController.animationParameters = animation.parameters;
 }
 
 @end

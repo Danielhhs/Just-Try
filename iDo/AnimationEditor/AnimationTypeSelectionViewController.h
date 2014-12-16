@@ -15,6 +15,7 @@
 @interface AnimationTypeSelectionViewController : UIViewController
 
 @property (nonatomic) AnimationEvent animationEvent;
+@property (nonatomic) AnimationEffect animationEffect;
 @property (nonatomic, weak) UIView *animationTarget;
 @property (nonatomic, weak) id<AnimationTypeSelectionViewControllerDelegate> delegate;
 @end

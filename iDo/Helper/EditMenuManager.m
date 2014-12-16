@@ -16,6 +16,7 @@
 static EditMenuManager *sharedInstance;
 #define REPLACE_ITEM_INDEX 2
 #define PASTE_ITEM_INDEX 0
+#define EDIT_MENU_VIEW_SPACE 12
 
 @interface EditMenuManager ()
 @property (nonatomic, strong) NSArray *basicOperationsForContentView;
@@ -130,7 +131,7 @@ static EditMenuManager *sharedInstance;
     self.editMenuShown = YES;
     NSArray *availableOperations = [self availableOperationsForView:content];
     [self.editMenu showWithAvailableOperations:availableOperations toContent:content];
-    CGPoint center = CGPointMake(content.center.x, content.frame.origin.y - self.editMenu.frame.size.height / 2);
+    CGPoint center = CGPointMake(content.center.x, content.frame.origin.y - self.editMenu.frame.size.height / 2 - EDIT_MENU_VIEW_SPACE);
     center = [self.containerView convertPoint:center fromView:content.superview];
     self.editMenu.center = center;
 }

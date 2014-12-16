@@ -7,6 +7,10 @@
 //
 
 #import "AnimationEditorManager.h"
+#import "GenericContainerView.h"
+#import "CanvasView.h"
+#import "KeyConstants.h"
+#import "AnimationAttributesHelper.h"
 @interface AnimationEditorManager()
 @property (nonatomic, strong) UIPopoverController *animationEditorPopover;
 @property (nonatomic, strong) AnimationEditorContainerViewController *animationEditorContainer;
@@ -46,18 +50,43 @@ static AnimationEditorManager *sharedInstance;
 }
 
 #pragma mark - Show & Hide
-- (void) showAnimationEditorFromRect:(CGRect)rect inView:(UIView *)view forContent:(UIView *)content animationType:(AnimationEvent)animationEvent
+- (void) showAnimationEditorFromRect:(CGRect)rect
+                              inView:(UIView *)view
+                          forContent:(UIView *)content
+                      animationEvent:(AnimationEvent)animationEvent
 {
     self.animationEditorContainer.animationTarget = content;
     self.animationEditorContainer.animationEvent = animationEvent;
-    UIPopoverArrowDirection direction = UIPopoverArrowDirectionDown | UIPopoverArrowDirectionUp;
-    if (animationEvent == AnimationEventBuiltIn) {
-        direction = UIPopoverArrowDirectionRight | direction;
-    } else {
-        direction = UIPopoverArrowDirectionLeft | direction;
-    }
+    AnimationEffect animationEffect = [self findAnimationEffectFromView:content event:animationEvent];
+    AnimationParameters *parameters = [self findAnimationParametersFromView:content event:animationEvent];
+    self.animationEditorContainer.animationParameters = parameters;
+    self.animationEditorContainer.animationEffect = animationEffect;
+    UIPopoverArrowDirection direction = UIPopoverArrowDirectionRight | UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
     self.animationEditorPopover.popoverContentSize = CGSizeMake(250, 450);
     [self.animationEditorPopover presentPopoverFromRect:rect inView:view permittedArrowDirections:direction animated:YES];
+}
+
+- (AnimationEffect) findAnimationEffectFromView:(UIView *) view event:(AnimationEvent) event
+{
+    if ([view isKindOfClass:[GenericContainerView class]]) {
+        GenericContainerView *content = (GenericContainerView *)view;
+        NSArray *animations = [[content attributes] objectForKey:[KeyConstants animationsKey]];
+        return [AnimationAttributesHelper animationEffectFromAnimationAttributes:animations event:event];
+    } else {
+        return AnimationEffectNone;
+    }
+}
+
+- (AnimationParameters *) findAnimationParametersFromView:(UIView *) view event:(AnimationEvent) event
+{
+    if ([view isKindOfClass:[GenericContainerView class]]) {
+        GenericContainerView *content = (GenericContainerView *) view;
+        NSArray *animations = [[content attributes] objectForKey:[KeyConstants animationsKey]];
+        return [AnimationAttributesHelper animationParametersFromAnimationAttributes:animations event:event];
+    } else {
+        return nil;
+    }
+    
 }
 
 @end

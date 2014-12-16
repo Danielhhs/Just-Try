@@ -58,6 +58,22 @@ static AnimationTypesGenerator *sharedInstance;
     return _animationInTypesForTextView;
 }
 
+- (NSArray *) animationOutTypesForImageView
+{
+    if (!_animationOutTypesForImageView) {
+        _animationOutTypesForImageView = [self generateAnimationOutTypesForImage];
+    }
+    return _animationOutTypesForImageView;
+}
+
+- (NSArray *) animationOutTypesForTextView
+{
+    if (!_animationOutTypesForTextView) {
+        _animationOutTypesForTextView = [self generateAnimationOutTypesForText];
+    }
+    return _animationOutTypesForTextView;
+}
+
 #pragma mark - Animations
 - (NSArray *) animationTypesForContentView:(GenericContainerView *)content type:(AnimationEvent)animationEvent
 {
@@ -87,6 +103,7 @@ static AnimationTypesGenerator *sharedInstance;
 - (NSArray *) generateAnimationInTypesForImage
 {
     NSMutableArray *animationTypes = [NSMutableArray array];
+    [animationTypes addObject:[[DefaultAnimationGenerator generator] noAnimation]];
     [animationTypes addObject:[[DefaultAnimationGenerator generator] anvilAnimation]];
     [animationTypes addObject:[[DefaultAnimationGenerator generator] fireworkAnimation]];
     [animationTypes addObject:[[DefaultAnimationGenerator generator] flameAnimation]];
@@ -104,4 +121,29 @@ static AnimationTypesGenerator *sharedInstance;
     return [animationTypes copy];
 }
 
+- (NSArray *) generateAnimationOutTypesForImage
+{
+    NSMutableArray *animationTypes = [NSMutableArray array];
+    
+    [animationTypes addObject:[[DefaultAnimationGenerator generator] noAnimation]];
+    [animationTypes addObject:[[DefaultAnimationGenerator generator] fireworkAnimation]];
+    [animationTypes addObject:[[DefaultAnimationGenerator generator] fireworkAnimation]];
+    [animationTypes addObject:[[DefaultAnimationGenerator generator] rotateAnimation]];
+    [animationTypes addObject:[[DefaultAnimationGenerator generator] resolveAnimation]];
+    
+    return [animationTypes copy];
+}
+
+- (NSArray *) generateAnimationOutTypesForText
+{
+    NSMutableArray *animationTypes = [NSMutableArray array];
+    
+    [animationTypes addObject:[[DefaultAnimationGenerator generator] noAnimation]];
+    [animationTypes addObject:[[DefaultAnimationGenerator generator] fireworkAnimation]];
+    [animationTypes addObject:[[DefaultAnimationGenerator generator] fireworkAnimation]];
+    [animationTypes addObject:[[DefaultAnimationGenerator generator] rotateAnimation]];
+    [animationTypes addObject:[[DefaultAnimationGenerator generator] resolveAnimation]];
+    
+    return [animationTypes copy];
+}
 @end

@@ -13,6 +13,7 @@
 @interface AnimationTypeSelectionViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *animationTypesTableView;
 @property (nonatomic, strong) NSArray *animationTypes;
+@property (nonatomic) NSInteger selectedEffectIndex;
 @end
 
 @implementation AnimationTypeSelectionViewController
@@ -21,7 +22,13 @@
     [super viewDidLoad];
 }
 
-- (void) setAnimationType:(AnimationEvent)animationEvent
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.animationTypesTableView selectRowAtIndexPath:[NSIndexPath indexPathForItem:self.selectedEffectIndex inSection:0] animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+}
+
+- (void) setAnimationEvent:(AnimationEvent)animationEvent
 {
     if (_animationEvent != animationEvent) {
         _animationEvent = animationEvent;
@@ -37,6 +44,18 @@
         self.animationTypes = [[AnimationTypesGenerator generator] animationTypesForContentView:self.animationTarget type:self.animationEvent];
         [self.animationTypesTableView reloadData];
     }
+}
+
+- (void) setAnimationEffect:(AnimationEffect)animationEffect
+{
+    _animationEffect = animationEffect;
+    self.selectedEffectIndex = 0;
+    for (AnimationDescription *animation in self.animationTypes) {
+        if (animation.animationEffect == animationEffect) {
+            self.selectedEffectIndex = [self.animationTypes indexOfObject:animation];
+        }
+    }
+    
 }
 
 #pragma mark - UITableViewDataSource
@@ -64,6 +83,9 @@
 #pragma mark - UITableViewDelegate
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    AnimationDescription *animation = self.animationTypes[indexPath.row];
+    animation.animationEvent = self.animationEvent;
+    self.selectedEffectIndex = indexPath.row;
     [self.delegate animationEditorDidSelectAnimation:self.animationTypes[indexPath.row]];
 }
 @end

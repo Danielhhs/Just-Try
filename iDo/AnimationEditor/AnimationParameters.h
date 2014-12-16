@@ -7,21 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
-typedef NS_ENUM(NSInteger, AnimationPermittedDirection) {
-    AnimationPermittedDirectionLeft = 1 << 0,
-    AnimationPermittedDirectionRight = 1 << 1,
-    AnimationPermittedDirectionUp = 1 << 2,
-    AnimationPermittedDirectionBottom = 1 << 3,
-    AnimationPermittedDirectionHorizontal = AnimationPermittedDirectionLeft | AnimationPermittedDirectionRight,
-    AnimationPermittedDirectionVertical = AnimationPermittedDirectionBottom | AnimationPermittedDirectionUp,
-    AnimationPermittedDirectionAny = AnimationPermittedDirectionHorizontal | AnimationPermittedDirectionVertical
-};
+#import "AnimationConstants.h"
 
 @interface AnimationParameters : NSObject
 @property (nonatomic) NSTimeInterval duration;
-@property (nonatomic) AnimationPermittedDirection direction;
+@property (nonatomic) AnimationPermittedDirection permittedDirection;
 @property (nonatomic) NSTimeInterval timeAfterPreviousAnimation;
+@property (nonatomic) AnimationPermittedDirection selectedDirection;
 
 + (AnimationParameters *) animationParametersWithDuration:(NSTimeInterval) duration
                                        permittedDirection:(AnimationPermittedDirection) permittedDirection

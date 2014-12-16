@@ -30,7 +30,7 @@
     editedAnimation[[KeyConstants animationEffectKey]] = @(animationDescription.animationEffect);
     editedAnimation[[KeyConstants animationDurationKey]] = @(animationDescription.parameters.duration);
     editedAnimation[[KeyConstants animationTriggerTimeKey]] = @(animationDescription.parameters.timeAfterPreviousAnimation);
-    editedAnimation[[KeyConstants animationDirectionKey]] = @(animationDescription.parameters.direction);
+    editedAnimation[[KeyConstants animationDirectionKey]] = @(animationDescription.parameters.selectedDirection);
     editedAnimation[[KeyConstants animationIndexKey]] = @(1);
 }
 
@@ -54,6 +54,7 @@
         case AnimationEffectRotate:
         return @"Rotate";
         default:
+            return @"None";
         break;
     }
 }
@@ -82,6 +83,32 @@
         }
     }
     return title;
+}
+
++ (AnimationEffect) animationEffectFromAnimationAttributes:(NSArray *)animations event:(AnimationEvent)event
+{
+    AnimationEffect effect = AnimationEffectNone;
+    for (NSDictionary *animation in animations) {
+        AnimationEvent animationEvent = [[animation objectForKey:[KeyConstants animationEventKey]] integerValue];
+        if (animationEvent == event) {
+            effect = [animation[[KeyConstants animationEffectKey]] integerValue];
+        }
+    }
+    return effect;
+}
+
++ (AnimationParameters *) animationParametersFromAnimationAttributes:(NSArray *)animations event:(AnimationEvent)event
+{
+    AnimationParameters *parameters = [[AnimationParameters alloc] init];
+    for (NSDictionary *animation in animations) {
+        AnimationEvent animationEvent = [[animation objectForKey:[KeyConstants animationEventKey]] integerValue];
+        if (animationEvent == event) {
+            parameters.duration = [animation[[KeyConstants animationDurationKey]] doubleValue];
+            parameters.selectedDirection = [animation[[KeyConstants animationDirectionKey]] integerValue];
+            parameters.timeAfterPreviousAnimation = [animation[[KeyConstants animationTriggerTimeKey]] doubleValue];
+        }
+    }
+    return parameters;
 }
 
 @end
