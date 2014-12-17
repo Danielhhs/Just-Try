@@ -22,6 +22,7 @@
     [super viewDidLoad];
     self.durationSlider.delegate = self;
     self.timeAfterLastAnimationSlider.delegate = self;
+    self.animationDirectionSelector.delegate = self;
     // Do any additional setup after loading the view.
 }
 

@@ -9,7 +9,7 @@
 #import "AnimationEditorContainerViewController.h"
 #import "AnimationTypeSelectionViewController.h"
 #import "AnimationParameterViewController.h"
-@interface AnimationEditorContainerViewController ()<AnimationTypeSelectionViewControllerDelegate>
+@interface AnimationEditorContainerViewController ()<AnimationTypeSelectionViewControllerDelegate, AnimationParameterViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *editorSegment;
 @property (nonatomic, strong) AnimationTypeSelectionViewController *typeSelectionViewController;
 @property (nonatomic, strong) AnimationParameterViewController *parameterInputViewController;
@@ -34,7 +34,7 @@
 {
     if (!_parameterInputViewController) {
         _parameterInputViewController = [[UIStoryboard storyboardWithName:@"AnimationEditorViewControllers" bundle:nil] instantiateViewControllerWithIdentifier:@"AnimationParameterViewController"];
-//        self.parameterInputViewController.delegate = self;
+        self.parameterInputViewController.delegate = self;
     }
     return _parameterInputViewController;
 }
@@ -110,14 +110,23 @@
 #pragma mark - AnimationTypeSelectionViewControllerDelegate
 - (void) animationEditorDidSelectAnimation:(AnimationDescription *)animation
 {
-    self.animation = [animation copyWithZone:nil];
-    self.parameterInputViewController.animationParameters = self.animation.parameters;
-    [self.delegate animationEditorDidUpdateAnimationEffect:animation];
+    if (self.animation.animationEffect != animation.animationEffect) {
+        self.animation = [animation copyWithZone:nil];
+        self.parameterInputViewController.animationParameters = self.animation.parameters;
+        self.parameterInputViewController.permittedDirection = self.animation.parameters.permittedDirection;
+        [self.delegate animationEditorDidUpdateAnimationEffect:animation];
+    }
 }
 
 - (void) animationEditorInitializedWithAnimation:(AnimationDescription *)animation
 {
     self.parameterInputViewController.permittedDirection = animation.parameters.permittedDirection;
+}
+
+#pragma mark - AnimationParameterViewControllerDelegate
+- (void) animationParameterViewControllerDidChangeAnimationParameters:(AnimationParameters *)animaitonParameters
+{
+    self.animation.parameters = [animaitonParameters copyWithZone:nil];
 }
 
 #pragma mark - Memory Management

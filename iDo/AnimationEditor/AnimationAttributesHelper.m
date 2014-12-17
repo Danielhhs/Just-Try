@@ -8,12 +8,26 @@
 
 #import "AnimationAttributesHelper.h"
 #import "KeyConstants.h"
+#import "SimpleOperation.h"
+#import "UndoManager.h"
 
 @implementation AnimationAttributesHelper
 
++ (void) updateContent:(GenericContainerView *) content withAnimationDescription:(AnimationDescription *)animationDescription generatingOperation:(BOOL)generatingOperation
+{
+    NSArray *originalAnimations = [[[content attributes] objectForKey:[KeyConstants animationsKey]] copy];
+    [AnimationAttributesHelper updateContentAttributes:[content attributes] withAnimationDescription:animationDescription];
+    if (generatingOperation) {
+        SimpleOperation *operation = [[SimpleOperation alloc] initWithTargets:@[content] key:[KeyConstants animationsKey] fromValue:originalAnimations];
+        operation.toValue = [[[content attributes] objectForKey:[KeyConstants animationsKey]] copy];
+        [[UndoManager sharedManager] pushOperation:operation];
+    }
+    
+}
+
 + (void) updateContentAttributes:(NSMutableDictionary *)attributes withAnimationDescription:(AnimationDescription *)animationDescription
 {
-    NSMutableArray *animations = attributes[[KeyConstants animationsKey]];
+    NSMutableArray *animations = [attributes[[KeyConstants animationsKey]] mutableCopy];
     
     NSMutableDictionary *editedAnimation;
     for (NSMutableDictionary *animation in animations) {
@@ -27,11 +41,16 @@
         editedAnimation[[KeyConstants animationEventKey]] = @(animationDescription.animationEvent);
         [animations addObject:editedAnimation];
     }
-    editedAnimation[[KeyConstants animationEffectKey]] = @(animationDescription.animationEffect);
-    editedAnimation[[KeyConstants animationDurationKey]] = @(animationDescription.parameters.duration);
-    editedAnimation[[KeyConstants animationTriggerTimeKey]] = @(animationDescription.parameters.timeAfterPreviousAnimation);
-    editedAnimation[[KeyConstants animationDirectionKey]] = @(animationDescription.parameters.selectedDirection);
-    editedAnimation[[KeyConstants animationIndexKey]] = @(1);
+    if (animationDescription.animationEffect == AnimationEffectNone) {
+        [animations removeObject:editedAnimation];
+    } else {
+        editedAnimation[[KeyConstants animationEffectKey]] = @(animationDescription.animationEffect);
+        editedAnimation[[KeyConstants animationDurationKey]] = @(animationDescription.parameters.duration);
+        editedAnimation[[KeyConstants animationTriggerTimeKey]] = @(animationDescription.parameters.timeAfterPreviousAnimation);
+        editedAnimation[[KeyConstants animationDirectionKey]] = @(animationDescription.parameters.selectedDirection);
+        editedAnimation[[KeyConstants animationIndexKey]] = @(1);
+    }
+    attributes[[KeyConstants animationsKey]] = animations;
 }
 
 + (NSString *) animationTitleForAnimationEffect:(AnimationEffect) effect

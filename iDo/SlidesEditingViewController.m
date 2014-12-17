@@ -233,7 +233,7 @@
 #pragma mark - AnimationEditorContainerViewControllerDelegate
 - (void) animationEditorDidSelectAnimation:(AnimationDescription *)animation
 {
-    [AnimationAttributesHelper updateContentAttributes:[self.currentSelectedContent attributes] withAnimationDescription:animation];
+    [AnimationAttributesHelper updateContent:self.currentSelectedContent withAnimationDescription:animation generatingOperation:YES];
 }
 
 - (void) animationEditorDidUpdateAnimationEffect:(AnimationDescription *) animation
