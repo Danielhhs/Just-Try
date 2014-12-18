@@ -160,8 +160,8 @@ static EditMenuManager *sharedInstance;
     [self.editMenu update];
 }
 
-- (void) updateEditMenuWithAnimationName:(NSString *)animationName
+- (void) updateEditMenuWithAnimationName:(NSString *)animationName animationOrder:(NSInteger)animationOrder
 {
-    [self.editMenu updateEditAnimationItemWithAnimationName:animationName];
+    [self.editMenu updateEditAnimationItemWithAnimationName:animationName animationOrder:animationOrder];
 }
 @end

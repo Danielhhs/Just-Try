@@ -18,4 +18,6 @@
 + (NSString *) animationOutTitleForContent:(GenericContainerView *)content;
 + (AnimationEffect) animationEffectFromAnimationAttributes:(NSArray *) animations event:(AnimationEvent) event;
 + (AnimationParameters *) animationParametersFromAnimationAttributes:(NSArray *) animations event:(AnimationEvent) event;
+
++ (NSInteger) animationOrderForAttributes:(NSDictionary *)attributes event:(AnimationEvent) event;
 @end

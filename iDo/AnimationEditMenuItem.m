@@ -90,6 +90,12 @@
     self.animationOrderIndicator.selected = NO;
 }
 
+- (void) setAnimationOrder:(NSInteger)animationOrder
+{
+    _animationOrder = animationOrder;
+    self.animationOrderIndicator.animatinOrder = animationOrder;
+}
+
 - (void) setAnimationTitle:(NSString *)animationTitle
 {
     _animationTitle = animationTitle;

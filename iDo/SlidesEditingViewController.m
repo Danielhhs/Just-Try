@@ -23,6 +23,7 @@
 #import "AnimationOrderManager.h"
 @interface SlidesEditingViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, OperationTarget>
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
+@property (nonatomic) NSInteger currentAnimationIndex;
 @end
 
 @implementation SlidesEditingViewController
@@ -238,7 +239,7 @@
 
 - (void) animationEditorDidUpdateAnimationEffect:(AnimationDescription *) animation
 {
-    [[EditMenuManager sharedManager] updateEditMenuWithAnimationName:animation.animationName];
+    [[EditMenuManager sharedManager] updateEditMenuWithAnimationName:animation.animationName animationOrder:1];
     [[AnimationOrderManager sharedManager] applyAnimationOrderIndicatorToView:self.currentSelectedContent];
 }
 

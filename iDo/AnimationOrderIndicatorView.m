@@ -70,6 +70,15 @@
     }
 }
 
+- (void) setAnimatinOrder:(NSInteger)animatinOrder
+{
+    if (_animatinOrder != animatinOrder) {
+        _animatinOrder = animatinOrder;
+        self.hasAnimation = (animatinOrder == -1) ? NO : YES;
+        [self setNeedsDisplay];
+    }
+}
+
 - (void) drawRect:(CGRect)rect
 {
     CGFloat midX = CGRectGetMidX(rect);
@@ -84,8 +93,12 @@
     [contentCircle fill];
     
     if (self.hasAnimation) {
-        NSAttributedString *string = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%lu", self.animatinOrder] attributes:@{NSForegroundColorAttributeName : [self textColor], NSFontAttributeName : [UIFont systemFontOfSize:12]}];
-        [string drawInRect:rect];
+        NSAttributedString *string = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%lu", self.animatinOrder] attributes:@{NSForegroundColorAttributeName : [self textColor], NSFontAttributeName : [UIFont boldSystemFontOfSize:18]}];
+        CGRect boundingRect = [string boundingRectWithSize:CGSizeZero options:0 context:NULL];
+        boundingRect.origin.y = 0;
+        boundingRect.origin.x += (center.x - boundingRect.size.width / 2);
+        boundingRect.origin.y += (center.y - boundingRect.size.height / 2);
+        [string drawInRect:boundingRect];
     } else {
         CGFloat lineWidth = 3;
         UIBezierPath *horizontal = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(LEAD_SPACE, midY - lineWidth / 2, INDICATOR_EDGE_LENGTH - 2 * LEAD_SPACE, lineWidth) cornerRadius:lineWidth / 2];

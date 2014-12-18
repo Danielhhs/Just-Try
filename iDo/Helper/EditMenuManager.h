@@ -18,5 +18,5 @@
 - (void) showEditMenuToView:(UIView *) view;
 - (void) hideEditMenu;
 - (void) updateEditMenu;
-- (void) updateEditMenuWithAnimationName:(NSString *) animationName;
+- (void) updateEditMenuWithAnimationName:(NSString *) animationName animationOrder:(NSInteger) animationOrder;
 @end

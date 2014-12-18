@@ -138,6 +138,7 @@
     if ([[AnimationModeManager sharedManager] isInAnimationMode]) {
         self.animateInButton.animationTitle = [AnimationAttributesHelper animationInTitleForContent:content];
         self.animateOutButton.animationTitle = [AnimationAttributesHelper animationOutTitleForContent:content];
+        [self updateAnimationOrderIndicatorsForContent:content];
     }
     self.triggeredContent = content;
     self.trigger = content;
@@ -150,6 +151,14 @@
         self.alpha = 1;
     }];
     [self setNeedsDisplay];
+}
+
+- (void) updateAnimationOrderIndicatorsForContent:(GenericContainerView *) content
+{
+    NSInteger animationOrder = [AnimationAttributesHelper animationOrderForAttributes:[content attributes] event:AnimationEventBuiltIn];
+    [self.animateInButton setAnimationOrder:animationOrder];
+    animationOrder = [AnimationAttributesHelper animationOrderForAttributes:[content attributes] event:AnimationEventBuiltOut];
+    [self.animateOutButton setAnimationOrder:animationOrder];
 }
 
 - (void) showWithAvailableOperations:(NSArray *)availableOperations toCanvas:(CanvasView *)canvas
@@ -283,11 +292,12 @@
     }
 }
 
-- (void) updateEditAnimationItemWithAnimationName:(NSString *)animationName
+- (void) updateEditAnimationItemWithAnimationName:(NSString *)animationName animationOrder:(NSInteger) animationOrder
 {
     if ([self.currentSelectedItem isKindOfClass:[AnimationEditMenuItem class]]) {
         AnimationEditMenuItem *item = (AnimationEditMenuItem *)self.currentSelectedItem;
         item.animationTitle = animationName;
+        item.animationOrder = animationOrder;
     }
 }
 @end

@@ -14,5 +14,4 @@
 @property (nonatomic) BOOL hasAnimation;
 @property (nonatomic) NSInteger animatinOrder;
 @property (nonatomic) BOOL selected;
-
 @end

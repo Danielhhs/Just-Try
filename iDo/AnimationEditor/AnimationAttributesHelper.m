@@ -130,4 +130,22 @@
     return parameters;
 }
 
++ (NSInteger) animationOrderForAttributes:(NSDictionary *)attributes event:(AnimationEvent) event
+{
+    NSArray *animations = [AnimationAttributesHelper animationsFromAttributes:attributes];
+    NSInteger order = -1;
+    for (NSDictionary *animation in animations) {
+        AnimationEvent animationEvent = [[animation objectForKey:[KeyConstants animationEventKey]] integerValue];
+        if (animationEvent == event) {
+            order = [animation[[KeyConstants animationIndexKey]] integerValue];
+            break;
+        }
+    }
+    return order;
+}
+
++ (NSArray *) animationsFromAttributes:(NSDictionary *) attributes
+{
+    return [attributes objectForKey:[KeyConstants animationsKey]];
+}
 @end
