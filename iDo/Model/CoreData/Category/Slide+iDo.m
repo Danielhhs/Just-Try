@@ -45,6 +45,7 @@
     [attribtues setObject:[contentAttributes copy] forKey:[KeyConstants slideContentsKey]];
     [attribtues setObject:[UIImage imageWithData:slide.thumbnail] forKey:[KeyConstants slideThumbnailKey]];
     [attribtues setObject:slide.index forKey:[KeyConstants slideIndexKey]];
+    [attribtues setObject:slide.currentAnimationIndex forKey:[KeyConstants slideCurrentAnimationIndexKey]];
     return attribtues;
 }
 
@@ -53,6 +54,7 @@
     
     slide.background = slideAttributes[[KeyConstants slideBackgroundKey]];
     slide.thumbnail = UIImageJPEGRepresentation(slideAttributes[[KeyConstants slideThumbnailKey]], 1.f);
+    slide.currentAnimationIndex = slideAttributes[[KeyConstants slideCurrentAnimationIndexKey]];
     NSArray *contentsAttributes = slideAttributes[[KeyConstants slideContentsKey]];
     NSMutableSet *contents = [NSMutableSet set];
     for (NSInteger i = 0; i < [contentsAttributes count]; i++) {

@@ -21,6 +21,7 @@
 - (void) showAnimationEditorFromRect:(CGRect) rect
                               inView:(UIView *) view
                           forContent:(UIView *) content
-                      animationEvent:(AnimationEvent) animationEvent;
+                      animationEvent:(AnimationEvent) animationEvent
+                      animationIndex:(NSInteger) animationIndex;
 
 @end

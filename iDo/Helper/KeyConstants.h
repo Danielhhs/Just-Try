@@ -23,6 +23,7 @@
 + (NSString *) slideThumbnailKey;
 + (NSString *) slideIndexKey;
 + (NSString *) slideUniqueKey;
++ (NSString *) slideCurrentAnimationIndexKey;
 
 #pragma mark - Generic Content
 + (NSString *) rotationKey;
@@ -39,6 +40,7 @@
 + (NSString *) transformKey;
 + (NSString *) centerKey;
 + (NSString *) contentTypeKey;
++ (NSString *) contentUUIDKey;
 
 #pragma mark - Text Content
 + (NSString *) fontKey;

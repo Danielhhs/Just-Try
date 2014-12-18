@@ -40,6 +40,7 @@
     [attributes setValue:content.shadowSize forKey:[KeyConstants shadowSizeKey]];
     [attributes setValue:content.rotation forKey:[KeyConstants rotationKey]];
     [attributes setValue:[CoreDataHelper decodeNSData:content.transform] forKey:[KeyConstants transformKey]];
+    [attributes setValue:[[NSUUID alloc] initWithUUIDString:content.uuid] forKey:[KeyConstants contentUUIDKey]];
     NSMutableArray *animations = [NSMutableArray array];
     for (Animation *animation in content.animations) {
         [animations addObject:[Animation attributesFromAnimation:animation]];
@@ -64,6 +65,7 @@
     content.shadowSize = attributes[[KeyConstants shadowSizeKey]];
     content.rotation = attributes[[KeyConstants rotationKey]];
     content.transform = [CoreDataHelper encodeObject:attributes[[KeyConstants transformKey]]];
+    content.uuid = [attributes[[KeyConstants contentUUIDKey]] UUIDString];
     NSMutableSet *animations = [NSMutableSet set];
     NSArray *animationArray = attributes[[KeyConstants animationsKey]];
     for (NSDictionary *animationAttributes in animationArray) {

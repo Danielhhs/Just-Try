@@ -46,6 +46,7 @@
     
     [attribtues setValue:DEFAULT_BACKGROUND_IMAGE forKey:[KeyConstants slideBackgroundKey]];
     [attribtues setValue:[UIImage imageNamed:DEFAULT_BACKGROUND_IMAGE] forKey:[KeyConstants slideThumbnailKey]];
+    [attribtues setValue:@(0) forKey:[KeyConstants slideCurrentAnimationIndexKey]];
     
     return attribtues;
 }
@@ -64,6 +65,7 @@
     [attributes setValue:@(1) forKey:[KeyConstants viewOpacityKey]];
     [attributes setObject:[NSValue valueWithCGAffineTransform:CGAffineTransformIdentity] forKey:[KeyConstants transformKey]];
     [attributes setObject:[NSMutableArray array] forKey:[KeyConstants animationsKey]];
+    [attributes setObject:[NSUUID UUID] forKey:[KeyConstants contentUUIDKey]];
     return attributes;
 }
 

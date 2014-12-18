@@ -2,7 +2,7 @@
 //  GenericConent.m
 //  iDo
 //
-//  Created by Huang Hongsen on 11/22/14.
+//  Created by Huang Hongsen on 12/18/14.
 //  Copyright (c) 2014 com.microstrategy. All rights reserved.
 //
 
@@ -21,14 +21,15 @@
 @dynamic reflection;
 @dynamic reflectionAlpha;
 @dynamic reflectionSize;
+@dynamic reflectionType;
 @dynamic rotation;
 @dynamic shadow;
 @dynamic shadowAlpha;
 @dynamic shadowSize;
+@dynamic shadowType;
 @dynamic transform;
 @dynamic unique;
-@dynamic reflectionType;
-@dynamic shadowType;
+@dynamic uuid;
 @dynamic animations;
 @dynamic slide;
 

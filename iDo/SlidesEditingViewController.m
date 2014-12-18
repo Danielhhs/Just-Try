@@ -23,7 +23,6 @@
 #import "AnimationOrderManager.h"
 @interface SlidesEditingViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, OperationTarget>
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
-@property (nonatomic) NSInteger currentAnimationIndex;
 @end
 
 @implementation SlidesEditingViewController
@@ -234,12 +233,13 @@
 #pragma mark - AnimationEditorContainerViewControllerDelegate
 - (void) animationEditorDidSelectAnimation:(AnimationDescription *)animation
 {
-    [AnimationAttributesHelper updateContent:self.currentSelectedContent withAnimationDescription:animation generatingOperation:YES];
+    [AnimationAttributesHelper updateContent:self.currentSelectedContent withAnimationDescription:animation slideAnimations:self.canvas.animations generatingOperation:YES];
 }
 
 - (void) animationEditorDidUpdateAnimationEffect:(AnimationDescription *) animation
 {
-    [[EditMenuManager sharedManager] updateEditMenuWithAnimationName:animation.animationName animationOrder:1];
+    [AnimationAttributesHelper updateContentAttributes:[self.currentSelectedContent attributes] withAnimationDescription:animation];
+    [[EditMenuManager sharedManager] updateEditMenuWithAnimationName:animation.animationName animationOrder:animation.animationIndex];
     [[AnimationOrderManager sharedManager] applyAnimationOrderIndicatorToView:self.currentSelectedContent];
 }
 

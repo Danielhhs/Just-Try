@@ -62,6 +62,11 @@
     return @"SLIDE_UNIQUE";
 }
 
++ (NSString *) slideCurrentAnimationIndexKey
+{
+    return @"SLIDE_CURRENT_ANIMATION_INDEX";
+}
+
 #pragma mark - Generic Content
 + (NSString *) rotationKey
 {
@@ -129,6 +134,10 @@
 + (NSString *) contentTypeKey
 {
     return @"CONTENT_TYPE";
+}
++ (NSString *) contentUUIDKey
+{
+    return @"CONTENT_UUID";
 }
 
 #pragma mark - Text Content

@@ -2,7 +2,7 @@
 //  GenericConent.h
 //  iDo
 //
-//  Created by Huang Hongsen on 11/22/14.
+//  Created by Huang Hongsen on 12/18/14.
 //  Copyright (c) 2014 com.microstrategy. All rights reserved.
 //
 
@@ -21,14 +21,15 @@
 @property (nonatomic, retain) NSNumber * reflection;
 @property (nonatomic, retain) NSNumber * reflectionAlpha;
 @property (nonatomic, retain) NSNumber * reflectionSize;
+@property (nonatomic, retain) NSNumber * reflectionType;
 @property (nonatomic, retain) NSNumber * rotation;
 @property (nonatomic, retain) NSNumber * shadow;
 @property (nonatomic, retain) NSNumber * shadowAlpha;
 @property (nonatomic, retain) NSNumber * shadowSize;
+@property (nonatomic, retain) NSNumber * shadowType;
 @property (nonatomic, retain) NSData * transform;
 @property (nonatomic, retain) NSNumber * unique;
-@property (nonatomic, retain) NSNumber * reflectionType;
-@property (nonatomic, retain) NSNumber * shadowType;
+@property (nonatomic, retain) NSString * uuid;
 @property (nonatomic, retain) NSSet *animations;
 @property (nonatomic, retain) Slide *slide;
 @end

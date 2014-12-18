@@ -54,11 +54,13 @@ static AnimationEditorManager *sharedInstance;
                               inView:(UIView *)view
                           forContent:(UIView *)content
                       animationEvent:(AnimationEvent)animationEvent
+                      animationIndex:(NSInteger)animationIndex
 {
     self.animationEditorContainer.animationTarget = content;
     AnimationEffect animationEffect = [self findAnimationEffectFromView:content event:animationEvent];
     AnimationParameters *parameters = [self findAnimationParametersFromView:content event:animationEvent];
     self.animationEditorContainer.animation = [AnimationDescription animationDescriptionWithAnimationEffect:animationEffect animationEvent:animationEvent duration:parameters.duration permittedDirection:parameters.permittedDirection selectedDirection:parameters.selectedDirection  timeAfterLastAnimation:parameters.timeAfterPreviousAnimation];
+    self.animationEditorContainer.animationIndex = [self findAnimationIndexFromContent:content animationEvent:animationEvent currentAnimationMaxIndex:animationIndex];
     UIPopoverArrowDirection direction = UIPopoverArrowDirectionRight | UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
     self.animationEditorPopover.popoverContentSize = CGSizeMake(250, 450);
     [self.animationEditorPopover presentPopoverFromRect:rect inView:view permittedArrowDirections:direction animated:YES];
@@ -85,6 +87,22 @@ static AnimationEditorManager *sharedInstance;
         return nil;
     }
     
+}
+
+- (NSInteger) findAnimationIndexFromContent:(UIView *) view
+                             animationEvent:(AnimationEvent) animationEvent
+                   currentAnimationMaxIndex:(NSInteger) animationIndex
+{
+    if ([view isKindOfClass:[GenericContainerView class]]) {
+        GenericContainerView *content = (GenericContainerView *)view;
+        NSArray *animations = [[content attributes] objectForKey:[KeyConstants animationsKey]];
+        for (NSDictionary * animation in animations) {
+            if ([animation[[KeyConstants animationEventKey]] integerValue] == animationEvent) {
+                return [animation[[KeyConstants animationIndexKey]] integerValue];
+            }
+        }
+    }
+    return animationIndex + 1;
 }
 
 @end

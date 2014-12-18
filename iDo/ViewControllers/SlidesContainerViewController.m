@@ -232,7 +232,7 @@
 - (void) editMenu:(ContentEditMenuView *)editMenu willShowAnimationEditorForContent:(UIView *)view forType:(AnimationEvent)animationEvent
 {
     CGRect rect = [self.view convertRect:self.editorViewController.currentSelectedContent.frame fromView:self.editorViewController.view];
-    [[AnimationEditorManager sharedManager] showAnimationEditorFromRect:rect inView:self.view forContent:view animationEvent:animationEvent];
+    [[AnimationEditorManager sharedManager] showAnimationEditorFromRect:rect inView:self.view forContent:view animationEvent:animationEvent animationIndex:[self.editorViewController.canvas.animations count]];
 }
 
 #pragma mark - AnimationModeManagerDelegate

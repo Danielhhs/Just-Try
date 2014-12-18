@@ -114,7 +114,8 @@
         self.animation = [animation copyWithZone:nil];
         self.parameterInputViewController.animationParameters = self.animation.parameters;
         self.parameterInputViewController.permittedDirection = self.animation.parameters.permittedDirection;
-        [self.delegate animationEditorDidUpdateAnimationEffect:animation];
+        self.animation.animationIndex = self.animationIndex;
+        [self.delegate animationEditorDidUpdateAnimationEffect:self.animation];
     }
 }
 

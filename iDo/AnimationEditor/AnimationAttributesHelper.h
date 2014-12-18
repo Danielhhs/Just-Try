@@ -11,7 +11,10 @@
 #import "GenericContainerView.h"
 @interface AnimationAttributesHelper : NSObject
 
-+ (void) updateContent:(GenericContainerView *) content withAnimationDescription:(AnimationDescription *) animationDescription generatingOperation:(BOOL) generatingOperation;
++ (void) updateContent:(GenericContainerView *) content
+withAnimationDescription:(AnimationDescription *)animationDescription
+       slideAnimations:(NSMutableArray *) slideAnimations
+   generatingOperation:(BOOL)generatingOperation;
 + (void) updateContentAttributes:(NSMutableDictionary *) attributes withAnimationDescription:(AnimationDescription *)animationDescription;
 + (NSString *) animationTitleForAnimationEffect:(AnimationEffect) effect;
 + (NSString *) animationInTitleForContent:(GenericContainerView *)content;

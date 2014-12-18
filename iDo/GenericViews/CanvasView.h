@@ -18,6 +18,7 @@
 @interface CanvasView : UIView
 
 @property (nonatomic, strong) UIImage *background;
+@property (nonatomic, strong) NSMutableArray *animations;
 @property (nonatomic, weak) id<CanvasViewDelegate> delegate;
 
 - (instancetype) initWithAttributes:(NSDictionary *) attributes

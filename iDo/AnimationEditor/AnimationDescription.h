@@ -13,6 +13,7 @@
 @property (nonatomic) AnimationEvent animationEvent;
 @property (nonatomic, strong) NSString *animationName;
 @property (nonatomic) AnimationEffect animationEffect;
+@property (nonatomic) NSInteger animationIndex;
 @property (nonatomic, strong) AnimationParameters *parameters;
 - (instancetype) initWithAnimationEffect:(AnimationEffect)animationEffect forEvent:(AnimationEvent) animationEvent parameters:(AnimationParameters *)parameters;
 + (AnimationDescription *) animationDescriptionWithAnimationEffect:(AnimationEffect) animationEffect

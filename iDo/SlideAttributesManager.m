@@ -50,7 +50,6 @@ static SlideAttributesManager *sharedInstance = nil;
 - (void) saveCanvasContents:(CanvasView *)canvas toSlide:(NSMutableDictionary *)slide
 {
     [slide setValue:[canvas snapshot] forKey:[KeyConstants slideThumbnailKey]];
-    
     NSMutableArray *newContents = [NSMutableArray array];
     for (UIView *view in canvas.subviews) {
         if ([view isKindOfClass:[GenericContainerView class]]) {

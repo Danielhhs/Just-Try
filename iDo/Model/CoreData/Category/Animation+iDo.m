@@ -8,6 +8,7 @@
 
 #import "Animation+iDo.h"
 #import "KeyConstants.h"
+#import "GenericConent.h"
 @implementation Animation (iDo)
 
 + (Animation *) animationFromAttributes:(NSDictionary *)attributes inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
@@ -26,11 +27,10 @@
     attributes[[KeyConstants animationDurationKey]] = animation.duration;
     attributes[[KeyConstants animationEffectKey]] = animation.effect;
     attributes[[KeyConstants animationTriggerTimeKey]] = animation.triggerTime;
-#warning Delete This
-    animation.index = @(1);
     attributes[[KeyConstants animationIndexKey]] = animation.index;
     attributes[[KeyConstants animationDirectionKey]] = animation.direction;
     attributes[[KeyConstants animationEventKey]] = animation.event;
+    attributes[[KeyConstants contentUUIDKey]] = animation.container.uuid;
     return attributes;
 }
 

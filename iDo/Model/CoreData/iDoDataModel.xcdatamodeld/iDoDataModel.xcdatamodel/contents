@@ -32,6 +32,7 @@
         <attribute name="shadowType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="transform" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="unique" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="animations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Animation" inverseName="container" inverseEntity="Animation" syncable="YES"/>
         <relationship name="slide" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Slide" inverseName="contents" inverseEntity="Slide" syncable="YES"/>
     </entity>
@@ -49,6 +50,7 @@
     </entity>
     <entity name="Slide" representedClassName="Slide" syncable="YES">
         <attribute name="background" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="currentAnimationIndex" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="unique" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -69,10 +71,10 @@
     <elements>
         <element name="Animation" positionX="-2943" positionY="-439" width="128" height="150"/>
         <element name="Game" positionX="-3152" positionY="-826" width="128" height="105"/>
-        <element name="GenericContent" positionX="-3015" positionY="-709" width="128" height="313"/>
+        <element name="GenericContent" positionX="-3015" positionY="-709" width="128" height="330"/>
         <element name="ImageContent" positionX="-2799" positionY="-666" width="128" height="73"/>
         <element name="Proposal" positionX="-3501" positionY="-769" width="128" height="135"/>
-        <element name="Slide" positionX="-3222" positionY="-639" width="128" height="148"/>
+        <element name="Slide" positionX="-3222" positionY="-639" width="128" height="165"/>
         <element name="TextContent" positionX="-2810" positionY="-565" width="128" height="75"/>
         <element name="Transition" positionX="-3186" positionY="-403" width="128" height="105"/>
     </elements>

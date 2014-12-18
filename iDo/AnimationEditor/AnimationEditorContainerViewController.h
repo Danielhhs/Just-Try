@@ -18,4 +18,5 @@
 @property (nonatomic, strong) AnimationDescription *animation;
 @property (nonatomic, weak) UIView *animationTarget;
 @property (nonatomic, weak) id<AnimationEditorContainerViewControllerDelegate> delegate;
+@property (nonatomic) NSInteger animationIndex;
 @end
