@@ -9,13 +9,16 @@
 #import "AnimationEditorContainerViewController.h"
 #import "AnimationTypeSelectionViewController.h"
 #import "AnimationParameterViewController.h"
+#import "AnimationOrderViewController.h"
 @interface AnimationEditorContainerViewController ()<AnimationTypeSelectionViewControllerDelegate, AnimationParameterViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *editorSegment;
 @property (nonatomic, strong) AnimationTypeSelectionViewController *typeSelectionViewController;
 @property (nonatomic, strong) AnimationParameterViewController *parameterInputViewController;
+@property (nonatomic, strong) AnimationOrderViewController *orderViewController;
 @end
 #define kAnimationTypeControllerIndex 0
 #define kAnimationParameterControllerIndex 1
+#define kAnimationOrderControllerIndex 2
 
 #define kTopBarSpace 50
 
@@ -39,6 +42,14 @@
     return _parameterInputViewController;
 }
 
+- (AnimationOrderViewController *) orderViewController
+{
+    if (!_orderViewController) {
+        _orderViewController = [[UIStoryboard storyboardWithName:@"AnimationEditorViewControllers" bundle:nil] instantiateViewControllerWithIdentifier:@"AnimationOrderViewController"];
+    }
+    return _orderViewController;
+}
+
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -51,6 +62,8 @@
         [self showAnimationTypeSelectionViewController];
     } else if (sender.selectedSegmentIndex == kAnimationParameterControllerIndex) {
         [self showAnimationParameterViewController];
+    } else if (sender.selectedSegmentIndex == kAnimationOrderControllerIndex) {
+        [self showAnimationOrderViewController];
     }
 }
 
@@ -102,10 +115,28 @@
     [self.parameterInputViewController removeFromParentViewController];
 }
 
+#pragma mark - AnimationOrderViewController
+- (void) showAnimationOrderViewController
+{
+    [self hideAllChildViewControllers];
+    [self addChildViewController:self.orderViewController];
+    self.orderViewController.view.frame = CGRectOffset(self.orderViewController.view.bounds, 0, kTopBarSpace);
+    [self.view addSubview:self.orderViewController.view];
+    [self.orderViewController didMoveToParentViewController:self];
+}
+
+- (void) hideAnimationOrderViewController
+{
+    [self.orderViewController willMoveToParentViewController:nil];
+    [self.orderViewController.view removeFromSuperview];
+    [self.orderViewController removeFromParentViewController];
+}
+
 - (void) hideAllChildViewControllers
 {
     [self hideAnimationTypeSelectionViewController];
     [self hideAnimationParameterViewController];
+    [self hideAnimationOrderViewController];
 }
 #pragma mark - AnimationTypeSelectionViewControllerDelegate
 - (void) animationEditorDidSelectAnimation:(AnimationDescription *)animation

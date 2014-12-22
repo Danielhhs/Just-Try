@@ -133,7 +133,7 @@
     [self.transitionInButton restoreNormalState];
 }
 
-- (void) showWithAvailableOperations:(NSArray *)availableOperations toContent:(GenericContainerView *)content
+- (void) showWithAvailableOperations:(NSArray *)availableOperations toContent:(GenericContainerView *)content animated:(BOOL) animated
 {
     if ([[AnimationModeManager sharedManager] isInAnimationMode]) {
         self.animateInButton.animationTitle = [AnimationAttributesHelper animationInTitleForContent:content];
@@ -145,11 +145,13 @@
     [self updateOperationButtonsFromAvailableOperations:availableOperations];
     self.frame = [self frameFromCurrentButtons];
     [self layoutButtons];
-    self.alpha = 0;
     self.hidden = NO;
-    [UIView animateWithDuration:[DrawingConstants counterGoldenRatio] animations:^{
-        self.alpha = 1;
-    }];
+    if (animated) {
+        self.alpha = 0;
+        [UIView animateWithDuration:[DrawingConstants counterGoldenRatio] animations:^{
+            self.alpha = 1;
+        }];
+    }
     [self setNeedsDisplay];
 }
 
@@ -161,18 +163,20 @@
     [self.animateOutButton setAnimationOrder:animationOrder];
 }
 
-- (void) showWithAvailableOperations:(NSArray *)availableOperations toCanvas:(CanvasView *)canvas
+- (void) showWithAvailableOperations:(NSArray *)availableOperations toCanvas:(CanvasView *)canvas animated:(BOOL)animated
 {
     self.triggeredCanvas = canvas;
     self.trigger = canvas;
     [self updateOperationButtonsFromAvailableOperations:availableOperations];
     self.frame = [self frameFromCurrentButtons];
     [self layoutButtons];
-    self.alpha = 0;
     self.hidden = NO;
-    [UIView animateWithDuration:[DrawingConstants counterGoldenRatio] animations:^{
-        self.alpha = 1;
-    }];
+    if (animated) {
+        self.alpha = 0;
+        [UIView animateWithDuration:[DrawingConstants counterGoldenRatio] animations:^{
+            self.alpha = 1;
+        }];
+    }
     [self setNeedsDisplay];
 }
 

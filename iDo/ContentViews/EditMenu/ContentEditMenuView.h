@@ -38,8 +38,8 @@ typedef NS_ENUM(NSInteger, EditMenuAvailableOperation) {
 @property (nonatomic, weak) GenericContainerView *triggeredContent;
 @property (nonatomic, weak) CanvasView *triggeredCanvas;
 @property (nonatomic, weak) id<ContentEditMenuViewDelegate> delegate;
-- (void) showWithAvailableOperations:(NSArray *) availableOperations toContent:(GenericContainerView *) content;
-- (void) showWithAvailableOperations:(NSArray *) availableOperations toCanvas:(CanvasView *) canvas;
+- (void) showWithAvailableOperations:(NSArray *) availableOperations toContent:(GenericContainerView *) content animated:(BOOL) animated;
+- (void) showWithAvailableOperations:(NSArray *) availableOperations toCanvas:(CanvasView *) canvas animated:(BOOL) animated;
 - (void) hide;
 - (void) update;
 - (void) updateEditAnimationItemWithAnimationName:(NSString *) animationName animationOrder:(NSInteger) animationOrder;

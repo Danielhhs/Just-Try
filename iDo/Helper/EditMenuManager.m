@@ -86,6 +86,10 @@ static EditMenuManager *sharedInstance;
 }
 
 #pragma mark - Show/Hide
+- (void) updateEditMenuWithView:(UIView *)view {
+    [self showEditMenuToContentView:(GenericContainerView *)view animated:NO];
+}
+
 - (void) showEditMenuToView:(UIView *) view
 {
     if (self.editMenuShown == YES) {
@@ -93,9 +97,9 @@ static EditMenuManager *sharedInstance;
         return;
     }
     if ([view isKindOfClass:[GenericContainerView class]]) {
-        [self showEditMenuToContentView:(GenericContainerView *)view];
+        [self showEditMenuToContentView:(GenericContainerView *)view animated:YES];
     } else if ([view isKindOfClass:[CanvasView class]]) {
-        [self showEditMenuToCanvas:(CanvasView *) view];
+        [self showEditMenuToCanvas:(CanvasView *) view animated:YES];
     }
 }
 
@@ -126,21 +130,21 @@ static EditMenuManager *sharedInstance;
     }
 }
 
-- (void) showEditMenuToContentView:(GenericContainerView *) content
+- (void) showEditMenuToContentView:(GenericContainerView *) content animated:(BOOL) animated
 {
     self.editMenuShown = YES;
     NSArray *availableOperations = [self availableOperationsForView:content];
-    [self.editMenu showWithAvailableOperations:availableOperations toContent:content];
+    [self.editMenu showWithAvailableOperations:availableOperations toContent:content animated:animated];
     CGPoint center = CGPointMake(content.center.x, content.frame.origin.y - self.editMenu.frame.size.height / 2 - EDIT_MENU_VIEW_SPACE);
     center = [self.containerView convertPoint:center fromView:content.superview];
     self.editMenu.center = center;
 }
 
-- (void) showEditMenuToCanvas:(CanvasView *) canvas
+- (void) showEditMenuToCanvas:(CanvasView *) canvas animated:(BOOL) animated
 {
     self.editMenuShown = YES;
     NSArray *availableOperations = [self availableOperationsForView:canvas];
-    [self.editMenu showWithAvailableOperations:availableOperations toCanvas:canvas];
+    [self.editMenu showWithAvailableOperations:availableOperations toCanvas:canvas animated:animated];
     CGPoint origin;
     CGPoint canvasOrigin = [self.containerView convertPoint:canvas.frame.origin fromView:canvas.superview];
     CGPoint canvasCenter = [self.containerView convertPoint:canvas.center fromView:canvas.superview];

@@ -21,7 +21,6 @@ withAnimationDescription:(AnimationDescription *)animationDescription
     NSArray *originalAnimations = [[[content attributes] objectForKey:[KeyConstants animationsKey]] copy];
     [AnimationAttributesHelper updateContentAttributes:[content attributes] withAnimationDescription:animationDescription];
     if (generatingOperation) {
-//        [AnimationAttributesHelper updateSlideAnimations:slideAnimations withAnimationDescription:animationDescription content:content];
         [[SlideAttributesManager sharedManager] updateSlideWithAnimationDescription:animationDescription content:content];
         SimpleOperation *operation = [[SimpleOperation alloc] initWithTargets:@[content] key:[KeyConstants animationsKey] fromValue:originalAnimations];
         operation.toValue = [[[content attributes] objectForKey:[KeyConstants animationsKey]] copy];
@@ -54,6 +53,7 @@ withAnimationDescription:(AnimationDescription *)animationDescription
         }];
     }
     if (animationDescription.animationEffect == AnimationEffectNone) {
+        animationDescription.animationIndex--;
         [[SlideAttributesManager sharedManager] removeAnimation:editedAnimation];
     } else {
         editedAnimation[[KeyConstants animationEffectKey]] = @(animationDescription.animationEffect);

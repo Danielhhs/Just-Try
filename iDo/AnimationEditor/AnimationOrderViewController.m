@@ -7,8 +7,11 @@
 //
 
 #import "AnimationOrderViewController.h"
-
-@interface AnimationOrderViewController ()
+#import "AnimationOrderCollectionViewCell.h"
+#import "KeyConstants.h"
+#import "SlideAttributesManager.h"
+@interface AnimationOrderViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
+@property (weak, nonatomic) IBOutlet UICollectionView *animationOrderCollectionView;
 
 @end
 
@@ -24,14 +27,36 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.animations = [[SlideAttributesManager sharedManager] currentSlideAnimations];
 }
-*/
 
+#pragma mark - UICollectionViewDatasource
+- (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return [self.animations count];
+}
+
+- (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AnimationOrderCell" forIndexPath:indexPath];
+    
+    if ([cell isKindOfClass:[AnimationOrderCollectionViewCell class]]) {
+        AnimationOrderCollectionViewCell *orderCell = (AnimationOrderCollectionViewCell *)cell;
+        NSDictionary *animation = self.animations[indexPath.row];
+        orderCell.contentUUIDLabel.text = [animation[[KeyConstants contentUUIDKey]] UUIDString];
+        orderCell.orderIndicator.event = [animation[[KeyConstants animationEventKey]] integerValue];
+        orderCell.orderIndicator.hasAnimation = YES;
+        orderCell.orderIndicator.animatinOrder = [animation[[KeyConstants animationIndexKey]] integerValue];
+    }
+    return cell;
+}
 @end

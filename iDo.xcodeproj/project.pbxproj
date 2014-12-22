@@ -19,6 +19,7 @@
 		5421860D1A09F14C006EBDFD /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5421860C1A09F14C006EBDFD /* CoreDataManager.m */; };
 		5421860F1A09F225006EBDFD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5421860E1A09F225006EBDFD /* CoreData.framework */; };
 		5421863F1A09FBBB006EBDFD /* GenericConent+iDo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5421863E1A09FBBB006EBDFD /* GenericConent+iDo.m */; };
+		542B99221A48392800C5C9BE /* AnimationOrderCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 542B99211A48392800C5C9BE /* AnimationOrderCollectionViewCell.m */; };
 		5436A0041A0A256600A16E2C /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5436A0031A0A256600A16E2C /* CoreDataHelper.m */; };
 		543FE0DC1A2813DD002276D7 /* ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 543FE0B61A2813DD002276D7 /* ANImageBitmapRep.m */; };
 		543FE0DD1A2813DD002276D7 /* BitmapContextRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 543FE0B81A2813DD002276D7 /* BitmapContextRep.m */; };
@@ -181,6 +182,8 @@
 		5421860E1A09F225006EBDFD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5421863D1A09FBBB006EBDFD /* GenericConent+iDo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GenericConent+iDo.h"; path = "Model/CoreData/Category/GenericConent+iDo.h"; sourceTree = "<group>"; };
 		5421863E1A09FBBB006EBDFD /* GenericConent+iDo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GenericConent+iDo.m"; path = "Model/CoreData/Category/GenericConent+iDo.m"; sourceTree = "<group>"; };
+		542B99201A48392800C5C9BE /* AnimationOrderCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationOrderCollectionViewCell.h; path = AnimationEditor/AnimationOrderCollectionViewCell.h; sourceTree = "<group>"; };
+		542B99211A48392800C5C9BE /* AnimationOrderCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationOrderCollectionViewCell.m; path = AnimationEditor/AnimationOrderCollectionViewCell.m; sourceTree = "<group>"; };
 		5436A0021A0A256600A16E2C /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataHelper.h; path = Model/CoreData/CoreDataHelper.h; sourceTree = "<group>"; };
 		5436A0031A0A256600A16E2C /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataHelper.m; path = Model/CoreData/CoreDataHelper.m; sourceTree = "<group>"; };
 		543FE0B51A2813DD002276D7 /* ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANImageBitmapRep.h; sourceTree = "<group>"; };
@@ -657,6 +660,8 @@
 				545C4C571A3A985A002604FA /* AnimationParameterViewController.m */,
 				545C4C841A3BF11F002604FA /* AnimationOrderViewController.h */,
 				545C4C851A3BF11F002604FA /* AnimationOrderViewController.m */,
+				542B99201A48392800C5C9BE /* AnimationOrderCollectionViewCell.h */,
+				542B99211A48392800C5C9BE /* AnimationOrderCollectionViewCell.m */,
 				545C4C5B1A3A9DB9002604FA /* AnimationTypeTableViewCell.h */,
 				545C4C5C1A3A9DB9002604FA /* AnimationTypeTableViewCell.m */,
 				545C4C5E1A3A9E43002604FA /* AnimationTypesGenerator.h */,
@@ -1267,6 +1272,7 @@
 				54869C921A42ACD200A6D6BB /* GenericConent.m in Sources */,
 				547DCA121A04D1A3004691EC /* TextEditorPanelContainerViewController.m in Sources */,
 				547DCA021A04CAC5004691EC /* EditorPanelContainerViewController.m in Sources */,
+				542B99221A48392800C5C9BE /* AnimationOrderCollectionViewCell.m in Sources */,
 				547EEEC91A18800900EAD132 /* ContentEditMenuView.m in Sources */,
 				54F0C4461A0CA8B6009B4B0D /* ImageContent+iDo.m in Sources */,
 				54D7294419ECE9B5009A0279 /* main.m in Sources */,

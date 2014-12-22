@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iDo/AnimationEditor/AnimationAttributesHelper.m"
-            timestampString = "440758893.072244"
+            timestampString = "440935328.880204"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
             landmarkName = "+updateSlideAnimations:withAnimationDescription:content:"
             landmarkType = "5">
          </BreakpointContent>
@@ -35,13 +35,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iDo/SlideAttributesManager.m"
-            timestampString = "440834351.39762"
+            filePath = "iDo/ContentViews/EditMenu/ContentEditMenuView.m"
+            timestampString = "440939793.432825"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "-updateSlideWithAnimationDescription:content:"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "-showWithAvailableOperations:toContent:animated:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -51,29 +51,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iDo/SlideAttributesManager.m"
-            timestampString = "440834370.597594"
+            filePath = "iDo/ContentViews/EditMenu/ContentEditMenuView.m"
+            timestampString = "440939854.227448"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "-removeAnimation:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iDo/SlideAttributesManager.m"
-            timestampString = "440834410.347242"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
-            landmarkName = "-findAnimationInContent:"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "-updateAnimationOrderIndicatorsForContent:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

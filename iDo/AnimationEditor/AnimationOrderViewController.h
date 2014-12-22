@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface AnimationOrderViewController : UIViewController
+@property (nonatomic, strong) NSArray *animations;
 
 @end

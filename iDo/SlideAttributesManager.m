@@ -168,4 +168,9 @@ static SlideAttributesManager *sharedInstance = nil;
     return content;
 }
 
+- (NSArray *) currentSlideAnimations
+{
+    return [self.animations copy];
+}
+
 @end

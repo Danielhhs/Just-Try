@@ -28,6 +28,8 @@
 
 - (NSInteger) currentAnimationIndex;
 
+- (NSArray *) currentSlideAnimations;
+
 - (void) removeAnimation:(NSMutableDictionary *)animation;
 
 - (void) updateSlideWithAnimationDescription:(AnimationDescription *) animationDescription

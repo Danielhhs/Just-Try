@@ -234,12 +234,22 @@
 - (void) animationEditorDidSelectAnimation:(AnimationDescription *)animation
 {
     [AnimationAttributesHelper updateContent:self.currentSelectedContent withAnimationDescription:animation generatingOperation:YES];
+    NSInteger animationIndex = animation.animationIndex;
+    if (animation.animationEffect == AnimationEffectNone) {
+        animationIndex = -1;
+    }
+    [[EditMenuManager sharedManager] updateEditMenuWithView:self.currentSelectedContent];
+    [[AnimationOrderManager sharedManager] applyAnimationOrderIndicatorToView:self.currentSelectedContent];
 }
 
 - (void) animationEditorDidUpdateAnimationEffect:(AnimationDescription *) animation
 {
     [AnimationAttributesHelper updateContentAttributes:[self.currentSelectedContent attributes] withAnimationDescription:animation];
-    [[EditMenuManager sharedManager] updateEditMenuWithAnimationName:animation.animationName animationOrder:animation.animationIndex];
+    NSInteger animationIndex = animation.animationIndex;
+    if (animation.animationEffect == AnimationEffectNone) {
+        animationIndex = -1;
+    }
+    [[EditMenuManager sharedManager] updateEditMenuWithAnimationName:animation.animationName animationOrder:animationIndex];
     [[AnimationOrderManager sharedManager] applyAnimationOrderIndicatorToView:self.currentSelectedContent];
 }
 

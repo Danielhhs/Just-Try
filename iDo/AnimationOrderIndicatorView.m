@@ -12,7 +12,6 @@
 #define INDICATOR_EDGE_LENGTH 30
 #define LEAD_SPACE 6.18
 @interface AnimationOrderIndicatorView()
-@property (nonatomic) AnimationEvent event;
 @end
 
 @implementation AnimationOrderIndicatorView
@@ -81,11 +80,9 @@
 
 - (void) setAnimatinOrder:(NSInteger)animatinOrder
 {
-    if (_animatinOrder != animatinOrder) {
-        _animatinOrder = animatinOrder;
-        self.hasAnimation = (animatinOrder == -1) ? NO : YES;
-        [self setNeedsDisplay];
-    }
+    _animatinOrder = animatinOrder;
+    self.hasAnimation = (animatinOrder == -1) ? NO : YES;
+    [self setNeedsDisplay];
 }
 
 - (void) drawRect:(CGRect)rect
