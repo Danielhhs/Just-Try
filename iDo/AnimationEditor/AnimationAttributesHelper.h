@@ -13,7 +13,6 @@
 
 + (void) updateContent:(GenericContainerView *) content
 withAnimationDescription:(AnimationDescription *)animationDescription
-       slideAnimations:(NSMutableArray *) slideAnimations
    generatingOperation:(BOOL)generatingOperation;
 + (void) updateContentAttributes:(NSMutableDictionary *) attributes withAnimationDescription:(AnimationDescription *)animationDescription;
 + (NSString *) animationTitleForAnimationEffect:(AnimationEffect) effect;

@@ -34,16 +34,7 @@
         contentView.canvas = self;
         [self addSubview:contentView];
         [contentView contentHasBeenAddedToSuperView];
-        NSArray *contentAnimations = [contentView attributes][[KeyConstants animationsKey]];
-        if (contentAnimations != nil && [contentAnimations count] != 0) {
-            [self.animations addObjectsFromArray:contentAnimations];
-        }
     }
-    [self.animations sortUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
-        NSInteger index1 = [obj1[[KeyConstants animationIndexKey]] integerValue];
-        NSInteger index2 = [obj2[[KeyConstants animationIndexKey]] integerValue];
-        return index1 < index2;
-    }];
 }
 
 - (instancetype) initWithAttributes:(NSDictionary *)attributes delegate:(id<CanvasViewDelegate>)delegate contentDelegate:(id)contentDelegate
@@ -57,7 +48,6 @@
         [self addGestureRecognizer:self.pinch];
         self.tapToGainFocus = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapToGainFocus:)];
         [self addGestureRecognizer:self.tapToGainFocus];
-        self.animations = [NSMutableArray array];
         self.layer.shadowColor = [UIColor blackColor].CGColor;
         self.layer.shadowPath = [UIBezierPath bezierPathWithRect:CGRectInset(self.bounds, -10, -10)].CGPath;
         self.layer.shadowOpacity = 0.5;

@@ -23,6 +23,7 @@
 #import "AnimationEditorManager.h"
 #import "AnimationModeManager.h"
 #import "AnimationOrderManager.h"
+#import "SlideAttributesManager.h"
 
 @interface SlidesContainerViewController ()<SlidesEditingViewControllerDelegate, SlidesThumbnailViewControllerDelegate, ContentEditMenuViewDelegate, SlideEditingToolbarDelegate, AnimationToolbarViewControllerDelegate, AnimationModeManagerDelegate>
 @property (nonatomic) NSInteger currentSelectSlideIndex;
@@ -98,10 +99,11 @@
 - (void) setCurrentSelectSlideIndex:(NSInteger)currentSelectSlideIndex
 {
     _currentSelectSlideIndex = currentSelectSlideIndex;
-    [[SlideThumbnailsManager sharedManager] selectSlideAtIndex:self.currentSelectSlideIndex];
-    self.editorViewController.slideAttributes = [self.slideAttributes objectAtIndex:self.currentSelectSlideIndex];
-    self.editorViewController.canvas = [self.slideViews objectAtIndex:self.currentSelectSlideIndex];
+    [[SlideThumbnailsManager sharedManager] selectSlideAtIndex:currentSelectSlideIndex];
+    self.editorViewController.slideAttributes = [self.slideAttributes objectAtIndex:currentSelectSlideIndex];
+    self.editorViewController.canvas = [self.slideViews objectAtIndex:currentSelectSlideIndex];
     [[EditMenuManager sharedManager] hideEditMenu];
+    [[SlideAttributesManager sharedManager] setSlideAttributes:self.slideAttributes[currentSelectSlideIndex]];
 }
 
 - (dispatch_queue_t) snapshotQueue
@@ -232,7 +234,7 @@
 - (void) editMenu:(ContentEditMenuView *)editMenu willShowAnimationEditorForContent:(UIView *)view forType:(AnimationEvent)animationEvent
 {
     CGRect rect = [self.view convertRect:self.editorViewController.currentSelectedContent.frame fromView:self.editorViewController.view];
-    [[AnimationEditorManager sharedManager] showAnimationEditorFromRect:rect inView:self.view forContent:view animationEvent:animationEvent animationIndex:[self.editorViewController.canvas.animations count]];
+    [[AnimationEditorManager sharedManager] showAnimationEditorFromRect:rect inView:self.view forContent:view animationEvent:animationEvent animationIndex:[[SlideAttributesManager sharedManager] currentAnimationIndex]];
 }
 
 #pragma mark - AnimationModeManagerDelegate

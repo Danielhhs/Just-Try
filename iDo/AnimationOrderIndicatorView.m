@@ -11,12 +11,16 @@
 
 #define INDICATOR_EDGE_LENGTH 30
 #define LEAD_SPACE 6.18
+@interface AnimationOrderIndicatorView()
+@property (nonatomic) AnimationEvent event;
+@end
 
 @implementation AnimationOrderIndicatorView
 
-+ (AnimationOrderIndicatorView *) animationOrderIndicator
++ (AnimationOrderIndicatorView *) animationOrderIndicatorForEvent:(AnimationEvent)event
 {
     AnimationOrderIndicatorView *indicator = [[self alloc] initWithFrame:CGRectMake(0, 0, INDICATOR_EDGE_LENGTH, INDICATOR_EDGE_LENGTH)];
+    indicator.event = event;
     return indicator;
 }
 
@@ -52,12 +56,17 @@
     }
 }
 
+- (UIColor *) fillColorForCurrentEvent
+{
+    return self.event == AnimationEventBuiltOut ? [UIColor grayColor] : [UIColor yellowColor];
+}
+
 - (UIColor *) fillColor
 {
     if (self.selected) {
-        return self.hasAnimation ? [UIColor yellowColor] : [UIColor colorWithRed:0.1 green:0.378431 blue:1 alpha:0.7];
+        return self.hasAnimation ? [self fillColorForCurrentEvent] : [UIColor colorWithRed:0.1 green:0.378431 blue:1 alpha:0.7];
     } else {
-        return self.hasAnimation ? [UIColor yellowColor] : [UIColor colorWithRed:0 green:0.478431 blue:1 alpha:1];
+        return self.hasAnimation ? [self fillColorForCurrentEvent] : [UIColor colorWithRed:0 green:0.478431 blue:1 alpha:1];
     }
 }
 

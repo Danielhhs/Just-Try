@@ -58,9 +58,9 @@
         _replaceButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants replaceText] editMenu:self action:@selector(handleReplace)];
         _animateButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants animateText] editMenu:self action:@selector(handleAnimate)];
         _transitionButton = [[EditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants transitionText] editMenu:self action:@selector(handleTransition)];
-        _animateInButton = [[AnimationEditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants noneText] subTitle:[TextConstants animateInText] editMenu:self action:@selector(handleAnimateIn) type:EditMenuItemTypeLeftMost hasAnimation:YES animationOrder:1];
-        _animateOutButton = [[AnimationEditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants noneText] subTitle:[TextConstants animateOutText] editMenu:self action:@selector(handleAnimateOut) type:EditMenuItemTypeRightMost hasAnimation:NO animationOrder:0];
-        _transitionInButton = [[AnimationEditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants noneText] subTitle:nil editMenu:self action:@selector(handleTransitionIn) type:EditMenuItemTypeLeftArrow hasAnimation:NO animationOrder:0];
+        _animateInButton = [[AnimationEditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants noneText] subTitle:[TextConstants animateInText] editMenu:self action:@selector(handleAnimateIn) type:EditMenuItemTypeLeftMost hasAnimation:YES animationOrder:1 animationEvent:AnimationEventBuiltIn];
+        _animateOutButton = [[AnimationEditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants noneText] subTitle:[TextConstants animateOutText] editMenu:self action:@selector(handleAnimateOut) type:EditMenuItemTypeRightMost hasAnimation:NO animationOrder:0 animationEvent:AnimationEventBuiltOut];
+        _transitionInButton = [[AnimationEditMenuItem alloc] initWithFrame:CGRectMake(0, 0, 0, EDIT_ITEM_HEIGTH) title:[TextConstants noneText] subTitle:nil editMenu:self action:@selector(handleTransitionIn) type:EditMenuItemTypeLeftArrow hasAnimation:NO animationOrder:0 animationEvent:AnimationEventTransition];
         self.availableOperations = [NSMutableArray array];
         self.separatorLocations = [NSMutableArray array];
         self.backgroundColor = [UIColor clearColor];

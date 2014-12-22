@@ -10,18 +10,19 @@
 #import "KeyConstants.h"
 #import "SimpleOperation.h"
 #import "UndoManager.h"
+#import "SlideAttributesManager.h"
 
 @implementation AnimationAttributesHelper
 
 + (void) updateContent:(GenericContainerView *) content
 withAnimationDescription:(AnimationDescription *)animationDescription
-       slideAnimations:(NSMutableArray *) slideAnimations
    generatingOperation:(BOOL)generatingOperation
 {
     NSArray *originalAnimations = [[[content attributes] objectForKey:[KeyConstants animationsKey]] copy];
     [AnimationAttributesHelper updateContentAttributes:[content attributes] withAnimationDescription:animationDescription];
     if (generatingOperation) {
-        [AnimationAttributesHelper updateSlideAnimations:slideAnimations withAnimationDescription:animationDescription content:content];
+//        [AnimationAttributesHelper updateSlideAnimations:slideAnimations withAnimationDescription:animationDescription content:content];
+        [[SlideAttributesManager sharedManager] updateSlideWithAnimationDescription:animationDescription content:content];
         SimpleOperation *operation = [[SimpleOperation alloc] initWithTargets:@[content] key:[KeyConstants animationsKey] fromValue:originalAnimations];
         operation.toValue = [[[content attributes] objectForKey:[KeyConstants animationsKey]] copy];
         [[UndoManager sharedManager] pushOperation:operation];
@@ -46,14 +47,14 @@ withAnimationDescription:(AnimationDescription *)animationDescription
         editedAnimation[[KeyConstants animationEventKey]] = @(animationDescription.animationEvent);
         editedAnimation[[KeyConstants animationIndexKey]] = @([slideAnimations count] + 1);
         [slideAnimations addObject:editedAnimation];
+        [slideAnimations sortUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+            NSInteger index1 = [obj1[[KeyConstants animationIndexKey]] integerValue];
+            NSInteger index2 = [obj2[[KeyConstants animationIndexKey]] integerValue];
+            return index1 > index2;
+        }];
     }
     if (animationDescription.animationEffect == AnimationEffectNone) {
-        NSInteger index = [slideAnimations indexOfObject:slideAnimations];
-        [slideAnimations removeObject:editedAnimation];
-        for (NSInteger i = index; i < [slideAnimations count]; i++) {
-            NSMutableDictionary *slideAnimation = slideAnimations[i];
-            slideAnimation[[KeyConstants animationIndexKey]] = @([slideAnimation[[KeyConstants animationIndexKey]] integerValue] - 1);
-        }
+        [[SlideAttributesManager sharedManager] removeAnimation:editedAnimation];
     } else {
         editedAnimation[[KeyConstants animationEffectKey]] = @(animationDescription.animationEffect);
         editedAnimation[[KeyConstants animationDurationKey]] = @(animationDescription.parameters.duration);

@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "AnimationConstants.h"
 @interface AnimationOrderIndicatorView : UIView
-+ (AnimationOrderIndicatorView *) animationOrderIndicator;
++ (AnimationOrderIndicatorView *) animationOrderIndicatorForEvent:(AnimationEvent)event;
 
 @property (nonatomic) BOOL hasAnimation;
 @property (nonatomic) NSInteger animatinOrder;

@@ -28,7 +28,8 @@
                         action:(SEL)action
                           type:(EditMenuItemType)type
                   hasAnimation:(BOOL)hasAnimation
-                animationOrder:(NSInteger) animationOrder;
+                animationOrder:(NSInteger) animationOrder
+                animationEvent:(AnimationEvent)event
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -51,7 +52,7 @@
             self.subTitleLabel.attributedText = attributedSubTitle;
             [self addSubview:self.subTitleLabel];
         }
-        self.animationOrderIndicator = [AnimationOrderIndicatorView animationOrderIndicator];
+        self.animationOrderIndicator = [AnimationOrderIndicatorView animationOrderIndicatorForEvent:event];
         self.animationOrderIndicator.hasAnimation = NO;
         [self addSubview:self.animationOrderIndicator];
         [self layoutComponents];

@@ -30,7 +30,7 @@
     attributes[[KeyConstants animationIndexKey]] = animation.index;
     attributes[[KeyConstants animationDirectionKey]] = animation.direction;
     attributes[[KeyConstants animationEventKey]] = animation.event;
-    attributes[[KeyConstants contentUUIDKey]] = animation.container.uuid;
+    attributes[[KeyConstants contentUUIDKey]] = [[NSUUID alloc] initWithUUIDString:animation.container.uuid];
     return attributes;
 }
 

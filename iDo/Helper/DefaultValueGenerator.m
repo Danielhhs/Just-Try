@@ -47,6 +47,7 @@
     [attribtues setValue:DEFAULT_BACKGROUND_IMAGE forKey:[KeyConstants slideBackgroundKey]];
     [attribtues setValue:[UIImage imageNamed:DEFAULT_BACKGROUND_IMAGE] forKey:[KeyConstants slideThumbnailKey]];
     [attribtues setValue:@(0) forKey:[KeyConstants slideCurrentAnimationIndexKey]];
+    [attribtues setValue:[NSMutableArray array] forKey:[KeyConstants slideContentsKey]];
     
     return attribtues;
 }

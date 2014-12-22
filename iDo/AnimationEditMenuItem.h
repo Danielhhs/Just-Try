@@ -7,6 +7,7 @@
 //
 
 #import "EditMenuItem.h"
+#import "AnimationConstants.h"
 
 @interface AnimationEditMenuItem : EditMenuItem
 
@@ -23,5 +24,6 @@
                         action:(SEL)action
                           type:(EditMenuItemType)type
                   hasAnimation:(BOOL)hasAnimation
-                animationOrder:(NSInteger) animationOrder;
+                animationOrder:(NSInteger) animationOrder
+                animationEvent:(AnimationEvent) event;
 @end
