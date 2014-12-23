@@ -122,6 +122,10 @@
 		54D7296D19ECEAB9009A0279 /* GenericContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7296C19ECEAB9009A0279 /* GenericContainerView.m */; };
 		54D7297319ED0FF0009A0279 /* BorderControlPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D7297219ED0FF0009A0279 /* BorderControlPointView.m */; };
 		54E3539C1A40040B00CBCCA4 /* AnimationDirectionArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3539B1A40040B00CBCCA4 /* AnimationDirectionArrowView.m */; };
+		54E484C01A4935AF00121638 /* AnimationOrderCollectionViewImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E484BF1A4935AF00121638 /* AnimationOrderCollectionViewImageCell.m */; };
+		54E484C31A493B9800121638 /* UIReorderableCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E484C21A493B9800121638 /* UIReorderableCollectionViewController.m */; };
+		54E484C61A493BD900121638 /* UIReorderableCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E484C51A493BD900121638 /* UIReorderableCollectionViewCell.m */; };
+		54E484CA1A493EB200121638 /* ReorderableCollectionViewMovingIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E484C91A493EB200121638 /* ReorderableCollectionViewMovingIndicator.m */; };
 		54E62D0119FDFA8A0083E0F0 /* TextFontHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E62D0019FDFA8A0083E0F0 /* TextFontHelper.m */; };
 		54E8B9CB19FA271200AD324D /* SliderWithTooltip.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E8B9CA19FA271200AD324D /* SliderWithTooltip.m */; };
 		54E96F6719F8CB6A00C5F007 /* EditorButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E96F6619F8CB6A00C5F007 /* EditorButtonView.m */; };
@@ -383,6 +387,14 @@
 		54D7297219ED0FF0009A0279 /* BorderControlPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BorderControlPointView.m; sourceTree = "<group>"; };
 		54E3539A1A40040B00CBCCA4 /* AnimationDirectionArrowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationDirectionArrowView.h; path = AnimationEditor/AnimationDirectionArrowView.h; sourceTree = "<group>"; };
 		54E3539B1A40040B00CBCCA4 /* AnimationDirectionArrowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationDirectionArrowView.m; path = AnimationEditor/AnimationDirectionArrowView.m; sourceTree = "<group>"; };
+		54E484BE1A4935AF00121638 /* AnimationOrderCollectionViewImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationOrderCollectionViewImageCell.h; path = AnimationEditor/AnimationOrderCollectionViewImageCell.h; sourceTree = "<group>"; };
+		54E484BF1A4935AF00121638 /* AnimationOrderCollectionViewImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationOrderCollectionViewImageCell.m; path = AnimationEditor/AnimationOrderCollectionViewImageCell.m; sourceTree = "<group>"; };
+		54E484C11A493B9800121638 /* UIReorderableCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIReorderableCollectionViewController.h; path = Common/UIReorderableCollectionViewController.h; sourceTree = "<group>"; };
+		54E484C21A493B9800121638 /* UIReorderableCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIReorderableCollectionViewController.m; path = Common/UIReorderableCollectionViewController.m; sourceTree = "<group>"; };
+		54E484C41A493BD900121638 /* UIReorderableCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIReorderableCollectionViewCell.h; path = Common/UIReorderableCollectionViewCell.h; sourceTree = "<group>"; };
+		54E484C51A493BD900121638 /* UIReorderableCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIReorderableCollectionViewCell.m; path = Common/UIReorderableCollectionViewCell.m; sourceTree = "<group>"; };
+		54E484C81A493EB200121638 /* ReorderableCollectionViewMovingIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReorderableCollectionViewMovingIndicator.h; path = Common/ReorderableCollectionViewMovingIndicator.h; sourceTree = "<group>"; };
+		54E484C91A493EB200121638 /* ReorderableCollectionViewMovingIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReorderableCollectionViewMovingIndicator.m; path = Common/ReorderableCollectionViewMovingIndicator.m; sourceTree = "<group>"; };
 		54E62CFF19FDFA8A0083E0F0 /* TextFontHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextFontHelper.h; path = EditorViewControllers/Helpers/TextFontHelper.h; sourceTree = "<group>"; };
 		54E62D0019FDFA8A0083E0F0 /* TextFontHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextFontHelper.m; path = EditorViewControllers/Helpers/TextFontHelper.m; sourceTree = "<group>"; };
 		54E8B9C919FA271200AD324D /* SliderWithTooltip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SliderWithTooltip.h; path = EditorViewControllers/SliderWithTooltip.h; sourceTree = "<group>"; };
@@ -652,39 +664,12 @@
 			children = (
 				545C4C611A3AC523002604FA /* AnimationEditorManager.h */,
 				545C4C621A3AC523002604FA /* AnimationEditorManager.m */,
-				545C4C4F1A3A9818002604FA /* AnimationEditorContainerViewController.h */,
-				545C4C501A3A9818002604FA /* AnimationEditorContainerViewController.m */,
-				545C4C531A3A9847002604FA /* AnimationTypeSelectionViewController.h */,
-				545C4C541A3A9847002604FA /* AnimationTypeSelectionViewController.m */,
-				545C4C561A3A985A002604FA /* AnimationParameterViewController.h */,
-				545C4C571A3A985A002604FA /* AnimationParameterViewController.m */,
-				545C4C841A3BF11F002604FA /* AnimationOrderViewController.h */,
-				545C4C851A3BF11F002604FA /* AnimationOrderViewController.m */,
-				542B99201A48392800C5C9BE /* AnimationOrderCollectionViewCell.h */,
-				542B99211A48392800C5C9BE /* AnimationOrderCollectionViewCell.m */,
-				545C4C5B1A3A9DB9002604FA /* AnimationTypeTableViewCell.h */,
-				545C4C5C1A3A9DB9002604FA /* AnimationTypeTableViewCell.m */,
-				545C4C5E1A3A9E43002604FA /* AnimationTypesGenerator.h */,
-				545C4C5F1A3A9E43002604FA /* AnimationTypesGenerator.m */,
-				545C4C871A3E7F69002604FA /* DefaultAnimationGenerator.h */,
-				545C4C881A3E7F69002604FA /* DefaultAnimationGenerator.m */,
-				545C4C641A3AC821002604FA /* AnimationDescription.h */,
-				545C4C651A3AC821002604FA /* AnimationDescription.m */,
-				545C4C8A1A3E7FAA002604FA /* AnimationParameters.h */,
-				545C4C8B1A3E7FAA002604FA /* AnimationParameters.m */,
+				54E484BB1A49355A00121638 /* Controllers */,
+				54E484BC1A49357400121638 /* Supplementary Views */,
+				54E484BD1A49358300121638 /* Helpers */,
 				545C4C591A3A988B002604FA /* AnimationEditorViewControllers.storyboard */,
-				545C4C931A3EA882002604FA /* AnimationParameterSlider.h */,
-				545C4C941A3EA882002604FA /* AnimationParameterSlider.m */,
-				545C4C901A3EA683002604FA /* AnimationDirectionSelectionView.h */,
-				545C4C911A3EA683002604FA /* AnimationDirectionSelectionView.m */,
-				54E3539A1A40040B00CBCCA4 /* AnimationDirectionArrowView.h */,
-				54E3539B1A40040B00CBCCA4 /* AnimationDirectionArrowView.m */,
-				545C4C811A3ACE8E002604FA /* AnimationConstants.h */,
-				545C4C821A3ACE8E002604FA /* AnimationConstants.m */,
 				545C4C8D1A3E9123002604FA /* AnimationModeManager.h */,
 				545C4C8E1A3E9123002604FA /* AnimationModeManager.m */,
-				545C4C991A3EB810002604FA /* AnimationAttributesHelper.h */,
-				545C4C9A1A3EB810002604FA /* AnimationAttributesHelper.m */,
 			);
 			name = "Animation Editors";
 			sourceTree = "<group>";
@@ -945,6 +930,73 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		54E484BB1A49355A00121638 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				545C4C4F1A3A9818002604FA /* AnimationEditorContainerViewController.h */,
+				545C4C501A3A9818002604FA /* AnimationEditorContainerViewController.m */,
+				545C4C531A3A9847002604FA /* AnimationTypeSelectionViewController.h */,
+				545C4C541A3A9847002604FA /* AnimationTypeSelectionViewController.m */,
+				545C4C561A3A985A002604FA /* AnimationParameterViewController.h */,
+				545C4C571A3A985A002604FA /* AnimationParameterViewController.m */,
+				545C4C841A3BF11F002604FA /* AnimationOrderViewController.h */,
+				545C4C851A3BF11F002604FA /* AnimationOrderViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		54E484BC1A49357400121638 /* Supplementary Views */ = {
+			isa = PBXGroup;
+			children = (
+				542B99201A48392800C5C9BE /* AnimationOrderCollectionViewCell.h */,
+				542B99211A48392800C5C9BE /* AnimationOrderCollectionViewCell.m */,
+				54E484BE1A4935AF00121638 /* AnimationOrderCollectionViewImageCell.h */,
+				54E484BF1A4935AF00121638 /* AnimationOrderCollectionViewImageCell.m */,
+				545C4C5B1A3A9DB9002604FA /* AnimationTypeTableViewCell.h */,
+				545C4C5C1A3A9DB9002604FA /* AnimationTypeTableViewCell.m */,
+				545C4C931A3EA882002604FA /* AnimationParameterSlider.h */,
+				545C4C941A3EA882002604FA /* AnimationParameterSlider.m */,
+				545C4C901A3EA683002604FA /* AnimationDirectionSelectionView.h */,
+				545C4C911A3EA683002604FA /* AnimationDirectionSelectionView.m */,
+				54E3539A1A40040B00CBCCA4 /* AnimationDirectionArrowView.h */,
+				54E3539B1A40040B00CBCCA4 /* AnimationDirectionArrowView.m */,
+				54E484C71A493E7A00121638 /* Reorderable Collection View Controller */,
+			);
+			name = "Supplementary Views";
+			sourceTree = "<group>";
+		};
+		54E484BD1A49358300121638 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				545C4C5E1A3A9E43002604FA /* AnimationTypesGenerator.h */,
+				545C4C5F1A3A9E43002604FA /* AnimationTypesGenerator.m */,
+				545C4C871A3E7F69002604FA /* DefaultAnimationGenerator.h */,
+				545C4C881A3E7F69002604FA /* DefaultAnimationGenerator.m */,
+				545C4C641A3AC821002604FA /* AnimationDescription.h */,
+				545C4C651A3AC821002604FA /* AnimationDescription.m */,
+				545C4C8A1A3E7FAA002604FA /* AnimationParameters.h */,
+				545C4C8B1A3E7FAA002604FA /* AnimationParameters.m */,
+				545C4C811A3ACE8E002604FA /* AnimationConstants.h */,
+				545C4C821A3ACE8E002604FA /* AnimationConstants.m */,
+				545C4C991A3EB810002604FA /* AnimationAttributesHelper.h */,
+				545C4C9A1A3EB810002604FA /* AnimationAttributesHelper.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		54E484C71A493E7A00121638 /* Reorderable Collection View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				54E484C11A493B9800121638 /* UIReorderableCollectionViewController.h */,
+				54E484C21A493B9800121638 /* UIReorderableCollectionViewController.m */,
+				54E484C41A493BD900121638 /* UIReorderableCollectionViewCell.h */,
+				54E484C51A493BD900121638 /* UIReorderableCollectionViewCell.m */,
+				54E484C81A493EB200121638 /* ReorderableCollectionViewMovingIndicator.h */,
+				54E484C91A493EB200121638 /* ReorderableCollectionViewMovingIndicator.m */,
+			);
+			name = "Reorderable Collection View Controller";
+			sourceTree = "<group>";
+		};
 		54E62D0219FDFA8F0083E0F0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1189,11 +1241,13 @@
 				549E21661A25A4D00013E051 /* RotationBenchMarkView.m in Sources */,
 				54F0C4861A0DC85A009B4B0D /* Proposal+iDo.m in Sources */,
 				542185241A061565006EBDFD /* KeyConstants.m in Sources */,
+				54E484C01A4935AF00121638 /* AnimationOrderCollectionViewImageCell.m in Sources */,
 				543FE0EA1A2813DD002276D7 /* RSColorPickerState.m in Sources */,
 				54F0C50C1A105F2C009B4B0D /* SlidesContainerViewController.m in Sources */,
 				54F0C4E01A0F233E009B4B0D /* SlideThumbnailsManager.m in Sources */,
 				540A0A1A1A20679E0087C6AC /* ShadowType.m in Sources */,
 				547EEEBA1A16061100EAD132 /* Transition.m in Sources */,
+				54E484C61A493BD900121638 /* UIReorderableCollectionViewCell.m in Sources */,
 				543FE1001A281842002276D7 /* ColorSelectionManager.m in Sources */,
 				546457D119F116B700078EAF /* ImageHelper.m in Sources */,
 				546F5CC919FFAFE600C30CBB /* TextDisplayView.m in Sources */,
@@ -1213,6 +1267,7 @@
 				545C4B901A369EE5002604FA /* AnimationToolbarViewController.m in Sources */,
 				547DCA0D1A04CDA5004691EC /* BordersContentViewController.m in Sources */,
 				54E62D0119FDFA8A0083E0F0 /* TextFontHelper.m in Sources */,
+				54E484C31A493B9800121638 /* UIReorderableCollectionViewController.m in Sources */,
 				545C4BA41A36FC8F002604FA /* RegularColorPickerViewController.m in Sources */,
 				543FE0E61A2813DD002276D7 /* BitmapRotationManipulator.m in Sources */,
 				545C4C951A3EA882002604FA /* AnimationParameterSlider.m in Sources */,
@@ -1241,6 +1296,7 @@
 				547BFD4A1A1B4B8F0014FBD9 /* EditMenuHelper.m in Sources */,
 				54CB19D819EE37BE0044BBDD /* ImageContainerView.m in Sources */,
 				543FE0EC1A2813DD002276D7 /* RSGenerateOperation.m in Sources */,
+				54E484CA1A493EB200121638 /* ReorderableCollectionViewMovingIndicator.m in Sources */,
 				54EE547A1A11D8F300CA1AF7 /* ThumbnailCollectionViewCell.m in Sources */,
 				545C4DA21A3EDF1C002604FA /* AnimationControlPointView.m in Sources */,
 				54F0C4431A0C9478009B4B0D /* TextContent+iDo.m in Sources */,

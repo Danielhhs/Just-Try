@@ -52,6 +52,7 @@ static SlideAttributesManager *sharedInstance = nil;
     for (NSMutableDictionary *content in contents) {
         NSArray *contentAnimations = content[[KeyConstants animationsKey]];
         if (contentAnimations != nil && [contentAnimations count] != 0) {
+            [self updateDescriptionForAnimations:contentAnimations inContent:content];
             [self.animations addObjectsFromArray:contentAnimations];
         }
     }
@@ -60,6 +61,20 @@ static SlideAttributesManager *sharedInstance = nil;
         NSInteger index2 = [obj2[[KeyConstants animationIndexKey]] integerValue];
         return index1 > index2;
     }];
+}
+
+- (void) updateDescriptionForAnimations:(NSArray *) contentAnimations inContent:(NSMutableDictionary *)content
+{
+    for (NSMutableDictionary *animation in contentAnimations) {
+        [animation setValue:content[[KeyConstants contentTypeKey]] forKey:[KeyConstants contentTypeKey]];
+        if ([content[[KeyConstants contentTypeKey]] integerValue] == ContentViewTypeText) {
+            NSAttributedString *attrString = content[[KeyConstants attibutedStringKey]];
+            [animation setValue:attrString.string forKey:[KeyConstants contentDescriptionKey]];
+        } else {
+            [animation setValue:content[[KeyConstants imageNameKey]] forKey:[KeyConstants imageNameKey]];
+            [animation setValue:[content[[KeyConstants contentUUIDKey]] UUIDString] forKey:[KeyConstants contentDescriptionKey]];
+        }
+    }
 }
 
 #pragma mark - Public APIs

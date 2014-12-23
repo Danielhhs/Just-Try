@@ -35,13 +35,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iDo/ContentViews/EditMenu/ContentEditMenuView.m"
-            timestampString = "440939793.432825"
+            filePath = "iDo/Common/UIReorderableCollectionViewCell.m"
+            timestampString = "441011379.233287"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
-            landmarkName = "-showWithAvailableOperations:toContent:animated:"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "-handleLongPress:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -51,13 +51,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iDo/ContentViews/EditMenu/ContentEditMenuView.m"
-            timestampString = "440939854.227448"
+            filePath = "iDo/Common/UIReorderableCollectionViewController.m"
+            timestampString = "441011529.426931"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
-            landmarkName = "-updateAnimationOrderIndicatorsForContent:"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "-reorderableCell:didRecognizeLongPressGesture:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -10,8 +10,9 @@
 #import "AnimationOrderCollectionViewCell.h"
 #import "KeyConstants.h"
 #import "SlideAttributesManager.h"
-@interface AnimationOrderViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
-@property (weak, nonatomic) IBOutlet UICollectionView *animationOrderCollectionView;
+#import "GenericContentConstants.h"
+#import "AnimationOrderCollectionViewImageCell.h"
+@interface AnimationOrderViewController ()
 
 @end
 
@@ -47,15 +48,26 @@
 
 - (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AnimationOrderCell" forIndexPath:indexPath];
+    UICollectionViewCell *cell;
+    NSDictionary *animation = self.animations[indexPath.row];
+    if ([animation[[KeyConstants contentTypeKey]] integerValue] == ContentViewTypeImage) {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AnimationOrderImageCell" forIndexPath:indexPath];
+    } else if ([animation[[KeyConstants contentTypeKey]] integerValue] == ContentViewTypeText) {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AnimationOrderTextCell" forIndexPath:indexPath];
+    }
     
     if ([cell isKindOfClass:[AnimationOrderCollectionViewCell class]]) {
         AnimationOrderCollectionViewCell *orderCell = (AnimationOrderCollectionViewCell *)cell;
-        NSDictionary *animation = self.animations[indexPath.row];
-        orderCell.contentUUIDLabel.text = [animation[[KeyConstants contentUUIDKey]] UUIDString];
+        orderCell.index = indexPath.row;
+        orderCell.contentDescriptionLabel.text = animation[[KeyConstants contentDescriptionKey]];
         orderCell.orderIndicator.event = [animation[[KeyConstants animationEventKey]] integerValue];
         orderCell.orderIndicator.hasAnimation = YES;
         orderCell.orderIndicator.animatinOrder = [animation[[KeyConstants animationIndexKey]] integerValue];
+        orderCell.delegate = self;
+        if ([cell isKindOfClass:[AnimationOrderCollectionViewImageCell class]]) {
+            AnimationOrderCollectionViewImageCell *imageCell = (AnimationOrderCollectionViewImageCell *) cell;
+            imageCell.thumbnailImageView.image = [UIImage imageNamed:animation[[KeyConstants imageNameKey]]];
+        }
     }
     return cell;
 }

@@ -139,6 +139,10 @@
 {
     return @"CONTENT_UUID";
 }
++ (NSString *) contentDescriptionKey
+{
+    return @"CONTENT_DESCRIPTION";
+}
 
 #pragma mark - Text Content
 + (NSString *) fontKey

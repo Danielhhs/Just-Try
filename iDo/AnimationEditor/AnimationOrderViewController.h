@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface AnimationOrderViewController : UIViewController
+#import "UIReorderableCollectionViewController.h"
+@interface AnimationOrderViewController : UIReorderableCollectionViewController
 @property (nonatomic, strong) NSArray *animations;
 
 @end

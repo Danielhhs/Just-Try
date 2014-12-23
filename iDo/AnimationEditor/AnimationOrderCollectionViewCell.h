@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIReorderableCollectionViewCell.h"
 #import "AnimationOrderIndicatorView.h"
-@interface AnimationOrderCollectionViewCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *thumbnail;
-@property (weak, nonatomic) IBOutlet UILabel *contentUUIDLabel;
+
+@interface AnimationOrderCollectionViewCell : UIReorderableCollectionViewCell
 @property (weak, nonatomic) IBOutlet AnimationOrderIndicatorView *orderIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *contentDescriptionLabel;
 
 @end

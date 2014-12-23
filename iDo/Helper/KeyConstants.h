@@ -41,6 +41,7 @@
 + (NSString *) centerKey;
 + (NSString *) contentTypeKey;
 + (NSString *) contentUUIDKey;
++ (NSString *) contentDescriptionKey;
 
 #pragma mark - Text Content
 + (NSString *) fontKey;

@@ -42,76 +42,169 @@
             <point key="canvasLocation" x="321" y="193"/>
         </scene>
         <!--Animation Order View Controller-->
+        <scene sceneID="0L1-ej-3Sq">
+            <objects>
+                <collectionViewController storyboardIdentifier="AnimationOrderViewController" id="aQN-av-z1I" customClass="AnimationOrderViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="9Mc-en-1zo">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="400"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="PLI-wJ-ohA">
+                            <size key="itemSize" width="218" height="60"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AnimationOrderImageCell" id="jdk-pZ-ib0" customClass="AnimationOrderCollectionViewImageCell">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="249" height="60"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9h5-NM-AOn">
+                                            <rect key="frame" x="115" y="0.0" width="118" height="60"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vTv-Sf-rFB" customClass="AnimationOrderIndicatorView">
+                                            <rect key="frame" x="10" y="15" width="30" height="30"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DhI-UT-MK0">
+                                            <rect key="frame" x="50" y="5" width="50" height="50"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <size key="customSize" width="249" height="60"/>
+                                <connections>
+                                    <outlet property="contentDescriptionLabel" destination="9h5-NM-AOn" id="cxR-oa-afI"/>
+                                    <outlet property="orderIndicator" destination="vTv-Sf-rFB" id="955-97-Bil"/>
+                                    <outlet property="thumbnailImageView" destination="DhI-UT-MK0" id="NPb-rS-PBO"/>
+                                </connections>
+                            </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AnimationOrderTextCell" id="IMc-Gu-hQ3" customClass="AnimationOrderCollectionViewCell">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="249" height="60"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Sz-2y-8K7" customClass="AnimationOrderIndicatorView">
+                                            <rect key="frame" x="10" y="15" width="30" height="30"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P7Y-E0-LG6">
+                                            <rect key="frame" x="50" y="0.0" width="183" height="60"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <size key="customSize" width="249" height="60"/>
+                                <connections>
+                                    <outlet property="contentDescriptionLabel" destination="P7Y-E0-LG6" id="e2M-0u-neO"/>
+                                    <outlet property="orderIndicator" destination="2Sz-2y-8K7" id="pBx-d4-mwM"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="aQN-av-z1I" id="e50-jZ-mtI"/>
+                            <outlet property="delegate" destination="aQN-av-z1I" id="iKh-DK-DEy"/>
+                        </connections>
+                    </collectionView>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="250" height="400"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gI6-mp-pHG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="707" y="-211"/>
+        </scene>
+        <!--Animation Order View Controller-->
         <scene sceneID="qyz-Q9-hfd">
             <objects>
-                <viewController storyboardIdentifier="AnimationOrderViewController" id="Tdg-3u-43r" customClass="AnimationOrderViewController" sceneMemberID="viewController">
+                <viewController id="Tdg-3u-43r" customClass="AnimationOrderViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5Ne-2a-42K"/>
                         <viewControllerLayoutGuide type="bottom" id="IsS-Gq-t5p"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="t1Y-9r-nry">
+                    <view key="view" contentMode="scaleToFill" id="t1Y-9r-nry" customClass="UICollectionView">
                         <rect key="frame" x="0.0" y="0.0" width="250" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OTv-Id-tKE">
-                                <rect key="frame" x="0.0" y="0.0" width="250" height="400"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VPV-MK-mEv">
-                                    <size key="itemSize" width="249" height="60"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AnimationOrderCell" id="uAI-KY-Wr2" customClass="AnimationOrderCollectionViewCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="249" height="60"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jh1-n4-F4V">
-                                                    <rect key="frame" x="30" y="0.0" width="60" height="60"/>
-                                                </imageView>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="696-WI-IQW" customClass="AnimationOrderIndicatorView">
-                                                    <rect key="frame" x="0.0" y="15" width="30" height="30"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMm-Bv-ZSI">
-                                                    <rect key="frame" x="90" y="0.0" width="159" height="60"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <outlet property="contentUUIDLabel" destination="BMm-Bv-ZSI" id="SmG-BE-ZQb"/>
-                                            <outlet property="orderIndicator" destination="696-WI-IQW" id="nPl-Uv-nWg"/>
-                                            <outlet property="thumbnail" destination="jh1-n4-F4V" id="wOv-0p-58u"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="Tdg-3u-43r" id="h9T-sR-Opu"/>
-                                    <outlet property="delegate" destination="Tdg-3u-43r" id="XOQ-bM-9vb"/>
-                                </connections>
-                            </collectionView>
-                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="250" height="400"/>
-                    <connections>
-                        <outlet property="animationOrderCollectionView" destination="OTv-Id-tKE" id="Wzm-yY-g54"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LBf-Yj-Sp1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AnimationOrderTextCell" id="r2r-F3-WDS" customClass="AnimationOrderCollectionViewCell">
+                    <rect key="frame" x="0.0" y="0.0" width="218" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                        <rect key="frame" x="0.0" y="0.0" width="218" height="60"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CgD-Si-OEm" customClass="AnimationOrderIndicatorView">
+                                <rect key="frame" x="0.0" y="15" width="30" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mVs-OD-XGo">
+                                <rect key="frame" x="40" y="0.0" width="209" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <size key="customSize" width="218" height="60"/>
+                    <connections>
+                        <outlet property="contentDescriptionLabel" destination="mVs-OD-XGo" id="oCG-nL-QIe"/>
+                        <outlet property="orderIndicator" destination="CgD-Si-OEm" id="pCc-UG-oVb"/>
+                    </connections>
+                </collectionViewCell>
+                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AnimationOrderImageCell" id="uAI-KY-Wr2" customClass="AnimationOrderCollectionViewImageCell">
+                    <rect key="frame" x="0.0" y="0.0" width="218" height="60"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                        <rect key="frame" x="0.0" y="0.0" width="218" height="60"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jh1-n4-F4V">
+                                <rect key="frame" x="35" y="0.0" width="60" height="60"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="696-WI-IQW" customClass="AnimationOrderIndicatorView">
+                                <rect key="frame" x="0.0" y="15" width="30" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMm-Bv-ZSI">
+                                <rect key="frame" x="100" y="0.0" width="118" height="60"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <size key="customSize" width="218" height="60"/>
+                    <connections>
+                        <outlet property="contentDescriptionLabel" destination="BMm-Bv-ZSI" id="baa-UV-iWN"/>
+                        <outlet property="orderIndicator" destination="696-WI-IQW" id="nPl-Uv-nWg"/>
+                        <outlet property="thumbnailImageView" destination="jh1-n4-F4V" id="xgz-17-L3R"/>
+                    </connections>
+                </collectionViewCell>
             </objects>
-            <point key="canvasLocation" x="624" y="297"/>
+            <point key="canvasLocation" x="728" y="223"/>
         </scene>
         <!--Animation Parameter View Controller-->
         <scene sceneID="uQu-Jy-nvA">
