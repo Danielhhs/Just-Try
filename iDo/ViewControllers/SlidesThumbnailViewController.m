@@ -10,8 +10,9 @@
 #import "KeyConstants.h"
 #import "ThumbnailCollectionViewCell.h"
 #import "ThumbnailMovingIndicatorView.h"
+#import "EditMenuManager.h"
 
-@interface SlidesThumbnailViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, ThumbnailCollectionViewCellDelegate>
+@interface SlidesThumbnailViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, ThumbnailCollectionViewCellDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *thumbnailsCollectionView;
 @property (nonatomic, strong) ThumbnailMovingIndicatorView *cellMovingIndicator;
 @property (nonatomic) NSInteger originalIndex;
@@ -46,6 +47,16 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
     _currentSelectedIndex = currentSelectedIndex;
     cell = [self.thumbnailsCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:currentSelectedIndex inSection:0]];
     cell.selected = YES;
+    [self updateScrollPositionIfNecessary];
+}
+
+- (void) updateScrollPositionIfNecessary
+{
+    NSArray *visibleCells = [self.thumbnailsCollectionView visibleCells];
+    UICollectionViewCell *currentCell = [self.thumbnailsCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentSelectedIndex inSection:0]];
+    if (![visibleCells containsObject:currentCell]) {
+        [self.thumbnailsCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentSelectedIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+    }
 }
 
 - (void) setSlides:(NSMutableArray *)slides
@@ -192,6 +203,12 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
     location.y = cell.center.y;
     location = [self centerInCurrentVisibleAreaFromCenterInCollectionView:location];
     return location;
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [[EditMenuManager sharedManager] hideEditMenu];
 }
 
 @end

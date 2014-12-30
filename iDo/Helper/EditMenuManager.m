@@ -71,10 +71,15 @@ static EditMenuManager *sharedInstance;
 
 - (void) showEditMenuToView:(UIView *) view
 {
-    if (self.editMenuShown == YES) {
+    if (self.editMenuShown == YES && view == self.editMenu.trigger) {
         [self hideEditMenu];
         return;
     }
+    [self refreshEditMenuViewToView:view];
+}
+
+- (void) refreshEditMenuViewToView:(UIView *) view
+{
     if ([view isKindOfClass:[GenericContainerView class]]) {
         [self showEditMenuToContentView:(GenericContainerView *)view animated:YES];
     } else if ([view isKindOfClass:[CanvasView class]]) {
@@ -124,7 +129,7 @@ static EditMenuManager *sharedInstance;
 - (void) hideEditMenu
 {
     self.editMenuShown = NO;
-    self.editMenu.hidden = YES;
+    [self.editMenu hide];
 }
 
 - (void) updateEditMenu

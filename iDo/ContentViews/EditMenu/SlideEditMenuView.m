@@ -13,6 +13,7 @@
 #import "GenericContainerViewHelper.h"
 #import "PasteboardHelper.h"
 #import "DrawingConstants.h"
+#import "AnimationModeManager.h"
 
 #define EDIT_MENU_ARROW_HEIGHT 10
 #define EDIT_MENU_ARROW_WIDTH_HALF 10
@@ -40,27 +41,29 @@
     return self;
 }
 
-- (NSArray *) basicOperations
-{
-    return @[self.transitionButton];
-}
-
 - (NSMutableArray *) operations
 {
     if (!_operations) {
-        _operations = [NSMutableArray arrayWithArray:[self basicOperations]];
-        if ([PasteboardHelper dataFromPasteboard]) {
-            [_operations insertObject:self.pasteButton atIndex:PASTE_ITEM_INDEX];
-        }
+        _operations = [NSMutableArray arrayWithObject:self.transitionButton];
         self.availableOperations = _operations;
     }
     return _operations;
+}
+
+- (void) updateOperations
+{
+    if ([PasteboardHelper dataFromPasteboard] && ![self.operations containsObject:self.pasteButton]) {
+        [self.operations insertObject:self.pasteButton atIndex:PASTE_ITEM_INDEX];
+    } else if (![PasteboardHelper dataFromPasteboard] && [self.operations containsObject:self.pasteButton]) {
+        [self.operations removeObject:self.pasteButton];
+    }
 }
 
 - (void) showToCanvas:(CanvasView *)canvas animated:(BOOL)animated
 {
     self.triggeredCanvas = canvas;
     self.trigger = canvas;
+    [self updateOperations];
     for (NSInteger i = 0; i < [self.operations count]; i++) {
         EditMenuItem *item = self.operations[i];
         item.type = [self itemTypeForButtonItem:item index:i totalItems:[self.operations count]];
@@ -93,6 +96,7 @@
 
 - (void) handleTransition
 {
+    [[AnimationModeManager sharedManager] enterAnimationModeFromView:self.triggeredCanvas];;
     [self.transitionButton restoreNormalState];
 }
 

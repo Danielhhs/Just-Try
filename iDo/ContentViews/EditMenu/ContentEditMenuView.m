@@ -46,27 +46,33 @@
     }
     return self;
 }
-- (NSArray *) basicOperations
-{
-    return @[self.duplicateButton, self.cutButton, self.deleteButton, self.animateButton];
-}
 
 - (NSMutableArray *) operations
 {
     if (!_operations) {
-        _operations = [NSMutableArray arrayWithArray:[self basicOperations]];
-        if ([PasteboardHelper dataFromPasteboard]) {
-            [_operations insertObject:self.replaceButton atIndex:REPLACE_ITEM_INDEX];
-        }
+        _operations = [NSMutableArray arrayWithObjects:self.duplicateButton, self.cutButton, self.deleteButton, self.animateButton, nil];
         self.availableOperations = _operations;
     }
     return _operations;
 }
 
+- (void) updateOperations
+{
+    if ([PasteboardHelper dataFromPasteboard] && ![self.operations containsObject:self.replaceButton]) {
+        [self.operations insertObject:self.replaceButton atIndex:REPLACE_ITEM_INDEX];
+    } else if (![PasteboardHelper dataFromPasteboard] && [self.operations containsObject:self.replaceButton]) {
+        [self.operations removeObject:self.replaceButton];
+    }
+}
+
 - (void) handleCopy
 {
+    BOOL editMenuNeedRefresh = ([PasteboardHelper dataFromPasteboard] == nil);
     [PasteboardHelper copyData:[EditMenuHelper encodeGenericContent:self.triggeredContent]];
     [self.duplicateButton restoreNormalState];
+    if (editMenuNeedRefresh) {
+        [self.delegate refreshEditMenuToView:self.triggeredContent];
+    }
 }
 
 - (void) handleCut
@@ -97,6 +103,7 @@
 {
     self.triggeredContent = content;
     self.trigger = content;
+    [self updateOperations];
     for (NSInteger i = 0; i < [self.operations count]; i++) {
         EditMenuItem *item = self.operations[i];
         item.type = [self itemTypeForButtonItem:item index:i totalItems:[self.operations count]];

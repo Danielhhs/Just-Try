@@ -42,7 +42,7 @@
         [contentAttributes addObject:[CoreDataHelper contentAttributesFromGenericContent:content]];
     }
     [attribtues setObject:slide.unique forKey:[KeyConstants slideUniqueKey]];
-    [attribtues setObject:[contentAttributes copy] forKey:[KeyConstants slideContentsKey]];
+    [attribtues setObject:[contentAttributes mutableCopy] forKey:[KeyConstants slideContentsKey]];
     [attribtues setObject:[UIImage imageWithData:slide.thumbnail] forKey:[KeyConstants slideThumbnailKey]];
     [attribtues setObject:slide.index forKey:[KeyConstants slideIndexKey]];
     [attribtues setObject:slide.currentAnimationIndex forKey:[KeyConstants slideCurrentAnimationIndexKey]];

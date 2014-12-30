@@ -101,7 +101,9 @@
     [[SlideThumbnailsManager sharedManager] selectSlideAtIndex:currentSelectSlideIndex];
     self.editorViewController.slideAttributes = [self.slideAttributes objectAtIndex:currentSelectSlideIndex];
     self.editorViewController.canvas = [self.slideViews objectAtIndex:currentSelectSlideIndex];
-    [[EditMenuManager sharedManager] hideEditMenu];
+    if ([[AnimationModeManager sharedManager] isInAnimationMode]) {
+        [[EditMenuManager sharedManager] showEditMenuToView:self.slideViews[currentSelectSlideIndex]];
+    }
     [[SlideAttributesManager sharedManager] setSlideAttributes:self.slideAttributes[currentSelectSlideIndex]];
 }
 
@@ -243,14 +245,21 @@
     return location;
 }
 
+- (void) refreshEditMenuToView:(GenericContainerView *)content
+{
+    [[EditMenuManager sharedManager] refreshEditMenuViewToView:content];
+}
+
 #pragma mark - AnimationModeManagerDelegate
 - (void) applicationDidEnterAnimationModeFromView:(UIView *)view
 {
     [[ToolbarManager sharedManager] showAnimationToolBarToViewController:self];
     [[EditMenuManager sharedManager] hideEditMenu];
     [[EditMenuManager sharedManager] showEditMenuToView:view];
-    [[AnimationOrderManager sharedManager] applyAnimationOrderIndicatorToView:view];
-    [[ControlPointManager sharedManager] updateControlPointColor];
+    if ([view isKindOfClass:[GenericContainerView class]]) {
+        [[AnimationOrderManager sharedManager] applyAnimationOrderIndicatorToView:view];
+        [[ControlPointManager sharedManager] updateControlPointColor];
+    }
     [self allContentViewDidResignFirstResponder];
 }
 

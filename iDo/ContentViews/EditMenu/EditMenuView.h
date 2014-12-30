@@ -27,12 +27,14 @@ typedef NS_ENUM(NSInteger, EditMenuAvailableOperation) {
 };
 @class EditMenuView;
 @class GenericContainerView;
+@class CanvasView;
 @protocol EditMenuViewDelegate <NSObject>
 - (void) editMenu:(EditMenuView *) editMenu didDeleteContent:(GenericContainerView *)content;
 - (void) editMenu:(EditMenuView *) editMenu didCutContent:(GenericContainerView *)content;
 - (void) editMenu:(EditMenuView *) editMenu didPasteContent:(GenericContainerView *)content;
 - (void) editMenu:(EditMenuView *) editMenu willShowAnimationEditorForContent:(UIView *)view forType:(AnimationEvent) animationEvent;
 - (CGPoint) thumbnailLocationForCurrentSlide;
+- (void) refreshEditMenuToView:(GenericContainerView *)content;
 @end
 
 @interface EditMenuView : UIView

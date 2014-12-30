@@ -17,6 +17,7 @@
 + (EditMenuManager *) sharedManager;
 - (void) setDelegate:(id<EditMenuViewDelegate>)delegate;
 - (void) showEditMenuToView:(UIView *) view;
+- (void) refreshEditMenuViewToView:(UIView *) view;
 - (void) hideEditMenu;
 - (void) updateEditMenu;
 - (void) updateEditMenuWithView:(UIView *)view;
