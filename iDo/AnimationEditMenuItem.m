@@ -24,7 +24,7 @@
 - (instancetype) initWithFrame:(CGRect)frame
                          title:(NSString *)title
                       subTitle:(NSString *)subtitle
-                      editMenu:(ContentEditMenuView *)editMenu
+                      editMenu:(AnimationEditMenuView *)editMenu
                         action:(SEL)action
                           type:(EditMenuItemType)type
                   hasAnimation:(BOOL)hasAnimation

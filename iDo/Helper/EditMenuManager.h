@@ -7,14 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ContentEditMenuView.h"
+#import "EditMenuView.h"
 
 @interface EditMenuManager : NSObject
 
-@property (nonatomic, strong) ContentEditMenuView *editMenu;
+@property (nonatomic, strong) EditMenuView *editMenu;
 @property (nonatomic, weak) UIView *containerView;
 
 + (EditMenuManager *) sharedManager;
+- (void) setDelegate:(id<EditMenuViewDelegate>)delegate;
 - (void) showEditMenuToView:(UIView *) view;
 - (void) hideEditMenu;
 - (void) updateEditMenu;

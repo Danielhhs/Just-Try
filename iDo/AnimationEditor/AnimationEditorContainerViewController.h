@@ -12,6 +12,7 @@
 @protocol AnimationEditorContainerViewControllerDelegate
 - (void) animationEditorDidSelectAnimation:(AnimationDescription *) animation;
 - (void) animationEditorDidUpdateAnimationEffect:(AnimationDescription *) animation;
+- (void) animationEditorDidSwitchAnimationAtIndex:(NSInteger) fromIndex toIndex:(NSInteger) toIndex;
 @end
 
 @interface AnimationEditorContainerViewController : UIViewController

@@ -25,7 +25,7 @@
 #import "AnimationOrderManager.h"
 #import "SlideAttributesManager.h"
 
-@interface SlidesContainerViewController ()<SlidesEditingViewControllerDelegate, SlidesThumbnailViewControllerDelegate, ContentEditMenuViewDelegate, SlideEditingToolbarDelegate, AnimationToolbarViewControllerDelegate, AnimationModeManagerDelegate>
+@interface SlidesContainerViewController ()<SlidesEditingViewControllerDelegate, SlidesThumbnailViewControllerDelegate, EditMenuViewDelegate, SlideEditingToolbarDelegate, AnimationToolbarViewControllerDelegate, AnimationModeManagerDelegate>
 @property (nonatomic) NSInteger currentSelectSlideIndex;
 @property (nonatomic) CGFloat keyboardOriginY;
 @property (nonatomic, strong) NSMutableArray *slideViews;
@@ -45,8 +45,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardHideNotification:) name:UIKeyboardWillHideNotification object:nil];
     [[UndoManager sharedManager] clearUndoStack];
     [PasteboardHelper clearPasteboard];
-    [EditMenuManager sharedManager].editMenu.delegate = self;
-    [self.view addSubview:[EditMenuManager sharedManager].editMenu];
+    [[EditMenuManager sharedManager] setDelegate:self];
     [EditMenuManager sharedManager].containerView = self.view;
     [[AnimationEditorManager sharedManager] setAnimationEditorDelegate:self.editorViewController];
     [AnimationModeManager sharedManager].delegate = self;
@@ -153,7 +152,7 @@
 
 - (void) contentViewDidPerformUndoRedoOperation:(GenericContainerView *)content
 {
-    [EditMenuManager sharedManager].editMenu.triggeredContent = content;
+    [EditMenuManager sharedManager].editMenu.trigger = content;
     [[EditMenuManager sharedManager] updateEditMenu];
     [self updateSlideSnapshotAndThumbnail];
 }
@@ -235,6 +234,13 @@
 {
     CGRect rect = [self.view convertRect:self.editorViewController.currentSelectedContent.frame fromView:self.editorViewController.view];
     [[AnimationEditorManager sharedManager] showAnimationEditorFromRect:rect inView:self.view forContent:view animationEvent:animationEvent animationIndex:[[SlideAttributesManager sharedManager] currentAnimationIndex]];
+}
+
+- (CGPoint) thumbnailLocationForCurrentSlide
+{
+    CGPoint location = [[SlideThumbnailsManager sharedManager] thumbnailLocationForCurrentSlide];
+    location.y += [[ToolbarManager sharedManager] toolbarHeight];
+    return location;
 }
 
 #pragma mark - AnimationModeManagerDelegate

@@ -12,17 +12,19 @@
 #import "PasteboardHelper.h"
 #import "DrawingConstants.h"
 #import "AnimationModeManager.h"
+#import "ContentEditMenuView.h"
+#import "AnimationEditMenuView.h"
+#import "TransitionEditMenuView.h"
+#import "SlideEditMenuView.h"
 
 static EditMenuManager *sharedInstance;
-#define REPLACE_ITEM_INDEX 2
-#define PASTE_ITEM_INDEX 0
 #define EDIT_MENU_VIEW_SPACE 12
 
 @interface EditMenuManager ()
-@property (nonatomic, strong) NSArray *basicOperationsForContentView;
-@property (nonatomic, strong) NSArray *basicOperationsForCanvas;
-@property (nonatomic, strong) NSArray *animationOperationsForContentView;
-@property (nonatomic, strong) NSArray *animationOperationsForCanvas;
+@property (nonatomic, strong) ContentEditMenuView *contentEditMenu;
+@property (nonatomic, strong) SlideEditMenuView *slideEditMenu;
+@property (nonatomic, strong) AnimationEditMenuView *animationEditMenu;
+@property (nonatomic, strong) TransitionEditMenuView *transitionEditMenu;
 @property (nonatomic) BOOL editMenuShown;
 @end
 
@@ -38,7 +40,10 @@ static EditMenuManager *sharedInstance;
 {
     self = [super init];
     if (self) {
-        
+        self.contentEditMenu = [[ContentEditMenuView alloc] initWithFrame:CGRectZero];
+        self.slideEditMenu = [[SlideEditMenuView alloc] initWithFrame:CGRectZero];
+        self.animationEditMenu = [[AnimationEditMenuView alloc] initWithFrame:CGRectZero];
+        self.transitionEditMenu = [[TransitionEditMenuView alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
@@ -47,42 +52,16 @@ static EditMenuManager *sharedInstance;
 {
     if (!sharedInstance) {
         sharedInstance = [[EditMenuManager alloc] initInternal];
-        sharedInstance.editMenu = [[ContentEditMenuView alloc] initWithFrame:CGRectZero];
     }
     return sharedInstance;
 }
 
-#pragma mark - Lazy Instantiations
-- (NSArray *) basicOperationsForContentView
+- (void) setDelegate:(id<EditMenuViewDelegate>)delegate
 {
-    if (!_basicOperationsForContentView) {
-        _basicOperationsForContentView = [NSArray arrayWithObjects:@(EditMenuAvailableOperationCopy), @(EditMenuAvailableOperationCut), @(EditMenuAvailableOperationDelete), @(EditMenuAvailableOperationAnimate), nil];
-    }
-    return _basicOperationsForContentView;
-}
-
-- (NSArray *) basicOperationsForCanvas
-{
-    if (!_basicOperationsForCanvas) {
-        _basicOperationsForCanvas = [NSArray arrayWithObjects:@(EditMenuAvailableOperationTransition), nil];
-    }
-    return _basicOperationsForCanvas;
-}
-
-- (NSArray *) animationOperationsForCanvas
-{
-    if (!_animationOperationsForCanvas) {
-        _animationOperationsForCanvas = @[@(EditMenuAvailableOperationTransitionIn)];
-    }
-    return _animationOperationsForCanvas;
-}
-
-- (NSArray *) animationOperationsForContentView
-{
-    if (!_animationOperationsForContentView) {
-        _animationOperationsForContentView = @[@(EditMenuAvailableOperationAnimateIn), @(EditMenuAvailableOperationAnimateOut)];
-    }
-    return _animationOperationsForContentView;
+    self.contentEditMenu.delegate = delegate;
+    self.slideEditMenu.delegate = delegate;
+    self.animationEditMenu.delegate = delegate;
+    self.transitionEditMenu.delegate = delegate;
 }
 
 #pragma mark - Show/Hide
@@ -101,40 +80,20 @@ static EditMenuManager *sharedInstance;
     } else if ([view isKindOfClass:[CanvasView class]]) {
         [self showEditMenuToCanvas:(CanvasView *) view animated:YES];
     }
-}
-
-- (NSArray *) availableOperationsForView:(UIView *) view
-{
-    if ([[AnimationModeManager sharedManager] isInAnimationMode]) {
-        if ([view isKindOfClass:[GenericContainerView class]]) {
-            return self.animationOperationsForContentView;
-        } else {
-            return self.animationOperationsForCanvas;
-        }
-    } else {
-        NSData *existingData = [PasteboardHelper dataFromPasteboard];
-        NSMutableArray *availableOperations;
-        if ([view isKindOfClass:[GenericContainerView class]]) {
-            availableOperations = [NSMutableArray arrayWithArray:self.basicOperationsForContentView];
-            if (existingData) {
-                [availableOperations insertObject:@(EditMenuAvailableOperationReplace) atIndex:REPLACE_ITEM_INDEX];
-            }
-            return availableOperations;
-        } else {
-            availableOperations = [NSMutableArray arrayWithArray:self.basicOperationsForCanvas];
-            if (existingData) {
-                [availableOperations insertObject:@(EditMenuAvailableOperationPaste) atIndex:PASTE_ITEM_INDEX];
-            }
-        }
-        return availableOperations;
-    }
+    [self.containerView addSubview:self.editMenu];
 }
 
 - (void) showEditMenuToContentView:(GenericContainerView *) content animated:(BOOL) animated
 {
     self.editMenuShown = YES;
-    NSArray *availableOperations = [self availableOperationsForView:content];
-    [self.editMenu showWithAvailableOperations:availableOperations toContent:content animated:animated];
+    [self.editMenu hide];
+    if ([[AnimationModeManager sharedManager] isInAnimationMode] == NO) {
+        self.editMenu = self.contentEditMenu;
+        [self.contentEditMenu showToContent:content animated:animated];
+    } else {
+        self.editMenu = self.animationEditMenu;
+        [self.animationEditMenu showToContent:content animated:animated];
+    }
     CGPoint center = CGPointMake(content.center.x, content.frame.origin.y - self.editMenu.frame.size.height / 2 - EDIT_MENU_VIEW_SPACE);
     center = [self.containerView convertPoint:center fromView:content.superview];
     self.editMenu.center = center;
@@ -143,14 +102,23 @@ static EditMenuManager *sharedInstance;
 - (void) showEditMenuToCanvas:(CanvasView *) canvas animated:(BOOL) animated
 {
     self.editMenuShown = YES;
-    NSArray *availableOperations = [self availableOperationsForView:canvas];
-    [self.editMenu showWithAvailableOperations:availableOperations toCanvas:canvas animated:animated];
-    CGPoint origin;
-    CGPoint canvasOrigin = [self.containerView convertPoint:canvas.frame.origin fromView:canvas.superview];
-    CGPoint canvasCenter = [self.containerView convertPoint:canvas.center fromView:canvas.superview];
-    origin.y = canvasOrigin.y - self.editMenu.frame.size.height;
-    origin.x = canvasCenter.x - self.editMenu.frame.size.width * [DrawingConstants counterGoldenRatio];
-    self.editMenu.frame = CGRectMake(origin.x, origin.y, self.editMenu.frame.size.width, self.editMenu.frame.size.height);
+    [self.editMenu hide];
+    if ([[AnimationModeManager sharedManager] isInAnimationMode] == NO) {
+        self.editMenu = self.slideEditMenu;
+        [self.slideEditMenu showToCanvas:canvas animated:animated];
+        CGPoint origin;
+        CGPoint canvasOrigin = [self.containerView convertPoint:canvas.frame.origin fromView:canvas.superview];
+        CGPoint canvasCenter = [self.containerView convertPoint:canvas.center fromView:canvas.superview];
+        origin.y = canvasOrigin.y - self.editMenu.frame.size.height;
+        origin.x = canvasCenter.x - self.editMenu.frame.size.width * [DrawingConstants counterGoldenRatio];
+        self.editMenu.frame = CGRectMake(origin.x, origin.y, self.editMenu.frame.size.width, self.editMenu.frame.size.height);
+    } else {
+        self.editMenu = self.transitionEditMenu;
+        [self.transitionEditMenu showToCanvas:canvas animated:animated];
+        CGPoint origin = [self.transitionEditMenu.delegate thumbnailLocationForCurrentSlide];
+        origin.y = origin.y - self.editMenu.frame.size.height / 2;
+        self.editMenu.frame = CGRectMake(origin.x, origin.y, self.editMenu.frame.size.width, self.editMenu.frame.size.height);
+    }
 }
 
 - (void) hideEditMenu
@@ -166,6 +134,6 @@ static EditMenuManager *sharedInstance;
 
 - (void) updateEditMenuWithAnimationName:(NSString *)animationName animationOrder:(NSInteger)animationOrder
 {
-    [self.editMenu updateEditAnimationItemWithAnimationName:animationName animationOrder:animationOrder];
+    [self.animationEditMenu updateEditAnimationItemWithAnimationName:animationName animationOrder:animationOrder];
 }
 @end

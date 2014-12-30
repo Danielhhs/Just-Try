@@ -129,4 +129,9 @@ static SlideThumbnailsManager *sharedInstance;
 {
     self.slidesThumbnailController.delegate = delegate;
 }
+
+- (CGPoint) thumbnailLocationForCurrentSlide
+{
+    return [self.slidesThumbnailController thumbnailLocationForCurrentSlide];
+}
 @end

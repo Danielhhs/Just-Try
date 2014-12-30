@@ -26,4 +26,5 @@
 @property (nonatomic, weak) id<SlidesThumbnailViewControllerDelegate> delegate;
 
 - (void) reloadThumbnailForItemAtIndex:(NSInteger)index;
+- (CGPoint) thumbnailLocationForCurrentSlide;
 @end

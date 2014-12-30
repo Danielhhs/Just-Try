@@ -18,4 +18,5 @@
 - (void) hideEditingToolBarFromViewController:(UIViewController *) viewController;
 - (void) showAnimationToolBarToViewController:(UIViewController *) viewController;
 - (void) hideAnimationToolBarFromViewController:(UIViewController *) viewController;
+- (CGFloat) toolbarHeight;
 @end

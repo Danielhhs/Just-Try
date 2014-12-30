@@ -9,8 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "ReorderableCollectionViewMovingIndicator.h"
 #import "UIReorderableCollectionViewCell.h"
+@class UIReorderableCollectionViewController;
+@protocol UIReorderableCollectionViewControllerDelegate
+- (void) reorderViewController:(UIReorderableCollectionViewController *)viewController
+          didSwitchCellAtIndex:(NSInteger) fromIndex
+                       toIndex:(NSInteger) toIndex;
+@end
+
 @interface UIReorderableCollectionViewController : UICollectionViewController<UIReorderableCollectionViewCellDelegate>
 
 @property (nonatomic, strong) ReorderableCollectionViewMovingIndicator *movingIndicator;
+@property (nonatomic, weak) id<UIReorderableCollectionViewControllerDelegate> delegate;
 
 @end

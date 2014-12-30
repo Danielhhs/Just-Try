@@ -184,4 +184,14 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
     return newCenter;
 }
 
+- (CGPoint) thumbnailLocationForCurrentSlide
+{
+    CGPoint location;
+    UICollectionViewCell *cell = [self.thumbnailsCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentSelectedIndex inSection:0]];
+    location.x = CGRectGetMaxX(cell.frame);
+    location.y = cell.center.y;
+    location = [self centerInCurrentVisibleAreaFromCenterInCollectionView:location];
+    return location;
+}
+
 @end

@@ -27,4 +27,6 @@
 - (void) setSlideThumbnailControllerDelegate:(id<SlidesThumbnailViewControllerDelegate>) delegate;
 
 - (void) updateSlideSnapshotForItemAtIndex:(NSInteger) index;
+
+- (CGPoint) thumbnailLocationForCurrentSlide;
 @end

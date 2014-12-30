@@ -253,4 +253,11 @@
     [[AnimationOrderManager sharedManager] applyAnimationOrderIndicatorToView:self.currentSelectedContent];
 }
 
+- (void) animationEditorDidSwitchAnimationAtIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex
+{
+    [[SlideAttributesManager sharedManager] switchAnimationAtIndex:fromIndex toIndex:toIndex];
+    [[EditMenuManager sharedManager] updateEditMenuWithView:self.currentSelectedContent];
+    [[AnimationOrderManager sharedManager] applyAnimationOrderIndicatorToView:self.currentSelectedContent];
+}
+
 @end

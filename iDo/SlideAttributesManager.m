@@ -188,4 +188,21 @@ static SlideAttributesManager *sharedInstance = nil;
     return [self.animations copy];
 }
 
+- (void) switchAnimationAtIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex
+{
+    NSMutableDictionary *selectedAnimation = self.animations[fromIndex];
+    [self.animations removeObject:selectedAnimation];
+    [self.animations insertObject:selectedAnimation atIndex:toIndex];
+    selectedAnimation[[KeyConstants animationIndexKey]] = @(toIndex + 1);
+    if (fromIndex > toIndex) {
+        for (NSInteger i = toIndex + 1; i <= fromIndex; i++) {
+            NSMutableDictionary *animation = self.animations[i];
+            NSInteger originalIndex = [animation[[KeyConstants animationIndexKey]] integerValue];
+            animation[[KeyConstants animationIndexKey]] = @(originalIndex + 1);
+//            NSMutableDictionary *contentAnimation = [self findAnimationInContent:animation];
+//            contentAnimation[[KeyConstants animationIndexKey]] = @(originalIndex + 1);
+        }
+    }
+}
+
 @end

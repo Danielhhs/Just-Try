@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "AnimationConstants.h"
-@interface AnimationOrderIndicatorView : UIView
+#import "AnimationIndicatorView.h"
+@interface AnimationOrderIndicatorView : AnimationIndicatorView
 + (AnimationOrderIndicatorView *) animationOrderIndicatorForEvent:(AnimationEvent)event;
 
-@property (nonatomic) BOOL hasAnimation;
 @property (nonatomic) NSInteger animatinOrder;
-@property (nonatomic) BOOL selected;
 @property (nonatomic) AnimationEvent event;
 @end

@@ -34,4 +34,6 @@
 
 - (void) updateSlideWithAnimationDescription:(AnimationDescription *) animationDescription
                                      content:(GenericContainerView *)content;
+
+- (void) switchAnimationAtIndex:(NSInteger) fromIndex toIndex:(NSInteger) toIndex;
 @end

@@ -99,4 +99,9 @@ static ToolbarManager *sharedInstance;
     }];
 }
 
+- (CGFloat) toolbarHeight
+{
+    return 66.f;
+}
+
 @end

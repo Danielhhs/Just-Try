@@ -7,10 +7,9 @@
 //
 
 #import "EditMenuItem.h"
-#import "ContentEditMenuView.h"
 #import "DrawingConstants.h"
+#import "EditMenuView.h"
 @interface EditMenuItem()
-@property (nonatomic, strong) UIColor *fillColor;
 @end
 
 #define ROUND_RECT_CORNOR_RADIUS 10
@@ -19,7 +18,7 @@
 
 - (instancetype) initWithFrame:(CGRect)frame
                          title:(NSString *) title
-                      editMenu:(ContentEditMenuView *) editMenu
+                      editMenu:(EditMenuView *) editMenu
                         action:(SEL) action
 {
     self = [super initWithFrame:frame];
@@ -126,7 +125,6 @@
     [fillPath addLineToPoint:CGPointZero];
     return fillPath;
 }
-
 
 - (void) drawRect:(CGRect)rect
 {

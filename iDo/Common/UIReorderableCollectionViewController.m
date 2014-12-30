@@ -75,9 +75,12 @@ static NSString * const reuseIdentifier = @"Cell";
     [UIView animateWithDuration:0.372 animations:^{
         self.movingIndicator.center = [self convertCellCenterToCurrentVisibleArea:cell.center];
     } completion:^(BOOL finished) {
+        [self.delegate reorderViewController:self didSwitchCellAtIndex:self.originalIndex toIndex:self.toIndex];
         self.movingIndicator.moving = NO;
         self.movingIndicator.hidden = YES;
         cell.hidden = NO;
+        self.originalIndex = -1;
+        self.toIndex = -1;
     }];
 }
 
@@ -106,8 +109,6 @@ static NSString * const reuseIdentifier = @"Cell";
                 CGRect tempFrame = cell.frame;
                 cell.frame = visibleCell.frame;
                 visibleCell.frame = tempFrame;
-                self.originalIndex = -1;
-                self.toIndex = -1;
             }];
         }
     }

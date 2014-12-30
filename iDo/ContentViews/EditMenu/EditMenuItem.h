@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class ContentEditMenuView;
+@class EditMenuView;
 
 typedef NS_ENUM(NSInteger, EditMenuItemType) {
     EditMenuItemTypeCommon = 0,
@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, EditMenuItemType) {
 
 - (instancetype) initWithFrame:(CGRect)frame
                          title:(NSString *) title
-                      editMenu:(ContentEditMenuView *) editMenu
+                      editMenu:(EditMenuView *) editMenu
                         action:(SEL) action;
 
 + (UIColor *) normalStateColor;
@@ -32,4 +32,5 @@ typedef NS_ENUM(NSInteger, EditMenuItemType) {
 - (UIBezierPath *) fillPath;
 
 @property (nonatomic) EditMenuItemType type;
+@property (nonatomic, strong) UIColor *fillColor;
 @end

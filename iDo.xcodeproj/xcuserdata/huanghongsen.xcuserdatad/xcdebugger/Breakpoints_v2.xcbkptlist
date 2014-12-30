@@ -35,14 +35,60 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iDo/Common/UIReorderableCollectionViewCell.m"
-            timestampString = "441011379.233287"
+            filePath = "iDo/SlideAttributesManager.m"
+            timestampString = "441028523.98141"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "-handleLongPress:"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
+            landmarkName = "-switchAnimationAtIndex:toIndex:"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iDo/ContentViews/EditMenu/ContentEditMenuView.m"
+            timestampString = "441614983.530631"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "-drawRect:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ContentEditMenuView drawRect:]"
+                  moduleName = "iDo"
+                  urlString = "file:///Users/huanghongsen/Developer/iDo/iDo/ContentViews/EditMenu/ContentEditMenuView.m"
+                  timestampString = "441613779.421165"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "156"
+                  endingLineNumber = "156"
+                  offsetFromSymbolStart = "1032">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ContentEditMenuView drawRect:]"
+                  moduleName = "iDo"
+                  urlString = "file:///Users/huanghongsen/Developer/iDo/iDo/ContentViews/EditMenu/ContentEditMenuView.m"
+                  timestampString = "441613779.421306"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "156"
+                  endingLineNumber = "156"
+                  offsetFromSymbolStart = "1132">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -51,13 +97,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iDo/Common/UIReorderableCollectionViewController.m"
-            timestampString = "441011529.426931"
+            filePath = "iDo/ViewControllers/SlidesThumbnailViewController.m"
+            timestampString = "441620793.451064"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "-reorderableCell:didRecognizeLongPressGesture:"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "-thumbnailLocationForCurrentSlide"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

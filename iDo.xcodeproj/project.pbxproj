@@ -106,6 +106,13 @@
 		54965B3C1A020424005AF774 /* RotationIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B3B1A020424005AF774 /* RotationIndicatorView.m */; };
 		549E21631A25A43C0013E051 /* RotationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 549E21621A25A43C0013E051 /* RotationHelper.m */; };
 		549E21661A25A4D00013E051 /* RotationBenchMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 549E21651A25A4D00013E051 /* RotationBenchMarkView.m */; };
+		54B05E3E1A514C290050FAEC /* TransitionEditMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B05E3D1A514C290050FAEC /* TransitionEditMenuItem.m */; };
+		54B05E411A5150C80050FAEC /* TransitionIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B05E401A5150C80050FAEC /* TransitionIndicatorView.m */; };
+		54B05E441A5151120050FAEC /* AnimationIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B05E431A5151120050FAEC /* AnimationIndicatorView.m */; };
+		54B05E801A5268400050FAEC /* EditMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B05E7F1A5268400050FAEC /* EditMenuView.m */; };
+		54B05E831A5268960050FAEC /* SlideEditMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B05E821A5268960050FAEC /* SlideEditMenuView.m */; };
+		54B05E861A526E3F0050FAEC /* AnimationEditMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B05E851A526E3F0050FAEC /* AnimationEditMenuView.m */; };
+		54B05E891A526E560050FAEC /* TransitionEditMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B05E881A526E560050FAEC /* TransitionEditMenuView.m */; };
 		54CB19D819EE37BE0044BBDD /* ImageContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CB19D719EE37BE0044BBDD /* ImageContainerView.m */; };
 		54CB19DA19EE3BD40044BBDD /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 54CB19D919EE3BD40044BBDD /* background.jpg */; };
 		54CB19DD19EE3D0A0044BBDD /* TextContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CB19DC19EE3D0A0044BBDD /* TextContainerView.m */; };
@@ -357,6 +364,20 @@
 		549E21621A25A43C0013E051 /* RotationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationHelper.m; path = ContentViews/Rotation/RotationHelper.m; sourceTree = "<group>"; };
 		549E21641A25A4D00013E051 /* RotationBenchMarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationBenchMarkView.h; path = ContentViews/Rotation/RotationBenchMarkView.h; sourceTree = "<group>"; };
 		549E21651A25A4D00013E051 /* RotationBenchMarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationBenchMarkView.m; path = ContentViews/Rotation/RotationBenchMarkView.m; sourceTree = "<group>"; };
+		54B05E3C1A514C290050FAEC /* TransitionEditMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransitionEditMenuItem.h; path = ContentViews/EditMenu/TransitionEditMenuItem.h; sourceTree = "<group>"; };
+		54B05E3D1A514C290050FAEC /* TransitionEditMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransitionEditMenuItem.m; path = ContentViews/EditMenu/TransitionEditMenuItem.m; sourceTree = "<group>"; };
+		54B05E3F1A5150C80050FAEC /* TransitionIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransitionIndicatorView.h; path = ContentViews/EditMenu/TransitionIndicatorView.h; sourceTree = "<group>"; };
+		54B05E401A5150C80050FAEC /* TransitionIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransitionIndicatorView.m; path = ContentViews/EditMenu/TransitionIndicatorView.m; sourceTree = "<group>"; };
+		54B05E421A5151120050FAEC /* AnimationIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationIndicatorView.h; path = ContentViews/EditMenu/AnimationIndicatorView.h; sourceTree = "<group>"; };
+		54B05E431A5151120050FAEC /* AnimationIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationIndicatorView.m; path = ContentViews/EditMenu/AnimationIndicatorView.m; sourceTree = "<group>"; };
+		54B05E7E1A5268400050FAEC /* EditMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditMenuView.h; path = ContentViews/EditMenu/EditMenuView.h; sourceTree = "<group>"; };
+		54B05E7F1A5268400050FAEC /* EditMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditMenuView.m; path = ContentViews/EditMenu/EditMenuView.m; sourceTree = "<group>"; };
+		54B05E811A5268960050FAEC /* SlideEditMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlideEditMenuView.h; path = ContentViews/EditMenu/SlideEditMenuView.h; sourceTree = "<group>"; };
+		54B05E821A5268960050FAEC /* SlideEditMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlideEditMenuView.m; path = ContentViews/EditMenu/SlideEditMenuView.m; sourceTree = "<group>"; };
+		54B05E841A526E3F0050FAEC /* AnimationEditMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationEditMenuView.h; path = ContentViews/EditMenu/AnimationEditMenuView.h; sourceTree = "<group>"; };
+		54B05E851A526E3F0050FAEC /* AnimationEditMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationEditMenuView.m; path = ContentViews/EditMenu/AnimationEditMenuView.m; sourceTree = "<group>"; };
+		54B05E871A526E560050FAEC /* TransitionEditMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransitionEditMenuView.h; path = ContentViews/EditMenu/TransitionEditMenuView.h; sourceTree = "<group>"; };
+		54B05E881A526E560050FAEC /* TransitionEditMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransitionEditMenuView.m; path = ContentViews/EditMenu/TransitionEditMenuView.m; sourceTree = "<group>"; };
 		54CB19D619EE37BE0044BBDD /* ImageContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageContainerView.h; sourceTree = "<group>"; };
 		54CB19D719EE37BE0044BBDD /* ImageContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageContainerView.m; sourceTree = "<group>"; };
 		54CB19D919EE3BD40044BBDD /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
@@ -788,16 +809,30 @@
 		547EEECA1A18800C00EAD132 /* Edit Menu */ = {
 			isa = PBXGroup;
 			children = (
+				54B05E7E1A5268400050FAEC /* EditMenuView.h */,
+				54B05E7F1A5268400050FAEC /* EditMenuView.m */,
 				547EEEC71A18800900EAD132 /* ContentEditMenuView.h */,
 				547EEEC81A18800900EAD132 /* ContentEditMenuView.m */,
+				54B05E811A5268960050FAEC /* SlideEditMenuView.h */,
+				54B05E821A5268960050FAEC /* SlideEditMenuView.m */,
+				54B05E841A526E3F0050FAEC /* AnimationEditMenuView.h */,
+				54B05E851A526E3F0050FAEC /* AnimationEditMenuView.m */,
+				54B05E871A526E560050FAEC /* TransitionEditMenuView.h */,
+				54B05E881A526E560050FAEC /* TransitionEditMenuView.m */,
 				547EEECB1A1881F200EAD132 /* EditMenuItem.h */,
 				547EEECC1A1881F200EAD132 /* EditMenuItem.m */,
 				545C4B7E1A35AA48002604FA /* AnimationEditMenuItem.h */,
 				545C4B7F1A35AA48002604FA /* AnimationEditMenuItem.m */,
+				54B05E3C1A514C290050FAEC /* TransitionEditMenuItem.h */,
+				54B05E3D1A514C290050FAEC /* TransitionEditMenuItem.m */,
 				547BFD481A1B4B8F0014FBD9 /* EditMenuHelper.h */,
 				547BFD491A1B4B8F0014FBD9 /* EditMenuHelper.m */,
 				543FE1011A287A18002276D7 /* EditMenuManager.h */,
 				543FE1021A287A18002276D7 /* EditMenuManager.m */,
+				54B05E421A5151120050FAEC /* AnimationIndicatorView.h */,
+				54B05E431A5151120050FAEC /* AnimationIndicatorView.m */,
+				54B05E3F1A5150C80050FAEC /* TransitionIndicatorView.h */,
+				54B05E401A5150C80050FAEC /* TransitionIndicatorView.m */,
 				545C4B7B1A358366002604FA /* AnimationOrderIndicatorView.h */,
 				545C4B7C1A358366002604FA /* AnimationOrderIndicatorView.m */,
 			);
@@ -1227,6 +1262,7 @@
 				546457C419F10C1700078EAF /* UIView+Snapshot.m in Sources */,
 				540A0A1F1A2085C10087C6AC /* ShadowView.m in Sources */,
 				5421863F1A09FBBB006EBDFD /* GenericConent+iDo.m in Sources */,
+				54B05E411A5150C80050FAEC /* TransitionIndicatorView.m in Sources */,
 				545C4C661A3AC821002604FA /* AnimationDescription.m in Sources */,
 				54EE541E1A10E7CB00CA1AF7 /* GenericContentConstants.m in Sources */,
 				542185341A07245C006EBDFD /* SimpleOperation.m in Sources */,
@@ -1262,6 +1298,7 @@
 				54EE547D1A122D8C00CA1AF7 /* SlideAttributesManager.m in Sources */,
 				54FC6F5A1A1EEFFB00833506 /* SlideEditingToolbarViewController.m in Sources */,
 				543FE0E31A2813DD002276D7 /* BitmapContextManipulator.m in Sources */,
+				54B05E441A5151120050FAEC /* AnimationIndicatorView.m in Sources */,
 				543FE1141A2C5037002276D7 /* OperationHelper.m in Sources */,
 				545C4B801A35AA48002604FA /* AnimationEditMenuItem.m in Sources */,
 				545C4B901A369EE5002604FA /* AnimationToolbarViewController.m in Sources */,
@@ -1301,6 +1338,7 @@
 				545C4DA21A3EDF1C002604FA /* AnimationControlPointView.m in Sources */,
 				54F0C4431A0C9478009B4B0D /* TextContent+iDo.m in Sources */,
 				545C4B991A36C11B002604FA /* RSBrightnessSlider.m in Sources */,
+				54B05E801A5268400050FAEC /* EditMenuView.m in Sources */,
 				54D10B5519F7AC9200197694 /* GenericContainerViewHelper.m in Sources */,
 				54F0C4EC1A0F407D009B4B0D /* SlidesThumbnailViewController.m in Sources */,
 				54D7296D19ECEAB9009A0279 /* GenericContainerView.m in Sources */,
@@ -1314,6 +1352,7 @@
 				54D7294A19ECE9B5009A0279 /* SlidesEditingViewController.m in Sources */,
 				543FE0E81A2813DD002276D7 /* BGRSLoupeLayer.m in Sources */,
 				546457FB19F4B7D200078EAF /* EditorPanelViewController.m in Sources */,
+				54B05E831A5268960050FAEC /* SlideEditMenuView.m in Sources */,
 				543FE0DF1A2813DD002276D7 /* OSCommonImage.m in Sources */,
 				54D7294719ECE9B5009A0279 /* AppDelegate.m in Sources */,
 				54FF2BC21A04DDB6002EB326 /* TextStyleEditorContentViewController.m in Sources */,
@@ -1336,6 +1375,7 @@
 				5436A0041A0A256600A16E2C /* CoreDataHelper.m in Sources */,
 				547EEEB71A16061100EAD132 /* Proposal.m in Sources */,
 				546F5CCC1A00904D00C30CBB /* CoreTextHelper.m in Sources */,
+				54B05E861A526E3F0050FAEC /* AnimationEditMenuView.m in Sources */,
 				54F0C48D1A0DCF64009B4B0D /* ProposalOverViewViewController.m in Sources */,
 				54965B061A00E50F005AF774 /* ShadowHelper.m in Sources */,
 				545C4C631A3AC523002604FA /* AnimationEditorManager.m in Sources */,
@@ -1345,6 +1385,8 @@
 				543FE0E41A2813DD002276D7 /* BitmapCropManipulator.m in Sources */,
 				545C4C981A3EB25D002604FA /* Animation+iDo.m in Sources */,
 				545C4B7D1A358366002604FA /* AnimationOrderIndicatorView.m in Sources */,
+				54B05E891A526E560050FAEC /* TransitionEditMenuView.m in Sources */,
+				54B05E3E1A514C290050FAEC /* TransitionEditMenuItem.m in Sources */,
 				547DCA071A04CB4C004691EC /* ImageEditorPanelContainerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

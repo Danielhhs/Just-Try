@@ -10,7 +10,7 @@
 #import "AnimationTypeSelectionViewController.h"
 #import "AnimationParameterViewController.h"
 #import "AnimationOrderViewController.h"
-@interface AnimationEditorContainerViewController ()<AnimationTypeSelectionViewControllerDelegate, AnimationParameterViewControllerDelegate>
+@interface AnimationEditorContainerViewController ()<AnimationTypeSelectionViewControllerDelegate, AnimationParameterViewControllerDelegate, UIReorderableCollectionViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *editorSegment;
 @property (nonatomic, strong) AnimationTypeSelectionViewController *typeSelectionViewController;
 @property (nonatomic, strong) AnimationParameterViewController *parameterInputViewController;
@@ -46,6 +46,7 @@
 {
     if (!_orderViewController) {
         _orderViewController = [[UIStoryboard storyboardWithName:@"AnimationEditorViewControllers" bundle:nil] instantiateViewControllerWithIdentifier:@"AnimationOrderViewController"];
+        _orderViewController.delegate = self;
     }
     return _orderViewController;
 }
@@ -159,6 +160,14 @@
 - (void) animationParameterViewControllerDidChangeAnimationParameters:(AnimationParameters *)animaitonParameters
 {
     self.animation.parameters = [animaitonParameters copyWithZone:nil];
+}
+
+#pragma mark - UIReorderableCollectionViewControllerDelegate
+- (void) reorderViewController:(UIReorderableCollectionViewController *)viewController
+          didSwitchCellAtIndex:(NSInteger)fromIndex
+                       toIndex:(NSInteger)toIndex
+{
+    [self.delegate animationEditorDidSwitchAnimationAtIndex:fromIndex toIndex:toIndex];
 }
 
 #pragma mark - Memory Management
