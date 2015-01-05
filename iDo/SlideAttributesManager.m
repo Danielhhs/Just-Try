@@ -102,13 +102,42 @@ static SlideAttributesManager *sharedInstance = nil;
 {
     NSInteger index = [self.animations indexOfObject:animation];
     [self.animations removeObject:animation];
+    NSMutableDictionary *content = [self findContentByUUID:[animation objectForKey:[KeyConstants contentUUIDKey]]];
+    NSMutableArray *contentAnimations = [content[[KeyConstants animationsKey]] mutableCopy];
+    for (NSMutableDictionary *contentAnimation in contentAnimations) {
+        if ([contentAnimation[[KeyConstants animationEventKey]] isEqual:animation[[KeyConstants animationEventKey]]]) {
+            [contentAnimations removeObject:contentAnimation];
+            [content setValue:contentAnimations forKey:[KeyConstants animationsKey]];
+            break;
+        }
+    }
     for (NSInteger i = index; i < [self.animations count]; i++) {
         NSMutableDictionary *slideAnimation = self.animations[i];
         slideAnimation[[KeyConstants animationIndexKey]] = @([slideAnimation[[KeyConstants animationIndexKey]] integerValue] - 1);
-        NSMutableDictionary *animationInContent = [self findAnimationInContent:slideAnimation];
-        NSInteger animationIndex = [animationInContent[[KeyConstants animationIndexKey]] integerValue] - 1;
-        [animationInContent setValue:@(animationIndex) forKey:[KeyConstants animationIndexKey]];
     }
+}
+
+- (void) addAnimation:(NSMutableDictionary *)animation
+{
+    [self.animations addObject:animation];
+    [self.animations sortUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+        NSInteger index1 = [obj1[[KeyConstants animationIndexKey]] integerValue];
+        NSInteger index2 = [obj2[[KeyConstants animationIndexKey]] integerValue];
+        return index1 > index2;
+    }];
+    NSMutableDictionary *content = [self findContentByUUID:[animation objectForKey:[KeyConstants contentUUIDKey]]];
+    [content[[KeyConstants animationsKey]] addObject:animation];
+}
+
+- (NSMutableDictionary *) findContentByUUID:(NSUUID *)uuid
+{
+    NSMutableArray *contents = self.slideAttributes[[KeyConstants slideContentsKey]];
+    for (NSMutableDictionary *content in contents) {
+        if ([content[[KeyConstants contentUUIDKey]] isEqual:uuid]) {
+            return content;
+        }
+    }
+    return nil;
 }
 
 - (void) updateSlideWithAnimationDescription:(AnimationDescription *) animationDescription
@@ -132,6 +161,9 @@ static SlideAttributesManager *sharedInstance = nil;
             NSInteger index2 = [obj2[[KeyConstants animationIndexKey]] integerValue];
             return index1 > index2;
         }];
+        
+        NSMutableDictionary *content = [self findContentByUUID:[editedAnimation objectForKey:[KeyConstants contentUUIDKey]]];
+        [content[[KeyConstants animationsKey]] addObject:editedAnimation];
     }
     if (animationDescription.animationEffect == AnimationEffectNone) {
         [self removeAnimation:editedAnimation];
@@ -199,8 +231,6 @@ static SlideAttributesManager *sharedInstance = nil;
             NSMutableDictionary *animation = self.animations[i];
             NSInteger originalIndex = [animation[[KeyConstants animationIndexKey]] integerValue];
             animation[[KeyConstants animationIndexKey]] = @(originalIndex + 1);
-//            NSMutableDictionary *contentAnimation = [self findAnimationInContent:animation];
-//            contentAnimation[[KeyConstants animationIndexKey]] = @(originalIndex + 1);
         }
     }
 }

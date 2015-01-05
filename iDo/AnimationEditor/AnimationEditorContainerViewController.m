@@ -74,6 +74,12 @@
     self.typeSelectionViewController.animationTarget = animationTarget;
 }
 
+- (void) setAnimationIndex:(NSInteger)animationIndex
+{
+    _animationIndex = animationIndex;
+    self.animation.animationIndex = animationIndex;
+}
+
 - (void) setAnimation:(AnimationDescription *)animation
 {
     _animation = animation;

@@ -244,7 +244,7 @@
 
 - (void) animationEditorDidUpdateAnimationEffect:(AnimationDescription *) animation
 {
-    [AnimationAttributesHelper updateContentAttributes:[self.currentSelectedContent attributes] withAnimationDescription:animation];
+    [[SlideAttributesManager sharedManager] updateSlideWithAnimationDescription:animation content:self.currentSelectedContent];
     NSInteger animationIndex = animation.animationIndex;
     if (animation.animationEffect == AnimationEffectNone) {
         animationIndex = -1;

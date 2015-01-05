@@ -31,6 +31,7 @@
 - (NSArray *) currentSlideAnimations;
 
 - (void) removeAnimation:(NSMutableDictionary *)animation;
+- (void) addAnimation:(NSMutableDictionary *)animation;
 
 - (void) updateSlideWithAnimationDescription:(AnimationDescription *) animationDescription
                                      content:(GenericContainerView *)content;
