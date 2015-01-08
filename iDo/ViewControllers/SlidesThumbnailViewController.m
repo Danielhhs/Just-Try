@@ -11,6 +11,7 @@
 #import "ThumbnailCollectionViewCell.h"
 #import "ThumbnailMovingIndicatorView.h"
 #import "EditMenuManager.h"
+#import "SlideDTO.h"
 
 @interface SlidesThumbnailViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, ThumbnailCollectionViewCellDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *thumbnailsCollectionView;
@@ -81,10 +82,10 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reusalbleCellIdentifier forIndexPath:indexPath];
     
     if ([cell isKindOfClass:[ThumbnailCollectionViewCell class]]) {
-        NSDictionary *slide = self.slides[indexPath.row];
+        SlideDTO *slide = self.slides[indexPath.row];
         ThumbnailCollectionViewCell *thumbnailCell = (ThumbnailCollectionViewCell *) cell;
         thumbnailCell.indexLabel.text = [NSString stringWithFormat:@"%lu", indexPath.row + 1];
-        UIImage *image = slide[[KeyConstants slideThumbnailKey]];
+        UIImage *image = slide.thumbnail;
         thumbnailCell.thumbnail.image = image;
         thumbnailCell.delegate = self;
         thumbnailCell.index = indexPath.row;
@@ -177,8 +178,8 @@ static NSString *reusalbleCellIdentifier = @"thumbnailsCell";
 - (void) reloadThumbnailForItemAtIndex:(NSInteger)index
 {
     ThumbnailCollectionViewCell *cell = (ThumbnailCollectionViewCell *)[self.thumbnailsCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
-    NSDictionary *slide = self.slides[index];
-    cell.thumbnail.image = slide[[KeyConstants slideThumbnailKey]];
+    SlideDTO *slide = self.slides[index];
+    cell.thumbnail.image = slide.thumbnail;
 }
 
 - (CGPoint) centerInCurrentVisibleAreaFromCenterInCollectionView:(CGPoint) center

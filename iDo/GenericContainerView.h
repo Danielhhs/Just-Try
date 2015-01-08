@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ControlPointManager.h"
 #import "Operation.h"
+#import "GenericContentDTO.h"
 
 @class GenericContainerView;
 @class ReflectionView;
@@ -42,10 +43,9 @@ startChangingAttribute:(NSString *)attribute;
 @property (nonatomic, strong) UIView *shadow;
 @property (nonatomic, weak) id<ContentContainerViewDelegate> delegate;
 @property (nonatomic, weak) CanvasView *canvas;
+@property (nonatomic, strong) GenericContentDTO *attributes;
 
-- (NSMutableDictionary *) attributes;
-
-- (instancetype) initWithAttributes:(NSDictionary *) attributes delegate:(id<ContentContainerViewDelegate>)delegate;
+- (instancetype) initWithAttributes:(GenericContentDTO *) attributes delegate:(id<ContentContainerViewDelegate>)delegate;
 
 - (CGSize) minSize;
 
@@ -57,7 +57,9 @@ startChangingAttribute:(NSString *)attribute;
 
 - (UIImage *) contentSnapshot;
 
-- (void) applyAttributes:(NSDictionary *) attributes;
+- (void) applyAttributes:(GenericContentDTO *) attributes;
+
+- (void) applyChanges:(NSDictionary *)changes;
 
 - (void) updateReflectionView;
 

@@ -7,6 +7,7 @@
 //
 
 #import "GenericContainerView.h"
+#import "ImageContentDTO.h"
 @class ImageContainerView;
 
 @protocol ImageContainerViewDelegate <ContentContainerViewDelegate>
@@ -20,6 +21,6 @@
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, weak) id<ImageContainerViewDelegate> delegate;
 
-- (instancetype) initWithAttributes:(NSMutableDictionary *)attributes delegate:(id<ContentContainerViewDelegate>)delegate;
+- (instancetype) initWithAttributes:(ImageContentDTO *)attributes delegate:(id<ContentContainerViewDelegate>)delegate;
 
 @end

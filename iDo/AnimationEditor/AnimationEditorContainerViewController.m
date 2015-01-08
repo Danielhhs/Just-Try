@@ -177,10 +177,10 @@
 }
 
 #pragma mark - Memory Management
-- (void) viewWillDisappear:(BOOL)animated
+- (void) viewDidDisappear:(BOOL)animated
 {
     [self.delegate animationEditorDidSelectAnimation:self.animation];
-    [super viewWillDisappear:animated];
+    [super viewDidDisappear:animated];
 }
 
 @end

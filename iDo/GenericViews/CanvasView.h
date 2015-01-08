@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GenericContainerView.h"
+#import "SlideDTO.h"
 @class CanvasView;
 @protocol CanvasViewDelegate <NSObject>
 
@@ -20,10 +21,10 @@
 @property (nonatomic, strong) UIImage *background;
 @property (nonatomic, weak) id<CanvasViewDelegate> delegate;
 
-- (instancetype) initWithAttributes:(NSDictionary *) attributes
+- (instancetype) initWithSlideAttributes:(SlideDTO *) attributes
                            delegate:(id<CanvasViewDelegate>) delegate
                     contentDelegate:(id<ContentContainerViewDelegate>)contentDelegate;
-- (void) setupWithAttributes:(NSDictionary *) attribtues;
+- (void) setupWithAttributes:(SlideDTO *) attribtues;
 - (void) disablePinch;
 - (void) enablePinch;
 @end

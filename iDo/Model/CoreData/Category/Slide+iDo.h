@@ -7,12 +7,13 @@
 //
 
 #import "Slide.h"
+#import "SlideDTO.h"
 
 @interface Slide (iDo)
 
-+ (Slide *) slideFromAttributes:(NSDictionary *) attributes
++ (Slide *) slideFromAttributes:(SlideDTO *) attributes
          inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext;
 
-+ (NSMutableDictionary *) attributesFromSlide:(Slide *) slide;
-+ (void) applySlideAttributes:(NSDictionary *) slideAttributes toSlide:(Slide *) slide inManageObjectContext:(NSManagedObjectContext *) manageObjectContext;
++ (SlideDTO *) attributesFromSlide:(Slide *) slide;
++ (void) applySlideAttributes:(SlideDTO *) slideAttributes toSlide:(Slide *) slide inManageObjectContext:(NSManagedObjectContext *) manageObjectContext;
 @end

@@ -11,6 +11,7 @@
 #import "CanvasView.h"
 #import "KeyConstants.h"
 #import "AnimationAttributesHelper.h"
+#import "AnimationDTO.h"
 @interface AnimationEditorManager()
 @property (nonatomic, strong) UIPopoverController *animationEditorPopover;
 @property (nonatomic, strong) AnimationEditorContainerViewController *animationEditorContainer;
@@ -70,7 +71,7 @@ static AnimationEditorManager *sharedInstance;
 {
     if ([view isKindOfClass:[GenericContainerView class]]) {
         GenericContainerView *content = (GenericContainerView *)view;
-        NSArray *animations = [[content attributes] objectForKey:[KeyConstants animationsKey]];
+        NSArray *animations = content.attributes.animations;
         return [AnimationAttributesHelper animationEffectFromAnimationAttributes:animations event:event];
     } else {
         return AnimationEffectNone;
@@ -81,7 +82,7 @@ static AnimationEditorManager *sharedInstance;
 {
     if ([view isKindOfClass:[GenericContainerView class]]) {
         GenericContainerView *content = (GenericContainerView *) view;
-        NSArray *animations = [[content attributes] objectForKey:[KeyConstants animationsKey]];
+        NSArray *animations = content.attributes.animations;
         return [AnimationAttributesHelper animationParametersFromAnimationAttributes:animations event:event];
     } else {
         return nil;
@@ -95,10 +96,10 @@ static AnimationEditorManager *sharedInstance;
 {
     if ([view isKindOfClass:[GenericContainerView class]]) {
         GenericContainerView *content = (GenericContainerView *)view;
-        NSArray *animations = [[content attributes] objectForKey:[KeyConstants animationsKey]];
-        for (NSDictionary * animation in animations) {
-            if ([animation[[KeyConstants animationEventKey]] integerValue] == animationEvent) {
-                return [animation[[KeyConstants animationIndexKey]] integerValue];
+        NSArray *animations = content.attributes.animations;
+        for (AnimationDTO *animation in animations) {
+            if (animation.event == animationEvent) {
+                return animation.index;
             }
         }
     }

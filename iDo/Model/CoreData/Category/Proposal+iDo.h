@@ -8,10 +8,11 @@
 
 #import "Proposal.h"
 
+#import "ProposalDTO.h"
 @interface Proposal (iDo)
-+ (Proposal *) proposalFromAttributes:(NSDictionary *) attributes
++ (Proposal *) proposalFromAttributes:(ProposalDTO *) attributes
                inManagedObjectContext:(NSManagedObjectContext *) manageObjectContext;
 
-+ (NSMutableDictionary *) attibutesFromProposal:(Proposal *) proposal;
-+ (void) applyProposalAttributes:(NSDictionary *)proposalAttributes toProposal:(Proposal *) proposal inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext;
++ (ProposalDTO *) attibutesFromProposal:(Proposal *) proposal;
++ (void) applyProposalAttributes:(ProposalDTO *)proposalAttributes toProposal:(Proposal *) proposal inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext;
 @end

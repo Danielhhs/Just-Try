@@ -2,8 +2,8 @@
 //  GenericConent.h
 //  iDo
 //
-//  Created by Huang Hongsen on 12/18/14.
-//  Copyright (c) 2014 com.microstrategy. All rights reserved.
+//  Created by Huang Hongsen on 1/5/15.
+//  Copyright (c) 2015 com.microstrategy. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -21,8 +21,6 @@
 @property (nonatomic, retain) NSNumber * reflection;
 @property (nonatomic, retain) NSNumber * reflectionAlpha;
 @property (nonatomic, retain) NSNumber * reflectionSize;
-@property (nonatomic, retain) NSNumber * reflectionType;
-@property (nonatomic, retain) NSNumber * rotation;
 @property (nonatomic, retain) NSNumber * shadow;
 @property (nonatomic, retain) NSNumber * shadowAlpha;
 @property (nonatomic, retain) NSNumber * shadowSize;

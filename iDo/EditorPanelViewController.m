@@ -53,7 +53,7 @@
     [self.typeSelector registerClass:[ReflectionShadowTypeCell class] forCellWithReuseIdentifier:@"typeSelectorCell"];
     self.typeSelector.dataSource = self;
     self.typeSelector.delegate = self;
-    self.attributes = [NSMutableDictionary dictionary];
+    self.attributes = [[GenericContentDTO alloc] init];
     self.reflectionShadowTypes = [ShadowHelper shadowTypes];
     [self.typeSelector reloadData];
 }
@@ -70,10 +70,17 @@
 - (IBAction)handleTap:(id)sender {
 }
 
-- (void) applyAttributes:(NSMutableDictionary *)attributes
+- (void) applyAttributes:(GenericContentDTO *)attributes
 {
     self.attributes = attributes;
-    [self applyUndoRedoAttributes:attributes];
+    [self applyContentAttributes:attributes];
+}
+
+- (void) applyContentAttributes:(GenericContentDTO *) attributes
+{
+    self.addReflectionView.selected = attributes.reflection;
+    self.addShadowView.selected = attributes.shadow;
+    [self updateSlidersGeneratingOperations:NO];
 }
 
 - (void) applyUndoRedoAttributes:(NSDictionary *)attributes {
@@ -93,10 +100,11 @@
     NSString *changedKey;
     if (self.addReflectionView.selected) {
         changedKey = [KeyConstants reflectionAlphaKey];
+        self.attributes.reflectionAlpha = sender.value;
     } else {
         changedKey = [KeyConstants shadowAlphaKey];
+        self.attributes.shadowAlpha = sender.value;
     }
-    [self.attributes setValue:@(sender.value) forKey:changedKey];
     [self.delegate editorPanelViewController:self didChangeAttributes:@{changedKey : @(sender.value)}];
 }
 
@@ -105,16 +113,17 @@
     NSString *changedKey;
     if (self.addReflectionView.selected) {
         changedKey = [KeyConstants reflectionSizeKey];
+        self.attributes.reflectionSize = sender.value;
     } else {
         changedKey = [KeyConstants shadowSizeKey];
+        self.attributes.shadowSize = sender.value;
     }
-    [self.attributes setValue:@(sender.value) forKey:changedKey];
     [self.delegate editorPanelViewController:self didChangeAttributes:@{changedKey : @(sender.value)}];
 }
 
 - (IBAction)viewOpacityChanged:(SliderWithTooltip *)sender {
     [self updateTooltipViewFromSender:sender];
-    [self.attributes setValue:@(sender.value) forKey:[KeyConstants viewOpacityKey]];
+    self.attributes.opacity = sender.value;
     [self.delegate editorPanelViewController:self didChangeAttributes:@{[KeyConstants viewOpacityKey] : @(sender.value)}];
 }
 
@@ -154,8 +163,8 @@
 
 - (void) updateReflectionShadowStatus
 {
-    [self.attributes setValue:@(self.addReflectionView.selected) forKey:[KeyConstants reflectionKey]];
-    [self.attributes setValue:@(self.addShadowView.selected) forKey:[KeyConstants shadowKey]];
+    self.attributes.reflection = self.addReflectionView.selected;
+    self.attributes.shadow = self.addShadowView.selected;
 }
 
 - (NSArray *) updateSlidersGeneratingOperations:(BOOL) generateOperations
@@ -166,25 +175,25 @@
     SimpleOperation *alphaOperation, *sizeOperation;
     if (self.addReflectionView.selected) {
         self.typeSelector.hidden = YES;
-        NSNumber *reflectionAlpha = self.attributes[[KeyConstants reflectionAlphaKey]];
-        if (reflectionAlpha) {
-            alphaOperation = [self.alphaSlider setValue:[reflectionAlpha floatValue] generateOperations:generateOperations];
+        CGFloat reflectionAlpha = self.attributes.reflectionAlpha;
+        if (reflectionAlpha >= 0) {
+            alphaOperation = [self.alphaSlider setValue:reflectionAlpha generateOperations:generateOperations];
         }
-        NSNumber *reflectionSize = self.attributes[[KeyConstants reflectionSizeKey]];
-        if (reflectionSize) {
-            sizeOperation = [self.sizeSlider setValue:[reflectionSize floatValue] generateOperations:generateOperations];
+        CGFloat reflectionSize = self.attributes.reflectionSize;
+        if (reflectionSize >= 0) {
+            sizeOperation = [self.sizeSlider setValue:reflectionSize generateOperations:generateOperations];
         }
         self.alphaSlider.key = [KeyConstants reflectionAlphaKey];
         self.sizeSlider.key = [KeyConstants reflectionSizeKey];
     } else if (self.addShadowView.selected) {
         self.typeSelector.hidden = NO;
-        NSNumber *shadowAlpha = self.attributes[[KeyConstants shadowAlphaKey]];
-        if (shadowAlpha) {
-            alphaOperation = [self.alphaSlider setValue:[shadowAlpha floatValue] generateOperations:generateOperations];
+        CGFloat shadowAlpha = self.attributes.shadowAlpha;
+        if (shadowAlpha >= 0) {
+            alphaOperation = [self.alphaSlider setValue:shadowAlpha generateOperations:generateOperations];
         }
-        NSNumber *shadowSize = self.attributes[[KeyConstants shadowSizeKey]];
-        if (shadowSize) {
-            sizeOperation = [self.sizeSlider setValue:[shadowSize doubleValue] generateOperations:generateOperations];
+        CGFloat shadowSize = self.attributes.shadowSize;
+        if (shadowSize >= 0) {
+            sizeOperation = [self.sizeSlider setValue:shadowSize generateOperations:generateOperations];
         }
         self.alphaSlider.key = [KeyConstants shadowAlphaKey];
         self.sizeSlider.key = [KeyConstants shadowSizeKey];
@@ -266,7 +275,7 @@
 - (void) cellDidTapped:(ReflectionShadowTypeCell *)cell
 {
     NSString *key = self.addReflectionView.selected ? [KeyConstants reflectionTypeKey] : [KeyConstants shadowTypeKey];
-    [OperationHelper pushSimpleOperationWithTargets:@[self, self.target] key:key fromValue:self.attributes[key] toValue:@(cell.type)];
+    [OperationHelper pushSimpleOperationWithTargets:@[self, self.target] key:key fromValue:@(self.attributes.shadowType) toValue:@(cell.type)];
     [self.attributes setValue:@(cell.type) forKey:key];
     [self.delegate editorPanelViewController:self didChangeAttributes:@{key : @(cell.type)}];
 }

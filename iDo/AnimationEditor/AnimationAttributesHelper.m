@@ -11,6 +11,7 @@
 #import "SimpleOperation.h"
 #import "UndoManager.h"
 #import "SlideAttributesManager.h"
+#import "AnimationDTO.h"
 
 @implementation AnimationAttributesHelper
 
@@ -18,74 +19,14 @@
 withAnimationDescription:(AnimationDescription *)animationDescription
    generatingOperation:(BOOL)generatingOperation
 {
-    NSArray *originalAnimations = [[[content attributes] objectForKey:[KeyConstants animationsKey]] copy];
-//    [AnimationAttributesHelper updateContentAttributes:[content attributes] withAnimationDescription:animationDescription];
+    NSArray *originalAnimations = [content.attributes.animations mutableCopy];
     [[SlideAttributesManager sharedManager] updateSlideWithAnimationDescription:animationDescription content:content];
     if (generatingOperation) {
-//        [[SlideAttributesManager sharedManager] updateSlideWithAnimationDescription:animationDescription content:content];
         SimpleOperation *operation = [[SimpleOperation alloc] initWithTargets:@[content] key:[KeyConstants animationsKey] fromValue:originalAnimations];
-        operation.toValue = [[[content attributes] objectForKey:[KeyConstants animationsKey]] copy];
+        operation.toValue = [content.attributes.animations copy];
         [[UndoManager sharedManager] pushOperation:operation];
     }
     
-}
-
-+ (void) updateSlideAnimations:(NSMutableArray *) slideAnimations
-      withAnimationDescription:(AnimationDescription *) animationDescription
-                       content:(GenericContainerView *)content
-{
-    NSMutableDictionary *editedAnimation = nil;
-    for (NSMutableDictionary *animation in slideAnimations) {
-        if ([animation[[KeyConstants contentUUIDKey]] isEqual:[content attributes][[KeyConstants contentUUIDKey]]] && [animation[[KeyConstants animationEventKey]] integerValue] == animationDescription.animationEvent ) {
-            editedAnimation = animation;
-            break;
-        }
-    }
-    if (editedAnimation == nil && animationDescription.animationEffect != AnimationEffectNone) {
-        editedAnimation = [NSMutableDictionary dictionary];
-        editedAnimation[[KeyConstants contentUUIDKey]] = [content attributes][[KeyConstants contentUUIDKey]];
-        editedAnimation[[KeyConstants animationEventKey]] = @(animationDescription.animationEvent);
-        editedAnimation[[KeyConstants animationIndexKey]] = @([slideAnimations count] + 1);
-        [[SlideAttributesManager sharedManager] addAnimation:editedAnimation];
-    }
-    if (animationDescription.animationEffect == AnimationEffectNone) {
-        animationDescription.animationIndex--;
-        [[SlideAttributesManager sharedManager] removeAnimation:editedAnimation];
-    } else {
-        editedAnimation[[KeyConstants animationEffectKey]] = @(animationDescription.animationEffect);
-        editedAnimation[[KeyConstants animationDurationKey]] = @(animationDescription.parameters.duration);
-        editedAnimation[[KeyConstants animationTriggerTimeKey]] = @(animationDescription.parameters.timeAfterPreviousAnimation);
-        editedAnimation[[KeyConstants animationDirectionKey]] = @(animationDescription.parameters.selectedDirection);
-    }
-}
-
-+ (void) updateContentAttributes:(NSMutableDictionary *)attributes withAnimationDescription:(AnimationDescription *)animationDescription
-{
-    NSMutableArray *animations = [attributes[[KeyConstants animationsKey]] mutableCopy];
-    
-    NSMutableDictionary *editedAnimation;
-    for (NSMutableDictionary *animation in animations) {
-        if ([animation[[KeyConstants animationEventKey]] integerValue] == animationDescription.animationEvent) {
-            editedAnimation = animation;
-            break;
-        }
-    }
-    if (!editedAnimation && animationDescription.animationEffect != AnimationEffectNone) {
-        editedAnimation = [NSMutableDictionary dictionary];
-        editedAnimation[[KeyConstants animationEventKey]] = @(animationDescription.animationEvent);
-        editedAnimation[[KeyConstants contentUUIDKey]] = attributes[[KeyConstants contentUUIDKey]];
-        [animations addObject:editedAnimation];
-    }
-    if (animationDescription.animationEffect == AnimationEffectNone) {
-        [animations removeObject:editedAnimation];
-    } else {
-        editedAnimation[[KeyConstants animationEffectKey]] = @(animationDescription.animationEffect);
-        editedAnimation[[KeyConstants animationDurationKey]] = @(animationDescription.parameters.duration);
-        editedAnimation[[KeyConstants animationTriggerTimeKey]] = @(animationDescription.parameters.timeAfterPreviousAnimation);
-        editedAnimation[[KeyConstants animationDirectionKey]] = @(animationDescription.parameters.selectedDirection);
-        editedAnimation[[KeyConstants animationIndexKey]] = @(animationDescription.animationIndex);
-    }
-    attributes[[KeyConstants animationsKey]] = animations;
 }
 
 + (NSString *) animationTitleForAnimationEffect:(AnimationEffect) effect
@@ -115,12 +56,12 @@ withAnimationDescription:(AnimationDescription *)animationDescription
 
 + (NSString *) animationInTitleForContent:(GenericContainerView *)content
 {
-    NSArray *animations = [[content attributes] objectForKey:[KeyConstants animationsKey]];
+    NSArray *animations = content.attributes.animations;
     NSString *title = @"None";
-    for (NSDictionary *attributes in animations) {
-        AnimationEvent event = [attributes[[KeyConstants animationEventKey]] integerValue];
+    for (AnimationDTO *animation in animations) {
+        AnimationEvent event = animation.event;
         if (event == AnimationEventBuiltIn) {
-            title = [AnimationAttributesHelper animationTitleForAnimationEffect:[attributes[[KeyConstants animationEffectKey]] integerValue]];
+            title = [AnimationAttributesHelper animationTitleForAnimationEffect:animation.effect];
         }
     }
     return title;
@@ -128,12 +69,12 @@ withAnimationDescription:(AnimationDescription *)animationDescription
 
 + (NSString *) animationOutTitleForContent:(GenericContainerView *)content
 {
-    NSArray *animations = [[content attributes] objectForKey:[KeyConstants animationsKey]];
+    NSArray *animations = content.attributes.animations;
     NSString *title = @"None";
-    for (NSDictionary *attributes in animations) {
-        AnimationEvent event = [attributes[[KeyConstants animationEventKey]] integerValue];
+    for (AnimationDTO *attributes in animations) {
+        AnimationEvent event = attributes.event;
         if (event == AnimationEventBuiltOut) {
-            title = [AnimationAttributesHelper animationTitleForAnimationEffect:[attributes[[KeyConstants animationEffectKey]] integerValue]];
+            title = [AnimationAttributesHelper animationTitleForAnimationEffect:attributes.effect];
         }
     }
     return title;
@@ -142,10 +83,10 @@ withAnimationDescription:(AnimationDescription *)animationDescription
 + (AnimationEffect) animationEffectFromAnimationAttributes:(NSArray *)animations event:(AnimationEvent)event
 {
     AnimationEffect effect = AnimationEffectNone;
-    for (NSDictionary *animation in animations) {
-        AnimationEvent animationEvent = [[animation objectForKey:[KeyConstants animationEventKey]] integerValue];
+    for (AnimationDTO *animation in animations) {
+        AnimationEvent animationEvent = animation.event;
         if (animationEvent == event) {
-            effect = [animation[[KeyConstants animationEffectKey]] integerValue];
+            effect = animation.effect;
         }
     }
     return effect;
@@ -154,33 +95,26 @@ withAnimationDescription:(AnimationDescription *)animationDescription
 + (AnimationParameters *) animationParametersFromAnimationAttributes:(NSArray *)animations event:(AnimationEvent)event
 {
     AnimationParameters *parameters = [[AnimationParameters alloc] init];
-    for (NSDictionary *animation in animations) {
-        AnimationEvent animationEvent = [[animation objectForKey:[KeyConstants animationEventKey]] integerValue];
+    for (AnimationDTO *animation in animations) {
+        AnimationEvent animationEvent = animation.event;
         if (animationEvent == event) {
-            parameters.duration = [animation[[KeyConstants animationDurationKey]] doubleValue];
-            parameters.selectedDirection = [animation[[KeyConstants animationDirectionKey]] integerValue];
-            parameters.timeAfterPreviousAnimation = [animation[[KeyConstants animationTriggerTimeKey]] doubleValue];
+            parameters.duration = animation.duration;
+            parameters.selectedDirection = animation.direction;
+            parameters.timeAfterPreviousAnimation = animation.triggeredTime;
         }
     }
     return parameters;
 }
 
-+ (NSInteger) animationOrderForAttributes:(NSDictionary *)attributes event:(AnimationEvent) event
++ (NSInteger) animationOrderForAttributes:(GenericContentDTO *)attributes event:(AnimationEvent) event
 {
-    NSArray *animations = [AnimationAttributesHelper animationsFromAttributes:attributes];
     NSInteger order = -1;
-    for (NSDictionary *animation in animations) {
-        AnimationEvent animationEvent = [[animation objectForKey:[KeyConstants animationEventKey]] integerValue];
-        if (animationEvent == event) {
-            order = [animation[[KeyConstants animationIndexKey]] integerValue];
+    for (AnimationDTO *animation in attributes.animations) {
+        if (animation.event == event) {
+            order = animation.index;
             break;
         }
     }
     return order;
-}
-
-+ (NSArray *) animationsFromAttributes:(NSDictionary *) attributes
-{
-    return [attributes objectForKey:[KeyConstants animationsKey]];
 }
 @end

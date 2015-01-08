@@ -94,24 +94,24 @@
     }
 }
 
-+ (GenericConent *) contentFromAttributes:(NSDictionary *)attributes
++ (GenericConent *) contentFromAttributes:(GenericContentDTO *)attributes
                    inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext
 {
-    ContentViewType type = [attributes[[KeyConstants contentTypeKey]] unsignedIntegerValue];
+    ContentViewType type = attributes.contentType;
     GenericConent *content = nil;
     switch (type) {
         case ContentViewTypeText:
-            content = [TextContent textContentFromAttribute:attributes inManageObjectContext:managedObjectContext];
+            content = [TextContent textContentFromAttribute:(TextContentDTO *)attributes inManageObjectContext:managedObjectContext];
             break;
         case ContentViewTypeImage:
-            content = [ImageContent imageContentFromAttribute:attributes inManageObjectContext:managedObjectContext];
+            content = [ImageContent imageContentFromAttribute:(ImageContentDTO *)attributes inManageObjectContext:managedObjectContext];
         default:
             break;
     }
     return content;
 }
 
-+ (NSDictionary *) contentAttributesFromGenericContent:(GenericConent *)content
++ (GenericContentDTO *) contentAttributesFromGenericContent:(GenericConent *)content
 {
     if ([content isKindOfClass:[TextContent class]]) {
         return [TextContent attributesFromTextContent:(TextContent *)content];
@@ -136,14 +136,14 @@
     return proposals;
 }
 
-+ (void) applyContentAttributes:(NSDictionary *)contentAttributes
++ (void) applyContentAttributes:(GenericContentDTO *)contentAttributes
                 toContentObject:(GenericConent *)content
          inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext
 {
     if ([content isKindOfClass:[TextContent class]]) {
-        [TextContent applyTextAttribtues:contentAttributes toTextContent:(TextContent *)content inManageObjectContext:managedObjectContext];
+        [TextContent applyTextAttribtues:(TextContentDTO *)contentAttributes toTextContent:(TextContent *)content inManageObjectContext:managedObjectContext];
     } else if ([content isKindOfClass:[ImageContent class]]) {
-        [ImageContent applyImageAttributes:contentAttributes toImageContent:(ImageContent *)content inManagedObjectContext:managedObjectContext];
+        [ImageContent applyImageAttributes:(ImageContentDTO *)contentAttributes toImageContent:(ImageContent *)content inManagedObjectContext:managedObjectContext];
     }
 }
 @end

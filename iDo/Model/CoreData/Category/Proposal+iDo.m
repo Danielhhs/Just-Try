@@ -10,10 +10,10 @@
 #import <UIKit/UIKit.h>
 #import "KeyConstants.h"
 #import "Slide+iDo.h"
-
+#import "SlideDTO.h"
 @implementation Proposal (iDo)
 
-+ (Proposal *) proposalFromAttributes:(NSDictionary *) attributes
++ (Proposal *) proposalFromAttributes:(ProposalDTO *) attributes
                inManagedObjectContext:(NSManagedObjectContext *) manageObjectContext
 {
     Proposal *proposal = [NSEntityDescription insertNewObjectForEntityForName:@"Proposal" inManagedObjectContext:manageObjectContext];
@@ -23,34 +23,31 @@
     return proposal;
 }
 
-+ (NSMutableDictionary *) attibutesFromProposal:(Proposal *)proposal
++ (ProposalDTO *) attibutesFromProposal:(Proposal *)proposal
 {
-    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+    ProposalDTO *attributes = [[ProposalDTO alloc] init];
     
-    [attributes setObject:proposal.name forKey:[KeyConstants proposalNameKey]];
-    [attributes setObject:[UIImage imageWithData:proposal.thumbnail] forKey:[KeyConstants proposalThumbnailKey]];
+    attributes.name = proposal.name;
+    attributes.thumbnail = [UIImage imageWithData:proposal.thumbnail];
     NSArray *slides = [proposal.slides sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]]];
-    
-    NSMutableArray *slidesAttributes = [NSMutableArray array];
-    
+    NSMutableArray *slidesAttribute = [NSMutableArray array];
     for (Slide *slide in slides) {
-        [slidesAttributes addObject:[Slide attributesFromSlide:slide]];
+        [slidesAttribute addObject:[Slide attributesFromSlide:slide]];
     }
-    [attributes setObject:slidesAttributes forKey:[KeyConstants proposalSlidesKey]];
-    [attributes setObject:proposal.currentSelectedSlideIndex forKey:[KeyConstants proposalCurrentSelectedSlideKey]];
-    
+    attributes.slides = slidesAttribute;
+    attributes.currentSelectedSlideIndex = [proposal.currentSelectedSlideIndex integerValue];
     return attributes;
 }
 
-+ (void) applyProposalAttributes:(NSDictionary *)proposalAttributes
++ (void) applyProposalAttributes:(ProposalDTO *)proposalAttributes
                       toProposal:(Proposal *)proposal
           inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext
 {
-    proposal.name = proposalAttributes[[KeyConstants proposalNameKey]];
-    UIImage *thumbnail = proposalAttributes[[KeyConstants proposalThumbnailKey]];
+    proposal.name = proposalAttributes.name;
+    UIImage *thumbnail = proposalAttributes.thumbnail;
     proposal.thumbnail = UIImageJPEGRepresentation(thumbnail, 1.f);
-    proposal.currentSelectedSlideIndex = proposalAttributes[[KeyConstants proposalCurrentSelectedSlideKey]];
-    NSArray *slidesAttributes = proposalAttributes[[KeyConstants proposalSlidesKey]];
+    proposal.currentSelectedSlideIndex = @(proposalAttributes.currentSelectedSlideIndex);
+    NSArray *slidesAttributes = proposalAttributes.slides;
     NSArray *slides = [proposal.slides sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]]];
     for (NSInteger i = 0; i < [slidesAttributes count];  i++) {
         Slide *slide = nil;

@@ -13,7 +13,7 @@
 
 @implementation TextContent (iDo)
 
-+ (TextContent *) textContentFromAttribute:(NSDictionary *)attributes inManageObjectContext:(NSManagedObjectContext *)managedObjectContext
++ (TextContent *) textContentFromAttribute:(TextContentDTO *)attributes inManageObjectContext:(NSManagedObjectContext *)managedObjectContext
 {
     TextContent *textContent = [NSEntityDescription insertNewObjectForEntityForName:@"TextContent" inManagedObjectContext:managedObjectContext];
     
@@ -22,9 +22,10 @@
     return textContent;
 }
 
-+ (NSMutableDictionary *) attributesFromTextContent:(TextContent *)content
++ (TextContentDTO *) attributesFromTextContent:(TextContent *)content
 {
-    NSMutableDictionary *attributes = [[GenericConent attributesFromGenericContent:content] mutableCopy];
+    TextContentDTO *attributes = [[TextContentDTO alloc] init];
+    [GenericConent applyContent:content toAttributes:attributes];
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:content.text];
     
@@ -34,19 +35,30 @@
     for (NSUInteger i = 0; i < [stringAttributes count]; i++) {
         [attributedString addAttributes:stringAttributes[i] range:[ranges[i] rangeValue]];
     }
-    [attributes setValue:content.contentType forKey:[KeyConstants contentTypeKey]];
-    [attributes setValue:[attributedString copy] forKey:[KeyConstants attibutedStringKey]];
+    attributes.contentType = [content.contentType integerValue];
+    attributes.attributedString = attributedString;
+    CGFloat red = [content.backgoundR doubleValue];
+    CGFloat green = [content.backgoundG doubleValue];
+    CGFloat blue = [content.backgroundB doubleValue];
+    CGFloat alpha = [content.backgroundA doubleValue];
+    attributes.backgroundColor = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
     
     return attributes;
 }
 
-+ (void) applyTextAttribtues:(NSDictionary *)textAttributes toTextContent:(TextContent *)textContent inManageObjectContext:(NSManagedObjectContext *) manageObjectContext
++ (void) applyTextAttribtues:(TextContentDTO *)textAttributes toTextContent:(TextContent *)textContent inManageObjectContext:(NSManagedObjectContext *) manageObjectContext
 {
     [GenericConent applyAttributes:textAttributes toGenericContent:textContent inManageObjectContext:manageObjectContext];
     textContent.contentType = @(ContentViewTypeText);
-    NSAttributedString *attributedString = textAttributes[[KeyConstants attibutedStringKey]];
+    NSAttributedString *attributedString = textAttributes.attributedString;
     textContent.text = attributedString.string;
     textContent.attributes = [CoreDataHelper attributesDataFromAttributedString:attributedString];
+    CGFloat red, blue, green, alpha;
+    [textAttributes.backgroundColor getRed:&red green:&green blue:&blue alpha:&alpha];
+    textContent.backgoundR = @(red);
+    textContent.backgoundG = @(green);
+    textContent.backgroundB = @(blue);
+    textContent.backgroundA = @(alpha);
 }
 
 @end

@@ -10,8 +10,8 @@
 #import <CoreData/CoreData.h>
 #import "CoreDataHelper.h"
 #import <UIKit/UIKit.h>
-#import "DefaultValueGenerator.h"
 #import "Proposal+iDo.h"
+#import "ProposalDTO.h"
 @interface CoreDataManager()
 @property (nonatomic, strong) UIManagedDocument *document;
 @property (nonatomic, strong) NSArray *proposals;
@@ -88,15 +88,15 @@ static CoreDataManager *sharedInstance;
     });
 }
 
-- (void) saveProposalWithProposalChanges:(NSDictionary *)proposalChanges
+- (void) saveProposalWithProposalChanges:(ProposalDTO *)proposalChanges
 {
     [Proposal applyProposalAttributes:proposalChanges toProposal:self.currentProposal inManagedObjectContext:self.document.managedObjectContext];
     [self saveDocument];
 }
 
-- (NSMutableDictionary *) createNewProposal
+- (ProposalDTO *) createNewProposal
 {
-    Proposal *proposal = [Proposal proposalFromAttributes:[DefaultValueGenerator defaultProposalAttributes] inManagedObjectContext:self.document.managedObjectContext];
+    Proposal *proposal = [Proposal proposalFromAttributes:[ProposalDTO defaultProposal] inManagedObjectContext:self.document.managedObjectContext];
     self.currentProposal = proposal;
     return [Proposal attibutesFromProposal:proposal];
 }

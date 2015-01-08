@@ -104,9 +104,9 @@ static EditorPanelManager *sharedInstance;
         [self switchCurrentEditoToEditorForView:contentView inViewController:viewController];
     } else {
         if ([contentView isKindOfClass:[ImageContainerView class]]) {
-            [self showImageEditorInViewController:viewController attributes:[contentView attributes] target:contentView animated:YES];
+            [self showImageEditorInViewController:viewController attributes:contentView.attributes target:contentView animated:YES];
         } else if ([contentView isKindOfClass:[TextContainerView class]]) {
-            [self showTextEditorInViewController:viewController attributes:[contentView attributes] target:contentView animated:YES];
+            [self showTextEditorInViewController:viewController attributes:contentView.attributes target:contentView animated:YES];
         }
     }
 }
@@ -117,14 +117,14 @@ static EditorPanelManager *sharedInstance;
                                 animated:(BOOL) animated
 {
     if ([contentView isKindOfClass:[ImageContainerView class]]) {
-        [self showImageEditorInViewController:viewController attributes:[contentView attributes] target:contentView animated:animated];
+        [self showImageEditorInViewController:viewController attributes:contentView.attributes target:contentView animated:animated];
     } else if ([contentView isKindOfClass:[TextContainerView class]]) {
-        [self showTextEditorInViewController:viewController attributes:[contentView attributes] target:contentView animated:animated];
+        [self showTextEditorInViewController:viewController attributes:contentView.attributes target:contentView animated:animated];
     }
 }
 
 - (void) showImageEditorInViewController:(SlidesContainerViewController *)viewController
-                              attributes:(NSMutableDictionary *)attributes
+                              attributes:(GenericContentDTO *)attributes
                                   target:(id<OperationTarget>) target
                                 animated:(BOOL) animated
 {
@@ -136,7 +136,7 @@ static EditorPanelManager *sharedInstance;
 }
 
 - (void) showTextEditorInViewController:(SlidesContainerViewController *)viewController
-                             attributes:(NSMutableDictionary *)attributes
+                             attributes:(GenericContentDTO *)attributes
                                  target:(id<OperationTarget>) target
                                animated:(BOOL) animated
 {

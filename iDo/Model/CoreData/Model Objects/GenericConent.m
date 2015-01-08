@@ -2,8 +2,8 @@
 //  GenericConent.m
 //  iDo
 //
-//  Created by Huang Hongsen on 12/18/14.
-//  Copyright (c) 2014 com.microstrategy. All rights reserved.
+//  Created by Huang Hongsen on 1/5/15.
+//  Copyright (c) 2015 com.microstrategy. All rights reserved.
 //
 
 #import "GenericConent.h"
@@ -21,8 +21,6 @@
 @dynamic reflection;
 @dynamic reflectionAlpha;
 @dynamic reflectionSize;
-@dynamic reflectionType;
-@dynamic rotation;
 @dynamic shadow;
 @dynamic shadowAlpha;
 @dynamic shadowSize;

@@ -125,14 +125,14 @@
 #pragma mark - EditorPanelContainerViewControllerDelegate
 - (void) editorContainerViewController:(EditorPanelContainerViewController *)container didChangeAttributes:(NSDictionary *)attributes
 {
-    [self.currentSelectedContent applyAttributes:attributes];
+    [self.currentSelectedContent applyChanges:attributes];
 }
 
 #pragma mark - TextEditorPanelViewController
 
 - (void) textAttributes:(NSDictionary *)textAttributes didChangeFromTextEditor:(TextEditorPanelContainerViewController *)textEditor
 {
-    [self.currentSelectedContent applyAttributes:textAttributes];
+    [self.currentSelectedContent applyChanges:textAttributes];
 }
 
 - (void) textEditorDidSelectNonBasicEditor:(TextEditorPanelContainerViewController *)textEditorController
@@ -211,7 +211,7 @@
     content.center = [self canvasCenter];
     [content becomeFirstResponder];
     [[SlideAttributesManager sharedManager] addNewContent:[content attributes] toSlide:self.slideAttributes];
-    [self.slideAttributes setObject:[self.canvas snapshot] forKey:[KeyConstants slideThumbnailKey]];
+    self.slideAttributes.thumbnail = [self.canvas snapshot];
 }
 
 - (void) removeCurrentContentViewFromCanvas

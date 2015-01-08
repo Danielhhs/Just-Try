@@ -9,7 +9,6 @@
 #import "SlidesContainerViewController.h"
 #import "SlideThumbnailsManager.h"
 #import "SimpleOperation.h"
-#import "DefaultValueGenerator.h"
 #import "EditorPanelManager.h"
 #import "KeyConstants.h"
 #import "DrawingConstants.h"
@@ -54,9 +53,9 @@
 - (void) loadAllSlideViews
 {
     self.slideViews = [NSMutableArray array];
-    NSArray *slides = self.proposalAttributes[[KeyConstants proposalSlidesKey]];
-    for (NSDictionary *slide in slides) {
-        CanvasView *slideContent = [[CanvasView alloc] initWithAttributes:slide delegate:self.editorViewController contentDelegate:self.editorViewController];
+    NSArray *slides = self.proposalAttributes.slides;
+    for (SlideDTO *slide in slides) {
+        CanvasView *slideContent = [[CanvasView alloc] initWithSlideAttributes:slide delegate:self.editorViewController contentDelegate:self.editorViewController];
         [self.slideViews addObject:slideContent];
     }
 }
@@ -85,14 +84,14 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void) setProposalAttributes:(NSMutableDictionary *)proposalAttributes
+- (void) setProposalAttributes:(ProposalDTO *)proposalAttributes
 {
     _proposalAttributes = proposalAttributes;
     [self loadAllSlideViews];
     [[SlideThumbnailsManager sharedManager] setupThumbnailsWithProposalAttributes:proposalAttributes];
     [[SlideThumbnailsManager sharedManager] setSlideThumbnailControllerDelegate:self];
-    self.slideAttributes = self.proposalAttributes[[KeyConstants proposalSlidesKey]];
-    self.currentSelectSlideIndex = [self.proposalAttributes[[KeyConstants proposalCurrentSelectedSlideKey]] integerValue];
+    self.slideAttributes = self.proposalAttributes.slides;
+    self.currentSelectSlideIndex = _proposalAttributes.currentSelectedSlideIndex;
 }
 
 - (void) setCurrentSelectSlideIndex:(NSInteger)currentSelectSlideIndex
@@ -163,7 +162,8 @@
 {
     CanvasView *canvas = self.slideViews[self.currentSelectSlideIndex];
     dispatch_async(self.snapshotQueue, ^{
-        [self.slideAttributes[self.currentSelectSlideIndex] setValue:[canvas snapshot] forKey:[KeyConstants slideThumbnailKey]];
+        SlideDTO *currentSlide = self.slideAttributes[self.currentSelectSlideIndex];
+        currentSlide.thumbnail = [canvas snapshot];
         dispatch_async(dispatch_get_main_queue(), ^{
             [[SlideThumbnailsManager sharedManager] updateSlideSnapshotForItemAtIndex:self.currentSelectSlideIndex];
         });
@@ -193,7 +193,7 @@
 - (void) slideDidAddAtIndex:(NSInteger)index fromSlidesThumbnailViewController:(SlidesThumbnailViewController *)thumbnailController
 {
     [[ProposalAttributesManager sharedManager] addNewSlideToProposal:self.proposalAttributes atIndex:index];
-    [self.slideViews insertObject:[[CanvasView alloc] initWithAttributes:[DefaultValueGenerator defaultSlideAttributes] delegate:self.editorViewController contentDelegate:self.editorViewController] atIndex:index];
+    [self.slideViews insertObject:[[CanvasView alloc] initWithSlideAttributes:[SlideDTO defaultSlide] delegate:self.editorViewController contentDelegate:self.editorViewController] atIndex:index];
     [[SlideThumbnailsManager sharedManager] setupThumbnailsWithProposalAttributes:self.proposalAttributes];
     self.currentSelectSlideIndex = index;
 }
@@ -285,8 +285,8 @@
 - (void) saveProposal
 {
     [self.editorViewController saveSlideAttributes];
-    [self.proposalAttributes setValue:[self.editorViewController.view snapshot] forKey:[KeyConstants proposalThumbnailKey]];
-    [self.proposalAttributes setValue:@(self.currentSelectSlideIndex) forKey:[KeyConstants proposalCurrentSelectedSlideKey]];
+    self.proposalAttributes.thumbnail = self.editorViewController.view.snapshot;
+    self.proposalAttributes.currentSelectedSlideIndex = self.currentSelectSlideIndex;
     [[CoreDataManager sharedManager] saveProposalWithProposalChanges:self.proposalAttributes];
 }
 

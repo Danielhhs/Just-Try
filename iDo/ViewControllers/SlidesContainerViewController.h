@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "SlidesEditingViewController.h"
+#import "ProposalDTO.h"
 
 @interface SlidesContainerViewController : UIViewController
 
 - (void) adjustCanvasSizeAndPosition;
 
-@property (nonatomic, strong) NSMutableDictionary *proposalAttributes;
+@property (nonatomic, strong) ProposalDTO *proposalAttributes;
 @property (nonatomic, strong) SlidesEditingViewController *editorViewController;
 
 @end

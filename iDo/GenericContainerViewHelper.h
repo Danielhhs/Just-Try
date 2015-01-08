@@ -8,20 +8,22 @@
 
 #import <Foundation/Foundation.h>
 #import "GenericContainerView.h"
+#import "GenericContentDTO.h"
 
 @interface GenericContainerViewHelper : NSObject
 
 + (void) mergeChangedAttributes:(NSDictionary *) changedAttributes
-             withFullAttributes:(NSMutableDictionary *) fullAttributes;
-+ (void) applyAttribute:(NSDictionary *) attributes toContainer:(GenericContainerView *) containerView;
+             withFullAttributes:(GenericContentDTO *) fullAttributes
+             inGenericContainer:(GenericContainerView *) container;
++ (void) applyAttribute:(GenericContentDTO *) attributes toContainer:(GenericContainerView *) containerView;
 //+ (void) applyUndoAttribute:(NSDictionary *)attributes toContainer:(GenericContainerView *)containerView;
 + (void) resetActualTransformWithView:(GenericContainerView*) container;
 
-+ (GenericContainerView *) contentViewFromAttributes:(NSMutableDictionary *)attributes delegate:(id<ContentContainerViewDelegate>) delegate;
++ (GenericContainerView *) contentViewFromAttributes:(GenericContentDTO *)attributes delegate:(id<ContentContainerViewDelegate>) delegate;
 
 + (CGFloat) anglesFromTransform:(CGAffineTransform) transform;
 
-+ (CGRect) frameFromAttributes:(NSDictionary *) attributes;
++ (CGRect) frameFromAttributes:(GenericContentDTO *) attributes;
 + (void) applyRotation:(CGFloat) rotation
                 toView:(UIView *) view;
 @end

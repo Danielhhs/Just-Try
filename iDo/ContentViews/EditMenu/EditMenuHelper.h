@@ -12,6 +12,6 @@
 
 + (NSData *) encodeGenericContent:(GenericContainerView *)content;
 
-+ (NSMutableDictionary *) decodeGenericContentFromData:(NSData *) data;
++ (GenericContentDTO *) decodeGenericContentFromData:(NSData *) data;
 
 @end

@@ -7,9 +7,9 @@
 //
 
 #import "Animation.h"
-
+#import "AnimationDTO.h"
 @interface Animation (iDo)
 
-+ (Animation *) animationFromAttributes:(NSDictionary *) attributes inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
-+ (NSMutableDictionary *) attributesFromAnimation:(Animation *) animation;
++ (Animation *) animationFromAttributes:(AnimationDTO *) attributes inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
++ (AnimationDTO *) attributesFromAnimation:(Animation *) animation;
 @end

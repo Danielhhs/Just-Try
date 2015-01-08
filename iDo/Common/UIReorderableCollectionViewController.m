@@ -75,13 +75,22 @@ static NSString * const reuseIdentifier = @"Cell";
     [UIView animateWithDuration:0.372 animations:^{
         self.movingIndicator.center = [self convertCellCenterToCurrentVisibleArea:cell.center];
     } completion:^(BOOL finished) {
-        [self.delegate reorderViewController:self didSwitchCellAtIndex:self.originalIndex toIndex:self.toIndex];
-        self.movingIndicator.moving = NO;
-        self.movingIndicator.hidden = YES;
-        cell.hidden = NO;
-        self.originalIndex = -1;
-        self.toIndex = -1;
+        [UIView animateWithDuration:0.1 animations:^{
+            [self.delegate reorderViewController:self didSwitchCellAtIndex:self.originalIndex toIndex:self.toIndex];
+            [self refresh];
+        } completion:^(BOOL finished) {
+            self.movingIndicator.moving = NO;
+            self.movingIndicator.hidden = YES;
+            cell.hidden = NO;
+            self.originalIndex = -1;
+            self.toIndex = -1;
+        }];
     }];
+}
+
+- (void) refresh
+{
+    
 }
 
 - (CGPoint) convertCellCenterToCurrentVisibleArea:(CGPoint) actualCenter

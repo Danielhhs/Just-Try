@@ -13,25 +13,27 @@
 
 #import "GenericContainerView.h"
 #import "AnimationDescription.h"
-
+#import "GenericContentDTO.h"
+#import "SlideDTO.h"
+#import "AnimationDTO.h"
 @interface SlideAttributesManager : NSObject
 
 + (SlideAttributesManager *) sharedManager;
 
-- (void) setSlideAttributes:(NSMutableDictionary *) slideAttributes;
+- (void) setSlideAttributes:(SlideDTO *) slideAttributes;
 
-- (void) addNewContent:(NSMutableDictionary *) content toSlide:(NSMutableDictionary *) slide;
+- (void) addNewContent:(GenericContentDTO *) content toSlide:(SlideDTO *) slide;
 
-- (void) saveCanvasContents:(CanvasView *)canvas toSlide:(NSMutableDictionary *) slide;
+- (void) saveCanvasContents:(CanvasView *)canvas toSlide:(SlideDTO *) slide;
 
-- (GenericConent *) genericContentFromAttributes:(NSDictionary *) attribtues inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext;
+- (GenericConent *) genericContentFromAttributes:(GenericContentDTO *) attribtues inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext;
 
 - (NSInteger) currentAnimationIndex;
 
-- (NSArray *) currentSlideAnimations;
+- (NSArray *) currentSlideAnimationDescriptions;
 
-- (void) removeAnimation:(NSMutableDictionary *)animation;
-- (void) addAnimation:(NSMutableDictionary *)animation;
+- (void) removeAnimation:(AnimationDTO *)animation;
+- (void) addAnimation:(AnimationDTO *)animation;
 
 - (void) updateSlideWithAnimationDescription:(AnimationDescription *) animationDescription
                                      content:(GenericContainerView *)content;

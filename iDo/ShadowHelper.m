@@ -93,25 +93,25 @@
 
 + (void) applyShadowToGenericContainerView:(GenericContainerView *)container
 {
-    NSDictionary *attributes = [container attributes];
-    ContentViewShadowType shadowType = [attributes[[KeyConstants shadowTypeKey]] integerValue];
-    [ShadowHelper applyShadowWithAttributes:(NSDictionary *)attributes shadowType:shadowType toGenericContent:container];
+    GenericContentDTO *attributes = container.attributes;
+    ContentViewShadowType shadowType = attributes.shadowType;
+    [ShadowHelper applyShadowWithAttributes:attributes shadowType:shadowType toGenericContent:container];
 }
 
-+ (void) applyShadowWithAttributes:(NSDictionary *)attributes
++ (void) applyShadowWithAttributes:(GenericContentDTO *)attributes
                         shadowType:(ContentViewShadowType) shadowType
                   toGenericContent:(GenericContainerView *)container
 {
     [ShadowHelper hideShadowForGenericContainerView:container];
-    BOOL showShadow = [attributes[[KeyConstants shadowKey]] boolValue];
+    BOOL showShadow = attributes.shadow;
     if (!showShadow) {
         [container.shadow removeFromSuperview];
         container.shadow = nil;
         return;
     }
     UIView *content = [container contentView];
-    CGFloat shadowDepthRatio = [attributes[[KeyConstants shadowSizeKey]] doubleValue];
-    CGRect bounds = [attributes[[KeyConstants boundsKey]] CGRectValue];
+    CGFloat shadowDepthRatio = attributes.shadowSize;
+    CGRect bounds = attributes.bounds;
     CGFloat shadowDepth = MAX_SHADOW_DEPTH_RATIO * shadowDepthRatio * bounds.size.height;
     UIView *shadowAppliedTo = [ShadowHelper shadowAppliedToViewFromContainer:container shadowType:shadowType];
     switch (shadowType) {
@@ -134,13 +134,13 @@
     }
     shadowAppliedTo.layer.shadowColor = [UIColor blackColor].CGColor;
     shadowAppliedTo.layer.masksToBounds = NO;
-    shadowAppliedTo.layer.shadowOpacity = [attributes[[KeyConstants shadowAlphaKey]] doubleValue];
+    shadowAppliedTo.layer.shadowOpacity = attributes.shadowAlpha;
 }
 
 + (void) updateShadowOpacity:(CGFloat)shadowOpacity toGenericContainerView:(GenericContainerView *)container
 {
-    NSDictionary *attributes = [container attributes];
-    ContentViewShadowType shadowType = [attributes[[KeyConstants shadowTypeKey]] integerValue];
+    GenericContentDTO *attributes = container.attributes;
+    ContentViewShadowType shadowType = attributes.shadowType;
     UIView *shadowAppliedTo = [ShadowHelper shadowAppliedToViewFromContainer:container shadowType:shadowType];
     shadowAppliedTo.layer.shadowOpacity = shadowOpacity;
 }

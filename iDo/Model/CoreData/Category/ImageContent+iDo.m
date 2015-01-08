@@ -8,11 +8,10 @@
 
 #import "ImageContent+iDo.h"
 #import "GenericConent+iDo.h"
-#import "KeyConstants.h"
 
 @implementation ImageContent (iDo)
 
-+ (ImageContent *) imageContentFromAttribute:(NSDictionary *)attributes
++ (ImageContent *) imageContentFromAttribute:(ImageContentDTO *)attributes
                        inManageObjectContext:(NSManagedObjectContext *)managedObjectContext
 {
     ImageContent *imageContent = [NSEntityDescription insertNewObjectForEntityForName:@"ImageContent" inManagedObjectContext:managedObjectContext];
@@ -22,24 +21,23 @@
     return imageContent;
 }
 
-+ (NSMutableDictionary *) attributesFromImageContent:(ImageContent *)content
++ (ImageContentDTO *) attributesFromImageContent:(ImageContent *)content
 {
-    NSMutableDictionary *attributes = [[GenericConent attributesFromGenericContent:content] mutableCopy];
+    ImageContentDTO *attributes = [[ImageContentDTO alloc] init];
     
-    [attributes setValue:content.imageName forKey:[KeyConstants imageNameKey]];
-    [attributes setValue:content.filter forKey:[KeyConstants filterKey]];
-    [attributes setValue:content.contentType forKey:[KeyConstants contentTypeKey]];
+    [GenericConent applyContent:content toAttributes:attributes];
+    attributes.imageName = content.imageName;
+    attributes.contentType = [content.contentType integerValue];
     
     return attributes;
 }
 
 
-+ (void) applyImageAttributes:(NSDictionary *)imageAttribtues toImageContent:(ImageContent *)imageContent inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
++ (void) applyImageAttributes:(ImageContentDTO *)imageAttribtues toImageContent:(ImageContent *)imageContent inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
 {
     [GenericConent applyAttributes:imageAttribtues toGenericContent:imageContent inManageObjectContext:managedObjectContext];
     
-    imageContent.imageName = imageAttribtues[[KeyConstants imageNameKey]];
-    imageContent.filter = imageAttribtues[[KeyConstants filterKey]];
+    imageContent.imageName = imageAttribtues.imageName;
     imageContent.contentType = @(ContentViewTypeImage);
 }
 @end

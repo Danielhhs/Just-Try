@@ -20,5 +20,5 @@
 
 @property (nonatomic, strong) ReorderableCollectionViewMovingIndicator *movingIndicator;
 @property (nonatomic, weak) id<UIReorderableCollectionViewControllerDelegate> delegate;
-
+- (void) refresh;
 @end

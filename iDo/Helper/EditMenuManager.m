@@ -90,8 +90,8 @@ static EditMenuManager *sharedInstance;
 
 - (void) showEditMenuToContentView:(GenericContainerView *) content animated:(BOOL) animated
 {
+    [self hideEditMenu];
     self.editMenuShown = YES;
-    [self.editMenu hide];
     if ([[AnimationModeManager sharedManager] isInAnimationMode] == NO) {
         self.editMenu = self.contentEditMenu;
         [self.contentEditMenu showToContent:content animated:animated];
@@ -99,6 +99,7 @@ static EditMenuManager *sharedInstance;
         self.editMenu = self.animationEditMenu;
         [self.animationEditMenu showToContent:content animated:animated];
     }
+    [self.containerView addSubview:self.editMenu];
     CGPoint center = CGPointMake(content.center.x, content.frame.origin.y - self.editMenu.frame.size.height / 2 - EDIT_MENU_VIEW_SPACE);
     center = [self.containerView convertPoint:center fromView:content.superview];
     self.editMenu.center = center;

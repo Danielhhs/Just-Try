@@ -10,7 +10,8 @@
 #import "UndoManager.h"
 #import "ImageContainerView.h"
 #import "TextContainerView.h"
-#import "DefaultValueGenerator.h"
+#import "ImageContentDTO.h"
+#import "TextContentDTO.h"
 
 @interface SlideEditingToolbarViewController ()
 
@@ -66,12 +67,12 @@
 #pragma mark - Add Contents
 
 - (IBAction)addImage:(id)sender {
-    ImageContainerView *defaultImage = [[ImageContainerView alloc] initWithAttributes:[DefaultValueGenerator defaultImageAttributes] delegate:nil];
+    ImageContainerView *defaultImage = [[ImageContainerView alloc] initWithAttributes:[ImageContentDTO defaultImage] delegate:nil];
     [self.delegate addGenericContentView:defaultImage];
 }
 
 - (IBAction)addText:(id)sender {
-    TextContainerView *defaultText = [[TextContainerView alloc] initWithAttributes:[DefaultValueGenerator defaultTextAttributes] delegate:nil];
+    TextContainerView *defaultText = [[TextContainerView alloc] initWithAttributes:[TextContentDTO defaultText] delegate:nil];
     [self.delegate addGenericContentView:defaultText];
 }
 

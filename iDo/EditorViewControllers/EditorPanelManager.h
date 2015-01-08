@@ -18,11 +18,11 @@
                           forContentView:(GenericContainerView *)contentView;
 
 - (void) showImageEditorInViewController:(SlidesContainerViewController *) viewController
-                              attributes:(NSMutableDictionary *) imageItem
+                              attributes:(GenericContentDTO *) imageItem
                                   target:(id<OperationTarget>)target
                                 animated:(BOOL) animated;
 - (void) showTextEditorInViewController:(SlidesContainerViewController *) viewController
-                             attributes:(NSMutableDictionary *) imageItem
+                             attributes:(GenericContentDTO *) imageItem
                                  target:(id<OperationTarget>)target
                                animated:(BOOL) animated;
 

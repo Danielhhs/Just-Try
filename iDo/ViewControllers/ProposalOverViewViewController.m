@@ -58,9 +58,9 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"proposalCell" forIndexPath:indexPath];
     if ([cell isKindOfClass:[ProposalCollectionViewCell class]]) {
         ProposalCollectionViewCell *proposalCell = (ProposalCollectionViewCell *)cell;
-        NSDictionary *attributes = self.proposals[indexPath.row];
-        proposalCell.thumbnail = attributes[[KeyConstants proposalThumbnailKey]];
-        proposalCell.name = attributes[[KeyConstants proposalNameKey]];
+        ProposalDTO *proposal = self.proposals[indexPath.row];
+        proposalCell.thumbnail = proposal.thumbnail;
+        proposalCell.name = proposal.name;
     }
     return cell;
 }
@@ -68,7 +68,7 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"New Proposal"]) {
-        NSMutableDictionary *proposalAttributes = [[CoreDataManager sharedManager] createNewProposal];
+        ProposalDTO *proposalAttributes = [[CoreDataManager sharedManager] createNewProposal];
         SlidesContainerViewController *slideContainerVC = (SlidesContainerViewController *)segue.destinationViewController;
         slideContainerVC.proposalAttributes = proposalAttributes;
     } else if ([segue.identifier isEqualToString:@"Edit Proposal"]) {

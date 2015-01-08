@@ -13,21 +13,28 @@
 
 @interface ImageContainerView()
 @property (nonatomic, strong) UIImageView *imageContent;
+@property (nonatomic, strong) ImageContentDTO *imageAttributes;
 @end
 
 @implementation ImageContainerView
 
-- (instancetype) initWithAttributes:(NSDictionary *)attributes delegate:(id<ContentContainerViewDelegate>)delegate
+- (instancetype) initWithAttributes:(ImageContentDTO *)attributes delegate:(id<ContentContainerViewDelegate>)delegate
 {
     self = [super initWithAttributes:attributes delegate:delegate];
     if (self) {
-        _image = [UIImage imageNamed:attributes[[KeyConstants imageNameKey]]];
+        _image = [UIImage imageNamed:attributes.imageName];
         [self setUpImageContentWithImage:_image];
         [self addSubViews];
 //        [GenericContainerViewHelper applyUndoAttribute:attributes toContainer:self];
         [GenericContainerViewHelper applyAttribute:attributes toContainer:self];
     }
     return self;
+}
+
+- (void) setAttributes:(GenericContentDTO *)attributes
+{
+    [super setAttributes:attributes];
+    self.imageAttributes = (ImageContentDTO *) attributes;
 }
 
 - (void) setUpImageContentWithImage:(UIImage *) image

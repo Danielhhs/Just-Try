@@ -10,6 +10,7 @@
 #import "KeyConstants.h"
 #import "GenericContainerViewHelper.h"
 #import "EditMenuManager.h"
+#import "GenericContentDTO.h"
 
 @interface CanvasView ()
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinch;
@@ -19,17 +20,17 @@
 
 @implementation CanvasView
 
-- (void) setupWithAttributes:(NSDictionary *) attributes
+- (void) setupWithAttributes:(SlideDTO *) attributes
 {
     for (UIView *subview in self.subviews) {
         if ([subview isKindOfClass:[GenericContainerView class]]) {
             [subview removeFromSuperview];
         }
     }
-    UIImage *background = [UIImage imageNamed:attributes[[KeyConstants slideBackgroundKey]]];
+    UIImage *background = [UIImage imageNamed:attributes.backgroundImage];
     self.layer.contents = (__bridge id)background.CGImage;
-    NSArray *contents = attributes[[KeyConstants slideContentsKey]];
-    for (NSMutableDictionary *content in contents) {
+    NSArray *contents = attributes.contents;
+    for (GenericContentDTO *content in contents) {
         GenericContainerView *contentView = [GenericContainerViewHelper contentViewFromAttributes:content delegate:self.contentDelegate];
         contentView.canvas = self;
         [self addSubview:contentView];
@@ -37,7 +38,7 @@
     }
 }
 
-- (instancetype) initWithAttributes:(NSDictionary *)attributes delegate:(id<CanvasViewDelegate>)delegate contentDelegate:(id)contentDelegate
+- (instancetype) initWithSlideAttributes:(SlideDTO *)attributes delegate:(id<CanvasViewDelegate>)delegate contentDelegate:(id)contentDelegate
 {
     CGRect frame = [UIScreen mainScreen].bounds;
     self = [super initWithFrame:frame];

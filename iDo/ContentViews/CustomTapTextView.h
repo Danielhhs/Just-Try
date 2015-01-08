@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TextContentDTO.h"
 @class CustomTapTextView;
 
 @protocol CustomTapTextViewDelegate <UITextViewDelegate>
@@ -23,7 +24,7 @@
 
 @property (nonatomic, weak) id<CustomTapTextViewDelegate> delegate;
 
-- (instancetype) initWithFrame:(CGRect)frame attributes:(NSDictionary *) attributes;
+- (instancetype) initWithFrame:(CGRect)frame attributes:(TextContentDTO *) attributes;
 
 - (void) readyToEdit;
 - (void) finishEditing;

@@ -9,13 +9,14 @@
 #import "SlideAttributesManager.h"
 #import "KeyConstants.h"
 #import "UIView+Snapshot.h"
-#import "GenericContentConstants.h"
+#import "Enums.h"
 #import "ImageContent+iDo.h"
 #import "TextContent+iDo.h"
+#import "AnimationOrderDTO.h"
 static SlideAttributesManager *sharedInstance = nil;
 
 @interface SlideAttributesManager ()
-@property (nonatomic, strong) NSMutableDictionary *slideAttributes;
+@property (nonatomic, strong) SlideDTO *slideAttributes;
 @property (nonatomic, strong) NSMutableArray *animations;
 @end
 
@@ -44,50 +45,49 @@ static SlideAttributesManager *sharedInstance = nil;
     return sharedInstance;
 }
 
-- (void) setSlideAttributes:(NSMutableDictionary *)slideAttributes
+- (void) setSlideAttributes:(SlideDTO *)slideAttributes
 {
     _slideAttributes = slideAttributes;
     [self.animations removeAllObjects];
-    NSMutableArray *contents = slideAttributes[[KeyConstants slideContentsKey]];
-    for (NSMutableDictionary *content in contents) {
-        NSArray *contentAnimations = content[[KeyConstants animationsKey]];
+    NSMutableArray *contents = slideAttributes.contents;
+    for (GenericContentDTO *content in contents) {
+        NSArray *contentAnimations = content.animations;
         if (contentAnimations != nil && [contentAnimations count] != 0) {
-            [self updateDescriptionForAnimations:contentAnimations inContent:content];
+//            [self updateDescriptionForAnimations:contentAnimations inContent:content];
             [self.animations addObjectsFromArray:contentAnimations];
         }
     }
-    [self.animations sortUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
-        NSInteger index1 = [obj1[[KeyConstants animationIndexKey]] integerValue];
-        NSInteger index2 = [obj2[[KeyConstants animationIndexKey]] integerValue];
+    [self.animations sortUsingComparator:^NSComparisonResult(AnimationDTO *obj1, AnimationDTO *obj2) {
+        NSInteger index1 = obj1.index;
+        NSInteger index2 = obj2.index;
         return index1 > index2;
     }];
 }
 
-- (void) updateDescriptionForAnimations:(NSArray *) contentAnimations inContent:(NSMutableDictionary *)content
-{
-    for (NSMutableDictionary *animation in contentAnimations) {
-        [animation setValue:content[[KeyConstants contentTypeKey]] forKey:[KeyConstants contentTypeKey]];
-        if ([content[[KeyConstants contentTypeKey]] integerValue] == ContentViewTypeText) {
-            NSAttributedString *attrString = content[[KeyConstants attibutedStringKey]];
-            [animation setValue:attrString.string forKey:[KeyConstants contentDescriptionKey]];
-        } else {
-            [animation setValue:content[[KeyConstants imageNameKey]] forKey:[KeyConstants imageNameKey]];
-            [animation setValue:[content[[KeyConstants contentUUIDKey]] UUIDString] forKey:[KeyConstants contentDescriptionKey]];
-        }
-    }
-}
+//- (void) updateDescriptionForAnimations:(NSArray *) contentAnimations inContent:(GenericContentDTO *)content
+//{
+//    for (AnimationOrderDTO *animation in contentAnimations) {
+//        if (content.contentType == ContentViewTypeText) {
+//            animation.viewType = ContentViewTypeText;
+//            NSAttributedString *attrString = ((TextContentDTO *)content).attributedString;
+//            animation.animationDescription = attrString.string;
+//        } else {
+//            animation.viewType = ContentViewTypeImage;
+//            animation.imageName = ((ImageContentDTO *)content).imageName;
+//            animation.animationDescription = [content.uuid UUIDString];
+//        }
+//    }
+//}
 
 #pragma mark - Public APIs
-- (void) addNewContent:(NSMutableDictionary *)content toSlide:(NSMutableDictionary *)slide
+- (void) addNewContent:(GenericContentDTO *)content toSlide:(SlideDTO *)slide
 {
-    NSMutableArray *contents = slide[[KeyConstants slideContentsKey]];
-    [contents addObject:content];
-    [slide setValue:contents forKey:[KeyConstants slideContentsKey]];
+    [slide.contents addObject:content];
 }
 
-- (void) saveCanvasContents:(CanvasView *)canvas toSlide:(NSMutableDictionary *)slide
+- (void) saveCanvasContents:(CanvasView *)canvas toSlide:(SlideDTO *)slide
 {
-    [slide setValue:[canvas snapshot] forKey:[KeyConstants slideThumbnailKey]];
+    slide.thumbnail = [canvas snapshot];
     NSMutableArray *newContents = [NSMutableArray array];
     for (UIView *view in canvas.subviews) {
         if ([view isKindOfClass:[GenericContainerView class]]) {
@@ -95,45 +95,44 @@ static SlideAttributesManager *sharedInstance = nil;
             [newContents addObject:[content attributes]];
         }
     }
-    [slide setValue:newContents forKey:[KeyConstants slideContentsKey]];
+    slide.contents = newContents;
 }
 
-- (void) removeAnimation:(NSMutableDictionary *)animation
+- (void) removeAnimation:(AnimationDTO *)animation
 {
     NSInteger index = [self.animations indexOfObject:animation];
     [self.animations removeObject:animation];
-    NSMutableDictionary *content = [self findContentByUUID:[animation objectForKey:[KeyConstants contentUUIDKey]]];
-    NSMutableArray *contentAnimations = [content[[KeyConstants animationsKey]] mutableCopy];
-    for (NSMutableDictionary *contentAnimation in contentAnimations) {
-        if ([contentAnimation[[KeyConstants animationEventKey]] isEqual:animation[[KeyConstants animationEventKey]]]) {
+    GenericContentDTO *content = [self findContentByUUID:animation.contentUUID];
+    NSMutableArray *contentAnimations = [content.animations mutableCopy];
+    for (AnimationDTO *contentAnimation in contentAnimations) {
+        if (contentAnimation.event == animation.event) {
             [contentAnimations removeObject:contentAnimation];
-            [content setValue:contentAnimations forKey:[KeyConstants animationsKey]];
+            content.animations = contentAnimations;
             break;
         }
     }
     for (NSInteger i = index; i < [self.animations count]; i++) {
-        NSMutableDictionary *slideAnimation = self.animations[i];
-        slideAnimation[[KeyConstants animationIndexKey]] = @([slideAnimation[[KeyConstants animationIndexKey]] integerValue] - 1);
+        AnimationDTO *slideAnimation = self.animations[i];
+        slideAnimation.index = slideAnimation.index - 1;
     }
 }
 
-- (void) addAnimation:(NSMutableDictionary *)animation
+- (void) addAnimation:(AnimationDTO *)animation
 {
     [self.animations addObject:animation];
-    [self.animations sortUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
-        NSInteger index1 = [obj1[[KeyConstants animationIndexKey]] integerValue];
-        NSInteger index2 = [obj2[[KeyConstants animationIndexKey]] integerValue];
+    [self.animations sortUsingComparator:^NSComparisonResult(AnimationDTO *obj1, AnimationDTO *obj2) {
+        NSInteger index1 = obj1.index;
+        NSInteger index2 = obj2.index;
         return index1 > index2;
     }];
-    NSMutableDictionary *content = [self findContentByUUID:[animation objectForKey:[KeyConstants contentUUIDKey]]];
-    [content[[KeyConstants animationsKey]] addObject:animation];
+    GenericContentDTO *content = [self findContentByUUID:animation.contentUUID];
+    [content.animations addObject:animation];
 }
 
-- (NSMutableDictionary *) findContentByUUID:(NSUUID *)uuid
+- (GenericContentDTO *) findContentByUUID:(NSUUID *)uuid
 {
-    NSMutableArray *contents = self.slideAttributes[[KeyConstants slideContentsKey]];
-    for (NSMutableDictionary *content in contents) {
-        if ([content[[KeyConstants contentUUIDKey]] isEqual:uuid]) {
+    for (GenericContentDTO *content in self.slideAttributes.contents) {
+        if ([content.uuid isEqual:uuid]) {
             return content;
         }
     }
@@ -143,48 +142,46 @@ static SlideAttributesManager *sharedInstance = nil;
 - (void) updateSlideWithAnimationDescription:(AnimationDescription *) animationDescription
                                      content:(GenericContainerView *)content
 {
-    NSMutableDictionary *editedAnimation = nil;
-    for (NSMutableDictionary *animation in self.animations) {
-        if ([animation[[KeyConstants contentUUIDKey]] isEqual:[content attributes][[KeyConstants contentUUIDKey]]] && [animation[[KeyConstants animationEventKey]] integerValue] == animationDescription.animationEvent ) {
+    AnimationDTO *editedAnimation = nil;
+    for (AnimationDTO *animation in self.animations) {
+        if ([animation.contentUUID isEqual:content.attributes.uuid] && animation.event == animationDescription.animationEvent) {
             editedAnimation = animation;
             break;
         }
     }
     if (editedAnimation == nil && animationDescription.animationEffect != AnimationEffectNone) {
-        editedAnimation = [NSMutableDictionary dictionary];
-        editedAnimation[[KeyConstants contentUUIDKey]] = [content attributes][[KeyConstants contentUUIDKey]];
-        editedAnimation[[KeyConstants animationEventKey]] = @(animationDescription.animationEvent);
-        editedAnimation[[KeyConstants animationIndexKey]] = @([self.animations count] + 1);
+        editedAnimation = [[AnimationDTO alloc] init];
+        editedAnimation.contentUUID = content.attributes.uuid;
+        editedAnimation.event = animationDescription.animationEvent;
+        editedAnimation.index = [self.animations count] + 1;
         [self.animations addObject:editedAnimation];
-        [self.animations sortUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
-            NSInteger index1 = [obj1[[KeyConstants animationIndexKey]] integerValue];
-            NSInteger index2 = [obj2[[KeyConstants animationIndexKey]] integerValue];
+        [self.animations sortUsingComparator:^NSComparisonResult(AnimationDTO *obj1, AnimationDTO *obj2) {
+            NSInteger index1 = obj1.index;
+            NSInteger index2 = obj2.index;
             return index1 > index2;
         }];
         
-        NSMutableDictionary *content = [self findContentByUUID:[editedAnimation objectForKey:[KeyConstants contentUUIDKey]]];
-        [content[[KeyConstants animationsKey]] addObject:editedAnimation];
+        GenericContentDTO *content = [self findContentByUUID:editedAnimation.contentUUID];
+        [content.animations addObject:editedAnimation];
     }
     if (animationDescription.animationEffect == AnimationEffectNone) {
         [self removeAnimation:editedAnimation];
     } else {
-        editedAnimation[[KeyConstants animationEffectKey]] = @(animationDescription.animationEffect);
-        editedAnimation[[KeyConstants animationDurationKey]] = @(animationDescription.parameters.duration);
-        editedAnimation[[KeyConstants animationTriggerTimeKey]] = @(animationDescription.parameters.timeAfterPreviousAnimation);
-        editedAnimation[[KeyConstants animationDirectionKey]] = @(animationDescription.parameters.selectedDirection);
+        editedAnimation.effect = animationDescription.animationEffect;
+        editedAnimation.duration = animationDescription.parameters.duration;
+        editedAnimation.triggeredTime = animationDescription.parameters.timeAfterPreviousAnimation;
+        editedAnimation.direction = animationDescription.parameters.selectedDirection;
     }
 }
 
-- (NSMutableDictionary *) findAnimationInContent:(NSMutableDictionary *) animation
+- (AnimationDTO *) findAnimationInContent:(AnimationDTO *) animation
 {
-    NSMutableDictionary *result;
+    AnimationDTO *result;
     
-    NSMutableArray *contents = self.slideAttributes[[KeyConstants slideContentsKey]];
-    for (NSMutableDictionary *content in contents) {
-        if ([content[[KeyConstants contentUUIDKey]] isEqual:animation[[KeyConstants contentUUIDKey]]]) {
-            NSMutableArray *animations = content[[KeyConstants animationsKey]];
-            for (NSMutableDictionary *contentAnimation in animations) {
-                if ([animation[[KeyConstants animationEventKey]] isEqualToNumber:contentAnimation[[KeyConstants animationEventKey]]]) {
+    for (GenericContentDTO *content in self.slideAttributes.contents) {
+        if ([content.uuid isEqual:animation.contentUUID]) {
+            for (AnimationDTO *contentAnimation in content.animations) {
+                if (animation.event == contentAnimation.event) {
                     return contentAnimation;
                 }
             }
@@ -199,38 +196,58 @@ static SlideAttributesManager *sharedInstance = nil;
     return [self.animations count];
 }
 
-- (GenericConent *) genericContentFromAttributes:(NSDictionary *)attribtues inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
+- (GenericConent *) genericContentFromAttributes:(GenericContentDTO *)attribtues inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
 {
-    ContentViewType type = [attribtues[[KeyConstants contentTypeKey]] integerValue];
+    ContentViewType type = attribtues.contentType;
     GenericConent *content = nil;
     switch (type) {
         case ContentViewTypeImage:
-            content = [ImageContent imageContentFromAttribute:attribtues inManageObjectContext:managedObjectContext];
+            content = [ImageContent imageContentFromAttribute:(ImageContentDTO *)attribtues inManageObjectContext:managedObjectContext];
             break;
         case ContentViewTypeText:
-            content = [TextContent textContentFromAttribute:attribtues inManageObjectContext:managedObjectContext];
+            content = [TextContent textContentFromAttribute:(TextContentDTO *)attribtues inManageObjectContext:managedObjectContext];
         default:
             break;
     }
     return content;
 }
 
-- (NSArray *) currentSlideAnimations
+- (NSArray *) currentSlideAnimationDescriptions
 {
-    return [self.animations copy];
+    NSMutableArray *animationOrderDescriptions = [NSMutableArray array];
+    for (AnimationDTO *animation in self.animations) {
+        AnimationOrderDTO *animationOrder = [[AnimationOrderDTO alloc] init];
+        animationOrder.index = animation.index;
+        animationOrder.event = animation.event;
+        GenericContentDTO *content = [self findContentByUUID:animation.contentUUID];
+        ContentViewType contentType = content.contentType;
+        animationOrder.viewType = contentType;
+        if (contentType == ContentViewTypeImage) {
+            animationOrder.imageName = ((ImageContentDTO *)content).imageName;
+            animationOrder.animationDescription = [content.uuid UUIDString];
+        } else if (contentType == ContentViewTypeText) {
+            animationOrder.animationDescription = ((TextContentDTO *)content).attributedString.string;
+        }
+        [animationOrderDescriptions addObject:animationOrder];
+    }
+    return animationOrderDescriptions;
 }
 
 - (void) switchAnimationAtIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex
 {
-    NSMutableDictionary *selectedAnimation = self.animations[fromIndex];
+    AnimationDTO *selectedAnimation = self.animations[fromIndex];
     [self.animations removeObject:selectedAnimation];
     [self.animations insertObject:selectedAnimation atIndex:toIndex];
-    selectedAnimation[[KeyConstants animationIndexKey]] = @(toIndex + 1);
+    selectedAnimation.index = toIndex + 1;
     if (fromIndex > toIndex) {
         for (NSInteger i = toIndex + 1; i <= fromIndex; i++) {
-            NSMutableDictionary *animation = self.animations[i];
-            NSInteger originalIndex = [animation[[KeyConstants animationIndexKey]] integerValue];
-            animation[[KeyConstants animationIndexKey]] = @(originalIndex + 1);
+            AnimationDTO *animation = self.animations[i];
+            animation.index += 1;
+        }
+    } else {
+        for (NSInteger i = fromIndex; i < toIndex; i++) {
+            AnimationDTO *animation = self.animations[i];
+            animation.index -= 1;
         }
     }
 }

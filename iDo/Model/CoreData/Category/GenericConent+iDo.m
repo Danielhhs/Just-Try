@@ -7,13 +7,13 @@
 //
 
 #import "GenericConent+iDo.h"
-#import "KeyConstants.h"
 #import "CoreDataHelper.h"
 #import "Animation+iDo.h"
+#import "AnimationDTO.h"
 
 @implementation GenericConent (iDo)
 
-+ (GenericConent *) genericContentFromAttribute:(NSDictionary *)attributes
++ (GenericConent *) genericContentFromAttribute:(GenericContentDTO *)attributes
                           inManageObjectContext:(NSManagedObjectContext *)managedObjectContext
 {
     GenericConent *content = nil;
@@ -24,51 +24,45 @@
     return content;
 }
 
-+ (NSMutableDictionary *) attributesFromGenericContent:(GenericConent *)content
++ (void) applyContent:(GenericConent *)content toAttributes:(GenericContentDTO *)attributes
 {
-    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-    [attributes setValue:[CoreDataHelper decodeNSData:content.center] forKey:[KeyConstants centerKey]];
-    [attributes setValue:[CoreDataHelper decodeNSData:content.bounds] forKey:[KeyConstants boundsKey]];
-    [attributes setValue:content.opacity forKey:[KeyConstants viewOpacityKey]];
-    [attributes setValue:content.reflection forKey:[KeyConstants reflectionKey]];
-    [attributes setValue:content.reflectionType forKey:[KeyConstants reflectionTypeKey]];
-    [attributes setValue:content.reflectionAlpha forKey:[KeyConstants reflectionAlphaKey]];
-    [attributes setValue:content.reflectionSize forKey:[KeyConstants reflectionSizeKey]];
-    [attributes setValue:content.shadow forKey:[KeyConstants shadowKey]];
-    [attributes setValue:content.shadowType forKey:[KeyConstants shadowTypeKey]];
-    [attributes setValue:content.shadowAlpha forKey:[KeyConstants shadowAlphaKey]];
-    [attributes setValue:content.shadowSize forKey:[KeyConstants shadowSizeKey]];
-    [attributes setValue:content.rotation forKey:[KeyConstants rotationKey]];
-    [attributes setValue:[CoreDataHelper decodeNSData:content.transform] forKey:[KeyConstants transformKey]];
-    [attributes setValue:[[NSUUID alloc] initWithUUIDString:content.uuid] forKey:[KeyConstants contentUUIDKey]];
+    attributes.center = [((NSValue *)[CoreDataHelper decodeNSData:content.center]) CGPointValue];
+    attributes.bounds = [((NSValue *)[CoreDataHelper decodeNSData:content.bounds]) CGRectValue];
+    attributes.transform = [((NSValue *)[CoreDataHelper decodeNSData:content.transform]) CGAffineTransformValue];
+    attributes.opacity = [content.opacity doubleValue];
+    attributes.reflection = [content.reflection boolValue];
+    attributes.reflectionAlpha = [content.reflectionAlpha doubleValue];
+    attributes.reflectionSize = [content.reflectionSize doubleValue];
+    attributes.shadow = [content.shadow boolValue];
+    attributes.shadowType = [content.shadowType integerValue];
+    attributes.shadowAlpha = [content.shadowAlpha doubleValue];
+    attributes.shadowSize = [content.shadowSize doubleValue];
+    attributes.uuid = [[NSUUID alloc] initWithUUIDString:content.uuid];
     NSMutableArray *animations = [NSMutableArray array];
     for (Animation *animation in content.animations) {
         [animations addObject:[Animation attributesFromAnimation:animation]];
     }
-    [attributes setValue:animations forKey:[KeyConstants animationsKey]];
-    return attributes;
+    attributes.animations = animations;
 }
 
 
-+ (void) applyAttributes:(NSDictionary *) attributes toGenericContent:(GenericConent *) content inManageObjectContext:(NSManagedObjectContext *) manageObjectContext
++ (void) applyAttributes:(GenericContentDTO *) attributes toGenericContent:(GenericConent *) content inManageObjectContext:(NSManagedObjectContext *) manageObjectContext
 {
-    content.center = [CoreDataHelper encodeObject:attributes[[KeyConstants centerKey]]];
-    content.bounds = [CoreDataHelper encodeObject:attributes[[KeyConstants boundsKey]]];
-    content.opacity = attributes[[KeyConstants viewOpacityKey]];
-    content.reflection = attributes[[KeyConstants reflectionKey]];
-    content.reflectionType = attributes[[KeyConstants reflectionTypeKey]];
-    content.reflectionAlpha = attributes[[KeyConstants reflectionAlphaKey]];
-    content.reflectionSize = attributes[[KeyConstants reflectionSizeKey]];
-    content.shadow = attributes[[KeyConstants shadowKey]];
-    content.shadowType = attributes[[KeyConstants shadowTypeKey]];
-    content.shadowAlpha = attributes[[KeyConstants shadowAlphaKey]];
-    content.shadowSize = attributes[[KeyConstants shadowSizeKey]];
-    content.rotation = attributes[[KeyConstants rotationKey]];
-    content.transform = [CoreDataHelper encodeObject:attributes[[KeyConstants transformKey]]];
-    content.uuid = [attributes[[KeyConstants contentUUIDKey]] UUIDString];
+    content.center = [CoreDataHelper encodeObject:[NSValue valueWithCGPoint:attributes.center]];
+    content.bounds = [CoreDataHelper encodeObject:[NSValue valueWithCGRect:attributes.bounds]];
+    content.opacity = @(attributes.opacity);
+    content.reflection = @(attributes.reflection);
+    content.reflectionAlpha = @(attributes.reflectionAlpha);
+    content.reflectionSize = @(attributes.reflectionSize);
+    content.shadow = @(attributes.shadow);
+    content.shadowType = @(attributes.shadowType);
+    content.shadowAlpha = @(attributes.shadowAlpha);
+    content.shadowSize = @(attributes.shadowSize);
+    content.transform = [CoreDataHelper encodeObject:[NSValue valueWithCGAffineTransform:attributes.transform]];
+    content.uuid = [attributes.uuid UUIDString];
     NSMutableSet *animations = [NSMutableSet set];
-    NSArray *animationArray = attributes[[KeyConstants animationsKey]];
-    for (NSDictionary *animationAttributes in animationArray) {
+    NSArray *animationArray = attributes.animations;
+    for (AnimationDTO *animationAttributes in animationArray) {
         Animation *animation = [Animation animationFromAttributes:animationAttributes inManagedObjectContext:manageObjectContext];
         [animations addObject:animation];
     }

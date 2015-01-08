@@ -114,7 +114,7 @@
 }
 
 #pragma mark - Apply Attributes
-- (void) applyAttributes:(NSMutableDictionary *)attributes
+- (void) applyAttributes:(GenericContentDTO *)attributes
 {
     [self.basicEditor applyAttributes:attributes];
     [self.styleEditor applyAttributes:attributes];

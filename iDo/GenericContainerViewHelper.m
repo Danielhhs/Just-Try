@@ -13,68 +13,74 @@
 #import "ShadowHelper.h"
 #import "ReflectionView.h"
 #import "DrawingConstants.h"
-#import "GenericContentConstants.h"
+#import "Enums.h"
 #import "ImageContainerView.h"
 #import "TextContainerView.h"
 #import "ReflectionHelper.h"
+#import "GenericContentDTO.h"
 
 @implementation GenericContainerViewHelper
 
 
 + (void) mergeChangedAttributes:(NSDictionary *) changedAttributes
-             withFullAttributes:(NSMutableDictionary *) fullAttributes
+             withFullAttributes:(GenericContentDTO *) fullAttributes
+             inGenericContainer:(GenericContainerView *) container
 {
     for (NSString *key in [changedAttributes allKeys]) {
-        [fullAttributes setValue:changedAttributes[key] forKey:key];
-    }
-}
-
-+ (void) applyAttribute:(NSDictionary *)attributes
-            toContainer:(GenericContainerView *)containerView
-{
-    [GenericContainerViewHelper applyNoAnimationAttribute:attributes toContainer:containerView];
-}
-
-+ (void) applyNoAnimationAttribute:(NSDictionary *)attributes toContainer:(GenericContainerView *)containerView
-{
-    NSNumber *viewOpacity = attributes[[KeyConstants viewOpacityKey]];
-    if (viewOpacity) {
-        containerView.alpha = [viewOpacity doubleValue];
-    }
-    NSValue *bounds = attributes[[KeyConstants boundsKey]];
-    if (bounds) {
-        containerView.bounds = [bounds CGRectValue];
-    }
-    NSValue *center = attributes[[KeyConstants centerKey]];
-    if (center) {
-        containerView.center = [center CGPointValue];
-    }
-    NSValue *transform = attributes[[KeyConstants transformKey]];
-    if (transform) {
-        containerView.transform = [transform CGAffineTransformValue];
-    }
-    NSNumber *reflection = attributes[[KeyConstants reflectionKey]];
-    if (reflection) {
-        containerView.reflection.hidden = ![reflection boolValue];
-        if (containerView.reflection.hidden == NO) {
-            [ReflectionHelper applyReflectionViewToGenericContainerView:containerView];
+        if ([key isEqualToString:[KeyConstants centerKey]]) {
+            fullAttributes.center = [changedAttributes[[KeyConstants centerKey]] CGPointValue];
+            container.center = fullAttributes.center;
+        } else if ([key isEqualToString:[KeyConstants boundsKey]]) {
+            fullAttributes.bounds = [changedAttributes[[KeyConstants boundsKey]] CGRectValue];
+            container.bounds = fullAttributes.bounds;
+        } else if ([key isEqualToString:[KeyConstants viewOpacityKey]]) {
+            fullAttributes.opacity = [changedAttributes[[KeyConstants viewOpacityKey]] doubleValue];
+            container.alpha = fullAttributes.opacity;
+        } else if ([key isEqualToString:[KeyConstants reflectionKey]]) {
+            fullAttributes.reflection = [changedAttributes[[KeyConstants reflectionKey]] boolValue];
+            container.reflection.hidden = !fullAttributes.reflection;
+            if (container.reflection.hidden == NO) {
+                [ReflectionHelper applyReflectionViewToGenericContainerView:container];
+            }
+        } else if ([key isEqualToString:[KeyConstants shadowKey]]) {
+            fullAttributes.shadow = [changedAttributes[[KeyConstants shadowKey]] boolValue];
+                [ShadowHelper applyShadowToGenericContainerView:container];
+        } else if ([key isEqualToString:[KeyConstants reflectionAlphaKey]]) {
+            fullAttributes.reflectionAlpha = [changedAttributes[[KeyConstants reflectionAlphaKey]] doubleValue];
+            container.reflection.alpha = fullAttributes.reflectionAlpha;
+        } else if ([key isEqualToString:[KeyConstants reflectionSizeKey]]) {
+            fullAttributes.reflectionSize = [changedAttributes[[KeyConstants reflectionSizeKey]] doubleValue];
+            container.reflection.height = fullAttributes.reflectionSize;
+        } else if ([key isEqualToString:[KeyConstants shadowTypeKey]]) {
+            fullAttributes.shadowType = [changedAttributes[[KeyConstants shadowTypeKey]] integerValue];
+            [ShadowHelper applyShadowToGenericContainerView:container];
+        } else if ([key isEqualToString:[KeyConstants shadowAlphaKey]]) {
+            fullAttributes.shadowAlpha = [changedAttributes[[KeyConstants shadowAlphaKey]] doubleValue];
+            [ShadowHelper applyShadowToGenericContainerView:container];
+        } else if ([key isEqualToString:[KeyConstants shadowSizeKey]]) {
+            fullAttributes.shadowSize = [changedAttributes[[KeyConstants shadowSizeKey]] doubleValue];
+            [ShadowHelper applyShadowToGenericContainerView:container];
+        } else if ([key isEqualToString:[KeyConstants transformKey]]) {
+            fullAttributes.transform = [changedAttributes[[KeyConstants transformKey]] CGAffineTransformValue];
+            container.transform = fullAttributes.transform;
         }
     }
-    NSNumber *reflectionAlpha = attributes[[KeyConstants reflectionAlphaKey]];
-    if (reflectionAlpha) {
-        containerView.reflection.alpha = [reflectionAlpha floatValue];
+}
+
++ (void) applyAttribute:(GenericContentDTO *)attributes
+            toContainer:(GenericContainerView *)containerView
+{
+    containerView.alpha = attributes.opacity;
+    containerView.bounds = attributes.bounds;
+    containerView.center = attributes.center;
+    containerView.transform = attributes.transform;
+    containerView.reflection.hidden = !attributes.reflection;
+    if (containerView.reflection.hidden == NO) {
+        [ReflectionHelper applyReflectionViewToGenericContainerView:containerView];
     }
-    NSNumber *reflectionSize = attributes[[KeyConstants reflectionSizeKey]];
-    if (reflectionSize) {
-        containerView.reflection.height = [reflectionSize floatValue];
-    }
-    NSNumber *shadow = attributes[[KeyConstants shadowKey]];
-    NSNumber *shadowType = attributes[[KeyConstants shadowTypeKey]];
-    NSNumber *shadowAlpha = attributes[[KeyConstants shadowAlphaKey]];
-    NSNumber *shadowSize = attributes[[KeyConstants shadowSizeKey]];
-    if (shadowSize || shadow || shadowType || shadowAlpha) {
-        [ShadowHelper applyShadowToGenericContainerView:containerView];
-    }
+    containerView.reflection.alpha = attributes.reflectionAlpha;
+    containerView.reflection.height = attributes.reflectionSize;
+    [ShadowHelper applyShadowToGenericContainerView:containerView];
 }
 
 + (CGFloat) anglesFromTransform:(CGAffineTransform)transform
@@ -116,10 +122,10 @@ static CGAffineTransform actualTransform;
     actualTransform = container.transform;
 }
 
-+ (CGRect) frameFromAttributes:(NSDictionary *)attributes
++ (CGRect) frameFromAttributes:(GenericContentDTO *)attributes
 {
-    CGRect bounds = [attributes[[KeyConstants boundsKey]] CGRectValue];
-    CGPoint center = [attributes[[KeyConstants centerKey]] CGPointValue];
+    CGRect bounds = attributes.bounds;
+    CGPoint center = attributes.center;
     return [GenericContainerViewHelper frameFromBounds:bounds center:center];
 }
 
@@ -131,16 +137,16 @@ static CGAffineTransform actualTransform;
     return frame;
 }
 
-+ (GenericContainerView *) contentViewFromAttributes:(NSMutableDictionary *)attributes delegate:(id<ContentContainerViewDelegate>)delegate
++ (GenericContainerView *) contentViewFromAttributes:(GenericContentDTO *)attributes delegate:(id<ContentContainerViewDelegate>)delegate
 {
     GenericContainerView *content = nil;
-    ContentViewType type = [attributes[[KeyConstants contentTypeKey]] integerValue];
+    ContentViewType type = attributes.contentType;
     switch (type) {
         case ContentViewTypeImage:
-            content = [[ImageContainerView alloc] initWithAttributes:attributes delegate:delegate];
+            content = [[ImageContainerView alloc] initWithAttributes:(ImageContentDTO *)attributes delegate:delegate];
             break;
         case ContentViewTypeText:
-            content = [[TextContainerView alloc] initWithAttributes:attributes delegate:delegate];
+            content = [[TextContainerView alloc] initWithAttributes:(TextContentDTO *)attributes delegate:delegate];
             
         default:
             break;

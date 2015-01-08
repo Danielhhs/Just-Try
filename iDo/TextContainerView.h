@@ -7,6 +7,7 @@
 //
 
 #import "GenericContainerView.h"
+#import "TextContentDTO.h"
 @class TextContainerView;
 @protocol TextContainerViewDelegate <ContentContainerViewDelegate>
 
@@ -23,7 +24,7 @@
 @property (nonatomic, strong) NSAttributedString* text;
 @property (nonatomic, weak) id<TextContainerViewDelegate> delegate;
 
-- (instancetype) initWithAttributes:(NSMutableDictionary *) attributes delegate:(id<ContentContainerViewDelegate>)delegate;
+- (instancetype) initWithAttributes:(TextContentDTO *) attributes delegate:(id<ContentContainerViewDelegate>)delegate;
 
 - (void) finishEditing;
 

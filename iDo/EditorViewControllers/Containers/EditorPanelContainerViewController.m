@@ -24,7 +24,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) applyAttributes:(NSMutableDictionary *)attributes
+- (void) applyAttributes:(GenericContentDTO *)attributes
 {
     
 }

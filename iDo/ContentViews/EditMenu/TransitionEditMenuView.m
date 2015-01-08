@@ -58,6 +58,7 @@
 
 - (void) hide
 {
+    [super hide];
     [self removeFromSuperview];
 }
 

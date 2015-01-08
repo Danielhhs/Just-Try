@@ -17,7 +17,7 @@
 @end
 
 @interface EditorPanelViewController : UIViewController
-@property (nonatomic, strong) NSMutableDictionary *attributes;
+@property (nonatomic, strong) GenericContentDTO *attributes;
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *glassianView;
 @property (nonatomic, weak) id<OperationTarget> target;
 
@@ -25,7 +25,9 @@
 
 - (void) applyUndoRedoAttributes:(NSDictionary *)attributes;
 
-- (void) applyAttributes:(NSMutableDictionary *) attributes;
+- (void) applyAttributes:(GenericContentDTO *) attributes;
+
+- (void) applyContentAttributes:(GenericContentDTO *) attributes;
 
 - (void) hideTooltip;
 

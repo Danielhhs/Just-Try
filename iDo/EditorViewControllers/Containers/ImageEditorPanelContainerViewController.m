@@ -97,7 +97,7 @@
     [self.bordersEditor hideTooltip];
 }
 
-- (void) applyAttributes:(NSMutableDictionary *)attributes
+- (void) applyAttributes:(GenericContentDTO *)attributes
 {
     [self.basicEditor applyAttributes:attributes];
     [self.bordersEditor applyAttributes:attributes];

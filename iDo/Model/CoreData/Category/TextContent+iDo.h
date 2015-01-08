@@ -7,14 +7,14 @@
 //
 
 #import "TextContent.h"
-
+#import "TextContentDTO.h"
 @interface TextContent (iDo)
 
-+ (TextContent *) textContentFromAttribute:(NSDictionary *) attributes
++ (TextContent *) textContentFromAttribute:(TextContentDTO *) attributes
                      inManageObjectContext:(NSManagedObjectContext *) managedObjectContext;
 
 
-+ (NSMutableDictionary *) attributesFromTextContent:(TextContent *) content;
++ (TextContentDTO *) attributesFromTextContent:(TextContent *) content;
 
-+ (void) applyTextAttribtues:(NSDictionary *)textAttributes toTextContent:(TextContent *) textContent inManageObjectContext:(NSManagedObjectContext *) manageObjectContext;
++ (void) applyTextAttribtues:(TextContentDTO *)textAttributes toTextContent:(TextContent *) textContent inManageObjectContext:(NSManagedObjectContext *) manageObjectContext;
 @end

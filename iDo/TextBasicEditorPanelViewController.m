@@ -15,6 +15,7 @@
 #import "CompoundOperation.h"
 #import "ColorSelectionManager.h"
 #import "ColorPickerViewController.h"
+#import "TextContentDTO.h"
 
 #define PICK_VIEW_FONT_FAMILY_NAME_COMPONENT_INDEX 0
 #define PICK_VIEW_FONT_NAME_COMPONENT_INDEX 1
@@ -36,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *textColorButton;
 @property (weak, nonatomic) IBOutlet UIButton *backgroundColorButton;
 @property (nonatomic) ColorUsageType colorUsage;
+@property (nonatomic, strong) TextContentDTO *textAttributes;
 @end
 
 @implementation TextBasicEditorPanelViewController
@@ -47,6 +49,12 @@
 {
     [super viewWillAppear:animated];
     [[ColorSelectionManager sharedManager] setColorPickerDelegate:self];
+}
+
+- (void) setAttributes:(GenericContentDTO *)attributes
+{
+    [super setAttributes:attributes];
+    self.textAttributes = (TextContentDTO *)attributes;
 }
 
 #pragma mark - UIPickerViewDataSource
@@ -130,7 +138,7 @@
                     attributeKey:(NSString *) attributeKey
                pushUndoOperation:(BOOL) pushOperation
 {
-    NSAttributedString *originalText = [self.attributes objectForKey:[KeyConstants attibutedStringKey]];
+    NSAttributedString *originalText = self.textAttributes.attributedString;
     NSMutableAttributedString *attributedString = [originalText mutableCopy];
     SimpleOperation *textOperation = [[SimpleOperation alloc] initWithTargets:@[self.target] key:[KeyConstants attibutedStringKey] fromValue:originalText];
     [attributedString enumerateAttribute:attributeName inRange:self.selectedRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
@@ -185,7 +193,6 @@
 }
 
 #pragma mark - Apply Attributes
-
 - (void) applyUndoRedoAttributes:(NSDictionary *)attributes
 {
     UIFont *font = [attributes objectForKey:[KeyConstants fontKey]];
@@ -213,6 +220,31 @@
         self.selectedRange = [textSelection rangeValue];
     }
     UIColor *backgroundColor = [attributes objectForKey:[KeyConstants textBackgroundColorKey]];
+    self.lastSelectedBackgroundColor = backgroundColor;
+}
+
+- (void) applyContentAttributes:(GenericContentDTO *)attributes
+{
+    TextContentDTO *textAttributes = (TextContentDTO *) attributes;
+    UIFont *font = textAttributes.selectedFont;
+    if (font) {
+        NSString *familyName = font.familyName;
+        NSInteger index = [[TextFontHelper allFontFamilies] indexOfObject:familyName];
+        [self.fontPicker selectRow:index inComponent:PICK_VIEW_FONT_FAMILY_NAME_COMPONENT_INDEX animated:NO];
+        [self.fontPicker reloadComponent:PICK_VIEW_FONT_NAME_COMPONENT_INDEX];
+        
+        NSString *fontName = font.fontName;
+        index = [[TextFontHelper displayingFontNamesForEachFontFamilies][index] indexOfObject:[TextFontHelper displayingFontNameFromFamilyName:familyName fontName:fontName]];
+        [self.fontPicker selectRow:index inComponent:PICK_VIEW_FONT_NAME_COMPONENT_INDEX animated:NO];
+        
+        CGFloat size = font.pointSize;
+        index = [[TextFontHelper allSizes] indexOfObject:@(size)];
+        [self.fontPicker selectRow:index inComponent:PICK_VIEW_SIZE_COMPONENT_INDEX animated:YES];
+        self.lastSelectedFont = font;
+    }
+    self.alignmentSegment.selectedSegmentIndex = textAttributes.textAlignment;
+    self.selectedRange = textAttributes.selectedRange;
+    UIColor *backgroundColor = textAttributes.backgroundColor;
     self.lastSelectedBackgroundColor = backgroundColor;
 }
 

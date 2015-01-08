@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-
+#import "GenericContentDTO.h"
 @class GenericConent;
 
 @interface CoreDataHelper : NSObject
@@ -25,14 +25,14 @@
 + (NSObject *) maxUniqueObjectForEntityName:(NSString *) entity
                      inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext;
 
-+ (GenericConent *) contentFromAttributes:(NSDictionary *) attributes
++ (GenericConent *) contentFromAttributes:(GenericContentDTO *) attributes
                    inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext;
 
-+ (NSDictionary *) contentAttributesFromGenericContent:(GenericConent *) content;
++ (GenericContentDTO *) contentAttributesFromGenericContent:(GenericConent *) content;
 
 + (NSArray *) loadAllProposalsFromManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 
-+ (void) applyContentAttributes:(NSDictionary *) contentAttributes toContentObject:(GenericConent *) content inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext
++ (void) applyContentAttributes:(GenericContentDTO *) contentAttributes toContentObject:(GenericConent *) content inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext
 ;
 
 

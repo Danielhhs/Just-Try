@@ -25,7 +25,6 @@
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) UIPanGestureRecognizer *pan;
 @property (nonatomic, strong) UIRotationGestureRecognizer *rotation;
-@property (nonatomic, strong) NSMutableDictionary *fullAttributes;
 @property (nonatomic, strong) Operation *currentOperation;
 @property (nonatomic) CGPoint originalCenter;
 @end
@@ -33,12 +32,12 @@
 @implementation GenericContainerView
 
 #pragma mark - Set Up
-- (instancetype) initWithAttributes:(NSMutableDictionary *)attributes delegate:(id<ContentContainerViewDelegate>)delegate
+- (instancetype) initWithAttributes:(GenericContentDTO *)attributes delegate:(id<ContentContainerViewDelegate>)delegate
 {
     CGRect frameValue = [GenericContainerViewHelper frameFromAttributes:attributes];
     self = [self initWithFrame:frameValue];
     if (self) {
-        self.fullAttributes = attributes;
+        self.attributes = attributes;
         self.delegate = delegate;
         self.layer.shadowOpacity = 0;
     }
@@ -55,7 +54,7 @@
 - (void) setCenter:(CGPoint)center
 {
     [super setCenter:center];
-    [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants centerKey] : [NSValue valueWithCGPoint:center]} withFullAttributes:self.attributes];
+    self.attributes.center = center;
 }
 
 - (void) setup
@@ -79,21 +78,21 @@
     return self;
 }
 
-- (NSMutableDictionary *) attributes
-{
-    return self.fullAttributes;
-}
-
 #pragma mark - Apply Attributes
-- (void) applyAttributes:(NSDictionary *)attributes
+- (void) applyAttributes:(GenericContentDTO *)attributes
 {
-    [GenericContainerViewHelper mergeChangedAttributes:attributes withFullAttributes:self.fullAttributes];
+    self.attributes = attributes;
     [GenericContainerViewHelper applyAttribute:attributes toContainer:self];
 }
 
-#pragma mark - User Interations
-- (void) setupGestures
+- (void) applyChanges:(NSDictionary *)changes
 {
+    [GenericContainerViewHelper mergeChangedAttributes:changes withFullAttributes:self.attributes inGenericContainer:self];
+//    [GenericContainerViewHelper applyAttribute:self.attributes toContainer:self];
+}
+
+#pragma mark - User Interations
+- (void) setupGestures{
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap)];
     [self addGestureRecognizer:self.tap];
     self.pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
@@ -102,16 +101,14 @@
     [self addGestureRecognizer:self.rotation];
 }
 
-- (BOOL) resignFirstResponder
-{
+- (BOOL) resignFirstResponder{
     self.currentlySelected = NO;
     [[ControlPointManager sharedManager] removeAllControlPointsFromView:self];
     [[AnimationOrderManager sharedManager] hideAnimationOrderIndicator];
     return [super resignFirstResponder];
 }
 
-- (BOOL) becomeFirstResponder
-{
+- (BOOL) becomeFirstResponder{
     [self.delegate contentViewWillBecomFirstResponder:self];
     self.currentlySelected = YES;
     [[ControlPointManager sharedManager] addAndLayoutControlPointsInView:self];
@@ -127,8 +124,7 @@
     [[EditMenuManager sharedManager] showEditMenuToView:self];
 }
 
-- (void) handlePan:(UIPanGestureRecognizer *) gesture
-{
+- (void) handlePan:(UIPanGestureRecognizer *) gesture{
     if (gesture.state == UIGestureRecognizerStateBegan) {
         self.originalCenter = self.center;
         [self hideSupplementaryViewsWhenStartChangingAttributes];
@@ -144,8 +140,7 @@
     }
 }
 
-- (void) handleRotation:(UIRotationGestureRecognizer *) gesture
-{
+- (void) handleRotation:(UIRotationGestureRecognizer *) gesture{
     if (gesture.state == UIGestureRecognizerStateBegan) {
         [GenericContainerViewHelper resetActualTransformWithView:self];
         [self hideSupplementaryViewsWhenStartChangingAttributes];
@@ -159,7 +154,7 @@
         gesture.rotation = 0;
     } else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
         [RotationHelper hideRotationIndicator];
-        [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants transformKey] : [NSValue valueWithCGAffineTransform:self.transform]} withFullAttributes:self.attributes];
+        self.attributes.transform = self.transform;
         ((SimpleOperation *)self.currentOperation).toValue = [NSValue valueWithCGAffineTransform:self.transform];
         [[UndoManager sharedManager] pushOperation:self.currentOperation];
         [self applySupplimentaryViewsWhenFinishChangingAttributes];
@@ -174,26 +169,22 @@
     return contentFrame;
 }
 
-- (BOOL) isContentFirstResponder
-{
+- (BOOL) isContentFirstResponder{
     return self.currentlySelected;
 }
 
-- (void) updateReflectionView
-{
+- (void) updateReflectionView{
     [self.reflection updateFrame];
 }
 
-- (UIImage *) contentSnapshot
-{
+- (UIImage *) contentSnapshot{
     return nil;
 }
 
 - (void) changeBackgroundColor:(UIColor *)color
 {};
 
-- (CGSize) minSize
-{
+- (CGSize) minSize{
     CGSize minSize;
     minSize.height = 2 * [DrawingConstants controlPointSizeHalf] + MIN_CONTENT_HEIGHT;
     minSize.width = [DrawingConstants controlPointSizeHalf] * 2 + MIN_CONTENT_WIDTH;
@@ -203,14 +194,12 @@
 - (void) pushUnsavedOperation
 {}
 
-- (UIView *) contentView
-{
+- (UIView *) contentView{
     return nil;
 }
 
 #pragma mark - OperationTarget
-- (void) performOperation:(Operation *)operation
-{
+- (void) performOperation:(Operation *)operation{
     SimpleOperation *simpleOperation = (SimpleOperation *) operation;
     [self.delegate contentView:self willBeModifiedInCanvas:self.canvas];
     if ([simpleOperation.key isEqualToString:[KeyConstants addKey]]) {
@@ -222,8 +211,7 @@
     } else {
         NSDictionary *attibutes = @{simpleOperation.key : simpleOperation.toValue};
         [self becomeFirstResponder];
-        [GenericContainerViewHelper mergeChangedAttributes:attibutes withFullAttributes:self.fullAttributes];
-        [GenericContainerViewHelper applyAttribute:attibutes toContainer:self];
+        [self applyChanges:attibutes];
     }
     [ShadowHelper applyShadowToGenericContainerView:self];
     [ReflectionHelper applyReflectionViewToGenericContainerView:self];
@@ -233,8 +221,8 @@
 #pragma mark - ControlPointManagerDelegate
 - (void) controlPointDidFinishMoving
 {
-    [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants boundsKey] : [NSValue valueWithCGRect:self.bounds],
-                                                         [KeyConstants centerKey] : [NSValue valueWithCGPoint:self.center]} withFullAttributes:self.fullAttributes];
+    self.attributes.center = self.center;
+    self.attributes.bounds = self.bounds;
     [self applySupplimentaryViewsWhenFinishChangingAttributes];
 }
 
@@ -248,6 +236,7 @@
     [self.delegate contentView:self startChangingAttribute:[KeyConstants transformKey]];
     [ShadowHelper hideShadowForGenericContainerView:self];
     [ReflectionHelper hideReflectionViewFromGenericContainerView:self];
+    [[AnimationOrderManager sharedManager] hideAnimationOrderIndicator];
 }
 
 - (void) applySupplimentaryViewsWhenFinishChangingAttributes
@@ -257,6 +246,8 @@
     }
     [ShadowHelper applyShadowToGenericContainerView:self];
     [ReflectionHelper applyReflectionViewToGenericContainerView:self];
+    [[AnimationOrderManager sharedManager] applyAnimationOrderIndicatorToView:self];
+    [[EditMenuManager sharedManager] showEditMenuToView:self];
     [self.delegate contentView:self didChangeAttributes:nil];
 }
 
@@ -268,7 +259,7 @@
 
 - (NSArray *) animationAttributes
 {
-    return [self.attributes objectForKey:[KeyConstants animationsKey]];
+    return self.attributes.animations;
 }
 
 @end

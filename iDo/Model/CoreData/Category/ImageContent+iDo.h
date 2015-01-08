@@ -7,14 +7,15 @@
 //
 
 #import "ImageContent.h"
+#import "ImageContentDTO.h"
 
 @interface ImageContent (iDo)
 
-+ (ImageContent *) imageContentFromAttribute:(NSDictionary *) attributes
++ (ImageContent *) imageContentFromAttribute:(ImageContentDTO *) attributes
                        inManageObjectContext:(NSManagedObjectContext *) managedObjectContext;
 
 
-+ (NSMutableDictionary *) attributesFromImageContent:(ImageContent *) content;
++ (ImageContentDTO *) attributesFromImageContent:(ImageContent *) content;
 
-+ (void) applyImageAttributes:(NSDictionary *) imageAttribtues toImageContent:(ImageContent *) imageContent inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext;
++ (void) applyImageAttributes:(ImageContentDTO *) imageAttribtues toImageContent:(ImageContent *) imageContent inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext;
 @end

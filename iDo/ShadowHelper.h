@@ -6,17 +6,10 @@
 //  Copyright (c) 2014 com.microstrategy. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "Enums.h"
 #define DEFAULT_SHADOW_DEPTH 0.5
 @class GenericContainerView;
-typedef NS_ENUM(NSInteger, ContentViewShadowType) {
-    ContentViewShadowTypeOffset = 0,
-    ContentViewShadowTypeSurrounding = 1,
-    ContentViewShadowTypeProjection = 2,
-    ContentViewShadowTypeStereo = 3,
-    ContentViewShadowTypeNone = 4,
-};
 
 @interface ShadowHelper : NSObject
 

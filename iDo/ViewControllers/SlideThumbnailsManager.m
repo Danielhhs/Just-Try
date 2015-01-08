@@ -45,9 +45,9 @@ static SlideThumbnailsManager *sharedInstance;
     return sharedInstance;
 }
 
-- (void) setupThumbnailsWithProposalAttributes:(NSDictionary *)proposalAttributes
+- (void) setupThumbnailsWithProposalAttributes:(ProposalDTO *)proposalAttributes
 {
-    self.slidesThumbnailController.slides = proposalAttributes[[KeyConstants proposalSlidesKey]];
+    self.slidesThumbnailController.slides = proposalAttributes.slides;
 }
 
 #pragma mark - Thumbnail Show & Hide

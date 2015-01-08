@@ -83,6 +83,7 @@
     self.frame = [self frameFromCurrentButtons];
     [self layoutButtons];
     self.hidden = NO;
+    self.alpha = 1;
     if (animated) {
         self.alpha = 0;
         [UIView animateWithDuration:[DrawingConstants counterGoldenRatio] animations:^{
@@ -123,6 +124,7 @@
 
 - (void) hide
 {
+    [super hide];
     [self removeFromSuperview];
 }
 

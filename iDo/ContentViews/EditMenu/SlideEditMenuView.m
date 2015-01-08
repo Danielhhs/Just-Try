@@ -84,7 +84,7 @@
 - (void) handlePaste
 {
     NSData *data = [PasteboardHelper dataFromPasteboard];
-    NSMutableDictionary *attributes = [EditMenuHelper decodeGenericContentFromData:data];
+    GenericContentDTO *attributes = [EditMenuHelper decodeGenericContentFromData:data];
     id<ContentContainerViewDelegate> delegate = nil;
     if ([self.triggeredCanvas.delegate conformsToProtocol:@protocol(ContentContainerViewDelegate)]) {
         delegate = (id<ContentContainerViewDelegate>)self.triggeredCanvas.delegate;
@@ -126,6 +126,7 @@
 
 - (void) hide
 {
+    [super hide];
     [self.availableOperations removeObject:self.pasteButton];
     [self.pasteButton removeFromSuperview];
     self.triggeredCanvas = nil;

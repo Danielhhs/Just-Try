@@ -17,7 +17,7 @@
 
 + (void) applyReflectionViewToGenericContainerView:(GenericContainerView *)container
 {
-    BOOL showReflection = [[[container attributes] objectForKey:[KeyConstants reflectionKey]] boolValue];
+    BOOL showReflection = container.attributes.reflection;
     if (!showReflection) {
         [container.reflection removeFromSuperview];
         container.reflection = nil;

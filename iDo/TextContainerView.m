@@ -22,29 +22,37 @@
 @property (nonatomic) NSRange lastSelectedRange;
 @property (nonatomic, strong) NSAttributedString *lastAttrText;
 @property (nonatomic) BOOL selected;
+@property (nonatomic, strong) TextContentDTO *textAttributes;
 @end
 
 @implementation TextContainerView
 
-- (instancetype) initWithAttributes:(NSDictionary *) attributes delegate:(id<ContentContainerViewDelegate>)delegate
+- (instancetype) initWithAttributes:(TextContentDTO *) attributes delegate:(id<ContentContainerViewDelegate>)delegate
 {
     self = [super initWithAttributes:attributes delegate:delegate];
     if (self) {
         [self setupTextViewWithAttributedString:attributes];
         [self addSubViews];
-        [GenericContainerViewHelper applyAttribute:attributes toContainer:self];
+//        [GenericContainerViewHelper applyAttribute:attributes toContainer:self];
+        [self applyAttributes:attributes];
         [self adjustTextViewBoundsForBounds:self.bounds];
     }
     return self;
 }
 
-- (void) setupTextViewWithAttributedString:(NSDictionary *) attributes
+- (void) setupTextViewWithAttributedString:(TextContentDTO *) attributes
 {
-    CGRect bounds = [attributes[[KeyConstants boundsKey]] CGRectValue];
-    self.textView = [[CustomTapTextView alloc] initWithFrame:[self contentViewFrameFromBounds:bounds] attributes:self.attributes];
+    CGRect bounds = attributes.bounds;
+    self.textView = [[CustomTapTextView alloc] initWithFrame:[self contentViewFrameFromBounds:bounds] attributes:self.textAttributes];
     self.textView.delegate = self;
     self.lastSelectedRange = self.textView.selectedRange;
     self.lastAttrText = self.textView.attributedText;
+}
+
+- (void) setAttributes:(GenericContentDTO *)attributes
+{
+    [super setAttributes:attributes];
+    self.textAttributes = (TextContentDTO *) attributes;
 }
 
 - (void) addSubViews
@@ -93,7 +101,7 @@
     self.bounds = self.bounds;
     [super updateReflectionView];
     [self createTextOperationAndPushToUndoManager];
-    [GenericContainerViewHelper mergeChangedAttributes:@{[KeyConstants attibutedStringKey] : self.textView.attributedText} withFullAttributes:self.attributes];
+    self.textAttributes.attributedString = [self.textView.attributedText mutableCopy];
     [self.delegate contentView:self didChangeAttributes:nil];
     [self.delegate contentViewDidResignFirstResponder:self];
     return result;
@@ -186,7 +194,7 @@
     [[UndoManager sharedManager] pushOperation:compoundOperation];
     self.lastAttrText = self.textView.attributedText;
     self.lastSelectedRange = self.textView.selectedRange;
-    [self.attributes setObject:self.textView.attributedText forKey:[KeyConstants attibutedStringKey]];
+    self.textAttributes.attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.textView.attributedText];
 }
 
 - (void) textViewDidChangeAttributedText:(CustomTapTextView *)textView
@@ -216,27 +224,47 @@
 }
 
 #pragma mark - Apply Attributes
-- (void) applyAttributes:(NSDictionary *)attributes
+- (void) applyAttributes:(GenericContentDTO *)attributes
 {
     [super applyAttributes:attributes];
-    [self applyTextAttributes:attributes];
+    [self applyTextAttributes:(TextContentDTO *)attributes];
 }
 
-- (void) applyTextAttributes:(NSDictionary *) attributes
+- (void) applyChanges:(NSDictionary *)changes
 {
-    NSAttributedString *attrText = [attributes objectForKey:[KeyConstants attibutedStringKey]];
+    [super applyChanges:changes];
+    [self applyTextChanges:changes];
+}
+
+- (void) applyTextAttributes:(TextContentDTO *) attributes
+{
+    self.textView.attributedText = attributes.attributedString;
+    self.lastAttrText = attributes.attributedString;
+    self.bounds = self.bounds;
+    NSRange selectedRange  = attributes.selectedRange;
+    if (selectedRange.location != NSNotFound) {
+        self.textView.selectedRange = selectedRange;
+    }
+    self.textView.backgroundColor = attributes.backgroundColor;
+}
+
+- (void) applyTextChanges:(NSDictionary *) changes
+{
+    NSAttributedString *attrText = changes[[KeyConstants attibutedStringKey]];
     if (attrText) {
         self.textView.attributedText = attrText;
         self.lastAttrText = attrText;
         self.bounds = self.bounds;
+        self.textAttributes.attributedString = [attrText mutableCopy];
     }
-    NSValue *selectedRange  = [attributes objectForKey:[KeyConstants textSelectionKey]];
+    NSValue *selectedRange = changes[[KeyConstants textSelectionKey]];
     if (selectedRange) {
         self.textView.selectedRange = [selectedRange rangeValue];
     }
-    UIColor *backgroundColor = [attributes objectForKey:[KeyConstants textBackgroundColorKey]];
+    UIColor *backgroundColor = changes[[KeyConstants textBackgroundColorKey]];
     if (backgroundColor) {
         self.textView.backgroundColor = backgroundColor;
+        self.textAttributes.backgroundColor = backgroundColor;
     }
 }
 
@@ -256,7 +284,7 @@
 {
     [super performOperation:operation];
     if (operation.toValue) {
-        [self applyTextAttributes:@{operation.key : operation.toValue}];
+        [self applyTextChanges:@{operation.key : operation.toValue}];
     }
     [self.delegate contentViewDidPerformUndoRedoOperation:self];
 }

@@ -10,8 +10,9 @@
 #import "AnimationOrderCollectionViewCell.h"
 #import "KeyConstants.h"
 #import "SlideAttributesManager.h"
-#import "GenericContentConstants.h"
+#import "Enums.h"
 #import "AnimationOrderCollectionViewImageCell.h"
+#import "AnimationOrderDTO.h"
 @interface AnimationOrderViewController ()
 
 @end
@@ -32,7 +33,8 @@
 {
     [super viewWillAppear:animated];
     
-    self.animations = [[SlideAttributesManager sharedManager] currentSlideAnimations];
+    self.animations = [[SlideAttributesManager sharedManager] currentSlideAnimationDescriptions];
+    [self.collectionView reloadData];
 }
 
 #pragma mark - UICollectionViewDatasource
@@ -49,26 +51,32 @@
 - (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell;
-    NSDictionary *animation = self.animations[indexPath.row];
-    if ([animation[[KeyConstants contentTypeKey]] integerValue] == ContentViewTypeImage) {
+    AnimationOrderDTO *animation = self.animations[indexPath.row];
+    if (animation.viewType == ContentViewTypeImage) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AnimationOrderImageCell" forIndexPath:indexPath];
-    } else if ([animation[[KeyConstants contentTypeKey]] integerValue] == ContentViewTypeText) {
+    } else if (animation.viewType == ContentViewTypeText) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AnimationOrderTextCell" forIndexPath:indexPath];
     }
     
     if ([cell isKindOfClass:[AnimationOrderCollectionViewCell class]]) {
         AnimationOrderCollectionViewCell *orderCell = (AnimationOrderCollectionViewCell *)cell;
         orderCell.index = indexPath.row;
-        orderCell.contentDescriptionLabel.text = animation[[KeyConstants contentDescriptionKey]];
-        orderCell.orderIndicator.event = [animation[[KeyConstants animationEventKey]] integerValue];
+        orderCell.contentDescriptionLabel.text = animation.animationDescription;
+        orderCell.orderIndicator.event = animation.event;
         orderCell.orderIndicator.hasAnimation = YES;
-        orderCell.orderIndicator.animatinOrder = [animation[[KeyConstants animationIndexKey]] integerValue];
+        orderCell.orderIndicator.animatinOrder = animation.index;
         orderCell.delegate = self;
         if ([cell isKindOfClass:[AnimationOrderCollectionViewImageCell class]]) {
             AnimationOrderCollectionViewImageCell *imageCell = (AnimationOrderCollectionViewImageCell *) cell;
-            imageCell.thumbnailImageView.image = [UIImage imageNamed:animation[[KeyConstants imageNameKey]]];
+            imageCell.thumbnailImageView.image = [UIImage imageNamed:animation.imageName];
         }
     }
     return cell;
+}
+
+- (void) refresh
+{
+    self.animations = [[SlideAttributesManager sharedManager] currentSlideAnimationDescriptions];
+    [self.collectionView reloadData];
 }
 @end

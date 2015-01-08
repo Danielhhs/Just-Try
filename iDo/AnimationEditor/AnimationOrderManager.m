@@ -12,6 +12,7 @@
 #import "AnimationConstants.h"
 #import "DrawingConstants.h"
 #import "AnimationModeManager.h"
+#import "AnimationDTO.h"
 
 @interface AnimationOrderManager ()
 @property (nonatomic, strong) AnimationControlPointView *animationControlPoint;
@@ -53,14 +54,14 @@ static AnimationOrderManager *sharedInstance;
     if ([[AnimationModeManager sharedManager] isInAnimationMode]) {
         [content addSubview:self.animationControlPoint];
         self.animationControlPoint.transform = CGAffineTransformInvert(view.transform);
-        NSArray *animations = [[content attributes] valueForKey:[KeyConstants animationsKey]];
+        NSArray *animations = content.attributes.animations;
         self.animationControlPoint.animateInOrder = -1;
         self.animationControlPoint.animateOutOrder = -1;
-        for (NSDictionary *animation in animations) {
-            if ([animation[[KeyConstants animationEventKey]] integerValue] == AnimationEventBuiltIn) {
-                self.animationControlPoint.animateInOrder = [animation[[KeyConstants animationIndexKey]] integerValue];
-            } else if ([animation[[KeyConstants animationEventKey]] integerValue] == AnimationEventBuiltOut) {
-                self.animationControlPoint.animateOutOrder = [animation[[KeyConstants animationIndexKey]] integerValue];
+        for (AnimationDTO *animation in animations) {
+            if (animation.event == AnimationEventBuiltIn) {
+                self.animationControlPoint.animateInOrder = animation.index;
+            } else if (animation.event == AnimationEventBuiltOut) {
+                self.animationControlPoint.animateOutOrder = animation.index;
             }
         }
         self.animationControlPoint.center = CGPointMake(CGRectGetMidX(view.bounds), CGRectGetMinY([self borderRectFromContainerViewBounds:view.bounds]));

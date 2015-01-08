@@ -141,6 +141,7 @@
 
 - (void) hide
 {
+    [super hide];
     [self.availableOperations removeObject:self.replaceButton];
     [self.replaceButton removeFromSuperview];
     self.triggeredContent = nil;

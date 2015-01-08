@@ -19,22 +19,22 @@
 
 @implementation CustomTapTextView
 #pragma mark - Set Up
-- (void) setupWithAttributes:(NSDictionary *) attributes
+- (void) setupWithAttributes:(TextContentDTO *) attributes
 {
-    self.backgroundColor = attributes[[KeyConstants textBackgroundColorKey]];
+    self.backgroundColor = attributes.backgroundColor;
     self.editable = NO;
     self.selectable = NO;
     
     self.tapToEdit = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapToEdit:)];
     self.tapToEdit.numberOfTapsRequired = 2;
-    self.attributedText = attributes[[KeyConstants attibutedStringKey]];
+    self.attributedText = attributes.attributedString;
     self.scrollEnabled = NO;
     self.allowsEditingTextAttributes = YES;
     self.tapToLocate = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapToLocate:)];
     self.tapToLocate.numberOfTapsRequired = 1;
 }
 
-- (instancetype) initWithFrame:(CGRect)frame attributes:(NSDictionary *) attributes
+- (instancetype) initWithFrame:(CGRect)frame attributes:(TextContentDTO *) attributes
 {
     self = [super initWithFrame:frame];
     if (self) {

@@ -7,15 +7,15 @@
 //
 
 #import "GenericConent.h"
-#import "GenericContentConstants.h"
+#import "GenericContentDTO.h"
 
 @interface GenericConent (iDo)
 
-+ (GenericConent *) genericContentFromAttribute:(NSDictionary *) attributes
++ (GenericConent *) genericContentFromAttribute:(GenericContentDTO *) attributes
                           inManageObjectContext:(NSManagedObjectContext *) managedObjectContext;
 
-+ (NSMutableDictionary *) attributesFromGenericContent:(GenericConent *) content;
++ (void) applyContent:(GenericConent *) content toAttributes:(GenericContentDTO *)attributes;
 
-+ (void) applyAttributes:(NSDictionary *) attributes toGenericContent:(GenericConent *) content inManageObjectContext:(NSManagedObjectContext *) manageObjectContext;
++ (void) applyAttributes:(GenericContentDTO *) attributes toGenericContent:(GenericConent *) content inManageObjectContext:(NSManagedObjectContext *) manageObjectContext;
 
 @end

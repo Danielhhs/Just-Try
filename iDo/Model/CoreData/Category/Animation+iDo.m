@@ -7,11 +7,11 @@
 //
 
 #import "Animation+iDo.h"
-#import "KeyConstants.h"
 #import "GenericConent.h"
+#import "AnimationDTO.h"
 @implementation Animation (iDo)
 
-+ (Animation *) animationFromAttributes:(NSDictionary *)attributes inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
++ (Animation *) animationFromAttributes:(AnimationDTO *)attributes inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
 {
     Animation *animation = [NSEntityDescription insertNewObjectForEntityForName:@"Animation" inManagedObjectContext:managedObjectContext];
     
@@ -20,27 +20,27 @@
     return animation;
 }
 
-+ (NSMutableDictionary *) attributesFromAnimation:(Animation *) animation
++ (AnimationDTO *) attributesFromAnimation:(Animation *) animation
 {
-    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+    AnimationDTO *attributes = [[AnimationDTO alloc] init];
     
-    attributes[[KeyConstants animationDurationKey]] = animation.duration;
-    attributes[[KeyConstants animationEffectKey]] = animation.effect;
-    attributes[[KeyConstants animationTriggerTimeKey]] = animation.triggerTime;
-    attributes[[KeyConstants animationIndexKey]] = animation.index;
-    attributes[[KeyConstants animationDirectionKey]] = animation.direction;
-    attributes[[KeyConstants animationEventKey]] = animation.event;
-    attributes[[KeyConstants contentUUIDKey]] = [[NSUUID alloc] initWithUUIDString:animation.container.uuid];
+    attributes.duration= [animation.duration doubleValue];
+    attributes.effect = [animation.effect doubleValue];
+    attributes.triggeredTime = [animation.triggerTime doubleValue];
+    attributes.index = [animation.index integerValue];
+    attributes.direction = [animation.direction integerValue];
+    attributes.event = [animation.event integerValue];
+    attributes.contentUUID = [[NSUUID alloc] initWithUUIDString:animation.container.uuid];
     return attributes;
 }
 
-+ (void) applyAnimationAttributes:(NSDictionary *) attributes toAnimation:(Animation *) animation
++ (void) applyAnimationAttributes:(AnimationDTO *) attributes toAnimation:(Animation *) animation
 {
-    animation.duration = attributes[[KeyConstants animationDurationKey]];
-    animation.effect = attributes[[KeyConstants animationEffectKey]];
-    animation.event = attributes[[KeyConstants animationEventKey]];
-    animation.triggerTime = attributes[[KeyConstants animationTriggerTimeKey]];
-    animation.index = attributes[[KeyConstants animationIndexKey]];
-    animation.direction = attributes[[KeyConstants animationDirectionKey]];
+    animation.duration = @(attributes.duration);
+    animation.effect = @(attributes.effect);
+    animation.event = @(attributes.event);
+    animation.triggerTime = @(attributes.triggeredTime);
+    animation.index = @(attributes.index);
+    animation.direction = @(attributes.direction);
 }
 @end

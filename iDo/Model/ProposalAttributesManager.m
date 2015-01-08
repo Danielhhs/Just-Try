@@ -7,7 +7,6 @@
 //
 
 #import "ProposalAttributesManager.h"
-#import "DefaultValueGenerator.h"
 #import "KeyConstants.h"
 #import "Proposal+iDo.h"
 #import "CoreDataManager.h"
@@ -39,44 +38,32 @@ static ProposalAttributesManager *sharedInstance;
 }
 
 #pragma mark - Slides Management
-- (void) addNewSlideToProposal:(NSMutableDictionary *) proposal atIndex:(NSInteger) index
+- (void) addNewSlideToProposal:(ProposalDTO *) proposal atIndex:(NSInteger) index
 {
-    [self addSlide:[DefaultValueGenerator defaultSlideAttributes] toProposal:proposal atIndex:index];
+    [self addSlide:[SlideDTO defaultSlide] toProposal:proposal atIndex:index];
 }
 
-- (void) addSlide:(NSMutableDictionary *) slide toProposal:(NSMutableDictionary *)proposal atIndex:(NSInteger)index
+- (void) addSlide:(SlideDTO *) slide toProposal:(ProposalDTO *)proposal atIndex:(NSInteger)index
 {
-    NSMutableArray *slides = proposal[[KeyConstants proposalSlidesKey]];
-    [slides insertObject:slide atIndex:index];
-//    [proposal setValue:[slides copy] forKey:[KeyConstants proposalSlidesKey]];
-    [proposal setValue:@(index) forKey:[KeyConstants proposalCurrentSelectedSlideKey]];
+    [proposal.slides insertObject:slide atIndex:index];
+    proposal.currentSelectedSlideIndex = index;
 }
 
-- (void) saveSlide:(NSMutableDictionary *)slide toProposal:(NSMutableDictionary *)proposal
+- (void) saveSlide:(SlideDTO *)slide toProposal:(ProposalDTO *)proposal
 {
-    NSMutableDictionary *originalSlide = [self findOriginalSlideForSlide:slide inProposal:proposal];
-    [self updateOriginalAttributes:originalSlide withAttribtues:slide];
+    SlideDTO *originalSlide = [self findOriginalSlideForSlide:slide inProposal:proposal];
+    [originalSlide mergeChangedPropertiesFromSlide:slide];
 //    [[CoreDataManager sharedManager] saveProposalWithProposalChanges:proposal];
 }
 
-- (NSMutableDictionary *) findOriginalSlideForSlide:(NSMutableDictionary *)slide inProposal:(NSMutableDictionary *) proposal
+- (SlideDTO *) findOriginalSlideForSlide:(SlideDTO *)slide inProposal:(ProposalDTO *) proposal
 {
-    NSArray *slides = proposal[[KeyConstants proposalSlidesKey]];
-    NSInteger slideUnique = [slide[[KeyConstants slideUniqueKey]] integerValue];
-    for (NSMutableDictionary *originalSlide in slides) {
-        NSInteger unique = [originalSlide[[KeyConstants slideUniqueKey]] integerValue];
-        if (slideUnique == unique) {
-            return originalSlide;
+    for (SlideDTO *slideInProposal in proposal.slides) {
+        if (slide.unique == slideInProposal.unique) {
+            return slideInProposal;
         }
     }
     return nil;
-}
-
-- (void) updateOriginalAttributes:(NSMutableDictionary *)originalAttributes withAttribtues:(NSMutableDictionary *)attributes
-{
-    for (NSString *key in [attributes allKeys]) {
-        [originalAttributes setValue:attributes[key] forKey:key];
-    }
 }
 
 @end

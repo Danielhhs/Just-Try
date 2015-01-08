@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "ProposalDTO.h"
 
 @class Proposal;
 @protocol CoreDataManagerDelegate <NSObject>
@@ -24,7 +25,7 @@
 
 - (NSManagedObjectContext *) databaseContext;
 - (void) openDataModelAndLoadProposals;
-- (void) saveProposalWithProposalChanges:(NSDictionary *) proposalChanges;
-- (NSMutableDictionary *) createNewProposal;
+- (void) saveProposalWithProposalChanges:(ProposalDTO *) proposalChanges;
+- (ProposalDTO *) createNewProposal;
 - (void) setSelectedProposalIndex:(NSInteger)index;
 @end

@@ -7,14 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ProposalDTO.h"
+#import "SlideDTO.h"
 
 @interface ProposalAttributesManager : NSObject
 
 + (ProposalAttributesManager *) sharedManager;
 
-- (void) addNewSlideToProposal:(NSMutableDictionary *) proposal atIndex:(NSInteger) index;
+- (void) addNewSlideToProposal:(ProposalDTO *) proposal atIndex:(NSInteger) index;
 
-- (void) addSlide:(NSMutableDictionary *) slide toProposal:(NSMutableDictionary *)proposal atIndex:(NSInteger)index;
+- (void) addSlide:(SlideDTO *) slide toProposal:(ProposalDTO *)proposal atIndex:(NSInteger)index;
 
-- (void) saveSlide:(NSMutableDictionary *) slide toProposal:(NSMutableDictionary *) proposal;
+- (void) saveSlide:(SlideDTO *) slide toProposal:(ProposalDTO *) proposal;
 @end
