@@ -25,4 +25,5 @@
 @property (nonatomic) ContentViewType contentType;
 
 + (void) applyDefaultGenericContentToContentDTO:(GenericContentDTO *)content;
+- (BOOL) shouldShowOnPlayingCanvasAppear;
 @end

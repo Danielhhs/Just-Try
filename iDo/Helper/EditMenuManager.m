@@ -138,8 +138,8 @@ static EditMenuManager *sharedInstance;
     [self.editMenu update];
 }
 
-- (void) updateEditMenuWithAnimationName:(NSString *)animationName animationOrder:(NSInteger)animationOrder
+- (void) updateEditMenuWithAnimationName:(NSString *)animationName animationOrder:(NSInteger)animationOrder forContent:(GenericContainerView *)content
 {
-    [self.animationEditMenu updateEditAnimationItemWithAnimationName:animationName animationOrder:animationOrder];
+    [self.animationEditMenu updateEditAnimationItemWithAnimationName:animationName animationOrder:animationOrder forContent:content];
 }
 @end

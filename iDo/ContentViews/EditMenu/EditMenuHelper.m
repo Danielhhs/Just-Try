@@ -38,7 +38,7 @@
         TextContentDTO *textContent = (TextContentDTO *)attributes;
         [archiver encodeObject:textContent.attributedString forKey:[KeyConstants attibutedStringKey]];
         [archiver encodeObject:textContent.backgroundColor forKey:[KeyConstants textBackgroundColorKey]];
-    } else if ([attributes isKindOfClass:[TextContentDTO class]]) {
+    } else if ([attributes isKindOfClass:[ImageContentDTO class]]) {
         ImageContentDTO *imageContent = (ImageContentDTO *)attributes;
         [archiver encodeObject:imageContent.imageName forKey:[KeyConstants imageNameKey]];
     }

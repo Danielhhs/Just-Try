@@ -23,6 +23,8 @@
 #import "AnimationModeManager.h"
 #import "AnimationOrderManager.h"
 #import "SlideAttributesManager.h"
+#import "SlidesPlayViewController.h"
+#import "PlayingModeTransitionDelegate.h"
 
 @interface SlidesContainerViewController ()<SlidesEditingViewControllerDelegate, SlidesThumbnailViewControllerDelegate, EditMenuViewDelegate, SlideEditingToolbarDelegate, AnimationToolbarViewControllerDelegate, AnimationModeManagerDelegate>
 @property (nonatomic) NSInteger currentSelectSlideIndex;
@@ -97,6 +99,7 @@
 - (void) setCurrentSelectSlideIndex:(NSInteger)currentSelectSlideIndex
 {
     _currentSelectSlideIndex = currentSelectSlideIndex;
+    self.proposalAttributes.currentSelectedSlideIndex = currentSelectSlideIndex;
     [[SlideThumbnailsManager sharedManager] selectSlideAtIndex:currentSelectSlideIndex];
     self.editorViewController.slideAttributes = [self.slideAttributes objectAtIndex:currentSelectSlideIndex];
     self.editorViewController.canvas = [self.slideViews objectAtIndex:currentSelectSlideIndex];
@@ -319,6 +322,28 @@
 #pragma mark - AnimationToolbarDelegate
 - (void) playAnimationForCurrentSelectedView
 {
-    
+    [self startPlayMode];
+}
+
+- (void) startPlayMode
+{
+    SlidesPlayViewController *playingViewController = [[UIStoryboard storyboardWithName:@"PlayingMode" bundle:nil] instantiateViewControllerWithIdentifier:@"SlidesPlayViewController"];
+    playingViewController.proposal = self.proposalAttributes;
+    playingViewController.modalPresentationStyle = UIModalPresentationCustom;
+    playingViewController.transitioningDelegate = [PlayingModeTransitionDelegate generalDelegate];
+    [self presentViewController:playingViewController animated:YES completion:^{
+        [playingViewController startPlaying];
+    }];
+}
+
+#pragma mark - Transitioning Methods
+- (UIImage *) currentSlideSnapshot
+{
+    return [self.editorViewController.canvas snapshot];
+}
+
+- (CGRect) currentSlideFrame
+{
+    return [self.view convertRect:self.editorViewController.canvas.frame fromView:self.editorViewController.view];
 }
 @end

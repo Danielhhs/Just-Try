@@ -150,4 +150,9 @@
     [path closePath];
     return path;
 }
+
+- (void) updateWithNewOrder:(NSInteger)newOrder
+{
+    self.animationOrder = newOrder;
+}
 @end

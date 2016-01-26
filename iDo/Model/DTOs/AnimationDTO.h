@@ -8,6 +8,15 @@
 
 #import "DataTransferObject.h"
 #import "Enums.h"
+@class GenericContainerView;
+@class CanvasView;
+
+@protocol AnimationDelegate <NSObject>
+
+- (void) animationDidFinsihPlaying;
+
+@end
+
 @interface AnimationDTO : DataTransferObject<NSCoding>
 @property (nonatomic) NSTimeInterval duration;
 @property (nonatomic) AnimationEffect effect;
@@ -16,4 +25,7 @@
 @property (nonatomic) AnimationPermittedDirection direction;
 @property (nonatomic) AnimationEvent event;
 @property (nonatomic, strong) NSUUID *contentUUID;
+@property (nonatomic, weak) GenericContainerView *target;
+@property (nonatomic, weak) id<AnimationDelegate> delegate;
+- (void) playInCanvas:(CanvasView *)canvas;
 @end

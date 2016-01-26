@@ -17,4 +17,7 @@
 @property (nonatomic, strong) ProposalDTO *proposalAttributes;
 @property (nonatomic, strong) SlidesEditingViewController *editorViewController;
 
+- (UIImage *)currentSlideSnapshot;
+- (CGRect) currentSlideFrame;
+
 @end

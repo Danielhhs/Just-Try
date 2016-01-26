@@ -24,6 +24,7 @@
 @property (nonatomic) BOOL currentlySelected;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) UIPanGestureRecognizer *pan;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPress;
 @property (nonatomic, strong) UIRotationGestureRecognizer *rotation;
 @property (nonatomic, strong) Operation *currentOperation;
 @property (nonatomic) CGPoint originalCenter;
@@ -99,6 +100,8 @@
     [self addGestureRecognizer:self.pan];
     self.rotation = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotation:)];
     [self addGestureRecognizer:self.rotation];
+    self.longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress)];
+    [self addGestureRecognizer:self.longPress];
 }
 
 - (BOOL) resignFirstResponder{
@@ -159,6 +162,11 @@
         [[UndoManager sharedManager] pushOperation:self.currentOperation];
         [self applySupplimentaryViewsWhenFinishChangingAttributes];
     }
+}
+
+- (void) handleLongPress
+{
+    
 }
 
 #pragma mark - Other APIs

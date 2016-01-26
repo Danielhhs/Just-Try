@@ -68,4 +68,6 @@ startChangingAttribute:(NSString *)attribute;
 - (UIView *) contentView;
 
 - (void) changeBackgroundColor:(UIColor *)color;
+
+- (void) handleLongPress;
 @end

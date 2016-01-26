@@ -93,12 +93,13 @@
     [self setNeedsDisplay];
 }
 
-- (void) updateEditAnimationItemWithAnimationName:(NSString *)animationName animationOrder:(NSInteger) animationOrder
+- (void) updateEditAnimationItemWithAnimationName:(NSString *)animationName animationOrder:(NSInteger) animationOrder forContent:(GenericContainerView *)content
 {
     if ([self.currentSelectedItem isKindOfClass:[AnimationEditMenuItem class]]) {
         AnimationEditMenuItem *item = (AnimationEditMenuItem *)self.currentSelectedItem;
         item.animationTitle = animationName;
         item.animationOrder = animationOrder;
+        [self updateAnimationOrderIndicatorsForContent:content];
     }
 }
 - (void)drawRect:(CGRect)rect {

@@ -11,9 +11,10 @@
 #import "GenericContainerViewHelper.h"
 #import "KeyConstants.h"
 
-@interface ImageContainerView()
+@interface ImageContainerView()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic, strong) UIImageView *imageContent;
 @property (nonatomic, strong) ImageContentDTO *imageAttributes;
+@property (nonatomic, strong) UIImagePickerController *imagePicker;
 @end
 
 @implementation ImageContainerView
@@ -60,6 +61,14 @@
     self.imageContent.frame = [self contentViewFrameFromBounds:self.bounds];
 }
 
+- (UIImagePickerController *) imagePicker
+{
+    if (!_imagePicker) {
+        _imagePicker = [[UIImagePickerController alloc] init];
+        _imagePicker.delegate = self;
+    }
+    return _imagePicker;
+}
 #pragma mark - User Interactions
 
 - (BOOL) resignFirstResponder
@@ -94,5 +103,11 @@
     return self.imageContent;
 }
 
+- (void) handleLongPress
+{
+    [self.delegate handleTapOnImage:self];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
 
 @end

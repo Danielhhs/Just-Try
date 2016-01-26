@@ -14,6 +14,7 @@
 
 - (void) handleTapOnImage:(ImageContainerView *) imageContainer;
 
+
 @end
 
 @interface ImageContainerView : GenericContainerView

@@ -26,4 +26,6 @@
                   hasAnimation:(BOOL)hasAnimation
                 animationOrder:(NSInteger) animationOrder
                 animationEvent:(AnimationEvent) event;
+
+- (void) updateWithNewOrder:(NSInteger)newOrder;
 @end

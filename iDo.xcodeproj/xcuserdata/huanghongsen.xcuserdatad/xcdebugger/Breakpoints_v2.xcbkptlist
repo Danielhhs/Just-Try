@@ -43,13 +43,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iDo/Helper/EditMenuManager.m"
-            timestampString = "442411470.54332"
+            filePath = "iDo/SlidesEditingViewController.m"
+            timestampString = "475387336.496715"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "-showEditMenuToContentView:animated:"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "-handleTapOnImage:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -59,13 +59,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iDo/ContentViews/EditMenu/AnimationEditMenuView.m"
-            timestampString = "442410921.625919"
+            filePath = "iDo/ViewControllers/SlidesContainerViewController.m"
+            timestampString = "475485614.65927"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "-showToContent:animated:"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
+            landmarkName = "-editMenu:didCutContent:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -75,13 +75,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iDo/Helper/EditMenuManager.m"
-            timestampString = "442411954.075302"
+            filePath = "iDo/Model/DTOs/AnimationDTO.m"
+            timestampString = "475486197.632484"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "-updateEditMenuWithAnimationName:animationOrder:"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "-playInCanvas:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -91,13 +91,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iDo/Helper/EditMenuManager.m"
-            timestampString = "442411954.075302"
+            filePath = "iDo/PlayingCanvasView.m"
+            timestampString = "475486380.458301"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "-showEditMenuToContentView:animated:"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "-playNextAnimation"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -107,45 +107,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iDo/ImageContainerView.m"
-            timestampString = "442412715.376142"
+            filePath = "iDo/PlayingCanvasView.m"
+            timestampString = "475487312.115314"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "-initWithAttributes:delegate:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iDo/GenericContainerViewHelper.m"
-            timestampString = "442412779.431582"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "+applyAttribute:toContainer:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iDo/GenericViews/CanvasView.m"
-            timestampString = "442412971.301003"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "-setupWithAttributes:"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "-playNextAnimation"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

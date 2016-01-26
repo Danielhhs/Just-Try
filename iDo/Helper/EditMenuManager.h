@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "EditMenuView.h"
-
+@class GenericContainerView;
 @interface EditMenuManager : NSObject
 
 @property (nonatomic, strong) EditMenuView *editMenu;
@@ -21,5 +21,5 @@
 - (void) hideEditMenu;
 - (void) updateEditMenu;
 - (void) updateEditMenuWithView:(UIView *)view;
-- (void) updateEditMenuWithAnimationName:(NSString *) animationName animationOrder:(NSInteger) animationOrder;
+- (void) updateEditMenuWithAnimationName:(NSString *) animationName animationOrder:(NSInteger) animationOrder forContent:(GenericContainerView *)content;
 @end

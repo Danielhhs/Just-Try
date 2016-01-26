@@ -27,6 +27,11 @@
 
 @implementation SlidesEditingViewController
 
+- (void) viewDidLoad
+{
+    [super viewDidLoad];
+}
+
 - (void) saveSlideAttributes
 {
     [self resignPreviousFirstResponderExceptForContainer:nil];
@@ -220,6 +225,7 @@
     [self.currentSelectedContent resignFirstResponder];
     [content removeFromSuperview];
     [[EditMenuManager sharedManager] hideEditMenu];
+    [self.delegate contentDidChangeFromEditingController:self];
 }
 
 - (CGPoint) canvasCenter
@@ -249,7 +255,7 @@
     if (animation.animationEffect == AnimationEffectNone) {
         animationIndex = -1;
     }
-    [[EditMenuManager sharedManager] updateEditMenuWithAnimationName:animation.animationName animationOrder:animationIndex];
+    [[EditMenuManager sharedManager] updateEditMenuWithAnimationName:animation.animationName animationOrder:animationIndex forContent:self.currentSelectedContent];
     [[AnimationOrderManager sharedManager] applyAnimationOrderIndicatorToView:self.currentSelectedContent];
 }
 

@@ -10,6 +10,6 @@
 #import "AnimationConstants.h"
 @class GenericContainerView;
 @interface AnimationEditMenuView : EditMenuView
-- (void) updateEditAnimationItemWithAnimationName:(NSString *) animationName animationOrder:(NSInteger) animationOrder;
+- (void) updateEditAnimationItemWithAnimationName:(NSString *) animationName animationOrder:(NSInteger) animationOrder forContent:(GenericContainerView *)content;
 - (void) showToContent:(GenericContainerView *) content animated:(BOOL) animated;
 @end

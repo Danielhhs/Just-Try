@@ -7,6 +7,7 @@
 //
 
 #import "DataTransferObject.h"
+#import "SlideDTO.h"
 
 @interface ProposalDTO : DataTransferObject
 
@@ -16,4 +17,6 @@
 @property (nonatomic) NSInteger currentSelectedSlideIndex;
 
 + (ProposalDTO *) defaultProposal;
+- (SlideDTO *) currentSlide;
+- (SlideDTO *) nextSlide;
 @end

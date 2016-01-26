@@ -46,6 +46,10 @@
 		543FE1001A281842002276D7 /* ColorSelectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 543FE0FF1A281842002276D7 /* ColorSelectionManager.m */; };
 		543FE1031A287A18002276D7 /* EditMenuManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 543FE1021A287A18002276D7 /* EditMenuManager.m */; };
 		543FE1141A2C5037002276D7 /* OperationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 543FE1131A2C5037002276D7 /* OperationHelper.m */; };
+		5453C9E91C55F27A00D177C5 /* SlidesPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5453C9E81C55F27A00D177C5 /* SlidesPlayViewController.m */; };
+		5453C9EC1C55F71A00D177C5 /* PlayingCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5453C9EB1C55F71A00D177C5 /* PlayingCanvasView.m */; };
+		5453C9EE1C56005400D177C5 /* PlayingMode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5453C9ED1C56005400D177C5 /* PlayingMode.storyboard */; };
+		5453C9F41C562EC100D177C5 /* PlayingModeTransitionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5453C9F31C562EC100D177C5 /* PlayingModeTransitionDelegate.m */; };
 		545C4B7D1A358366002604FA /* AnimationOrderIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4B7C1A358366002604FA /* AnimationOrderIndicatorView.m */; };
 		545C4B801A35AA48002604FA /* AnimationEditMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4B7F1A35AA48002604FA /* AnimationEditMenuItem.m */; };
 		545C4B901A369EE5002604FA /* AnimationToolbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545C4B8F1A369EE5002604FA /* AnimationToolbarViewController.m */; };
@@ -255,6 +259,13 @@
 		543FE1021A287A18002276D7 /* EditMenuManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditMenuManager.m; path = Helper/EditMenuManager.m; sourceTree = "<group>"; };
 		543FE1121A2C5037002276D7 /* OperationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OperationHelper.h; path = "Undo Manager/OperationHelper.h"; sourceTree = "<group>"; };
 		543FE1131A2C5037002276D7 /* OperationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OperationHelper.m; path = "Undo Manager/OperationHelper.m"; sourceTree = "<group>"; };
+		5453C9E71C55F27A00D177C5 /* SlidesPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlidesPlayViewController.h; sourceTree = "<group>"; };
+		5453C9E81C55F27A00D177C5 /* SlidesPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlidesPlayViewController.m; sourceTree = "<group>"; };
+		5453C9EA1C55F71A00D177C5 /* PlayingCanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayingCanvasView.h; sourceTree = "<group>"; };
+		5453C9EB1C55F71A00D177C5 /* PlayingCanvasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingCanvasView.m; sourceTree = "<group>"; };
+		5453C9ED1C56005400D177C5 /* PlayingMode.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlayingMode.storyboard; sourceTree = "<group>"; };
+		5453C9F21C562EC100D177C5 /* PlayingModeTransitionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayingModeTransitionDelegate.h; sourceTree = "<group>"; };
+		5453C9F31C562EC100D177C5 /* PlayingModeTransitionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingModeTransitionDelegate.m; sourceTree = "<group>"; };
 		545C4B7B1A358366002604FA /* AnimationOrderIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationOrderIndicatorView.h; sourceTree = "<group>"; };
 		545C4B7C1A358366002604FA /* AnimationOrderIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationOrderIndicatorView.m; sourceTree = "<group>"; };
 		545C4B7E1A35AA48002604FA /* AnimationEditMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationEditMenuItem.h; sourceTree = "<group>"; };
@@ -672,6 +683,20 @@
 			path = Manipulators;
 			sourceTree = "<group>";
 		};
+		5453C9E61C55F26100D177C5 /* PlayMode */ = {
+			isa = PBXGroup;
+			children = (
+				5453C9E71C55F27A00D177C5 /* SlidesPlayViewController.h */,
+				5453C9E81C55F27A00D177C5 /* SlidesPlayViewController.m */,
+				5453C9EA1C55F71A00D177C5 /* PlayingCanvasView.h */,
+				5453C9EB1C55F71A00D177C5 /* PlayingCanvasView.m */,
+				5453C9F21C562EC100D177C5 /* PlayingModeTransitionDelegate.h */,
+				5453C9F31C562EC100D177C5 /* PlayingModeTransitionDelegate.m */,
+				5453C9ED1C56005400D177C5 /* PlayingMode.storyboard */,
+			);
+			name = PlayMode;
+			sourceTree = "<group>";
+		};
 		545C4B941A369F8D002604FA /* ToolBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -957,6 +982,7 @@
 			children = (
 				54D7294519ECE9B5009A0279 /* AppDelegate.h */,
 				54D7294619ECE9B5009A0279 /* AppDelegate.m */,
+				5453C9E61C55F26100D177C5 /* PlayMode */,
 				54F0C48A1A0DCF2A009B4B0D /* Controllers */,
 				546457CE19F10F3800078EAF /* Model */,
 				54D7296A19ECEA25009A0279 /* Views */,
@@ -1242,6 +1268,7 @@
 					};
 					54D7295619ECE9B5009A0279 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = 4S9ASJUQLQ;
 						TestTargetID = 54D7293D19ECE9B5009A0279;
 					};
 				};
@@ -1272,6 +1299,7 @@
 			files = (
 				547DC9FA1A036EAF004691EC /* Canvas.png in Resources */,
 				545C4C5A1A3A988B002604FA /* AnimationEditorViewControllers.storyboard in Resources */,
+				5453C9EE1C56005400D177C5 /* PlayingMode.storyboard in Resources */,
 				54F0C4FC1A0F4563009B4B0D /* UtilViewControllers.storyboard in Resources */,
 				54CB19DA19EE3BD40044BBDD /* background.jpg in Resources */,
 				54D7294D19ECE9B5009A0279 /* Main.storyboard in Resources */,
@@ -1320,6 +1348,7 @@
 				545C4BA11A36F88C002604FA /* RegularColorGenerator.m in Sources */,
 				543FE1031A287A18002276D7 /* EditMenuManager.m in Sources */,
 				54EE54741A11B5F000CA1AF7 /* ProposalAttributesManager.m in Sources */,
+				5453C9EC1C55F71A00D177C5 /* PlayingCanvasView.m in Sources */,
 				543FE0E91A2813DD002276D7 /* RSColorFunctions.m in Sources */,
 				549E21661A25A4D00013E051 /* RotationBenchMarkView.m in Sources */,
 				54F0C4861A0DC85A009B4B0D /* Proposal+iDo.m in Sources */,
@@ -1335,12 +1364,14 @@
 				546457D119F116B700078EAF /* ImageHelper.m in Sources */,
 				546F5CC919FFAFE600C30CBB /* TextDisplayView.m in Sources */,
 				545C4C511A3A9818002604FA /* AnimationEditorContainerViewController.m in Sources */,
+				5453C9F41C562EC100D177C5 /* PlayingModeTransitionDelegate.m in Sources */,
 				547EEECD1A1881F200EAD132 /* EditMenuItem.m in Sources */,
 				549148F01A26E7AB00DE859F /* PasteboardHelper.m in Sources */,
 				5414AB981A5D1EC8005539BE /* AnimationOrderDTO.m in Sources */,
 				54E3539C1A40040B00CBCCA4 /* AnimationDirectionArrowView.m in Sources */,
 				54D333A91A0604EE00F3D7F9 /* UndoManager.m in Sources */,
 				54F4C7521A036B63006A3F07 /* CanvasView.m in Sources */,
+				5453C9E91C55F27A00D177C5 /* SlidesPlayViewController.m in Sources */,
 				540A0A0E1A204F3A0087C6AC /* ReflectionHelper.m in Sources */,
 				543FE0F01A28156F002276D7 /* ColorPickerViewController.m in Sources */,
 				54EE547D1A122D8C00CA1AF7 /* SlideAttributesManager.m in Sources */,
@@ -1569,6 +1600,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hongsen Huang (94LGY9TDJ8)";
 				INFOPLIST_FILE = iDo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1579,6 +1611,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hongsen Huang (94LGY9TDJ8)";
 				INFOPLIST_FILE = iDo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1589,6 +1622,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1600,6 +1635,7 @@
 				INFOPLIST_FILE = iDoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iDo.app/iDo";
 			};
 			name = Debug;
@@ -1608,6 +1644,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1615,6 +1653,7 @@
 				INFOPLIST_FILE = iDoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iDo.app/iDo";
 			};
 			name = Release;
