@@ -9,7 +9,7 @@
 #import "DataTransferObject.h"
 #import "Enums.h"
 @class GenericContainerView;
-@class CanvasView;
+@class PlayingCanvasView;
 
 @protocol AnimationDelegate <NSObject>
 
@@ -27,5 +27,5 @@
 @property (nonatomic, strong) NSUUID *contentUUID;
 @property (nonatomic, weak) GenericContainerView *target;
 @property (nonatomic, weak) id<AnimationDelegate> delegate;
-- (void) playInCanvas:(CanvasView *)canvas;
+- (void) playInCanvas:(PlayingCanvasView *)canvas;
 @end

@@ -8,7 +8,12 @@
 
 #import "AnimationDTO.h"
 #import "KeyConstants.h"
-#import "CanvasView.h"
+#import "PlayingCanvasView.h"
+#import "AnvilAnimationRenderer.h"
+@interface AnimationDTO()
+@property (nonatomic, strong) AnvilAnimationRenderer *renderer;
+@end
+
 @implementation AnimationDTO
 
 - (instancetype) initWithCoder:(NSCoder *)aDecoder
@@ -28,15 +33,20 @@
     [aCoder encodeObject:self.contentUUID forKey:[KeyConstants contentUUIDKey]];
 }
 
-- (void) playInCanvas:(CanvasView *)canvas
+- (void) playInCanvas:(PlayingCanvasView *)canvas
 {
     NSLog(@"Playing Animation : %lu", self.effect);
     if (self.event == AnimationEventBuiltIn) {
-        [canvas addSubview:self.target];
+//        [canvas addSubview:self.target];
+        self.renderer = [[AnvilAnimationRenderer alloc] init];
+        [self.renderer animateObject:self inCanvas:canvas completion:^{
+            
+            [self.delegate animationDidFinsihPlaying];
+        }];
     } else {
         [self.target removeFromSuperview];
+        [self.delegate animationDidFinsihPlaying];
     }
-    [self.delegate animationDidFinsihPlaying];
 }
 
 @end

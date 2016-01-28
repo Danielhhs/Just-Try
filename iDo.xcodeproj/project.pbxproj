@@ -46,6 +46,8 @@
 		543FE1001A281842002276D7 /* ColorSelectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 543FE0FF1A281842002276D7 /* ColorSelectionManager.m */; };
 		543FE1031A287A18002276D7 /* EditMenuManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 543FE1021A287A18002276D7 /* EditMenuManager.m */; };
 		543FE1141A2C5037002276D7 /* OperationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 543FE1131A2C5037002276D7 /* OperationHelper.m */; };
+		544D3B931C5764C200BA1150 /* AnimationRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 544D3B921C5764C200BA1150 /* AnimationRenderer.m */; };
+		544D3B961C5767C000BA1150 /* AnvilAnimationRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 544D3B951C5767C000BA1150 /* AnvilAnimationRenderer.m */; };
 		5453C9E91C55F27A00D177C5 /* SlidesPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5453C9E81C55F27A00D177C5 /* SlidesPlayViewController.m */; };
 		5453C9EC1C55F71A00D177C5 /* PlayingCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5453C9EB1C55F71A00D177C5 /* PlayingCanvasView.m */; };
 		5453C9EE1C56005400D177C5 /* PlayingMode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5453C9ED1C56005400D177C5 /* PlayingMode.storyboard */; };
@@ -108,6 +110,7 @@
 		549567711A05EA18006D6BAE /* CustomTapTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 549567701A05EA18006D6BAE /* CustomTapTextView.m */; };
 		54965B061A00E50F005AF774 /* ShadowHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B051A00E50F005AF774 /* ShadowHelper.m */; };
 		54965B3C1A020424005AF774 /* RotationIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54965B3B1A020424005AF774 /* RotationIndicatorView.m */; };
+		549675831C5A168600D0606B /* AnimationPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 549675821C5A168600D0606B /* AnimationPlayer.m */; };
 		549E21631A25A43C0013E051 /* RotationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 549E21621A25A43C0013E051 /* RotationHelper.m */; };
 		549E21661A25A4D00013E051 /* RotationBenchMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 549E21651A25A4D00013E051 /* RotationBenchMarkView.m */; };
 		54B05E3E1A514C290050FAEC /* TransitionEditMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B05E3D1A514C290050FAEC /* TransitionEditMenuItem.m */; };
@@ -259,6 +262,10 @@
 		543FE1021A287A18002276D7 /* EditMenuManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditMenuManager.m; path = Helper/EditMenuManager.m; sourceTree = "<group>"; };
 		543FE1121A2C5037002276D7 /* OperationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OperationHelper.h; path = "Undo Manager/OperationHelper.h"; sourceTree = "<group>"; };
 		543FE1131A2C5037002276D7 /* OperationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OperationHelper.m; path = "Undo Manager/OperationHelper.m"; sourceTree = "<group>"; };
+		544D3B911C5764C200BA1150 /* AnimationRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationRenderer.h; sourceTree = "<group>"; };
+		544D3B921C5764C200BA1150 /* AnimationRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationRenderer.m; sourceTree = "<group>"; };
+		544D3B941C5767C000BA1150 /* AnvilAnimationRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnvilAnimationRenderer.h; sourceTree = "<group>"; };
+		544D3B951C5767C000BA1150 /* AnvilAnimationRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnvilAnimationRenderer.m; sourceTree = "<group>"; };
 		5453C9E71C55F27A00D177C5 /* SlidesPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlidesPlayViewController.h; sourceTree = "<group>"; };
 		5453C9E81C55F27A00D177C5 /* SlidesPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlidesPlayViewController.m; sourceTree = "<group>"; };
 		5453C9EA1C55F71A00D177C5 /* PlayingCanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayingCanvasView.h; sourceTree = "<group>"; };
@@ -379,6 +386,8 @@
 		54965B051A00E50F005AF774 /* ShadowHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowHelper.m; sourceTree = "<group>"; };
 		54965B3A1A020424005AF774 /* RotationIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationIndicatorView.h; path = ContentViews/Rotation/RotationIndicatorView.h; sourceTree = "<group>"; };
 		54965B3B1A020424005AF774 /* RotationIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationIndicatorView.m; path = ContentViews/Rotation/RotationIndicatorView.m; sourceTree = "<group>"; };
+		549675811C5A168600D0606B /* AnimationPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationPlayer.h; sourceTree = "<group>"; };
+		549675821C5A168600D0606B /* AnimationPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationPlayer.m; sourceTree = "<group>"; };
 		549E21611A25A43C0013E051 /* RotationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationHelper.h; path = ContentViews/Rotation/RotationHelper.h; sourceTree = "<group>"; };
 		549E21621A25A43C0013E051 /* RotationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationHelper.m; path = ContentViews/Rotation/RotationHelper.m; sourceTree = "<group>"; };
 		549E21641A25A4D00013E051 /* RotationBenchMarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationBenchMarkView.h; path = ContentViews/Rotation/RotationBenchMarkView.h; sourceTree = "<group>"; };
@@ -683,6 +692,17 @@
 			path = Manipulators;
 			sourceTree = "<group>";
 		};
+		544D3B901C57649400BA1150 /* Animation Renderers */ = {
+			isa = PBXGroup;
+			children = (
+				544D3B911C5764C200BA1150 /* AnimationRenderer.h */,
+				544D3B921C5764C200BA1150 /* AnimationRenderer.m */,
+				544D3B941C5767C000BA1150 /* AnvilAnimationRenderer.h */,
+				544D3B951C5767C000BA1150 /* AnvilAnimationRenderer.m */,
+			);
+			name = "Animation Renderers";
+			sourceTree = "<group>";
+		};
 		5453C9E61C55F26100D177C5 /* PlayMode */ = {
 			isa = PBXGroup;
 			children = (
@@ -693,6 +713,8 @@
 				5453C9F21C562EC100D177C5 /* PlayingModeTransitionDelegate.h */,
 				5453C9F31C562EC100D177C5 /* PlayingModeTransitionDelegate.m */,
 				5453C9ED1C56005400D177C5 /* PlayingMode.storyboard */,
+				549675811C5A168600D0606B /* AnimationPlayer.h */,
+				549675821C5A168600D0606B /* AnimationPlayer.m */,
 			);
 			name = PlayMode;
 			sourceTree = "<group>";
@@ -987,6 +1009,7 @@
 				546457CE19F10F3800078EAF /* Model */,
 				54D7296A19ECEA25009A0279 /* Views */,
 				54D333AA1A0604F400F3D7F9 /* Undo Manager */,
+				544D3B901C57649400BA1150 /* Animation Renderers */,
 				54D7294E19ECE9B5009A0279 /* Images.xcassets */,
 				54D7295019ECE9B5009A0279 /* LaunchScreen.xib */,
 				54D7294B19ECE9B5009A0279 /* Main.storyboard */,
@@ -1368,6 +1391,7 @@
 				547EEECD1A1881F200EAD132 /* EditMenuItem.m in Sources */,
 				549148F01A26E7AB00DE859F /* PasteboardHelper.m in Sources */,
 				5414AB981A5D1EC8005539BE /* AnimationOrderDTO.m in Sources */,
+				549675831C5A168600D0606B /* AnimationPlayer.m in Sources */,
 				54E3539C1A40040B00CBCCA4 /* AnimationDirectionArrowView.m in Sources */,
 				54D333A91A0604EE00F3D7F9 /* UndoManager.m in Sources */,
 				54F4C7521A036B63006A3F07 /* CanvasView.m in Sources */,
@@ -1452,6 +1476,7 @@
 				543FE0E21A2813DD002276D7 /* CGImageContainer.m in Sources */,
 				54F4C7391A0359B2006A3F07 /* RotationTooltipView.m in Sources */,
 				547DCA121A04D1A3004691EC /* TextEditorPanelContainerViewController.m in Sources */,
+				544D3B931C5764C200BA1150 /* AnimationRenderer.m in Sources */,
 				547DCA021A04CAC5004691EC /* EditorPanelContainerViewController.m in Sources */,
 				542B99221A48392800C5C9BE /* AnimationOrderCollectionViewCell.m in Sources */,
 				547EEEC91A18800900EAD132 /* ContentEditMenuView.m in Sources */,
@@ -1469,6 +1494,7 @@
 				546457BD19F1074900078EAF /* BasicImageEditorContentViewController.m in Sources */,
 				543FE0E01A2813DD002276D7 /* UIImage+ANImageBitmapRep.m in Sources */,
 				543FE0E41A2813DD002276D7 /* BitmapCropManipulator.m in Sources */,
+				544D3B961C5767C000BA1150 /* AnvilAnimationRenderer.m in Sources */,
 				54B05F561A5AADE80050FAEC /* Enums.m in Sources */,
 				545C4C981A3EB25D002604FA /* Animation+iDo.m in Sources */,
 				545C4B7D1A358366002604FA /* AnimationOrderIndicatorView.m in Sources */,
